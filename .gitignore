@@ -1,0 +1,23 @@
+node_modules/
+
+# Gatsby build/cache
+.cache/
+public/
+
+# Env files
+.env
+.env.*
+!.env.example
+.vercel
+
+# OS files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor
+.vscode/
+.idea/

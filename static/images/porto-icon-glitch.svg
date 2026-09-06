@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background square -->
+  <rect width="200" height="200" fill="#0a0a0a"/>
+  
+  <!-- Main P shape - slightly offset/fragmented -->
+  <path d="M60 40 L60 160 L90 160 L90 115 L120 115 C155 115 155 40 120 40 Z M90 70 L115 70 C130 70 130 85 115 85 L90 85 Z" fill="#f0f0f0"/>
+  
+  <!-- Glitch slice 1 - horizontal offset chunk -->
+  <rect x="0" y="65" width="200" height="20" fill="#0a0a0a"/>
+  <path d="M60 40 L60 160 L90 160 L90 115 L120 115 C155 115 155 40 120 40 Z M90 70 L115 70 C130 70 130 85 115 85 L90 85 Z" fill="#f0f0f0" transform="translate(8, 0)" clip-path="url(#slice1)"/>
+  
+  <!-- Glitch slice 2 - another offset -->
+  <rect x="0" y="95" width="200" height="15" fill="#0a0a0a"/>
+  <path d="M60 40 L60 160 L90 160 L90 115 L120 115 C155 115 155 40 120 40 Z M90 70 L115 70 C130 70 130 85 115 85 L90 85 Z" fill="#ff3b3b" transform="translate(-6, 0)" clip-path="url(#slice2)"/>
+  
+  <!-- Glitch slice 3 - red channel offset -->
+  <path d="M60 40 L60 160 L90 160 L90 115 L120 115 C155 115 155 40 120 40 Z M90 70 L115 70 C130 70 130 85 115 85 L90 85 Z" fill="#ff3b3b" opacity="0.7" transform="translate(4, 2)"/>
+  
+  <!-- Cyan channel offset for RGB glitch -->
+  <path d="M60 40 L60 160 L90 160 L90 115 L120 115 C155 115 155 40 120 40 Z M90 70 L115 70 C130 70 130 85 115 85 L90 85 Z" fill="#00ffff" opacity="0.3" transform="translate(-3, -2)"/>
+  
+  <!-- Main P on top -->
+  <path d="M60 40 L60 160 L90 160 L90 115 L120 115 C155 115 155 40 120 40 Z M90 70 L115 70 C130 70 130 85 115 85 L90 85 Z" fill="#f0f0f0"/>
+  
+  <!-- Horizontal glitch lines -->
+  <rect x="55" y="72" width="50" height="3" fill="#ff3b3b" transform="translate(12, 0)"/>
+  <rect x="55" y="100" width="40" height="2" fill="#00ffff" transform="translate(-8, 0)"/>
+  <rect x="55" y="130" width="35" height="3" fill="#ff3b3b" transform="translate(6, 0)"/>
+  
+  <!-- Red accent node - offset/doubled -->
+  <circle cx="148" cy="75" r="18" fill="#ff3b3b" opacity="0.5"/>
+  <circle cx="142" cy="79" r="18" fill="#ff3b3b"/>
+  
+</svg>

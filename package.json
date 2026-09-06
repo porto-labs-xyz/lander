@@ -1,0 +1,19 @@
+{
+  "name": "porto",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Porto - Decentralized Streaming Infrastructure",
+  "scripts": {
+    "develop": "npx gatsby develop",
+    "start": "npx gatsby develop",
+    "build": "npx gatsby build",
+    "serve": "npx gatsby serve",
+    "clean": "npx gatsby clean"
+  },
+  "dependencies": {
+    "gatsby": "^5.13.0",
+    "gatsby-plugin-manifest": "^5.16.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
