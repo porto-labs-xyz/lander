@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Porto`,
     description: `Decentralized Streaming Infrastructure`,
-    siteUrl: `https://porto.network`,
+    siteUrl: `https://www.portolabs.xyz`,
   },
   plugins: [
     {

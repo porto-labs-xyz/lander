@@ -888,6 +888,19 @@ export default IndexPage
 export const Head = () => (
   <>
     <title>Porto — Decentralized Streaming Infrastructure</title>
+    <meta name="description" content="Decentralized, open source streaming infrastructure — and the platform built on it. Artists, labels, and node operators run the network and own a piece of what it earns." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.portolabs.xyz/" />
+    <meta property="og:title" content="Porto — Decentralized Streaming Infrastructure" />
+    <meta property="og:description" content="Spotify takes 30%. You get pennies. Porto is decentralized streaming infrastructure that splits every stream automatically between rights holders, node operators, and the platform." />
+    <meta property="og:image" content="https://www.portolabs.xyz/icons/icon-512x512.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Porto — Decentralized Streaming Infrastructure" />
+    <meta name="twitter:description" content="Spotify takes 30%. You get pennies. Porto is decentralized streaming infrastructure that splits every stream automatically between rights holders, node operators, and the platform." />
+    <meta name="twitter:image" content="https://www.portolabs.xyz/icons/icon-512x512.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
