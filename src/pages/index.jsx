@@ -30,6 +30,11 @@ const styles = {
     textDecoration: 'none',
     color: '#f0f0f0',
   },
+  navLeft: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1.25rem',
+  },
   navLinks: {
     display: 'flex',
     alignItems: 'center',
@@ -78,18 +83,34 @@ const styles = {
   accent: {
     color: '#ff3b3b',
   },
+  altalabBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    padding: '0.35rem 0.75rem',
+    border: '1px solid #333',
+    background: '#111',
+    textDecoration: 'none',
+    color: '#ccc',
+    fontSize: '0.65rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+    whiteSpace: 'nowrap',
+  },
+  altalabLogo: {
+    height: '11px',
+    width: 'auto',
+  },
   tagline: {
     fontSize: '1.25rem',
     color: '#888',
     maxWidth: '500px',
     lineHeight: 1.5,
   },
-  navWaveform: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    gap: '3px',
-    height: '16px',
-    marginLeft: '0.75rem',
+  navLogoIcon: {
+    height: '24px',
+    width: '24px',
+    marginLeft: '0.6rem',
   },
   sectionMarker: {
     display: 'inline-block',
@@ -305,21 +326,26 @@ const styles = {
     paddingTop: '1rem',
   },
 
-  // Founder
+  // Team
   founderSection: {
     padding: '3rem 2rem',
-    maxWidth: '900px',
+    maxWidth: '1140px',
     margin: '0 auto',
   },
-  founderGrid: {
+  teamGrid: {
     display: 'grid',
-    gridTemplateColumns: '280px 1fr',
-    gap: '3rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))',
+    gap: '4rem',
     alignItems: 'start',
   },
+  founderGrid: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.5rem',
+  },
   founderImage: {
-    width: '280px',
-    height: '280px',
+    width: '200px',
+    height: '200px',
     objectFit: 'cover',
     border: '1px solid #888',
   },
@@ -427,21 +453,6 @@ const GithubIcon = () => (
   </svg>
 )
 
-const NavWaveform = () => (
-  <div style={styles.navWaveform}>
-    {[60, 100, 40, 80].map((h, i) => (
-      <span
-        key={i}
-        style={{
-          width: '2px',
-          height: `${h}%`,
-          background: i === 1 ? '#f0f0f0' : '#ff3b3b',
-        }}
-      />
-    ))}
-  </div>
-)
-
 const IndexPage = () => {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -466,15 +477,21 @@ const IndexPage = () => {
     <div style={styles.page}>
       {/* Navigation */}
       <nav style={styles.nav}>
-        <a href="#home" style={{ ...styles.logo, display: 'flex', alignItems: 'center' }} onClick={(e) => { e.preventDefault(); scrollTo('home') }}>
-          PORTO
-          <NavWaveform />
-        </a>
+        <div style={styles.navLeft}>
+          <a href="#home" style={{ ...styles.logo, display: 'flex', alignItems: 'center' }} onClick={(e) => { e.preventDefault(); scrollTo('home') }}>
+            PORTO
+            <img src="/images/porto-icon-glitch.svg" alt="" style={styles.navLogoIcon} />
+          </a>
+          <a href="https://altalab.ai" target="_blank" rel="noopener noreferrer" className="altalabBadge" style={styles.altalabBadge}>
+            <img src="/images/altalab-logo.png" alt="AltaLab" style={styles.altalabLogo} />
+            <span>Autumn 2026 Cohort</span>
+          </a>
+        </div>
         <div style={styles.navLinks}>
           <button style={styles.navLink} onClick={() => scrollTo('how')}>How It Works</button>
           <button style={styles.navLink} onClick={() => scrollTo('impact')}>Impact</button>
           <button style={styles.navLink} onClick={() => scrollTo('litepaper')}>Litepaper</button>
-          <button style={styles.navLink} onClick={() => scrollTo('founder')}>Founder</button>
+          <button style={styles.navLink} onClick={() => scrollTo('team')}>Team</button>
           <button style={styles.navLink} onClick={() => scrollTo('join')}>Join</button>
           <a
             href="https://github.com/porto-labs-xyz/porto-core"
@@ -796,39 +813,65 @@ const IndexPage = () => {
         <p style={styles.p}><strong style={styles.strong}>The infrastructure layer is up for grabs. Porto is taking it.</strong></p>
       </section>
 
-      {/* Founder Section */}
-      <section id="founder" style={styles.founderSection}>
-        <div style={styles.founderGrid}>
-          <img
-            src="/images/richard_headshot.jpg"
-            alt="Richard Melkonian"
-            style={styles.founderImage}
-          />
-          <div style={styles.founderContent}>
-            <h3 style={styles.founderName}>Richard Melkonian</h3>
-            <p style={{ ...styles.founderRole, marginBottom: '0.25rem' }}>Role: Founder</p>
-            <p style={{ ...styles.founderRole, fontWeight: 300, opacity: 0.8, marginBottom: '1.5rem' }}>
-              GitHub: <a href="https://github.com/0xmovses" target="_blank" rel="noopener noreferrer" style={{ color: '#ff3b3b', textDecoration: 'none' }}>0xmovses</a>
-            </p>
-            <div style={styles.founderBio}>
-              <p style={styles.founderBioP}>
-                Distributed systems engineering, financial infrastructure, and a career on the artist side of streaming — Porto sits at the exact intersection of what I've spent my career doing.
+      {/* Team Section */}
+      <section id="team" style={styles.founderSection}>
+        <h2 style={styles.sectionTitle}><span style={styles.sectionMarker} />Team</h2>
+        <div style={styles.teamGrid}>
+          <div className="founderGrid" style={styles.founderGrid}>
+            <img
+              src="/images/richard_headshot.jpg"
+              alt="Richard Melkonian"
+              style={styles.founderImage}
+            />
+            <div style={styles.founderContent}>
+              <h3 style={styles.founderName}>Richard Melkonian</h3>
+              <p style={{ ...styles.founderRole, marginBottom: '0.25rem' }}>Role: Founder</p>
+              <p style={{ ...styles.founderRole, fontWeight: 300, opacity: 0.8, marginBottom: '1.5rem' }}>
+                GitHub: <a href="https://github.com/0xmovses" target="_blank" rel="noopener noreferrer" style={{ color: '#ff3b3b', textDecoration: 'none' }}>0xmovses</a>
               </p>
-              <p style={styles.founderBioP}>
-                I was the second hire at Movement Labs, where I helped design and architect their M2 rollup and led the protocol team through testnet to mainnet — my designs and implementation facilitated over 1 million transactions per day. I designed and implemented their Atomic Bridge Protocol from RFC through to production, and built the USDCx Bridge.
-              </p>
-              <p style={styles.founderBioP}>
-                Before that, I worked at Parity Technologies on the polkadot-sdk — rebuilding parachain integration systems, XCM messaging, and FRAME pallet code that powers Substrate blockchains. At Dapper Labs, I designed and was the main contributor for CAST, an on-chain governance tool for the Flow blockchain. I've also built indexer infrastructure at Fuel Labs.
-              </p>
-              <p style={styles.founderBioP}>
-                As CTO of Inflow Music, I architected core DeFi contracts, built the frontend and backend, and led a team of 15 developers. We raised $1.5M and launched on Flow. That experience showed me first-hand how broken music economics are — even when you build the tech right.
-              </p>
-              <p style={styles.founderBioP}>
-                Alongside this, I've maintained an independent creative practice in music and film. I've released records, composed for screen, and directed feature work — experiencing first-hand how digital distribution reshaped the economics of creative work.
-              </p>
-              <p style={styles.founderBioP}>
-                I've lived the streaming economy from both sides — I know what it takes to build the infrastructure, and what it feels like to generate attention at scale and watch the revenue evaporate through layers of intermediaries. Porto is that overlap: rebuilding streaming from the network layer up, so the people creating and curating culture can also own the system that distributes it.
-              </p>
+              <div style={styles.founderBio}>
+                <p style={styles.founderBioP}>
+                  Distributed systems engineering, financial infrastructure, and a career on the artist side of streaming — Porto sits at the exact intersection of what I've spent my career doing.
+                </p>
+                <p style={styles.founderBioP}>
+                  I was the second hire at Movement Labs, where I helped design and architect their M2 rollup and led the protocol team through testnet to mainnet — my designs and implementation facilitated over 1 million transactions per day. I designed and implemented their Atomic Bridge Protocol from RFC through to production, and built the USDCx Bridge.
+                </p>
+                <p style={styles.founderBioP}>
+                  Before that, I worked at Parity Technologies on the polkadot-sdk — rebuilding parachain integration systems, XCM messaging, and FRAME pallet code that powers Substrate blockchains. At Dapper Labs, I was the main contributor on CAST, an on-chain governance tool for the Flow blockchain, and I built indexer infrastructure at Fuel Labs.
+                </p>
+                <p style={styles.founderBioP}>
+                  As CTO of Inflow Music, I architected the core DeFi contracts, built the frontend and backend, and led a team of 15 engineers — we raised $1.5M and launched on Flow. That, alongside an independent creative practice in music and film, showed me first-hand how broken music economics are, even when the tech is built right.
+                </p>
+                <p style={styles.founderBioP}>
+                  Porto is the overlap of both halves of my career: rebuilding streaming from the network layer up, so the people creating and curating culture can also own the system that distributes it.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="founderGrid" style={styles.founderGrid}>
+            <img
+              src="/images/peter-xan.jpg"
+              alt="Peter Xan"
+              style={styles.founderImage}
+            />
+            <div style={styles.founderContent}>
+              <h3 style={styles.founderName}>Peter Xan</h3>
+              <p style={{ ...styles.founderRole, marginBottom: '1.5rem' }}>Role: Head of Growth &amp; A&amp;R</p>
+              <div style={styles.founderBio}>
+                <p style={styles.founderBioP}>
+                  Peter built his career inside the agencies that run the industry's biggest brand accounts — starting as a Media Buyer at MediaCom working streaming and digital video, then as an Account Executive at M&amp;C Saatchi London and TBWA\Media Arts Lab running business development and business strategy on global accounts, before becoming an Account Manager at BBH London.
+                </p>
+                <p style={styles.founderBioP}>
+                  In 2025 he founded Thinning Room, where he runs creator management and ecosystem strategy — scouting, developing, and growing artists directly, the same muscle Porto needs on the ground.
+                </p>
+                <p style={styles.founderBioP}>
+                  Outside of that, he's spent the same years building an independent music career from scratch as Peter Xan — releasing genre-blending, "afro-grunge" records and building an audience entirely outside the label system.
+                </p>
+                <p style={styles.founderBioP}>
+                  That combination — agency-side growth strategy, hands-on creator management, and firsthand experience as an unsigned artist — is what he brings to Porto. He leads growth and A&amp;R, finding and onboarding the artists, labels, and node operators the network is built for.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -929,12 +972,17 @@ export const Head = () => (
         nav { padding: 1rem !important; }
         nav > div { gap: 0.75rem !important; }
         nav button { font-size: 0.7rem !important; }
-        #founder > div { 
+        #team > div {
           grid-template-columns: 1fr !important;
+        }
+        #team .founderGrid {
           text-align: center;
         }
-        #founder img {
+        #team img {
           margin: 0 auto;
+        }
+        .altalabBadge span {
+          display: none;
         }
       }
     `}</style>
