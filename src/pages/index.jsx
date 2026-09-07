@@ -86,19 +86,38 @@ const styles = {
   altalabBadge: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '0.5rem',
-    padding: '0.35rem 0.75rem',
+    gap: '0.6rem',
+    padding: '0.5rem 1rem',
     border: '1px solid #333',
     background: '#111',
     textDecoration: 'none',
     color: '#ccc',
-    fontSize: '0.65rem',
+    fontSize: '0.8rem',
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
     whiteSpace: 'nowrap',
   },
   altalabLogo: {
-    height: '11px',
+    height: '16px',
+    width: 'auto',
+  },
+  altalabBadgeHero: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.6rem',
+    padding: '0.6rem 1.1rem',
+    marginTop: '1.5rem',
+    border: '1px solid #333',
+    background: '#111',
+    textDecoration: 'none',
+    color: '#ccc',
+    fontSize: '0.7rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+    width: 'fit-content',
+  },
+  altalabLogoHero: {
+    height: '13px',
     width: 'auto',
   },
   tagline: {
@@ -516,6 +535,10 @@ const IndexPage = () => {
         <p style={styles.tagline}>
           Decentralized music streaming infrastructure — and the platform built on it. Artists, labels, and node operators run the network and own a piece of what it earns.
         </p>
+        <a href="https://altalab.ai" target="_blank" rel="noopener noreferrer" className="altalabBadgeHero" style={styles.altalabBadgeHero}>
+          <img src="/images/altalab-logo.png" alt="AltaLab" style={styles.altalabLogoHero} />
+          <span>AltaLab Accelerator — Autumn 2026 Cohort</span>
+        </a>
         <div style={styles.stats}>
           <div style={styles.stat}>
             <span style={styles.statValue}>70%</span>
@@ -981,8 +1004,8 @@ export const Head = () => (
         #team img {
           margin: 0 auto;
         }
-        .altalabBadge span {
-          display: none;
+        .altalabBadge {
+          display: none !important;
         }
       }
     `}</style>
