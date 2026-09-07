@@ -894,12 +894,14 @@ export const Head = () => (
     <meta property="og:url" content="https://www.portolabs.xyz/" />
     <meta property="og:title" content="Porto — Decentralized Streaming Infrastructure" />
     <meta property="og:description" content="Spotify takes 30%. You get pennies. Porto is decentralized streaming infrastructure that splits every stream automatically between rights holders, node operators, and the platform." />
-    <meta property="og:image" content="https://www.portolabs.xyz/icons/icon-512x512.png" />
+    <meta property="og:image" content="https://www.portolabs.xyz/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Porto — Decentralized Streaming Infrastructure" />
     <meta name="twitter:description" content="Spotify takes 30%. You get pennies. Porto is decentralized streaming infrastructure that splits every stream automatically between rights holders, node operators, and the platform." />
-    <meta name="twitter:image" content="https://www.portolabs.xyz/icons/icon-512x512.png" />
+    <meta name="twitter:image" content="https://www.portolabs.xyz/images/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
