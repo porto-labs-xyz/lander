@@ -937,8 +937,8 @@ const IndexPage = () => {
         <p style={{ color: '#888', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
           Request a Deck
         </p>
-        <a href="mailto:hello@portolabs.xyz" style={{ color: '#ff3b3b', textDecoration: 'none', marginBottom: '3rem', display: 'inline-block' }}>
-          hello@portolabs.xyz
+        <a href="mailto:richard@melkonian.xyz" style={{ color: '#ff3b3b', textDecoration: 'none', marginBottom: '3rem', display: 'inline-block' }}>
+          richard@melkonian.xyz
         </a>
         <div style={{ marginTop: '3rem' }}>
           <img src="/images/porto-icon-glitch.svg" alt="Porto" style={{ width: '400px' }} />
