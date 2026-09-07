@@ -448,8 +448,8 @@ const IndexPage = () => {
           <NavWaveform />
         </a>
         <div style={styles.navLinks}>
-          <button style={styles.navLink} onClick={() => scrollTo('impact')}>Impact</button>
           <button style={styles.navLink} onClick={() => scrollTo('how')}>How It Works</button>
+          <button style={styles.navLink} onClick={() => scrollTo('impact')}>Impact</button>
           <button style={styles.navLink} onClick={() => scrollTo('litepaper')}>Litepaper</button>
           <button style={styles.navLink} onClick={() => scrollTo('founder')}>Founder</button>
           <button style={styles.navLink} onClick={() => scrollTo('join')}>Join</button>
@@ -464,7 +464,7 @@ const IndexPage = () => {
           <span style={styles.accent}>You get pennies.</span>
         </h1>
         <p style={styles.tagline}>
-          Porto is decentralized streaming infrastructure. Artists and labels run the network. You're not a tenant anymore. You're an owner.
+          Decentralized streaming infrastructure — and the platform built on it. Artists, labels, and node operators run the network and own a piece of what it earns.
         </p>
         <div style={styles.stats}>
           <div style={styles.stat}>
@@ -477,9 +477,38 @@ const IndexPage = () => {
           </div>
           <div style={styles.stat}>
             <span style={styles.statValue}>15%</span>
-            <span style={styles.statLabel}>Protocol</span>
+            <span style={styles.statLabel}>To Porto</span>
           </div>
         </div>
+        <p style={styles.barCaption}>Per dollar of listener revenue, split automatically on every stream. No 30% platform tax.</p>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how" style={styles.section}>
+        <h2 style={styles.sectionTitle}><span style={styles.sectionMarker} />How It Works</h2>
+        <p style={styles.impactIntro}>
+          Porto is rebuilt from the network up — and it owns the consumer platform on top of that network, not just the pipes underneath it.
+        </p>
+        <div style={styles.howGrid}>
+          <div style={styles.howBlock}>
+            <span style={styles.howNumber}>01</span>
+            <h3 style={styles.howTitle}>Platform</h3>
+            <p style={styles.howDesc}>Listening, catalogs, and artist profiles — Porto's own product, not a protocol listeners have to understand to use it.</p>
+          </div>
+          <div style={styles.howBlock}>
+            <span style={styles.howNumber}>02</span>
+            <h3 style={styles.howTitle}>Network</h3>
+            <p style={styles.howDesc}>Labels, artists, and operators run the nodes that cache and stream the catalog. Every play is logged and auditable. No centralized CDN, no opaque accounting.</p>
+          </div>
+          <div style={styles.howBlock}>
+            <span style={styles.howNumber}>03</span>
+            <h3 style={styles.howTitle}>Economy</h3>
+            <p style={styles.howDesc}>Every stream splits automatically — 70% to rights holders, 15% to node operators, 15% to Porto. Value flows to the people running the system, not a platform tax.</p>
+          </div>
+        </div>
+        <p style={{ ...styles.impactIntro, marginTop: '2.5rem', marginBottom: 0 }}>
+          This compounds: more artists mean more listeners, more listeners mean more streams to serve, more operators make the network denser. Porto owns the flagship platform today — and the same network is built for other platforms to plug into tomorrow.
+        </p>
       </section>
 
       {/* Impact Section */}
@@ -567,28 +596,6 @@ const IndexPage = () => {
         </p>
       </section>
 
-      {/* How It Works Section */}
-      <section id="how" style={styles.section}>
-        <h2 style={styles.sectionTitle}><span style={styles.sectionMarker} />How It Works</h2>
-        <div style={styles.howGrid}>
-          <div style={styles.howBlock}>
-            <span style={styles.howNumber}>01</span>
-            <h3 style={styles.howTitle}>Nodes</h3>
-            <p style={styles.howDesc}>Labels, artists, and operators run edge nodes that cache and stream content. No centralized CDN. The network is owned by its participants.</p>
-          </div>
-          <div style={styles.howBlock}>
-            <span style={styles.howNumber}>02</span>
-            <h3 style={styles.howTitle}>Streams</h3>
-            <p style={styles.howDesc}>Every play is logged on-chain. Transparent, auditable, real-time. No opaque accounting. No disputes about what got played.</p>
-          </div>
-          <div style={styles.howBlock}>
-            <span style={styles.howNumber}>03</span>
-            <h3 style={styles.howTitle}>Payouts</h3>
-            <p style={styles.howDesc}>Micropayments split automatically between rights holders and node operators. No platform taking 30%. Value flows to participants.</p>
-          </div>
-        </div>
-      </section>
-
       {/* Litepaper Section */}
       <section id="litepaper" style={styles.sectionScrollable}>
         <h2 style={{ ...styles.sectionTitle, marginTop: '4rem' }}><span style={styles.sectionMarker} />Litepaper</h2>
@@ -640,6 +647,9 @@ const IndexPage = () => {
         <hr style={styles.divider} />
 
         <h2 style={styles.h2}>Architecture</h2>
+        <p style={styles.p}>
+          Simple version: artist or label uploads → Porto's network streams it → plays are logged and settled automatically → money moves to rights holders and node operators. Everything below is how that actually works.
+        </p>
 
         <h3 style={styles.h3}>Two Node Types, One Binary</h3>
         <p style={styles.p}>Porto runs on a single configurable node that can operate in three modes:</p>
@@ -682,21 +692,21 @@ const IndexPage = () => {
 
         <h3 style={styles.h3}>Bootstrapping Economics</h3>
         <p style={styles.p}>
-          Early node operators aren't running infrastructure for immediate cash returns. They're earning tokens that could appreciate significantly if the network succeeds.
+          Early node operators aren't running infrastructure for cash returns alone — they're earning a stake in a network that gets more valuable as more artists and listeners join it.
         </p>
         <p style={styles.p}>
-          This is how every successful DePIN has bootstrapped. The token isn't just payment rails—it's a speculation-fueled growth engine that bridges the gap until organic economics take over.
+          That's the same incentive that bootstraps any new infrastructure: show up early, do the work, hold equity in the outcome. Token rewards bridge the gap until streaming volume alone covers the cost of running a node.
         </p>
 
         <hr style={styles.divider} />
 
         <h2 style={styles.h2}>The Long Game</h2>
-        <p style={styles.p}>We don't need to replace Spotify overnight. We need to capture the margin.</p>
+        <p style={styles.p}>We don't need every Spotify listener on day one. We need the artist's most engaged 1%.</p>
         <p style={styles.p}>
-          An artist with 1M monthly Spotify listeners might see 1% of their most dedicated fans follow them to Porto. 10,000 superfans streaming at 10x the payout rate equals the same income—from 1% of the audience.
+          An artist with 1M monthly Spotify listeners might bring 1% of their most dedicated fans to Porto. 10,000 superfans streaming at 10x the payout rate equals the same income—from 1% of the audience.
         </p>
         <p style={styles.p}>
-          Scale that across thousands of artists, each bringing their most engaged listeners. The catalog grows. The network effects compound. At critical mass, casual listeners can use the platform too.
+          <strong style={styles.strong}>Artist brings fans. Fans become the network. The network attracts more artists.</strong> Scale that across thousands of artists, each bringing their most engaged listeners, and the catalog grows, the network effects compound, and at critical mass, casual listeners can use the platform too.
         </p>
 
         <h3 style={styles.h3}>The Catalyst Moments</h3>
@@ -720,6 +730,16 @@ const IndexPage = () => {
 
         <hr style={styles.divider} />
 
+        <h2 style={styles.h2}>Beyond Porto: The Open Network</h2>
+        <p style={styles.p}>
+          The Porto app is the proof: it shows the model works and gives Porto the initial consumer and artist relationship. It is not the ceiling.
+        </p>
+        <p style={styles.p}>
+          Once the network is running at scale, other platforms will be able to build on Porto's streaming and distribution layer directly — keeping their own brand, UX, and users, while settling on Porto's rails. This is roadmap, not shipped product, but it's the reason Porto isn't capped at the size of one app.
+        </p>
+
+        <hr style={styles.divider} />
+
         <h2 style={styles.h2}>Roadmap</h2>
 
         <h3 style={styles.h3}>Phase 1: London Testnet</h3>
@@ -740,7 +760,7 @@ const IndexPage = () => {
         <ul style={styles.ul}>
           <li style={styles.li}>Spotify's infrastructure shows what's possible—but they don't share the upside</li>
           <li style={styles.li}>Artists, labels and publishers are ready to own more than just the content</li>
-          <li style={styles.li}>DePIN models now make decentralized infrastructure viable at scale</li>
+          <li style={styles.li}>Decentralized infrastructure now works at consumer scale—the networks and tooling exist to build this today</li>
           <li style={styles.li}>The market narrative is there, artist frustration with streaming is at an all-time high</li>
           <li style={styles.li}>No one owns the "Spotify of Web3"</li>
         </ul>
@@ -763,7 +783,7 @@ const IndexPage = () => {
             </p>
             <div style={styles.founderBio}>
               <p style={styles.founderBioP}>
-                I spent years building infrastructure for new financial systems. Eventually I started asking a different question: who owns the rails of cultural distribution?
+                Distributed systems engineering, financial infrastructure, and a career on the artist side of streaming — Porto sits at the exact intersection of what I've spent my career doing.
               </p>
               <p style={styles.founderBioP}>
                 I was the second hire at Movement Labs, where I helped design and architect their M2 rollup and led the protocol team through testnet to mainnet — my designs and implementation facilitated over 1 million transactions per day. I designed and implemented their Atomic Bridge Protocol from RFC through to production, and built the USDCx Bridge.
@@ -778,10 +798,7 @@ const IndexPage = () => {
                 Alongside this, I've maintained an independent creative practice in music and film. I've released records, composed for screen, and directed feature work — experiencing first-hand how digital distribution reshaped the economics of creative work.
               </p>
               <p style={styles.founderBioP}>
-                Porto emerged from that overlap. I've lived the streaming economy from the inside. I know exactly what it feels like to generate attention at scale and watch the revenue evaporate through layers of intermediaries.
-              </p>
-              <p style={styles.founderBioP}>
-                Porto is my attempt to apply infrastructure thinking to music — rebuilding streaming from the network layer up, so that the people creating and curating culture can also own the system that distributes it.
+                I've lived the streaming economy from both sides — I know what it takes to build the infrastructure, and what it feels like to generate attention at scale and watch the revenue evaporate through layers of intermediaries. Porto is that overlap: rebuilding streaming from the network layer up, so the people creating and curating culture can also own the system that distributes it.
               </p>
             </div>
           </div>
