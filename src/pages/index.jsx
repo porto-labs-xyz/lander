@@ -499,7 +499,7 @@ const IndexPage = () => {
         <div style={styles.navLeft}>
           <a href="#home" style={{ ...styles.logo, display: 'flex', alignItems: 'center' }} onClick={(e) => { e.preventDefault(); scrollTo('home') }}>
             PORTO
-            <img src="/images/porto-icon-glitch.svg" alt="" style={styles.navLogoIcon} />
+            <img src="/images/porto-icon-glitch.svg" alt="" className="navLogoIcon" style={styles.navLogoIcon} />
           </a>
           <a href="https://altalab.ai" target="_blank" rel="noopener noreferrer" className="altalabBadge" style={styles.altalabBadge}>
             <img src="/images/altalab-logo.png" alt="AltaLab" style={styles.altalabLogo} />
@@ -1005,6 +1005,9 @@ export const Head = () => (
           margin: 0 auto;
         }
         .altalabBadge {
+          display: none !important;
+        }
+        .navLogoIcon {
           display: none !important;
         }
       }
