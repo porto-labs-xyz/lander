@@ -1,7 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <!-- Background square -->
-  <rect width="200" height="200" fill="#0a0a0a"/>
-  
   <!-- Main P shape - slightly offset/fragmented -->
   <path d="M60 40 L60 160 L90 160 L90 115 L120 115 C155 115 155 40 120 40 Z M90 70 L115 70 C130 70 130 85 115 85 L90 85 Z" fill="#f0f0f0"/>
   
