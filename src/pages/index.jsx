@@ -822,7 +822,7 @@ const IndexPage = () => {
               <p style={{ ...styles.founderRole, fontWeight: 300, opacity: 0.8, marginBottom: '1.5rem' }}>
                 GitHub: <a href="https://github.com/0xmovses" target="_blank" rel="noopener noreferrer" style={{ color: '#ff3b3b', textDecoration: 'none' }}>0xmovses</a>
               </p>
-              <div style={styles.founderBio}>
+              <div className="founderBio" style={styles.founderBio}>
                 <p style={styles.founderBioP}>
                   Distributed systems engineering, financial infrastructure, and a career on the artist side of streaming — Porto sits at the exact intersection of what I've spent my career doing.
                 </p>
@@ -851,7 +851,7 @@ const IndexPage = () => {
             <div style={styles.founderContent}>
               <h3 style={styles.founderName}>Peter Xan</h3>
               <p style={{ ...styles.founderRole, marginBottom: '1.5rem' }}>Role: Head of Growth &amp; A&amp;R</p>
-              <div style={styles.founderBio}>
+              <div className="founderBio" style={styles.founderBio}>
                 <p style={styles.founderBioP}>
                   Peter built his career inside the agencies that run the industry's biggest brand accounts — starting as a Media Buyer at MediaCom working streaming and digital video, then as an Account Executive at M&amp;C Saatchi London and TBWA\Media Arts Lab running business development and business strategy on global accounts, before becoming an Account Manager at BBH London.
                 </p>
@@ -970,6 +970,9 @@ export const Head = () => (
         }
         #team .founderGrid {
           text-align: center;
+        }
+        #team .founderBio {
+          text-align: left;
         }
         #team img {
           margin: 0 auto;
