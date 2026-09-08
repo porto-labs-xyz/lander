@@ -14,9 +14,8 @@ It is infrastructure reform: replacing the delivery layer, not tokenizing on top
 
 ## Mission Statement
 
-We help artists and record labels take back revenue from the streaming market,
-by letting them own and run the network that delivers their music,
-so they earn more from every stream.
+We help artists and record labels earn more from streaming by letting them own
+the network that delivers their music, so they earn from distribution, not just plays.
 
 ## The Problem
 
@@ -45,9 +44,8 @@ Per dollar of listener revenue, split automatically on every stream.
 ## Key Lines (do not change without instruction)
 
 Hero headline: "Spotify takes 30%. You get pennies."
-Mission: "We help artists and record labels take back revenue from the streaming market,
-by letting them own and run the network that delivers their music,
-so they earn more from every stream."
+Mission: "We help artists and record labels earn more from streaming by letting them own
+the network that delivers their music, so they earn from distribution, not just plays."
 Anchor line: "They're not tenants anymore. They're landlords."
 
 ## What This Repo Is

@@ -540,7 +540,7 @@ const IndexPage = () => {
           <span style={styles.accent}>You get pennies.</span>
         </h1>
         <p style={styles.tagline}>
-          We help artists and record labels take back revenue from the streaming market, by letting them own and run the network that delivers their music, so they earn more from every stream.
+          We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays.
         </p>
         <p style={{ ...styles.tagline, marginTop: '1rem', color: '#f0f0f0' }}>
           They're not tenants anymore. They're landlords.
@@ -563,7 +563,7 @@ const IndexPage = () => {
             <span style={styles.statLabel}>To Porto</span>
           </div>
         </div>
-        <p style={styles.barCaption}>Per dollar of listener revenue, split automatically on every stream.</p>
+        <p style={styles.barCaption}>Per dollar of listener revenue, split automatically on every stream. Spotify keeps 30%. Porto takes 5%.</p>
       </section>
 
       {/* How It Works Section */}
@@ -924,19 +924,19 @@ export default IndexPage
 export const Head = () => (
   <>
     <title>Porto — Streaming Infrastructure for Artists and Labels</title>
-    <meta name="description" content="We help artists and record labels take back revenue from the streaming market, by letting them own and run the network that delivers their music, so they earn more from every stream." />
+    <meta name="description" content="We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays." />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.portolabs.xyz/" />
     <meta property="og:title" content="Porto — Streaming Infrastructure for Artists and Labels" />
-    <meta property="og:description" content="We help artists and record labels take back revenue from the streaming market, by letting them own and run the network that delivers their music, so they earn more from every stream." />
+    <meta property="og:description" content="We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays." />
     <meta property="og:image" content="https://www.portolabs.xyz/images/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Porto — Streaming Infrastructure for Artists and Labels" />
-    <meta name="twitter:description" content="We help artists and record labels take back revenue from the streaming market, by letting them own and run the network that delivers their music, so they earn more from every stream." />
+    <meta name="twitter:description" content="We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays." />
     <meta name="twitter:image" content="https://www.portolabs.xyz/images/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
