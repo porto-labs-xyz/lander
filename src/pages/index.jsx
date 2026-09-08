@@ -993,6 +993,7 @@ export const Head = () => (
         margin: -30% 0 0 -30%;
         opacity: 0.9;
         animation: portoFlicker 9s infinite;
+        animation-delay: -4.4s;
       }
       .heroIconWrap::before,
       .heroIconWrap::after {
@@ -1010,10 +1011,12 @@ export const Head = () => (
       .heroIconWrap::before {
         filter: hue-rotate(180deg) saturate(4);
         animation: portoGlitchBefore 9s infinite;
+        animation-delay: -4.4s;
       }
       .heroIconWrap::after {
         filter: hue-rotate(90deg) saturate(4);
         animation: portoGlitchAfter 9s infinite;
+        animation-delay: -4.4s;
       }
       @keyframes portoFlicker {
         0%, 58%, 66%, 100% { opacity: 0.9; transform: translate(0, 0); filter: none; }
