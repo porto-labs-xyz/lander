@@ -56,6 +56,15 @@ const styles = {
     alignItems: 'center',
     color: '#888',
   },
+  docsLink: {
+    display: 'inline-block',
+    marginTop: '2rem',
+    color: '#ff3b3b',
+    textDecoration: 'none',
+    fontSize: '0.875rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.1em',
+  },
 
   // Sections
   section: {
@@ -517,6 +526,14 @@ const IndexPage = () => {
           <button style={styles.navLink} onClick={() => scrollTo('team')}>Team</button>
           <button style={styles.navLink} onClick={() => scrollTo('join')}>Join</button>
           <a
+            href="https://docs.portolabs.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.navLink}
+          >
+            Docs
+          </a>
+          <a
             href="https://github.com/porto-labs-xyz/porto-core"
             target="_blank"
             rel="noopener noreferrer"
@@ -913,6 +930,9 @@ const IndexPage = () => {
         <div style={{ marginTop: '3rem' }}>
           <img src="/images/porto-icon-glitch.svg" alt="Porto" style={{ width: '400px' }} />
         </div>
+        <a href="https://docs.portolabs.xyz" target="_blank" rel="noopener noreferrer" style={styles.docsLink}>
+          Read the Docs
+        </a>
       </div>
 
     </div>
@@ -1046,5 +1066,4 @@ export const Head = () => (
     `}</style>
   </>
 )
-
 
