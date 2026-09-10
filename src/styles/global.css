@@ -80,6 +80,21 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .player-study { justify-self: end; position: relative; width: min(100%, 295px); margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
 .player-study img { width: 100%; height: auto; aspect-ratio: 154 / 332; object-fit: contain; border-radius: 0; filter: drop-shadow(0 24px 32px rgba(0,0,0,.5)); }
 .player-study figcaption { padding: 12px 4px 0; font: 11px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+.phone-player { border: 1px solid #414443; border-radius: 34px; background: #060707; padding: 22px 18px 18px; box-shadow: 0 24px 45px rgba(0,0,0,.58), inset 0 0 0 5px #0d0f0f; font-family: var(--mono); }
+.player-status, .player-nav { display: flex; justify-content: space-between; align-items: center; color: var(--paper); font-size: 10px; }
+.player-kicker { margin: 18px 0 12px; text-align: center; text-transform: uppercase; letter-spacing: .14em; font-size: 10px; }
+.player-art { position: relative; }
+.player-art img { aspect-ratio: 1; object-fit: cover; filter: saturate(.65) contrast(1.05); }
+.player-art span { position: absolute; left: 10px; right: 10px; bottom: 10px; border: 1px solid var(--accent); border-radius: 999px; background: rgba(7,8,8,.86); color: var(--paper); padding: 7px 10px; text-transform: uppercase; font-size: 9px; }
+.phone-player h3 { margin-top: 15px; font-size: 20px; color: var(--paper); }
+.player-artist { font-size: 13px; }
+.player-wave { color: var(--accent); letter-spacing: 1px; overflow: hidden; white-space: nowrap; margin: 14px 0 9px; }
+.player-controls { display: flex; justify-content: center; align-items: center; gap: 20px; color: var(--paper); margin: 10px 0; }
+.player-controls strong { width: 42px; height: 42px; border-radius: 50%; background: var(--paper); color: #090a0a; display: grid; place-items: center; padding-left: 2px; }
+.player-payout { border: 1px solid #333736; border-radius: 8px; padding: 10px; display: grid; gap: 4px; font-size: 9px; }
+.player-payout strong { color: var(--accent); }.player-payout span { color: var(--muted); }
+.player-nav { margin-top: 16px; color: var(--muted); font-size: 8px; }
+.product-anchor { margin-top: 42px; }
 .section-intro { max-width: 630px; font-size: 18px; }
 .product-section h2 { margin-bottom: 26px; }
 .product-features { max-width: 680px; margin-top: 32px; }
@@ -100,6 +115,8 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .questions summary:hover::after { background: var(--accent); color: var(--background); transform: scale(1.12); }
 .questions details[open] summary::after { content: '−'; }
 .questions details p { font-size: 15px; padding-bottom: 24px; }
+.questions .source-line { font: 11px/1.5 var(--mono); color: var(--accent); margin-top: -12px; }
+.questions .source-line a { border-bottom: 1px solid rgba(238,98,81,.45); }
 .team-section { background: linear-gradient(115deg,#080a0b,#111211 65%,#211e19); }
 .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7%; }
 .team-member { display: grid; grid-template-columns: 120px 1fr; gap: 25px; }

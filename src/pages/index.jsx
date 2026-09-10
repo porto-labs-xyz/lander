@@ -121,9 +121,22 @@ const IndexPage = () => {
                 <div><span>03</span><h3>Own the delivery</h3><p>Artists and labels can operate the rails their fans listen through.</p></div>
               </div>
             </div>
-            <figure className="player-study"><img src="/images/deck/player-responsive.svg" width="154" height="332" alt="Illustrative Porto listening-app design showing a serving node and payment visibility" loading="lazy" /><figcaption>Product direction. Illustrative interface.</figcaption></figure>
+            <figure className="player-study">
+              <div className="phone-player">
+                <div className="player-status"><strong>9:41</strong><span>100%</span></div>
+                <p className="player-kicker">Now playing</p>
+                <div className="player-art"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/ed/58/36ed58dc-ca09-c54d-de2c-620bed1d62cd/196874039847.jpg/600x600bf-60.jpg" alt="Don’t Be Dumb album artwork by A$AP Rocky" loading="lazy" /><span>● Live · LDN-04</span></div>
+                <h3>PUNK ROCKY</h3><p className="player-artist">A$AP Rocky</p>
+                <div className="player-wave">▂▅▃▆▂▇▃▅▂▆▃▇▂▅▃▆</div>
+                <div className="player-controls"><span>◀</span><strong>▶</strong><span>▶</span></div>
+                <div className="player-payout"><strong>+£0.00071&nbsp;&nbsp; A$AP Rocky</strong><span>+£0.00025&nbsp;&nbsp; node LDN-04</span></div>
+                <div className="player-nav"><span>Home</span><span>Search</span><span>Library</span><span>You</span></div>
+              </div>
+              <figcaption>Product direction. Illustrative interface.</figcaption>
+            </figure>
           </div>
           <p className="small-note product-note">App features are design targets. The geo-localised delivery network is built in the MVP.</p>
+          <p className="section-anchor product-anchor">Artist brings fans. <span>Fans become the network.</span></p>
         </section>
 
         <section className="section litepaper-section" id="litepaper">
@@ -135,6 +148,9 @@ const IndexPage = () => {
             <details><summary>The network</summary><p>Node operators cache and serve licensed audio. Porto Chain records valid plays and runs the accounting needed to allocate the resulting revenue. It is a music-specific app-chain, designed for stream accounting and royalty settlement rather than general-purpose applications.</p></details>
             <details><summary>Valid plays and clear accounting</summary><p>Each play must meet the network’s validity requirements before it becomes a settlement record. This creates an auditable trail from a listener’s playback to the work it funded, instead of asking artists and rights holders to accept an opaque report.</p></details>
             <details><summary>Listener-centric settlement</summary><p>Listener revenue is allocated across the works that listener actually streamed, weighted by valid listening duration. Registered rights splits then determine the rights-holder allocation. Plays accrue during an epoch and settle automatically at its boundary. The Beta specification uses daily epochs.</p></details>
+            <details><summary>The independent artist opportunity</summary><p>There are now 8.2 million self-releasing artists, and their numbers are growing three-and-a-half times faster than their revenues. Porto is the platform for independent artists to grow and flourish with the fanbases they already built. We do not need every listener on day one. We need each artist’s most engaged fans. Artist brings fans. Fans become the network. The network attracts more artists.</p><p className="source-line"><a href="https://www.musicbusinessworldwide.com/global-recorded-music-revenues-rose-6-5-to-36-2bn-in-2024-says-midia-research/" target="_blank" rel="noopener noreferrer">Source: MIDiA Research, reported by Music Business Worldwide ↗</a></p></details>
+            <details><summary>An £8 billion UK market</summary><p>UK music contributed a record £8.0 billion to the economy in 2024, generated £4.8 billion in exports and supported 220,000 jobs. This is a major cultural export with an infrastructure ownership problem. The money is there. The growth is real. The question is who captures the value.</p><p className="source-line"><a href="https://www.ukmusic.org/research-reports/this-is-music-2025/" target="_blank" rel="noopener noreferrer">Source: UK Music, This Is Music 2025 ↗</a></p></details>
+            <details><summary>Independent artists already prove the demand</summary><p>Skepta self-released the Mercury Prize-winning <em>Konnichiwa</em> through his own label. Stormzy’s <em>Gang Signs &amp; Prayer</em> was the first grime album to reach UK number one. Little Simz has released through her own label, Age 101, including the Mercury Prize-winning <em>Sometimes I Might Be Introvert</em>. These artists built audiences and cultural value independently. Porto gives that independence an infrastructure layer.</p></details>
             <details><summary>What exists and what comes next</summary><p>A local, geo-targeted content delivery network is built in the MVP. London is the starting point. The next milestone is a testnet with working streams and payouts, followed by expansion to more cities and mainnet. Opening the rails to other platforms is a roadmap ambition.</p></details>
           </div>
         </section>
