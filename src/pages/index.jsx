@@ -123,22 +123,8 @@ const IndexPage = () => {
               </div>
             </div>
             <figure className="player-study">
-              <div className="phone-player">
-                <div className="player-status"><strong>9:41</strong><span>100%</span></div>
-                <p className="player-kicker">Now playing</p>
-                <div className="player-art"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/ed/58/36ed58dc-ca09-c54d-de2c-620bed1d62cd/196874039847.jpg/600x600bf-60.jpg" alt="Don’t Be Dumb album artwork by A$AP Rocky" loading="lazy" /><span>● Live · LDN-04</span></div>
-                <div className="player-identity"><div><h3>PUNK ROCKY</h3><p className="player-artist">A$AP Rocky</p></div><img className="artist-avatar" src="https://commons.wikimedia.org/wiki/Special:FilePath/ASAP_Rocky_2013_(cropped).jpg" alt="A$AP Rocky" loading="lazy" /></div>
-                <div className="player-progress" role="progressbar" aria-label="Illustrative playback progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={34}><span /></div>
-                <div className="player-times"><span>1:04</span><span>−2:08</span></div>
-                <div className="player-controls" aria-label="Illustrative playback controls">
-                  <span className="glass-control" aria-label="Previous track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 5 8 12l10 7Z" /></svg></span>
-                  <span className="glass-control glass-play" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z" /></svg></span>
-                  <span className="glass-control" aria-label="Next track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 5l10 7-10 7Z" /></svg></span>
-                </div>
-                <div className="player-payout"><strong>+£0.00071&nbsp;&nbsp; A$AP Rocky</strong><span>+£0.00025&nbsp;&nbsp; node LDN-04</span></div>
-                <div className="player-nav"><span>Home</span><span>Search</span><span>Library</span><span>You</span></div>
-              </div>
-              <figcaption>Product direction. Illustrative interface.<small>Portrait: <a href="https://commons.wikimedia.org/wiki/File:ASAP_Rocky_2013_(cropped).jpg">Chad Cooper</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. Cropped.</small></figcaption>
+              <img src="/images/deck/player-responsive.svg" width="154" height="332" alt="Porto deck player showing Half Light by Stefanii, the LIVE · LDN-04 node badge, playback controls and illustrative payouts" loading="lazy" />
+              <figcaption>Product direction. Illustrative interface.</figcaption>
             </figure>
           </div>
           <p className="small-note product-note">App features are design targets. The geo-localised delivery network is built in the MVP.</p>
