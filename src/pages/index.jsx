@@ -102,6 +102,7 @@ const IndexPage = () => {
         </section>
 
         <section className="section network-section" aria-labelledby="network-heading">
+          <img className="scene network-scene" src="/images/deck/column-right.webp" alt="" loading="lazy" />
           <div className="section-topline"><p className="eyebrow">02 / The Network</p><span className="small-note">London first</span></div>
           <h2 id="network-heading">Rebuild the delivery layer.<br /> Share the ownership.</h2>
           <p className="section-intro network-intro">Platforms own the infrastructure that delivers music. Spotify built its own custom CDN (Content Distribution Network) that serves music at the edge, close to the listener, to guarantee fast, reliable, high-performance streaming on demand.</p>
