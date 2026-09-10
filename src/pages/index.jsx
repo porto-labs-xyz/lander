@@ -126,8 +126,7 @@ const IndexPage = () => {
                 <div className="player-status"><strong>9:41</strong><span>100%</span></div>
                 <p className="player-kicker">Now playing</p>
                 <div className="player-art"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/36/ed/58/36ed58dc-ca09-c54d-de2c-620bed1d62cd/196874039847.jpg/600x600bf-60.jpg" alt="Don’t Be Dumb album artwork by A$AP Rocky" loading="lazy" /><span>● Live · LDN-04</span></div>
-                <div className="player-identity"><div><h3>PUNK ROCKY</h3><p className="player-artist">A$AP Rocky</p></div><img className="artist-avatar" src="https://commons.wikimedia.org/wiki/Special:FilePath/A%24AP_Rocky_by_David_Hwang.jpg?width=330" alt="A$AP Rocky" loading="lazy" /></div>
-                <div className="player-wave" aria-hidden="true">{[22,40,65,32,78,95,48,70,35,56,88,45,25,66,92,54,34,76,48,28,60,83,43,68,30,52,74,38,56,24].map((height, i) => <i key={i} style={{height: `${height}%`, animationDelay: `${i * -.13}s`}} />)}</div>
+                <div className="player-identity"><div><h3>PUNK ROCKY</h3><p className="player-artist">A$AP Rocky</p></div><img className="artist-avatar" src="https://commons.wikimedia.org/wiki/Special:FilePath/ASAP_Rocky_2013_(cropped).jpg" alt="A$AP Rocky" loading="lazy" /></div>
                 <div className="player-progress" role="progressbar" aria-label="Illustrative playback progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={34}><span /></div>
                 <div className="player-times"><span>1:04</span><span>−2:08</span></div>
                 <div className="player-controls" aria-label="Illustrative playback controls">
@@ -138,7 +137,7 @@ const IndexPage = () => {
                 <div className="player-payout"><strong>+£0.00071&nbsp;&nbsp; A$AP Rocky</strong><span>+£0.00025&nbsp;&nbsp; node LDN-04</span></div>
                 <div className="player-nav"><span>Home</span><span>Search</span><span>Library</span><span>You</span></div>
               </div>
-              <figcaption>Product direction. Illustrative interface.<small>Portrait: <a href="https://commons.wikimedia.org/wiki/File:A%24AP_Rocky_by_David_Hwang.jpg">David Hwang</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. Cropped.</small></figcaption>
+              <figcaption>Product direction. Illustrative interface.<small>Portrait: <a href="https://commons.wikimedia.org/wiki/File:ASAP_Rocky_2013_(cropped).jpg">Chad Cooper</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. Cropped.</small></figcaption>
             </figure>
           </div>
           <p className="small-note product-note">App features are design targets. The geo-localised delivery network is built in the MVP.</p>
