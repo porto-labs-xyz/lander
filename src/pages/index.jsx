@@ -55,7 +55,7 @@ const IndexPage = () => {
       <header className="site-header">
         <a className="wordmark" href="#home" aria-label="Porto home"><img className="brand-mark" src="/images/porto-mark-handdrawn.webp" width="64" height="64" alt="Porto" /></a>
         <nav aria-label="Main navigation">
-          <a href="#how">The network</a>
+          <a href="#how">The Network</a>
           <a href="#litepaper">Litepaper</a>
           <a href="https://docs.portolabs.xyz/" target="_blank" rel="noopener noreferrer">Docs</a>
           <a href="#team">Team</a>
@@ -98,8 +98,9 @@ const IndexPage = () => {
         </section>
 
         <section className="section network-section" aria-labelledby="network-heading">
-          <div className="section-topline"><p className="eyebrow">02 / The network</p><span className="small-note">London first</span></div>
+          <div className="section-topline"><p className="eyebrow">02 / The Network</p><span className="small-note">London first</span></div>
           <h2 id="network-heading">Rebuild the delivery layer.<br /> Share the ownership.</h2>
+          <p className="section-intro network-intro">Platforms own the infrastructure that delivers music. Spotify built its own custom CDN (Content Distribution Network) that serves music at the edge, close to the listener, to guarantee fast, reliable, high-performance streaming on demand.</p>
           <div className="three-grid">
             <article className="panel step"><span className="step-number">01</span><h3>Run the network</h3><p>Artists, labels and operators run the nodes that cache and stream the catalogue. The people making the music can also deliver it.</p></article>
             <article className="panel step"><span className="step-number">02</span><h3>Account for every play</h3><p>Valid plays feed an auditable record. Listener revenue is allocated to the music each listener actually streams.</p></article>
