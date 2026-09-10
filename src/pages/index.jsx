@@ -14,11 +14,14 @@ function OwnershipDiagram() {
           <pattern id="ownership-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
             <line x1="0" y1="0" x2="0" y2="12" stroke="#c1b49b" strokeWidth="1" opacity=".45" />
           </pattern>
+          <pattern id="distribution-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)">
+            <line x1="0" y1="0" x2="0" y2="12" stroke="#c1b49b" strokeWidth="1" opacity=".45" />
+          </pattern>
         </defs>
         <circle cx="215" cy="168" r="142" fill="#bf53452b" stroke="#ee6251" strokeWidth="2" />
         <circle cx="345" cy="168" r="142" fill="#d7c6a91a" stroke="#d7c6a9" strokeWidth="2" />
         <circle cx="215" cy="168" r="142" fill="url(#ownership-hatch)" />
-        <circle cx="345" cy="168" r="142" fill="url(#ownership-hatch)" />
+        <circle cx="345" cy="168" r="142" fill="url(#distribution-hatch)" />
         <text x="162" y="158">ARTIST</text>
         <text x="397" y="158">DISTRIBUTOR</text>
         <text x="280" y="206" className="venn-centre">PORTO</text>
