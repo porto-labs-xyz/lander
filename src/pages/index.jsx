@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 const mission = 'We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays.'
+const seoDescription = 'Artist-owned streaming infrastructure. Porto lets artists and labels own the network that delivers their music.'
 const contact = 'mailto:richard@melkonian.xyz'
 
 function OwnershipDiagram() {
@@ -202,18 +203,27 @@ export const Head = () => (
   <>
     <html lang="en" />
     <title>Porto | Artist-owned streaming infrastructure</title>
-    <meta name="description" content={mission} />
+    <meta name="description" content={seoDescription} />
+    <meta name="keywords" content="artist-owned streaming, music streaming infrastructure, music distribution, artist royalties, music CDN" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.portolabs.xyz/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.portolabs.xyz/" />
     <meta property="og:title" content="Porto | Spotify takes 30%. You get pennies." />
-    <meta property="og:description" content={mission} />
+    <meta property="og:description" content={seoDescription} />
+    <meta property="og:site_name" content="Porto" />
+    <meta property="og:locale" content="en_GB" />
     <meta property="og:image" content="https://www.portolabs.xyz/images/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:secure_url" content="https://www.portolabs.xyz/images/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+    <meta property="og:image:alt" content="Porto: Spotify takes 30%. You get pennies." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Porto | Artist-owned streaming infrastructure" />
-    <meta name="twitter:description" content={mission} />
+    <meta name="twitter:title" content="Porto | Spotify takes 30%. You get pennies." />
+    <meta name="twitter:description" content={seoDescription} />
     <meta name="twitter:image" content="https://www.portolabs.xyz/images/og-image.png" />
+    <meta name="twitter:image:alt" content="Porto: Spotify takes 30%. You get pennies." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />

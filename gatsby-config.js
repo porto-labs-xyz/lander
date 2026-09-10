@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Porto`,
-    description: `Artist-owned streaming infrastructure`,
+    description: `Artist-owned streaming infrastructure. Porto lets artists and labels own the network that delivers their music.`,
     siteUrl: `https://www.portolabs.xyz`,
   },
   plugins: [

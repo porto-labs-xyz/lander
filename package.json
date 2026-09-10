@@ -2,7 +2,7 @@
   "name": "porto",
   "version": "1.0.0",
   "private": true,
-  "description": "Porto - Decentralized Streaming Infrastructure",
+  "description": "Artist-owned streaming infrastructure for music distribution",
   "scripts": {
     "develop": "npx gatsby develop",
     "start": "npx gatsby develop",
