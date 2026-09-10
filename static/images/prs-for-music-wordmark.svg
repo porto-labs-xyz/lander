@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 44" role="img" aria-labelledby="title">
+  <title id="title">PRS for Music</title>
+  <circle cx="18" cy="22" r="14" fill="#ee6251"/>
+  <path d="M12 29V15h7.2c5.2 0 8.1 2.2 8.1 6.1s-2.9 6-8.1 6H17v2h-5Zm5-6h2c2.1 0 3.2-.8 3.2-2s-1.1-2-3.2-2h-2v4Z" fill="#101313"/>
+  <text x="42" y="28" fill="#d7c6a9" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" letter-spacing=".2">PRS for Music</text>
+</svg>

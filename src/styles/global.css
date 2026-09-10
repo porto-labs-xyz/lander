@@ -179,10 +179,15 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .form-status a { text-decoration: underline; }
 .investor-contact { margin-top: 25px; font-size: 14px; }
 .investor-contact a { color: var(--paper); margin-left: 8px; }
-.site-footer { display: flex; align-items: center; gap: 40px; padding: 42px max(5.5vw, calc((100vw - 1320px) / 2)); }
+.site-footer { display: flex; align-items: center; gap: 40px; padding: 42px max(5.5vw, calc((100vw - 1320px) / 2)); flex-wrap: wrap; }
 .site-footer p { font-size: 12px; line-height: 1.6; }
 .site-footer > div { display: flex; gap: 26px; margin-left: auto; font-size: 14px; }
 .copyright { color: var(--muted); font-size: 12px; }
+.partner-footer { display: flex; align-items: center; gap: 22px; width: 100%; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 6px; }
+.partner-footer a { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font: 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+.partner-footer a:first-child img { width: 142px; height: auto; }
+.partner-footer a:last-child img { width: 72px; height: 28px; object-fit: contain; }
+.partner-footer a:last-child span { white-space: nowrap; }
 @media (min-width: 1600px) { .hero { min-height: 800px; } }
 @media (max-width: 1000px) {
   .section { padding-top: 76px; padding-bottom: 76px; }
