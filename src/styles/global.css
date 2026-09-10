@@ -142,7 +142,7 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .team-section::after { left: auto; right: -5%; }
 .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7%; }
 .team-member { display: grid; grid-template-columns: 120px 1fr; gap: 25px; }
-.team-member > img { width: 120px; height: 155px; object-fit: cover; filter: grayscale(1); border-radius: 6px; }
+.team-member > img { width: 120px; height: 155px; object-fit: cover; filter: saturate(.95) contrast(1.05); border-radius: 6px; }
 .team-member .eyebrow { margin-bottom: 8px; font-size: 12px; letter-spacing: .035em; }
 .team-member h3 { font-size: 23px; margin-bottom: 18px; }
 .team-member p:not(.eyebrow) { font-size: 15px; }
