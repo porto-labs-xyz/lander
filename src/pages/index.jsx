@@ -85,12 +85,12 @@ const IndexPage = () => {
         <section className="section moat-section" id="how">
           <img className="scene pillar-scene" src="/images/deck/pillar-centre.webp" alt="" loading="lazy" />
           <p className="eyebrow">01 / The inherited moat</p>
-          <h2>The artist and the distributor<br /> should be the same party.</h2>
+          <h2>Spotify’s USP isn’t playlists or UI.<br /> It’s infrastructure.</h2>
           <div className="moat-layout">
             <div className="section-copy">
               <p>Platforms own the infrastructure that delivers music. Artists and labels bring the music and the audience, but do not share in the value of distribution.</p>
-              <p>The inherited moat is the assumption that building a content delivery network is a massive undertaking. It no longer has to be.</p>
-              <p className="bright">We have already built a geo-localised CDN in the MVP.</p>
+              <p>The assumption is that building this infrastructure is a massive undertaking. With AI-powered development and cheap access to extremely fast cloud computing, it no longer has to be.</p>
+              <p className="bright moat-proof">Their custom CDN. We’ve rebuilt it. It works, and it’s performant.</p>
               <p className="accent closing-line">No more moats where none are needed.</p>
             </div>
             <OwnershipDiagram />
