@@ -1,941 +1,166 @@
 import React, { useState } from 'react'
 
-const styles = {
-  // Global
-  page: {
-    fontFamily: "'IBM Plex Mono', monospace",
-    background: '#0a0a0a',
-    color: '#f0f0f0',
-    minHeight: '100vh',
-  },
+const mission = 'We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays.'
+const contact = 'mailto:richard@melkonian.xyz'
 
-  // Nav
-  nav: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1.5rem 2rem',
-    background: '#0a0a0a',
-    borderBottom: '1px solid #888',
-    zIndex: 100,
-  },
-  logo: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    letterSpacing: '-0.02em',
-    textDecoration: 'none',
-    color: '#f0f0f0',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1.25rem',
-  },
-  navLinks: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '2rem',
-  },
-  navLink: {
-    color: '#888',
-    textDecoration: 'none',
-    fontSize: '0.875rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    cursor: 'pointer',
-    background: 'none',
-    border: 'none',
-    fontFamily: "'IBM Plex Mono', monospace",
-  },
-  navGithub: {
-    display: 'flex',
-    alignItems: 'center',
-    color: '#888',
-  },
-  docsLink: {
-    display: 'inline-block',
-    marginTop: '2rem',
-    color: '#ff3b3b',
-    textDecoration: 'none',
-    fontSize: '0.875rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-  },
-
-  // Sections
-  section: {
-    minHeight: 'auto',
-    padding: '6rem 2rem 2rem 2rem',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-  sectionScrollable: {
-    padding: '4rem 2rem 2rem 2rem',
-    maxWidth: '800px',
-    margin: '0 auto',
-  },
-  // Home
-  h1: {
-    fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-    fontWeight: 700,
-    lineHeight: 0.95,
-    letterSpacing: '-0.03em',
-    marginBottom: '2rem',
-  },
-  accent: {
-    color: '#ff3b3b',
-  },
-  altalabBadge: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.6rem',
-    padding: '0.5rem 1rem',
-    border: '1px solid #333',
-    background: '#111',
-    textDecoration: 'none',
-    color: '#ccc',
-    fontSize: '0.8rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    whiteSpace: 'nowrap',
-  },
-  altalabLogo: {
-    height: '16px',
-    width: 'auto',
-  },
-  altalabBadgeHero: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.6rem',
-    padding: '0.6rem 1.1rem',
-    marginTop: '1.5rem',
-    border: '1px solid #333',
-    background: '#111',
-    textDecoration: 'none',
-    color: '#ccc',
-    fontSize: '0.7rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    width: 'fit-content',
-  },
-  altalabLogoHero: {
-    height: '13px',
-    width: 'auto',
-  },
-  tagline: {
-    fontSize: '1.25rem',
-    color: '#888',
-    maxWidth: '500px',
-    lineHeight: 1.5,
-  },
-  heroIcon: {
-    position: 'absolute',
-    right: '2rem',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    width: '260px',
-    height: '260px',
-    overflow: 'hidden',
-    pointerEvents: 'none',
-  },
-  sectionMarker: {
-    display: 'inline-block',
-    width: '0.6em',
-    height: '0.6em',
-    background: '#f0f0f0',
-    marginRight: '0.6em',
-    verticalAlign: 'middle',
-  },
-  stats: {
-    display: 'flex',
-    gap: '4rem',
-    marginTop: '4rem',
-    paddingTop: '2rem',
-    borderTop: '1px solid #888',
-    flexWrap: 'wrap',
-  },
-  stat: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  statValue: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    color: '#ff3b3b',
-  },
-  statLabel: {
-    fontSize: '0.75rem',
-    color: '#888',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    marginTop: '0.25rem',
-  },
-
-  // How It Works
-  sectionTitle: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    marginBottom: '3rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.02em',
-  },
-  howGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '2rem',
-  },
-  howBlock: {
-    border: '1px solid #888',
-    padding: '2rem',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  howNumber: {
-    fontSize: '3rem',
-    fontWeight: 700,
-    color: '#ff3b3b',
-    lineHeight: 1,
-    marginBottom: '1rem',
-  },
-  howTitle: {
-    fontSize: '1.25rem',
-    fontWeight: 700,
-    marginBottom: '1rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-  },
-  howDesc: {
-    color: '#888',
-    lineHeight: 1.6,
-    fontSize: '0.9rem',
-  },
-
-  // Litepaper
-  h2: {
-    fontSize: '1.75rem',
-    fontWeight: 700,
-    margin: '3rem 0 1.5rem 0',
-    textTransform: 'uppercase',
-    letterSpacing: '0.02em',
-  },
-  h3: {
-    fontSize: '1.25rem',
-    fontWeight: 700,
-    margin: '2rem 0 1rem 0',
-    color: '#ff3b3b',
-  },
-  p: {
-    color: '#888',
-    lineHeight: 1.7,
-    marginBottom: '1rem',
-    fontSize: '0.95rem',
-  },
-  strong: {
-    color: '#f0f0f0',
-  },
-  ul: {
-    color: '#888',
-    margin: '1rem 0 1rem 1.5rem',
-    lineHeight: 1.7,
-  },
-  li: {
-    marginBottom: '0.5rem',
-  },
-  highlight: {
-    background: '#ff3b3b',
-    color: '#0a0a0a',
-    padding: '0.1em 0.3em',
-    fontWeight: 600,
-  },
-  divider: {
-    border: 'none',
-    borderTop: '1px solid #888',
-    margin: '3rem 0',
-  },
-
-  // Impact / Infographic
-  impactIntro: {
-    color: '#ccc',
-    lineHeight: 1.7,
-    fontSize: '1.05rem',
-    maxWidth: '780px',
-    marginBottom: '3rem',
-  },
-  barBlock: {
-    marginBottom: '2.5rem',
-  },
-  barHeading: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-    marginBottom: '0.6rem',
-    flexWrap: 'wrap',
-    gap: '0.5rem',
-  },
-  barTitle: {
-    fontSize: '0.95rem',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-  },
-  barPercent: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    color: '#ff3b3b',
-  },
-  barTrack: {
-    width: '100%',
-    height: '2.5rem',
-    border: '1px solid #888',
-    background: 'transparent',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  barFill: {
-    height: '100%',
-    background: '#ff3b3b',
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: '0.75rem',
-    color: '#0a0a0a',
-    fontWeight: 700,
-    fontSize: '0.75rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    whiteSpace: 'nowrap',
-  },
-  barCaption: {
-    color: '#888',
-    fontSize: '0.8rem',
-    marginTop: '0.5rem',
-    lineHeight: 1.5,
-  },
-  barTotalLabel: {
-    position: 'absolute',
-    right: '0.75rem',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    color: '#888',
-    fontWeight: 700,
-    fontSize: '0.75rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-  },
-  ukMusicGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-    gap: '1.5rem',
-    margin: '2rem 0 1.5rem 0',
-  },
-  ukStatBlock: {
-    border: '1px solid #888',
-    padding: '1.5rem',
-  },
-  ukStatValue: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    color: '#ff3b3b',
-    lineHeight: 1,
-    marginBottom: '0.5rem',
-  },
-  ukStatLabel: {
-    color: '#888',
-    fontSize: '0.8rem',
-    lineHeight: 1.5,
-  },
-  citation: {
-    color: '#666',
-    fontSize: '0.75rem',
-    lineHeight: 1.7,
-    marginTop: '2rem',
-    borderTop: '1px solid #333',
-    paddingTop: '1rem',
-  },
-
-  // Team
-  founderSection: {
-    padding: '3rem 2rem',
-    maxWidth: '1140px',
-    margin: '0 auto',
-  },
-  teamGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))',
-    gap: '4rem',
-    alignItems: 'start',
-  },
-  founderGrid: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem',
-  },
-  founderImage: {
-    width: '200px',
-    height: '200px',
-    objectFit: 'cover',
-    border: '1px solid #888',
-  },
-  founderContent: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  founderName: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    marginBottom: '0.25rem',
-  },
-  founderRole: {
-    fontSize: '0.875rem',
-    color: '#ff3b3b',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    marginBottom: '1.5rem',
-  },
-  founderBio: {
-    color: '#888',
-    lineHeight: 1.7,
-    fontSize: '0.95rem',
-  },
-  founderBioP: {
-    marginBottom: '1rem',
-  },
-
-  // Join
-  joinContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  joinTitle: {
-    fontSize: 'clamp(2rem, 6vw, 4rem)',
-    fontWeight: 700,
-    marginBottom: '1rem',
-    textTransform: 'uppercase',
-    letterSpacing: '-0.02em',
-  },
-  joinSubtitle: {
-    color: '#888',
-    fontSize: '1.1rem',
-    marginBottom: '3rem',
-    maxWidth: '400px',
-  },
-  form: {
-    display: 'flex',
-    gap: 0,
-    width: '100%',
-    maxWidth: '500px',
-    flexWrap: 'wrap',
-  },
-  input: {
-    flex: 1,
-    minWidth: '200px',
-    padding: '1rem 1.5rem',
-    fontFamily: "'IBM Plex Mono', monospace",
-    fontSize: '1rem',
-    background: 'transparent',
-    border: '1px solid #888',
-    color: '#f0f0f0',
-    outline: 'none',
-  },
-  button: {
-    padding: '1rem 2rem',
-    fontFamily: "'IBM Plex Mono', monospace",
-    fontSize: '1rem',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    background: '#f0f0f0',
-    color: '#0a0a0a',
-    border: '1px solid #f0f0f0',
-    cursor: 'pointer',
-  },
-  successMessage: {
-    color: '#ff3b3b',
-    fontSize: '1rem',
-    marginTop: '1rem',
-    height: '1.5rem',
-  },
-  roles: {
-    display: 'flex',
-    gap: '1rem',
-    marginTop: '3rem',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  roleTag: {
-    fontSize: '0.75rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    color: '#888',
-    padding: '0.5rem 1rem',
-    border: '1px solid #888',
-  },
+function OwnershipDiagram() {
+  return (
+    <figure className="ownership-figure">
+      <svg viewBox="0 0 560 350" role="img" aria-labelledby="ownership-title ownership-description">
+        <title id="ownership-title">One party. Two revenue lines.</title>
+        <desc id="ownership-description">Artist and distributor overlap at Porto. Artists can earn as rights holders and as network operators.</desc>
+        <defs>
+          <pattern id="ownership-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+            <line x1="0" y1="0" x2="0" y2="12" stroke="#c1b49b" strokeWidth="1" opacity=".45" />
+          </pattern>
+        </defs>
+        <circle cx="215" cy="168" r="142" fill="#bf53452b" stroke="#ee6251" strokeWidth="2" />
+        <circle cx="345" cy="168" r="142" fill="#d7c6a91a" stroke="#d7c6a9" strokeWidth="2" />
+        <circle cx="215" cy="168" r="142" fill="url(#ownership-hatch)" />
+        <circle cx="345" cy="168" r="142" fill="url(#ownership-hatch)" />
+        <text x="162" y="158">ARTIST</text>
+        <text x="397" y="158">DISTRIBUTOR</text>
+        <text x="280" y="206" className="venn-centre">PORTO</text>
+      </svg>
+      <figcaption>One party. Two revenue lines.</figcaption>
+    </figure>
+  )
 }
-
-const GithubIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.35-3.87-1.35-.53-1.33-1.29-1.68-1.29-1.68-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.19 1.78 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-  </svg>
-)
 
 const IndexPage = () => {
   const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState('idle')
 
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    await fetch('https://formspree.io/f/xjgepgbg', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    })
-    setEmail('')
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    if (status === 'sending') return
+    setStatus('sending')
+    try {
+      const response = await fetch('https://formspree.io/f/xjgepgbg', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (!response.ok) throw new Error('Submission failed')
+      setEmail('')
+      setStatus('success')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
-    <div style={styles.page}>
-      {/* Navigation */}
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <a href="#home" style={styles.logo} onClick={(e) => { e.preventDefault(); scrollTo('home') }}>
-            PORTO
-          </a>
-          <a href="https://altalab.ai" target="_blank" rel="noopener noreferrer" className="altalabBadge" style={styles.altalabBadge}>
-            <img src="/images/altalab-logo.png" alt="AltaLab" style={styles.altalabLogo} />
-            <span>Autumn 2026 Cohort</span>
-          </a>
-        </div>
-        <div style={styles.navLinks}>
-          <button style={styles.navLink} onClick={() => scrollTo('how')}>How It Works</button>
-          <button style={styles.navLink} onClick={() => scrollTo('impact')}>Impact</button>
-          <button style={styles.navLink} onClick={() => scrollTo('litepaper')}>Litepaper</button>
-          <button style={styles.navLink} onClick={() => scrollTo('team')}>Team</button>
-          <button style={styles.navLink} onClick={() => scrollTo('join')}>Join</button>
-          <a
-            href="https://docs.portolabs.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={styles.navLink}
-          >
-            Docs
-          </a>
-          <a
-            href="https://github.com/porto-labs-xyz/porto-core"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={styles.navGithub}
-            aria-label="Porto on GitHub"
-            title="Porto is open source — view on GitHub"
-          >
-            <GithubIcon />
-          </a>
-        </div>
-      </nav>
+    <>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className="site-header">
+        <a className="wordmark" href="#home" aria-label="Porto home"><img className="brand-mark" src="/images/porto-mark-handdrawn.webp" width="64" height="64" alt="Porto" /></a>
+        <nav aria-label="Main navigation">
+          <a href="#how">The network</a>
+          <a href="#litepaper">Litepaper</a>
+          <a href="https://docs.portolabs.xyz/" target="_blank" rel="noopener noreferrer">Docs</a>
+          <a href="#team">Team</a>
+          <a className="nav-join" href="#join">Join Porto <span aria-hidden="true">↗</span></a>
+        </nav>
+      </header>
 
-      {/* Home Section */}
-
-      <section id="home" style={{ ...styles.section, position: 'relative' }}>
-        <div className="heroIconWrap" style={styles.heroIcon}>
-          <img src="/images/porto-icon-glitch.svg" alt="" />
-        </div>
-        <h1 style={styles.h1}>
-          Spotify takes 30%.<br />
-          <span style={styles.accent}>You get pennies.</span>
-        </h1>
-        <p style={styles.tagline}>
-          We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays.
-        </p>
-        <p style={{ ...styles.tagline, marginTop: '1rem', color: '#f0f0f0' }}>
-          They're not tenants anymore. They're landlords.
-        </p>
-        <a href="https://altalab.ai" target="_blank" rel="noopener noreferrer" className="altalabBadgeHero" style={styles.altalabBadgeHero}>
-          <img src="/images/altalab-logo.png" alt="AltaLab" style={styles.altalabLogoHero} />
-          <span>AltaLab Accelerator — Autumn 2026 Cohort</span>
-        </a>
-        <div style={styles.stats}>
-          <div style={styles.stat}>
-            <span style={styles.statValue}>70%</span>
-            <span style={styles.statLabel}>To rights holders</span>
-          </div>
-          <div style={styles.stat}>
-            <span style={styles.statValue}>25%</span>
-            <span style={styles.statLabel}>To node operators</span>
-          </div>
-          <div style={styles.stat}>
-            <span style={styles.statValue}>5%</span>
-            <span style={styles.statLabel}>To Porto</span>
-          </div>
-        </div>
-        <p style={styles.barCaption}>Per dollar of listener revenue, split automatically on every stream. Spotify keeps 30%. Porto takes 5%.</p>
-      </section>
-
-      {/* How It Works Section */}
-      <section id="how" style={styles.section}>
-        <h2 style={styles.sectionTitle}><span style={styles.sectionMarker} />How It Works</h2>
-        <p style={styles.impactIntro}>
-          Porto is rebuilt from the network up — and it owns the consumer platform on top of that network, not just the pipes underneath it.
-        </p>
-        <div style={styles.howGrid}>
-          <div style={styles.howBlock}>
-            <span style={styles.howNumber}>01</span>
-            <h3 style={styles.howTitle}>Platform</h3>
-            <p style={styles.howDesc}>Listening, catalogs, and artist profiles — Porto's own product, not a protocol listeners have to understand to use it.</p>
-          </div>
-          <div style={styles.howBlock}>
-            <span style={styles.howNumber}>02</span>
-            <h3 style={styles.howTitle}>Network</h3>
-            <p style={styles.howDesc}>Labels, artists, and operators run the nodes that cache and stream the catalog. Every play is logged and auditable. No centralized CDN, no opaque accounting.</p>
-          </div>
-          <div style={styles.howBlock}>
-            <span style={styles.howNumber}>03</span>
-            <h3 style={styles.howTitle}>Economy</h3>
-            <p style={styles.howDesc}>Every stream splits automatically — 70% to rights holders, 25% to node operators, 5% to Porto. Value flows to the people running the system, not a platform tax.</p>
-          </div>
-        </div>
-        <p style={{ ...styles.impactIntro, marginTop: '2.5rem', marginBottom: 0 }}>
-          This compounds: more artists mean more listeners, more listeners mean more streams to serve, more operators make the network denser. Porto owns the flagship platform today — and the same network is built for other platforms to plug into tomorrow.
-        </p>
-      </section>
-
-      {/* Impact Section */}
-      <section id="impact" style={styles.section}>
-        <h2 style={styles.sectionTitle}><span style={styles.sectionMarker} />The Artist Economics Gap</h2>
-        <p style={styles.impactIntro}>
-          A UK stream generates an average of £0.011. Of every £1 generated, performers receive roughly 8p. The rest goes to labels, publishers, and platforms.
-        </p>
-        <p style={styles.impactIntro}>
-          In 2021 a UK Parliamentary inquiry into music streaming concluded the market needs a complete reset. That reset hasn't happened. Porto is built to make it happen by default, not by regulation.
-        </p>
-
-        <div style={styles.barBlock}>
-          <div style={styles.barHeading}>
-            <span style={styles.barTitle}>What the performer keeps for every £1 a UK stream generates</span>
-            <span style={styles.barPercent}>8p of £1</span>
-          </div>
-          <div style={styles.barTrack}>
-            <div style={{ ...styles.barFill, width: '8%' }}>8p</div>
-            <span style={styles.barTotalLabel}>£1.00 generated</span>
-          </div>
-        </div>
-
-        <div style={styles.ukMusicGrid}>
-          <div style={styles.ukStatBlock}>
-            <div style={styles.ukStatValue}>£8.0bn</div>
-            <div style={styles.ukStatLabel}>Record contribution to UK GVA in 2024, up 5% year-on-year</div>
-          </div>
-          <div style={styles.ukStatBlock}>
-            <div style={styles.ukStatValue}>£4.8bn</div>
-            <div style={styles.ukStatLabel}>UK music export revenue in 2024, a new all-time high</div>
-          </div>
-          <div style={styles.ukStatBlock}>
-            <div style={styles.ukStatValue}>220,000</div>
-            <div style={styles.ukStatLabel}>Full-time equivalent jobs supported by UK music in 2024</div>
-          </div>
-          <div style={styles.ukStatBlock}>
-            <div style={styles.ukStatValue}>£800.3m</div>
-            <div style={styles.ukStatLabel}>UK recorded music exports in 2025 — highest since records began, BPI targeting £1bn by 2030</div>
-          </div>
-        </div>
-        <p style={styles.p}>
-          The money is there. The growth is real. Porto exists to answer one question: who actually gets paid — and right now, it isn't the people who made the music.
-        </p>
-
-        <p style={styles.citation}>
-          Sources: UK Music, "This Is Music 2025"; UK Music Diversity Report (2024); BPI recorded music export data (2025); Hesmondhalgh et al., "Music Creators' Earnings in the Digital Era," commissioned by the UK Intellectual Property Office (2021); DCMS Select Committee report "Economics of Music Streaming" (House of Commons, July 2021).
-        </p>
-      </section>
-
-      {/* Litepaper Section */}
-      <section id="litepaper" style={styles.sectionScrollable}>
-        <h2 style={{ ...styles.sectionTitle, marginTop: '4rem' }}><span style={styles.sectionMarker} />Litepaper</h2>
-
-        <h2 style={styles.h2}>The Problem</h2>
-        <p style={styles.p}>Labels, publishers, and artists don't own the distribution layer. Platforms do. That's the problem Porto is built to fix.</p>
-
-        <h3 style={styles.h3}>Spotify's Real Moat</h3>
-        <p style={styles.p}>Spotify's USP isn't playlists or UI. It's infrastructure.</p>
-        <p style={styles.p}>
-          They've built their own global edge compute CDN—a custom content delivery network optimized for fast audio streaming at scale. Unlike most consumer tech companies, Spotify doesn't rely on AWS or Cloudflare for edge delivery. They use a proprietary mesh of globally distributed cache nodes and compute infrastructure, designed in-house.
-        </p>
-        <p style={styles.p}>
-          This gives Spotify total control over performance, cost, and data. That's what allows them to serve 500M+ users with near-instant playback, at low latency and high resilience.
-        </p>
-        <p style={styles.p}>
-          <span style={styles.highlight}>But only Spotify benefits from it.</span> Artists, labels, and publishers don't see any upside. They plug in and get paid pennies.
-        </p>
-
-        <h3 style={styles.h3}>Why NFTs Didn't Solve It</h3>
-        <p style={styles.p}>
-          Crypto music projects focused on tying songs or royalties to NFTs. They reimagined ownership, but not delivery.
-        </p>
-        <p style={styles.p}>
-          You can own the music—but if Spotify still delivers it, you don't own the value chain.
-        </p>
-        <p style={styles.p}><strong style={styles.strong}>The problem is infrastructure.</strong> Tokenizing without replacing distribution doesn't change payouts.</p>
-
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>The Solution</h2>
-        <p style={styles.p}>Recreate Spotify's edge CDN model—but decentralized and music-industry owned.</p>
-        <ul style={styles.ul}>
-          <li style={styles.li}>Labels, artists, publishers, and curators run nodes that cache and stream content</li>
-          <li style={styles.li}>Each stream pays out to the rights holder + node operator via micropayment splits</li>
-          <li style={styles.li}>All activity is logged on-chain—auditable, real-time royalties</li>
-          <li style={styles.li}>No centralized platform tax—value flows to participants</li>
-        </ul>
-        <p style={styles.p}>
-          Once labels and artists see how much more they can earn—and realize they can own part of the network—they'll start distributing through it.
-        </p>
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>Architecture</h2>
-        <p style={styles.p}>
-          Simple version: artist or label uploads → Porto's network streams it → plays are logged and settled automatically → money moves to rights holders and node operators. Everything below is how that actually works.
-        </p>
-
-        <h3 style={styles.h3}>Two Node Types, One Binary</h3>
-        <p style={styles.p}>Porto runs on a single configurable node that can operate in three modes:</p>
-        <ul style={styles.ul}>
-          <li style={styles.li}><strong style={styles.strong}>CDN Mode:</strong> Caches content, serves streams, submits attestations</li>
-          <li style={styles.li}><strong style={styles.strong}>Validator Mode:</strong> Participates in consensus, executes the accounting VM</li>
-          <li style={styles.li}><strong style={styles.strong}>Full Mode:</strong> Does both—the default for small operators</li>
-        </ul>
-        <p style={styles.p}>At launch, all nodes run full mode. As the network scales, operators can specialize.</p>
-
-        <h3 style={styles.h3}>The Accounting VM</h3>
-        <p style={styles.p}>Porto uses Move for on-chain logic—not as a dApp platform, but as a verified accounting VM. Three modules only:</p>
-        <ul style={styles.ul}>
-          <li style={styles.li}><strong style={styles.strong}>Stream Accounting:</strong> Receives attestations, maintains canonical play counts</li>
-          <li style={styles.li}><strong style={styles.strong}>Payout Splitter:</strong> Applies royalty splits, handles multiple rights holders per track</li>
-          <li style={styles.li}><strong style={styles.strong}>Governance Parameters:</strong> Fee percentages, thresholds, upgrade authorization</li>
-        </ul>
-        <p style={styles.p}>Everything behind versioned upgrades. Minimal attack surface. Clear separation of concerns.</p>
-
-        <h3 style={styles.h3}>Content Layer</h3>
-        <p style={styles.p}>
-          No IPFS. Simple origin storage (S3-style) with node-level caching. Artists upload to origin. Nodes pull and cache. Streams served from nearest node.
-        </p>
-        <p style={styles.p}>
-          This is licensed music from opted-in artists, not permissionless file sharing. We don't need content-addressed complexity.
-        </p>
-
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>Token Model</h2>
-
-        <h3 style={styles.h3}>The Split</h3>
-        <p style={styles.p}>At $5/month per user:</p>
-        <ul style={styles.ul}>
-          <li style={styles.li}><strong style={styles.strong}>70%</strong> to rights holders (artists, labels, publishers)</li>
-          <li style={styles.li}><strong style={styles.strong}>25%</strong> to node operators</li>
-          <li style={styles.li}><strong style={styles.strong}>5%</strong> to protocol treasury</li>
-        </ul>
-        <p style={styles.p}>Payouts in the native token. Node operators earn both cash-equivalent rewards and token appreciation upside.</p>
-
-        <h3 style={styles.h3}>Bootstrapping Economics</h3>
-        <p style={styles.p}>
-          Early node operators aren't running infrastructure for cash returns alone — they're earning a stake in a network that gets more valuable as more artists and listeners join it.
-        </p>
-        <p style={styles.p}>
-          That's the same incentive that bootstraps any new infrastructure: show up early, do the work, hold equity in the outcome. Token rewards bridge the gap until streaming volume alone covers the cost of running a node.
-        </p>
-
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>The Long Game</h2>
-        <p style={styles.p}>We don't need every Spotify listener on day one. We need the artist's most engaged 1%.</p>
-        <p style={styles.p}>
-          An artist with 1M monthly Spotify listeners might bring 1% of their most dedicated fans to Porto. 10,000 superfans streaming at 10x the payout rate equals the same income—from 1% of the audience.
-        </p>
-        <p style={styles.p}>
-          <strong style={styles.strong}>Artist brings fans. Fans become the network. The network attracts more artists.</strong> Scale that across thousands of artists, each bringing their most engaged listeners, and the catalog grows, the network effects compound, and at critical mass, casual listeners can use the platform too.
-        </p>
-
-        <h3 style={styles.h3}>The Catalyst Moments</h3>
-        <ul style={styles.ul}>
-          <li style={styles.li}>A mid-tier artist goes exclusive and it works—visible proof that the model pays</li>
-          <li style={styles.li}>Spotify does something unpopular—price hikes, payout cuts, public fights with artists</li>
-          <li style={styles.li}>A meaningful indie label comes on board—catalog depth overnight</li>
-          <li style={styles.li}>Cultural moment—a viral story where Porto is the counterexample</li>
-        </ul>
-
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>Transparency Dividend</h2>
-        <p style={styles.p}>
-          There are continual disputes between rights holders and royalty collection services (ASCAP, PRS, BMI) with several notable lawsuits. The on-chain ledger of streams provides a step toward transparency in royalty collection.
-        </p>
-        <p style={styles.p}>
-          It's impossible to get rid of collection societies. But Porto provides a publicly verifiable, granular, and accurate record for them to get paid against.
-        </p>
-        <p style={styles.p}><strong style={styles.strong}>No more arguments about what got played.</strong></p>
-
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>Beyond Porto: The Open Network</h2>
-        <p style={styles.p}>
-          The Porto app is the proof: it shows the model works and gives Porto the initial consumer and artist relationship. It is not the ceiling.
-        </p>
-        <p style={styles.p}>
-          Once the network is running at scale, other platforms will be able to build on Porto's streaming and distribution layer directly — keeping their own brand, UX, and users, while settling on Porto's rails. This is roadmap, not shipped product, but it's the reason Porto isn't capped at the size of one app.
-        </p>
-
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>Roadmap</h2>
-
-        <h3 style={styles.h3}>Phase 1: London Testnet</h3>
-        <p style={styles.p}>5 nodes. 100 artists. Working streams and payouts on testnet. Proof the model works.</p>
-
-        <h3 style={styles.h3}>Phase 2: Expand & Raise</h3>
-        <p style={styles.p}>Pre-seed funding. 5-10 cities on testnet. 1,000+ artists. First indie label partnerships.</p>
-
-        <h3 style={styles.h3}>Phase 3: Mainnet</h3>
-        <p style={styles.p}>Token goes live. Multiple cities operational. Coordinated launch with artist ambassadors.</p>
-
-        <h3 style={styles.h3}>Phase 4: Scale</h3>
-        <p style={styles.p}>Series A. 20+ cities. Meaningful catalog. The network becomes undeniable.</p>
-
-        <hr style={styles.divider} />
-
-        <h2 style={styles.h2}>Why Now</h2>
-        <ul style={styles.ul}>
-          <li style={styles.li}>Spotify's infrastructure shows what's possible—but they don't share the upside</li>
-          <li style={styles.li}>Artists, labels and publishers are ready to own more than just the content</li>
-          <li style={styles.li}>Decentralized infrastructure now works at consumer scale—the networks and tooling exist to build this today</li>
-          <li style={styles.li}>The market narrative is there, artist frustration with streaming is at an all-time high</li>
-          <li style={styles.li}>No one owns the "Spotify of Web3"</li>
-        </ul>
-        <p style={styles.p}><strong style={styles.strong}>The infrastructure layer is up for grabs. Porto is building it, owned by the people who make the music.</strong></p>
-      </section>
-
-      {/* Team Section */}
-      <section id="team" style={styles.founderSection}>
-        <h2 style={styles.sectionTitle}><span style={styles.sectionMarker} />Team</h2>
-        <div style={styles.teamGrid}>
-          <div className="founderGrid" style={styles.founderGrid}>
-            <img
-              src="/images/richard_headshot.jpg"
-              alt="Richard Melkonian"
-              style={styles.founderImage}
-            />
-            <div style={styles.founderContent}>
-              <h3 style={styles.founderName}>Richard Melkonian</h3>
-              <p style={{ ...styles.founderRole, marginBottom: '0.25rem' }}>Role: Founder</p>
-              <p style={{ ...styles.founderRole, fontWeight: 300, opacity: 0.8, marginBottom: '1.5rem' }}>
-                GitHub: <a href="https://github.com/0xmovses" target="_blank" rel="noopener noreferrer" style={{ color: '#ff3b3b', textDecoration: 'none' }}>0xmovses</a>
-              </p>
-              <div className="founderBio" style={styles.founderBio}>
-                <p style={styles.founderBioP}>
-                  Distributed systems engineering, financial infrastructure, and a career on the artist side of streaming — Porto sits at the exact intersection of what I've spent my career doing.
-                </p>
-                <p style={styles.founderBioP}>
-                  I was the second hire at Movement Labs, where I helped design and architect their M2 rollup and led the protocol team through testnet to mainnet — my designs and implementation facilitated over 1 million transactions per day. I designed and implemented their Atomic Bridge Protocol from RFC through to production, and built the USDCx Bridge.
-                </p>
-                <p style={styles.founderBioP}>
-                  Before that, I worked at Parity Technologies on the polkadot-sdk — rebuilding parachain integration systems, XCM messaging, and FRAME pallet code that powers Substrate blockchains. At Dapper Labs, I was the main contributor on CAST, an on-chain governance tool for the Flow blockchain, and I built indexer infrastructure at Fuel Labs.
-                </p>
-                <p style={styles.founderBioP}>
-                  As CTO of Inflow Music, I architected the core DeFi contracts, built the frontend and backend, and led a team of 15 engineers — we raised $1.5M and launched on Flow. That, alongside an independent creative practice in music and film, showed me first-hand how broken music economics are, even when the tech is built right.
-                </p>
-                <p style={styles.founderBioP}>
-                  Porto is the overlap of both halves of my career: rebuilding streaming from the network layer up, so the people creating and curating culture can also own the system that distributes it.
-                </p>
-              </div>
+      <main id="main">
+        <section className="hero section" id="home">
+          <img className="scene hero-scene" src="/images/deck/arch-right.webp" alt="" fetchPriority="high" />
+          <img className="hero-brand-mark" src="/images/porto-mark-handdrawn.webp" width="240" height="240" alt="" aria-hidden="true" />
+          <div className="hero-content">
+            <p className="eyebrow">Streaming infrastructure for artists and labels</p>
+            <h1>Spotify takes 30%.<br /><span className="accent">You get pennies.</span></h1>
+            <p className="hero-description">{mission}</p>
+            <div className="actions">
+              <a className="button button-primary" href="#join">Join the network <span aria-hidden="true">↗</span></a>
+              <a className="text-link" href="#how">Explore the model <span aria-hidden="true">↓</span></a>
             </div>
           </div>
+          <div className="hero-footer">
+            <span>Independent music. Shared infrastructure.</span>
+            <a href="https://altalab.ai" target="_blank" rel="noopener noreferrer">AltaLab <span className="muted">/ Autumn 2026 cohort</span> <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
 
-          <div className="founderGrid" style={styles.founderGrid}>
-            <img
-              src="/images/peter-xan.jpg"
-              alt="Peter Xan"
-              style={styles.founderImage}
-            />
-            <div style={styles.founderContent}>
-              <h3 style={styles.founderName}>Peter Xan</h3>
-              <p style={{ ...styles.founderRole, marginBottom: '1.5rem' }}>Role: Head of Growth &amp; A&amp;R</p>
-              <div className="founderBio" style={styles.founderBio}>
-                <p style={styles.founderBioP}>
-                  Peter built his career inside the agencies that run the industry's biggest brand accounts — starting as a Media Buyer at MediaCom working streaming and digital video, then as an Account Executive at M&amp;C Saatchi London and TBWA\Media Arts Lab running business development and business strategy on global accounts, before becoming an Account Manager at BBH London.
-                </p>
-                <p style={styles.founderBioP}>
-                  In 2025 he founded Thinning Room, where he runs creator management and ecosystem strategy — scouting, developing, and growing artists directly, the same muscle Porto needs on the ground.
-                </p>
-                <p style={styles.founderBioP}>
-                  Outside of that, he's spent the same years building an independent music career from scratch as Peter Xan — releasing genre-blending, "afro-grunge" records and building an audience entirely outside the label system.
-                </p>
-                <p style={styles.founderBioP}>
-                  That combination — agency-side growth strategy, hands-on creator management, and firsthand experience as an unsigned artist — is what he brings to Porto. He leads growth and A&amp;R, finding and onboarding the artists, labels, and node operators the network is built for.
-                </p>
+        <section className="section moat-section" id="how">
+          <img className="scene pillar-scene" src="/images/deck/pillar-centre.webp" alt="" loading="lazy" />
+          <p className="eyebrow">01 / The inherited moat</p>
+          <h2>The artist and the distributor<br /> should be the same party.</h2>
+          <div className="moat-layout">
+            <div className="section-copy">
+              <p>Platforms own the infrastructure that delivers music. Artists and labels bring the music and the audience, but do not share in the value of distribution.</p>
+              <p>The inherited moat is the assumption that building a content delivery network is a massive undertaking. It no longer has to be.</p>
+              <p className="bright">We have already built a geo-localised CDN in the MVP.</p>
+              <p className="accent closing-line">No more moats where none are needed.</p>
+            </div>
+            <OwnershipDiagram />
+          </div>
+        </section>
+
+        <section className="section network-section" aria-labelledby="network-heading">
+          <div className="section-topline"><p className="eyebrow">02 / The network</p><span className="small-note">London first</span></div>
+          <h2 id="network-heading">Rebuild the delivery layer.<br /> Share the ownership.</h2>
+          <div className="three-grid">
+            <article className="panel step"><span className="step-number">01</span><h3>Run the network</h3><p>Artists, labels and operators run the nodes that cache and stream the catalogue. The people making the music can also deliver it.</p></article>
+            <article className="panel step"><span className="step-number">02</span><h3>Account for every play</h3><p>Valid plays feed an auditable record. Listener revenue is allocated to the music each listener actually streams.</p></article>
+            <article className="panel step"><span className="step-number">03</span><h3>Split the revenue</h3><p>Rights holders, network operators and the protocol receive their share automatically at settlement. Beta is designed around daily settlement.</p></article>
+          </div>
+          <p className="section-anchor">They’re not tenants anymore. <span>They’re landlords.</span></p>
+        </section>
+
+        <section className="section product-section" id="product">
+          <div className="product-layout">
+            <div>
+              <p className="eyebrow">03 / The listening app</p>
+              <h2>Familiar on the surface.<br /> Different at the foundations.</h2>
+              <p className="section-intro">Porto’s product direction starts with a listening app. A familiar way to discover and play music, with the network and its economics made visible.</p>
+              <div className="product-features">
+                <div><span>01</span><h3>See the route</h3><p>The player is designed to show which node served the track.</p></div>
+                <div><span>02</span><h3>Follow the value</h3><p>Playback and payout visibility bring the economics closer to the listening experience.</p></div>
+                <div><span>03</span><h3>Own the delivery</h3><p>Artists and labels can operate the rails their fans listen through.</p></div>
               </div>
             </div>
+            <figure className="player-study"><img src="/images/deck/player-responsive.svg" width="154" height="332" alt="Illustrative Porto listening-app design showing a serving node and payment visibility" loading="lazy" /><figcaption>Product direction. Illustrative interface.</figcaption></figure>
           </div>
-        </div>
-      </section>
+          <p className="small-note product-note">App features are design targets. The geo-localised delivery network is built in the MVP.</p>
+        </section>
 
-      {/* Join Section */}
-      <section id="join" style={styles.section}>
-        <div style={styles.joinContent}>
-          <h2 style={styles.joinTitle}>Join the Network</h2>
-          <p style={styles.joinSubtitle}>
-            Artists. Node operators. Believers. Get early access to Porto.
-          </p>
-          <form style={styles.form} onSubmit={handleSubmit}>
-            <input
-              type="email"
-              placeholder="your@email.com"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={styles.input}
-            />
-            <button type="submit" style={styles.button}>
-              Join Waitlist
-            </button>
+        <section className="section litepaper-section" id="litepaper">
+          <div className="litepaper-intro"><p className="eyebrow">04 / Litepaper</p><h2>The infrastructure behind a fairer stream.</h2><p>Porto replaces the delivery and settlement layer, so music’s infrastructure can be owned by the industry it’s supposed to serve.</p><a className="text-link" href="https://docs.portolabs.xyz" target="_blank" rel="noopener noreferrer">Read the full documentation <span aria-hidden="true">↗</span></a></div>
+          <div className="questions">
+            <details open><summary>The problem Porto solves</summary><p>Platforms own the pipes that deliver music and take their margin for doing so. Rights holders receive statements months later, without a granular, verifiable record of the plays behind them. Porto changes the delivery layer itself, rather than wrapping a new payment system around the old one.</p></details>
+            <details><summary>The network</summary><p>Node operators cache and serve licensed audio. Porto Chain records valid plays and runs the accounting needed to allocate the resulting revenue. It is a music-specific app-chain, designed for stream accounting and royalty settlement rather than general-purpose applications.</p></details>
+            <details><summary>Valid plays and clear accounting</summary><p>Each play must meet the network’s validity requirements before it becomes a settlement record. This creates an auditable trail from a listener’s playback to the work it funded, instead of asking artists and rights holders to accept an opaque report.</p></details>
+            <details><summary>Listener-centric settlement</summary><p>Listener revenue is allocated across the works that listener actually streamed, weighted by valid listening duration. Registered rights splits then determine the rights-holder allocation. Plays accrue during an epoch and settle automatically at its boundary. The Beta specification uses daily epochs.</p></details>
+            <details><summary>What exists and what comes next</summary><p>A local, geo-targeted content delivery network is built in the MVP. London is the starting point. The next milestone is a testnet with working streams and payouts, followed by expansion to more cities and mainnet. Opening the rails to other platforms is a roadmap ambition.</p></details>
+          </div>
+        </section>
+
+        <section className="section team-section" id="team">
+          <p className="eyebrow">05 / The team</p>
+          <h2>Built by people from<br /> both sides of the problem.</h2>
+          <div className="team-grid">
+            <article className="team-member"><img src="/images/richard_headshot.jpg" alt="Richard Melkonian" loading="lazy" width="160" height="190" /><div><p className="eyebrow">Founder</p><h3>Richard Melkonian</h3><p>Second hire at Movement Labs, leading protocol work from testnet to mainnet. Previously Parity Technologies, Dapper Labs and Fuel Labs. Former CTO of Inflow Music. Musician and filmmaker.</p><a className="text-link" href="https://github.com/0xmovses" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></article>
+            <article className="team-member"><img src="/images/peter-xan.jpg" alt="Peter Xan" loading="lazy" width="160" height="190" /><div><p className="eyebrow">Head of Growth &amp; A&amp;R</p><h3>Peter Xan</h3><p>Growth and strategy across MediaCom, M&amp;C Saatchi, TBWA\Media Arts Lab and BBH. Founder of Thinning Room, developing artists and creator communities. Independent recording artist.</p></div></article>
+          </div>
+          <a className="cohort" href="https://altalab.ai" target="_blank" rel="noopener noreferrer"><img src="/images/altalab-logo.png" alt="AltaLab" loading="lazy" /><span>Autumn 2026 cohort <span className="muted">/ The founder program of AltaIR Capital</span></span><span aria-hidden="true">↗</span></a>
+        </section>
+
+        <section className="section join-section" id="join">
+          <p className="eyebrow">Build the network with us</p>
+          <h2>The music is yours.<br /> The rails can be too.</h2>
+          <p>Artists, labels, node operators and listeners.<br /> Get early access to Porto.</p>
+          <form onSubmit={handleSubmit} className="join-form">
+            <label htmlFor="join-email">Email address</label>
+            <div className="form-row"><input id="join-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required value={email} onChange={(event) => setEmail(event.target.value)} disabled={status === 'sending'} /><button className="button button-primary" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Joining…' : 'Join the waitlist'}<span aria-hidden="true">↗</span></button></div>
+            <div className="form-status" role="status" aria-live="polite">{status === 'success' && 'You’re on the list. We’ll be in touch.'}{status === 'error' && <>We couldn’t send that. Please try again or <a href={contact}>email us</a>.</>}</div>
           </form>
-          <p style={styles.successMessage}>
-            {submitted ? "You're on the list. We'll be in touch." : ''}
-          </p>
-          <div style={styles.roles}>
-            <span style={styles.roleTag}>Artists</span>
-            <span style={styles.roleTag}>Labels</span>
-            <span style={styles.roleTag}>Node Operators</span>
-            <span style={styles.roleTag}>Investors</span>
-          </div>
-        </div>
-      </section>
+          <p className="investor-contact">Interested in the round? <a className="text-link" href={`${contact}?subject=Porto%20pitch%20deck`}>Request the deck <span aria-hidden="true">↗</span></a></p>
+        </section>
+      </main>
 
-      {/* Deck Request */}
-      <div style={{ padding: '4rem 2rem', textAlign: 'center' }}>
-        <p style={{ color: '#888', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-          Request a Deck
-        </p>
-        <a href="mailto:richard@melkonian.xyz" style={{ color: '#ff3b3b', textDecoration: 'none', marginBottom: '3rem', display: 'inline-block' }}>
-          richard@melkonian.xyz
-        </a>
-        <div style={{ marginTop: '3rem' }}>
-          <img src="/images/porto-icon-glitch.svg" alt="Porto" style={{ width: '400px' }} />
-        </div>
-        <a href="https://docs.portolabs.xyz" target="_blank" rel="noopener noreferrer" style={styles.docsLink}>
-          Read the Docs
-        </a>
-      </div>
-
-    </div>
+      <footer className="site-footer"><a className="wordmark footer-brand" href="#home" aria-label="Porto home"><img className="brand-mark" src="/images/porto-mark-handdrawn.webp" width="80" height="80" alt="" /><span>PORTO</span></a><p>Music is the foundation.<br />Distribution ownership is the change.</p><div><a href="https://docs.portolabs.xyz" target="_blank" rel="noopener noreferrer">Docs ↗</a><a href="https://github.com/porto-labs-xyz/porto-core" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href={contact}>Contact ↗</a></div><span className="copyright">© {new Date().getFullYear()} Porto Labs Ltd.<br />UK Registered Company</span></footer>
+    </>
   )
 }
 
@@ -943,127 +168,22 @@ export default IndexPage
 
 export const Head = () => (
   <>
-    <title>Porto — Streaming Infrastructure for Artists and Labels</title>
-    <meta name="description" content="We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays." />
-
+    <html lang="en" />
+    <title>Porto | Artist-owned streaming infrastructure</title>
+    <meta name="description" content={mission} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.portolabs.xyz/" />
-    <meta property="og:title" content="Porto — Streaming Infrastructure for Artists and Labels" />
-    <meta property="og:description" content="We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays." />
+    <meta property="og:title" content="Porto | Spotify takes 30%. You get pennies." />
+    <meta property="og:description" content={mission} />
     <meta property="og:image" content="https://www.portolabs.xyz/images/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Porto — Streaming Infrastructure for Artists and Labels" />
-    <meta name="twitter:description" content="We help artists and record labels earn more from streaming by letting them own the network that delivers their music, so they earn from distribution, not just plays." />
+    <meta name="twitter:title" content="Porto | Artist-owned streaming infrastructure" />
+    <meta name="twitter:description" content={mission} />
     <meta name="twitter:image" content="https://www.portolabs.xyz/images/og-image.png" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-    <style>{`
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body { 
-        font-family: 'IBM Plex Mono', monospace;
-        background: #0a0a0a;
-      }
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        opacity: 0.03;
-        pointer-events: none;
-        z-index: 1000;
-      }
-      @media (max-width: 768px) {
-        nav { padding: 1rem !important; }
-        nav > div { gap: 0.75rem !important; }
-        nav button { font-size: 0.7rem !important; }
-        #team > div {
-          grid-template-columns: 1fr !important;
-        }
-        #team .founderGrid {
-          text-align: center;
-        }
-        #team .founderBio {
-          text-align: left;
-        }
-        #team img {
-          margin: 0 auto;
-        }
-        .altalabBadge {
-          display: none !important;
-        }
-        .heroIconWrap {
-          display: none !important;
-        }
-      }
-
-      .heroIconWrap img {
-        display: block;
-        width: 160%;
-        height: 160%;
-        max-width: none;
-        margin: -30% 0 0 -30%;
-        opacity: 0.9;
-        animation: portoFlicker 9s infinite;
-        animation-delay: -4.4s;
-      }
-      .heroIconWrap::before,
-      .heroIconWrap::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url('/images/porto-icon-glitch.svg');
-        background-size: 160% 160%;
-        background-repeat: no-repeat;
-        background-position: center;
-        mix-blend-mode: screen;
-        pointer-events: none;
-        opacity: 0;
-      }
-      .heroIconWrap::before {
-        filter: hue-rotate(180deg) saturate(4);
-        animation: portoGlitchBefore 9s infinite;
-        animation-delay: -4.4s;
-      }
-      .heroIconWrap::after {
-        filter: hue-rotate(90deg) saturate(4);
-        animation: portoGlitchAfter 9s infinite;
-        animation-delay: -4.4s;
-      }
-      @keyframes portoFlicker {
-        0%, 58%, 66%, 100% { opacity: 0.9; transform: translate(0, 0); filter: none; }
-        60% { opacity: 0.5; transform: translate(-2px, 1px); filter: contrast(1.6) brightness(1.3); }
-        62% { opacity: 1; transform: translate(2px, -1px); filter: contrast(1.2); }
-        64% { opacity: 0.7; transform: translate(-1px, 0); filter: brightness(1.4); }
-      }
-      @keyframes portoGlitchBefore {
-        0%, 58%, 66%, 100% { opacity: 0; transform: translate(0, 0); clip-path: inset(0 0 0 0); }
-        60% { opacity: 0.5; transform: translate(-4px, 0); clip-path: inset(20% 0 40% 0); }
-        62% { opacity: 0.35; transform: translate(3px, 1px); clip-path: inset(60% 0 5% 0); }
-        64% { opacity: 0; transform: translate(0, 0); }
-      }
-      @keyframes portoGlitchAfter {
-        0%, 58%, 66%, 100% { opacity: 0; transform: translate(0, 0); clip-path: inset(0 0 0 0); }
-        61% { opacity: 0.4; transform: translate(4px, -1px); clip-path: inset(10% 0 55% 0); }
-        63% { opacity: 0.3; transform: translate(-3px, 0); clip-path: inset(70% 0 5% 0); }
-        65% { opacity: 0; transform: translate(0, 0); }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .heroIconWrap img,
-        .heroIconWrap::before,
-        .heroIconWrap::after {
-          animation: none !important;
-        }
-      }
-    `}</style>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </>
 )
-
