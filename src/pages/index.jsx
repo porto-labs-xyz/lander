@@ -102,7 +102,7 @@ const IndexPage = () => {
           <div className="section-topline"><p className="eyebrow">02 / The Network</p><span className="small-note">London first</span></div>
           <h2 id="network-heading">Rebuild the delivery layer.<br /> Share the ownership.</h2>
           <p className="section-intro network-intro">Platforms own the infrastructure that delivers music. Spotify built its own custom CDN (Content Distribution Network) that serves music at the edge, close to the listener, to guarantee fast, reliable, high-performance streaming on demand.</p>
-          <p className="network-analogy">Porto resembles radio much more than a centralized streaming platform. Except this is internet radio, peer to peer, where anyone can be a broadcaster and get paid for doing so.</p>
+          <p className="network-analogy">Porto is closer to radio than a centralized streaming platform: peer-to-peer internet radio where anyone can broadcast and get paid.</p>
           <div className="three-grid">
             <article className="panel step"><span className="step-number">01</span><h3>Run the network</h3><p>Artists, labels and operators run the nodes that cache and stream the catalogue. The people making the music can also deliver it.</p></article>
             <article className="panel step"><span className="step-number">02</span><h3>Account for every play</h3><p>Valid plays feed an auditable record. Listener revenue is allocated to the music each listener actually streams.</p></article>
