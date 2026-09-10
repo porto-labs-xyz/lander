@@ -69,6 +69,7 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .network-section { background: radial-gradient(ellipse at 0 100%, #24201b 0, #0c0e0e 72%); }
 .network-section::before, .product-section::before, .litepaper-section::after, .roadmap-section::before, .team-section::before, .team-section::after, .join-section::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background-repeat: no-repeat; background-size: cover; }
 .network-section::before { background-image: linear-gradient(90deg,rgba(10,12,12,.94) 0%,rgba(10,12,12,.18) 48%,rgba(10,12,12,.02)),url('/images/deck/column-right.webp'); opacity: .46; }
+.network-analogy { max-width: 850px; margin: 24px 0 42px; font: 400 clamp(19px,2vw,28px)/1.45 var(--mono); color: var(--accent); letter-spacing: -.035em; }
 .three-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 .panel { background: rgba(221,207,180,.035); border: 1px solid var(--line); border-radius: 14px; }
 .step { padding: 30px; }
