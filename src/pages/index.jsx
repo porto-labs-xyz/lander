@@ -85,7 +85,7 @@ const IndexPage = () => {
         <section className="section moat-section" id="how">
           <img className="scene pillar-scene" src="/images/deck/pillar-centre.webp" alt="" loading="lazy" />
           <p className="eyebrow">01 / The inherited moat</p>
-          <h2>Spotify’s USP isn’t playlists or UI.<br /> It’s infrastructure.</h2>
+          <h2>Spotify’s USP isn’t playlists or UI.<br /><span className="moat-infrastructure"> It’s infrastructure.</span></h2>
           <div className="moat-layout">
             <div className="section-copy">
               <p>Platforms own the infrastructure that delivers music. Artists and labels bring the music and the audience, but do not share in the value of distribution.</p>
@@ -126,7 +126,7 @@ const IndexPage = () => {
         </section>
 
         <section className="section litepaper-section" id="litepaper">
-          <div className="litepaper-intro"><p className="eyebrow">04 / Litepaper</p><h2>The infrastructure behind a fairer stream.</h2><p>Porto replaces the delivery and settlement layer, so music’s infrastructure can be owned by the industry it’s supposed to serve.</p><a className="text-link" href="https://docs.portolabs.xyz" target="_blank" rel="noopener noreferrer">Read the full documentation <span aria-hidden="true">↗</span></a></div>
+          <div className="litepaper-intro"><p className="eyebrow">04 / Litepaper</p><h2>The infrastructure behind a fairer stream.</h2><p>Porto replaces the delivery and settlement layer, so music’s infrastructure can be owned by the industry it’s supposed to serve.</p><p className="litepaper-price">A £5 listener contribution can fund the whole stream.</p><a className="text-link" href="https://docs.portolabs.xyz" target="_blank" rel="noopener noreferrer">Read the full documentation <span aria-hidden="true">↗</span></a></div>
           <div className="questions">
             <details open><summary>The problem Porto solves</summary><p>Platforms own the pipes that deliver music and take their margin for doing so. Rights holders receive statements months later, without a granular, verifiable record of the plays behind them. Porto changes the delivery layer itself, rather than wrapping a new payment system around the old one.</p></details>
             <details><summary>The network</summary><p>Node operators cache and serve licensed audio. Porto Chain records valid plays and runs the accounting needed to allocate the resulting revenue. It is a music-specific app-chain, designed for stream accounting and royalty settlement rather than general-purpose applications.</p></details>
