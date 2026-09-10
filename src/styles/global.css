@@ -63,6 +63,20 @@ p { color: var(--muted); }
 .ownership-figure svg { width: 100%; display: block; }
 .ownership-figure text { text-anchor: middle; fill: var(--paper); font-size: 14px; font-weight: 600; }
 .ownership-figure .venn-centre { font-size: 20px; }
+.performer-share { margin-top: 72px; padding-top: 34px; border-top: 1px solid var(--line); }
+.performer-share-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 36px; }
+.performer-share-heading .eyebrow { margin-bottom: 10px; }
+.performer-share-heading h3 { max-width: 610px; font: 400 clamp(18px,1.8vw,25px)/1.4 var(--mono); color: var(--paper); letter-spacing: -.035em; }
+.performer-share-heading strong { flex-shrink: 0; font: 400 clamp(28px,3vw,44px)/1 var(--mono); color: var(--accent); }
+.performer-share svg { width: 100%; height: auto; display: block; margin-top: 26px; overflow: visible; }
+.performer-share .share-track { fill: rgba(215,198,169,.025); stroke: #d7c6a9; stroke-width: 1.6; }
+.performer-share .share-fill { fill: rgba(238,98,81,.18); stroke: #ee6251; stroke-width: 1.8; }
+.performer-share .share-hatch { fill: url(#performer-share-hatch); }
+.performer-share .share-divider { fill: none; stroke: #ee6251; stroke-width: 1.35; stroke-linecap: round; }
+.performer-share text { font-family: var(--mono); }
+.performer-share .share-eight { fill: var(--paper); font-size: 22px; font-weight: 600; text-anchor: middle; }
+.performer-share .share-total { fill: var(--muted); font-size: 15px; text-anchor: end; }
+.performer-share figcaption { margin-top: 8px; text-align: left; font: 11px/1.6 var(--mono); letter-spacing: .035em; text-transform: uppercase; }
 figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .section-topline { display: flex; justify-content: space-between; align-items: baseline; }
 .small-note { font: 400 12px/1.7 var(--mono); color: var(--muted); }
@@ -203,6 +217,11 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
   .pillar-scene { opacity: .25; object-position: 50% center; }
   .section-copy { max-width: none; }
   .ownership-figure { max-width: 480px; margin: 0 auto; }
+  .performer-share { margin-top: 52px; padding-top: 28px; }
+  .performer-share-heading { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .performer-share-heading strong { font-size: 32px; }
+  .performer-share svg { margin-top: 18px; }
+  .performer-share .share-total { font-size: 20px; }
   .three-grid { grid-template-columns: 1fr; gap: 14px; }
   .step { padding: 25px; }
   .step-number { margin-bottom: 20px; }
