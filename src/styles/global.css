@@ -219,6 +219,7 @@ h1, .site-header nav, .button, .footer-brand { font-family: var(--mono); }
 @media (max-width: 900px) { .roadmap { grid-template-columns: repeat(8, 155px); } }
 .site-header { background: rgba(9,11,12,.94); }
 .product-section h2, .join-section h2 { font-family: var(--mono); color: var(--accent); font-weight: 400; font-size: clamp(28px, 2.8vw, 42px); letter-spacing: -.045em; line-height: 1.3; }
+.familiar-lead { font-weight: 300; opacity: .72; }
 .step h3, .product-features h3 { font-family: var(--mono); color: var(--accent); font-size: 17px; font-weight: 400; letter-spacing: -.035em; }
 @media (max-width: 720px) {
   .site-header { padding-top: 7px; padding-bottom: 7px; }

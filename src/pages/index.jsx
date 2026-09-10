@@ -113,7 +113,7 @@ const IndexPage = () => {
           <div className="product-layout">
             <div>
               <p className="eyebrow">03 / The listening app</p>
-              <h2>Familiar on the surface.<br /> Different at the foundations.</h2>
+              <h2><span className="familiar-lead">Familiar on the surface.</span><br /> Different at the foundations.</h2>
               <p className="section-intro">Porto’s product direction starts with a listening app. A familiar way to discover and play music, with the network and its economics made visible.</p>
               <div className="product-features">
                 <div><span>01</span><h3>See the route</h3><p>The player is designed to show which node served the track.</p></div>
