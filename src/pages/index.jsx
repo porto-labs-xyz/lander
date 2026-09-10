@@ -14,14 +14,22 @@ function OwnershipDiagram() {
           <pattern id="ownership-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
             <line x1="0" y1="0" x2="0" y2="12" stroke="#c1b49b" strokeWidth="1" opacity=".45" />
           </pattern>
-          <pattern id="distribution-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)">
+          <pattern id="distribution-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="translate(5 -2) rotate(40)">
             <line x1="0" y1="0" x2="0" y2="12" stroke="#c1b49b" strokeWidth="1" opacity=".45" />
           </pattern>
+          <filter id="venn-pencil" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency=".014 .035" numOctaves="2" seed="7" result="paperNoise" />
+            <feDisplacementMap in="SourceGraphic" in2="paperNoise" scale="2.4" xChannelSelector="R" yChannelSelector="B" />
+          </filter>
         </defs>
-        <circle cx="215" cy="168" r="142" fill="#bf53452b" stroke="#ee6251" strokeWidth="2" />
-        <circle cx="345" cy="168" r="142" fill="#d7c6a91a" stroke="#d7c6a9" strokeWidth="2" />
-        <circle cx="215" cy="168" r="142" fill="url(#ownership-hatch)" />
-        <circle cx="345" cy="168" r="142" fill="url(#distribution-hatch)" />
+        <g filter="url(#venn-pencil)" strokeLinecap="round">
+          <circle cx="215" cy="168" r="142" fill="#bf53452b" stroke="#ee6251" strokeWidth="2" />
+          <circle cx="345" cy="168" r="142" fill="#d7c6a91a" stroke="#d7c6a9" strokeWidth="2" />
+          <circle cx="216.5" cy="167" r="141.5" fill="none" stroke="#ee6251" strokeWidth=".75" opacity=".38" />
+          <circle cx="343.5" cy="169" r="142.5" fill="none" stroke="#d7c6a9" strokeWidth=".75" opacity=".34" />
+          <circle cx="215" cy="168" r="142" fill="url(#ownership-hatch)" />
+          <circle cx="345" cy="168" r="142" fill="url(#distribution-hatch)" />
+        </g>
         <text x="162" y="158">ARTIST</text>
         <text x="397" y="158">DISTRIBUTOR</text>
         <text x="280" y="206" className="venn-centre">PORTO</text>
