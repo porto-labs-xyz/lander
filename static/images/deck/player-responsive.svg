@@ -1693,9 +1693,11 @@ v3vcOjWHZalgtvA6mwS7jKlY/zo7Ozs7Px1PZzU8MdmLLA5G7flzeGJ9qLjl7Ozs
 </g>
 </g>
 <path transform="matrix(1,0,0,-1,0,332)" d="M34 172H120C123.8696 172 127 175.1304 127 179V180C127 183.8696 123.8696 187 120 187H34C30.1304 187 27 183.8696 27 180V179C27 175.1304 30.1304 172 34 172Z" fill="#08090a" fill-rule="evenodd"/>
-<path transform="matrix(1,0,0,-1,0,332)" stroke-width=".65" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#ff4f45" d="M34 172H120C123.8696 172 127 175.1304 127 179V180C127 183.8696 123.8696 187 120 187H34C30.1304 187 27 183.8696 27 180V179C27 175.1304 30.1304 172 34 172Z"/>
+<path transform="matrix(1,0,0,-1,0,332)" stroke-width=".65" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#ff4f45" d="M34 172H120C123.8696 172 127 175.1304 127 179V180C127 183.8696 123.8696 187 120 187H34C30.1304 187 27 183.8696 27 180V179C27 175.1304 30.1304 172 34 172Z">
+<animate attributeName="opacity" values="1;.2;1" dur="1.15s" repeatCount="indefinite"/>
+</path>
 <path transform="matrix(1,0,0,-1,0,332)" d="M35.5 179.5C35.5 180.3284 34.82843 181 34 181 33.17157 181 32.5 180.3284 32.5 179.5 32.5 178.6716 33.17157 178 34 178 34.82843 178 35.5 178.6716 35.5 179.5" fill="#ff4f45" fill-rule="evenodd">
-<animate attributeName="opacity" values="1;.28;1" dur="1.6s" repeatCount="indefinite"/>
+<animate attributeName="opacity" values="1;.12;1" dur="1.15s" repeatCount="indefinite"/>
 </path>
 <use data-text="L" xlink:href="#font_1_48" transform="matrix(5.3,0,0,-5.3,40,155)" fill="#f2f2eb"/>
 <use data-text="I" xlink:href="#font_1_45" transform="matrix(5.3,0,0,-5.3,42.7878,155)" fill="#f2f2eb"/>
