@@ -239,8 +239,8 @@ export const Head = () => (
     <meta property="og:description" content={seoDescription} />
     <meta property="og:site_name" content="Porto" />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:image" content="https://www.portolabs.xyz/images/og-image.png" />
-    <meta property="og:image:secure_url" content="https://www.portolabs.xyz/images/og-image.png" />
+    <meta property="og:image" content="https://www.portolabs.xyz/images/og-image.png?v=20260910-2" />
+    <meta property="og:image:secure_url" content="https://www.portolabs.xyz/images/og-image.png?v=20260910-2" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1731" />
     <meta property="og:image:height" content="909" />
@@ -248,7 +248,7 @@ export const Head = () => (
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Porto | Spotify takes 30%. You get pennies." />
     <meta name="twitter:description" content={seoDescription} />
-    <meta name="twitter:image" content="https://www.portolabs.xyz/images/og-image.png" />
+    <meta name="twitter:image" content="https://www.portolabs.xyz/images/og-image.png?v=20260910-2" />
     <meta name="twitter:image:alt" content="Porto: Spotify takes 30%. You get pennies." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
