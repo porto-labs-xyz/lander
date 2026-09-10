@@ -17,12 +17,8 @@ function OwnershipDiagram() {
           <pattern id="distribution-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="translate(5 -2) rotate(40)">
             <line x1="0" y1="0" x2="0" y2="12" stroke="#c1b49b" strokeWidth="1" opacity=".45" />
           </pattern>
-          <filter id="venn-pencil" x="-5%" y="-5%" width="110%" height="110%">
-            <feTurbulence type="fractalNoise" baseFrequency=".014 .035" numOctaves="2" seed="7" result="paperNoise" />
-            <feDisplacementMap in="SourceGraphic" in2="paperNoise" scale="2.4" xChannelSelector="R" yChannelSelector="B" />
-          </filter>
         </defs>
-        <g filter="url(#venn-pencil)" strokeLinecap="round">
+        <g strokeLinecap="round">
           <circle cx="215" cy="168" r="142" fill="#bf53452b" stroke="#ee6251" strokeWidth="2" />
           <circle cx="345" cy="168" r="142" fill="#d7c6a91a" stroke="#d7c6a9" strokeWidth="2" />
           <circle cx="216.5" cy="167" r="141.5" fill="none" stroke="#ee6251" strokeWidth=".75" opacity=".38" />
