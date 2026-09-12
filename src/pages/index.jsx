@@ -43,7 +43,6 @@ function PerformerShareGraphic() {
           <p className="eyebrow">The artist economics gap</p>
           <h3>Traditional UK streaming leaves artists with 8p. Porto automatically pays out up to 70p for independent artists.</h3>
         </div>
-        <strong>8p / 70p</strong>
       </div>
       <svg viewBox="0 0 1000 230" role="img" aria-labelledby="performer-share-title performer-share-description">
         <title id="performer-share-title">Traditional platforms versus Porto artist claim.</title>
@@ -58,16 +57,16 @@ function PerformerShareGraphic() {
         <path className="share-fill" d="M9 32 C31 30 56 31 88 30 L87 90 C55 89 31 90 9 91 Z" />
         <path className="share-hatch" d="M9 32 C31 30 56 31 88 30 L87 90 C55 89 31 90 9 91 Z" />
         <path className="share-divider" d="M89 24 C86 46 91 69 87 98" />
-        <text className="share-value" x="49" y="69">~8p</text>
-        <text className="share-note" x="110" y="68">TO ARTIST</text>
+        <text className="share-value" x="49" y="61">~8p</text>
+        <text className="share-note share-note-small" x="49" y="80" textAnchor="middle">TO ARTIST</text>
         <text className="share-total" x="982" y="114">£1.00 generated</text>
         <text className="share-label" x="8" y="142">PORTO'S MODEL: UP TO 70p FOR EVERY £1</text>
         <path className="share-track" d="M8 158 C190 154 347 160 506 156 C684 152 837 159 992 155 L991 216 C816 220 668 214 501 218 C334 222 180 214 9 218 Z" />
         <path className="share-fill" d="M9 159 C202 156 441 160 699 156 L698 217 C441 220 202 215 9 218 Z" />
         <path className="share-hatch" d="M9 159 C202 156 441 160 699 156 L698 217 C441 220 202 215 9 218 Z" />
         <path className="share-divider" d="M699 150 C696 172 702 195 698 225" />
-        <text className="share-value" x="349" y="196">~70p</text>
-        <text className="share-note share-note-light" x="712" y="195">TO ARTIST</text>
+        <text className="share-value" x="349" y="186">~70p</text>
+        <text className="share-note share-note-light" x="349" y="207" textAnchor="middle">TO ARTIST</text>
         <text className="share-total" x="982" y="229">£1.00 allocated</text>
       </svg>
     </figure>
