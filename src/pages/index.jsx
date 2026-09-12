@@ -41,19 +41,19 @@ function PerformerShareGraphic() {
       <div className="performer-share-heading">
         <div>
           <p className="eyebrow">The artist economics gap</p>
-          <h3>Traditional UK streaming leaves artists with 8p. Porto lets an independent artist claim up to 70p.</h3>
+          <h3>Traditional UK streaming leaves artists with 8p. Porto automatically pays out up to 70p for independent artists.</h3>
         </div>
         <strong>8p / 70p</strong>
       </div>
       <svg viewBox="0 0 1000 230" role="img" aria-labelledby="performer-share-title performer-share-description">
         <title id="performer-share-title">Traditional platforms versus Porto artist claim.</title>
-        <desc id="performer-share-description">A pair of hand-drawn progress bars. Traditional UK streaming leaves artists with roughly eight pence after other rights-holder splits. An independent artist holding all declared rights can claim up to seventy pence through Porto.</desc>
+        <desc id="performer-share-description">A pair of hand-drawn progress bars. The traditional model shows roughly eight pence to the artist for every pound. Porto's model shows up to seventy pence to the artist for every pound.</desc>
         <defs>
           <pattern id="performer-share-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
             <line x1="0" y1="0" x2="0" y2="9" stroke="#ee6251" strokeWidth="1.25" opacity=".72" />
           </pattern>
         </defs>
-        <text className="share-label" x="8" y="15">TRADITIONAL MODEL</text>
+        <text className="share-label" x="8" y="15">TRADITIONAL MODEL: 8p TO ARTIST FOR EVERY £1</text>
         <path className="share-track" d="M8 31 C190 27 347 33 506 29 C684 25 837 32 992 28 L991 89 C816 93 668 87 501 91 C334 95 180 87 9 91 Z" />
         <path className="share-fill" d="M9 32 C31 30 56 31 88 30 L87 90 C55 89 31 90 9 91 Z" />
         <path className="share-hatch" d="M9 32 C31 30 56 31 88 30 L87 90 C55 89 31 90 9 91 Z" />
@@ -61,16 +61,15 @@ function PerformerShareGraphic() {
         <text className="share-value" x="49" y="69">~8p</text>
         <text className="share-note" x="110" y="68">TO ARTIST</text>
         <text className="share-total" x="982" y="114">£1.00 generated</text>
-        <text className="share-label" x="8" y="142">PORTO'S MODEL</text>
+        <text className="share-label" x="8" y="142">PORTO'S MODEL: UP TO 70p FOR EVERY £1</text>
         <path className="share-track" d="M8 158 C190 154 347 160 506 156 C684 152 837 159 992 155 L991 216 C816 220 668 214 501 218 C334 222 180 214 9 218 Z" />
         <path className="share-fill" d="M9 159 C202 156 441 160 699 156 L698 217 C441 220 202 215 9 218 Z" />
         <path className="share-hatch" d="M9 159 C202 156 441 160 699 156 L698 217 C441 220 202 215 9 218 Z" />
         <path className="share-divider" d="M699 150 C696 172 702 195 698 225" />
-        <text className="share-value" x="349" y="196">70p</text>
-        <text className="share-note share-note-light" x="712" y="195">UP TO 70p TO ARTIST*</text>
+        <text className="share-value" x="349" y="196">~70p</text>
+        <text className="share-note share-note-light" x="712" y="195">TO ARTIST</text>
         <text className="share-total" x="982" y="229">£1.00 allocated</text>
       </svg>
-      <figcaption>Traditional UK streaming: ~8p to the artist after other rights-holder splits. Porto: up to 70p to an independent artist holding all declared rights. Node operators receive a separate 25p pool.</figcaption>
     </figure>
   )
 }
