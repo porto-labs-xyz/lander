@@ -74,7 +74,10 @@ p { color: var(--muted); }
 .performer-share .share-hatch { fill: url(#performer-share-hatch); }
 .performer-share .share-divider { fill: none; stroke: #ee6251; stroke-width: 1.35; stroke-linecap: round; }
 .performer-share text { font-family: var(--mono); }
-.performer-share .share-eight { fill: var(--paper); font-size: 22px; font-weight: 600; text-anchor: middle; }
+.performer-share .share-label { fill: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: .08em; }
+.performer-share .share-value { fill: var(--paper); font-size: 22px; font-weight: 600; text-anchor: middle; }
+.performer-share .share-note { fill: var(--paper); font-size: 16px; font-weight: 600; letter-spacing: .025em; }
+.performer-share .share-note-light { fill: var(--paper); font-size: 15px; }
 .performer-share .share-total { fill: var(--muted); font-size: 15px; text-anchor: end; }
 .performer-share figcaption { margin-top: 8px; text-align: left; font: 11px/1.6 var(--mono); letter-spacing: .035em; text-transform: uppercase; }
 figcaption { text-align: center; color: var(--muted); font-size: 14px; }
@@ -226,7 +229,11 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
   .performer-share-heading { align-items: flex-start; flex-direction: column; gap: 18px; }
   .performer-share-heading strong { font-size: 32px; }
   .performer-share svg { margin-top: 18px; }
-  .performer-share .share-total { font-size: 20px; }
+  .performer-share .share-label { font-size: 30px; }
+  .performer-share .share-value { font-size: 36px; }
+  .performer-share .share-note { font-size: 26px; }
+  .performer-share .share-note-light { font-size: 24px; }
+  .performer-share .share-total { display: none; }
   .three-grid { grid-template-columns: 1fr; gap: 14px; }
   .step { padding: 25px; }
   .step-number { margin-bottom: 20px; }
