@@ -14,7 +14,7 @@ module.exports = {
         background_color: `#1b1a17`,
         theme_color: `#ee6251`,
         display: `standalone`,
-        icon: `static/images/porto-mark-handdrawn-icon.png`,
+        icon: `static/images/porto-mark-dark-branded.png`,
       },
     },
   ],
