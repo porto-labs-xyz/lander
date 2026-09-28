@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-const calendlyUrl = 'https://calendly.com/d/dz7f-tjf-km7/20-min-meeting-porto-meeting?background_color=ffffff&text_color=09223b&primary_color=ee6251'
+const calendlyUrl = 'https://calendly.com/d/dz7f-tjf-km7/20-min-meeting-porto-meeting?background_color=090a0a&text_color=eee8dc&primary_color=ee6251'
 const widgetScriptUrl = 'https://assets.calendly.com/assets/external/widget.js'
 
 function CalendlyInlineEmbed() {
@@ -60,7 +60,7 @@ export default function BookPage() {
     <div className="booking-page">
       <header className="booking-header">
         <a className="booking-brand" href="/" aria-label="Porto home">
-          <img src="/images/porto-mark-handdrawn.webp" width="56" height="56" alt="" />
+          <span className="booking-brand-mark" aria-hidden="true" />
           <span>PORTO</span>
         </a>
         <a className="booking-join" href="/#join">Join The Network <span aria-hidden="true">↗</span></a>
@@ -81,19 +81,19 @@ export const Head = () => (
   <>
     <html lang="en" />
     <title>Book a call with Porto</title>
-    <meta name="description" content="Choose a time to meet the Porto co-founders." />
+    <meta name="description" content="Book a 20 minute call with Porto's co-founders." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.portolabs.xyz/book/" />
     <link rel="icon" href="/images/porto-mark-handdrawn-icon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.portolabs.xyz/book/" />
     <meta property="og:title" content="Book a call with Porto" />
-    <meta property="og:description" content="Choose a time to meet the Porto co-founders." />
+    <meta property="og:description" content="Book a 20 minute call with Porto's co-founders." />
     <meta property="og:site_name" content="Porto" />
     <meta property="og:locale" content="en_GB" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Book a call with Porto" />
-    <meta name="twitter:description" content="Choose a time to meet the Porto co-founders." />
+    <meta name="twitter:description" content="Book a 20 minute call with Porto's co-founders." />
     <link rel="preconnect" href="https://assets.calendly.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
