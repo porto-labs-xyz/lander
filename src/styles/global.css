@@ -191,7 +191,7 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .booking-page { min-height: 100vh; background: #090a0a; color: #eee8dc; }
 .booking-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px max(5.5vw, calc((100vw - 1320px) / 2)); border-bottom: 1px solid rgba(215,198,169,.2); background: #090a0a; }
 .booking-brand { display: inline-flex; align-items: center; gap: 10px; color: #eee8dc; font: 600 20px/1 var(--mono); }
-.booking-brand-mark { display: block; width: 56px; height: 56px; background: url('/images/porto-mark-handdrawn.webp') center / contain no-repeat; }
+.booking-brand-mark { display: block; width: 56px; height: 56px; background: url('/images/porto-mark-dark-branded.webp') center / contain no-repeat; }
 .booking-join { color: #eee8dc; font: 500 13px/1.4 var(--mono); }
 .booking-join span { padding-left: 8px; color: #ee6251; }
 .booking-main { width: min(100%, 1460px); margin: 0 auto; padding: clamp(28px, 5vw, 64px) clamp(24px, 5.5vw, 72px); }

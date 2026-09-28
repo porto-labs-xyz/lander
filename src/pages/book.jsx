@@ -84,7 +84,7 @@ export const Head = () => (
     <meta name="description" content="Book a 20 minute call with Porto's co-founders." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.portolabs.xyz/book/" />
-    <link rel="icon" href="/images/porto-mark-handdrawn-icon.png" type="image/png" />
+    <link rel="icon" href="/images/porto-mark-dark-branded.webp" type="image/webp" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.portolabs.xyz/book/" />
     <meta property="og:title" content="Book a call with Porto" />
