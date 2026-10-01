@@ -186,7 +186,10 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
 .investor-contact a { color: var(--paper); margin-left: 8px; }
 .site-footer { display: flex; align-items: center; gap: 40px; padding: 42px max(5.5vw, calc((100vw - 1320px) / 2)); flex-wrap: wrap; }
 .site-footer p { font-size: 12px; line-height: 1.6; }
-.site-footer > div { display: flex; gap: 26px; margin-left: auto; font-size: 14px; }
+.site-footer .footer-links { display: flex; gap: 26px; margin-left: auto; font-size: 14px; }
+.social-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--paper); font: 12px/1.4 var(--mono); transition: border-color .2s, color .2s, background .2s; }
+.social-link:hover, .social-link:focus-visible { border-color: var(--accent); color: var(--accent); background: rgba(238,98,81,.07); }
+.social-link svg { width: 17px; height: 17px; flex: 0 0 auto; fill: currentColor; }
 .copyright { color: var(--muted); font-size: 12px; }
 .booking-page { min-height: 100vh; background: #101313; color: #eee8dc; }
 .booking-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px max(5.5vw, calc((100vw - 1320px) / 2)); border-bottom: 1px solid rgba(215,198,169,.2); background: #101313; }
@@ -275,7 +278,8 @@ figcaption { text-align: center; color: var(--muted); font-size: 14px; }
   .booking-fallback { padding-right: 14px; padding-left: 14px; }
   .join-section h2 { font-size: 42px; }
   .site-footer { padding: 35px 24px; }
-  .site-footer > div { margin-left: 0; width: 100%; }
+  .site-footer .footer-links { margin-left: 0; width: 100%; flex-wrap: wrap; gap: 18px 24px; }
+  .social-link { width: 100%; justify-content: center; min-height: 48px; }
 }
 @media (max-width: 420px) {
   .site-header { gap: 14px; }
