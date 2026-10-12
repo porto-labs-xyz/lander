@@ -6,7 +6,8 @@ Reviewed 12 October 2026 against the founder's latest 15-page October Porto prod
 
 | Homepage content | October presentation page | Public asset / treatment |
 | --- | --- | --- |
-| Streaming + music generation; More music, made to be listened to | 1 | Accessible hero copy |
+| Streaming + music generation | 1 | Accessible hero supporting copy |
+| Co-create | Founder instruction, 12 October 2026 | Main slogan and social preview |
 | Press play; familiar streaming | 3 | `static/images/october/listening.webp` |
 | Voice/text requests; Same song. Your version. | 4 | `static/images/october/voice.webp` |
 | User Variation Tracks; creator discovery and sharing | 5 | `static/images/october/creators.webp` |
@@ -19,7 +20,7 @@ Reviewed 12 October 2026 against the founder's latest 15-page October Porto prod
 
 The three app frames are extracted from page coordinates `(340, 98, 923, 463)` in a 960 × 540 presentation. The Ledger table uses `(53, 314, 649, 451)`. Renders are 2.5×, encoded as WebP. They contain fictional concept content and no fundraising information. The original-record image has not been used to imply a working financial service.
 
-`porto-listening-1200x630.png` is a new social preview composed from the listening screen, approved Porto mark and current headline. The old competitor-comparison social graphic is no longer referenced.
+`porto-co-create-1200x630.png` is a new social preview composed from the listening screen, approved Porto mark and current headline. The old competitor-comparison social graphic is no longer referenced.
 
 ## Evidence boundaries
 
