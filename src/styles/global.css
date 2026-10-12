@@ -68,6 +68,7 @@ img { max-width: 100%; display: block; }
 .p-hero::before { content: ''; position: absolute; inset: -40px -260px -20px 30%; background: radial-gradient(ellipse, #6e483329, transparent 65%); pointer-events: none; }
 .p-kicker { color: var(--accent) !important; font: 400 12px/1.6 var(--mono); letter-spacing: .065em; text-transform: uppercase; margin-bottom: 24px; }
 .porto-site h1 { font: 500 clamp(39px, 4.2vw, 64px)/1.12 var(--mono); letter-spacing: -.07em; }
+.p-hero-mark { width: 144px; height: auto; aspect-ratio: 1; object-fit: contain; margin: 0 0 20px -22px; }
 .p-hero h1 span, .p-artists h2 span, .p-ledger h2 span, .p-join h2 span { color: var(--accent); }
 .p-lead { font-size: 20px; line-height: 1.6; max-width: 640px; }
 .p-hero .p-lead { margin-top: 27px; font-size: 18px; }
@@ -257,6 +258,7 @@ img { max-width: 100%; display: block; }
   .p-header .p-brand img { width: 40px; height: 40px; }
   .p-nav-cta { font-size: 12px; padding: 10px; gap: 10px; }
   .p-header nav a { font-size: 12px; padding-block: 7px; }
+  .p-hero-mark { width: 112px; margin: 0 0 16px -17px; }
   .p-hero h1 { font-size: clamp(32px, 8.3vw, 40px); }
   .p-hero .p-kicker { font-size: 12px; }
   .p-hero .p-lead { font-size: 16px; }
