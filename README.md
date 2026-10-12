@@ -1,6 +1,10 @@
 # Porto
 
-Decentralized Streaming Infrastructure
+Streaming + music generation. Licensed originals, personal variations and connected royalties.
+
+The homepage follows the October product presentation. Public claims and image provenance are documented in [CLAUDE.md](CLAUDE.md) and [docs/CONTENT-SOURCES.md](docs/CONTENT-SOURCES.md).
+
+[Explore the listening prototype](https://porto-prototype.vercel.app/).
 
 ## Setup
 
