@@ -24,9 +24,9 @@ The three app frames are extracted from page coordinates `(340, 98, 923, 463)` i
 
 ## Evidence boundaries
 
-### Hero P cutout
+### Archived hero P cutout
 
-At the founder's request on 12 October 2026, the hero uses `static/images/porto-mark-transparent.webp`, derived from the existing `porto-mark-dark-branded.webp` using the built-in image editing tool with transparent output. The RGBA output was resized to 432 × 432 and encoded as lossless WebP with its alpha preserved. The header and footer retain their existing artwork.
+The founder subsequently removed the standalone P above Co-create on 12 October 2026. The hero no longer references this asset. The retained `static/images/porto-mark-transparent.webp` was derived from the existing `porto-mark-dark-branded.webp` using the built-in image editing tool with transparent output. The RGBA output was resized to 432 × 432 and encoded as lossless WebP with its alpha preserved. The header and footer retain their existing artwork.
 
 Final image-edit prompt:
 
