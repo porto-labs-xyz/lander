@@ -1,77 +1,43 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 
-const calendlyUrl = 'https://calendly.com/d/dz7f-tjf-km7/20-min-meeting-porto-meeting?background_color=101313&text_color=eee8dc&primary_color=ee6251'
-const widgetScriptUrl = 'https://assets.calendly.com/assets/external/widget.js'
+const bookingUrl = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3mIWxC1ktiq8hY4v2k7n7OLV9-mV5LeNDbw39rutjhWd3O-u4CbNtFsOxOMJ4Vc1W_2c5RFv9J?gv=true'
 
-function CalendlyInlineEmbed() {
-  const widgetRef = useRef(null)
-
-  useEffect(() => {
-    const container = widgetRef.current
-    if (!container) return undefined
-
-    let cancelled = false
-    let script = document.querySelector(`script[src="${widgetScriptUrl}"]`)
-    const initializeWidget = () => {
-      if (cancelled || !window.Calendly || container.dataset.initialized === 'true') return
-      container.dataset.initialized = 'true'
-      window.Calendly.initInlineWidget({
-        url: calendlyUrl,
-        parentElement: container,
-      })
-    }
-
-    if (window.Calendly) {
-      initializeWidget()
-    } else {
-      if (!script) {
-        script = document.createElement('script')
-        script.src = widgetScriptUrl
-        script.async = true
-        document.body.appendChild(script)
-      }
-      script.addEventListener('load', initializeWidget)
-    }
-
-    return () => {
-      cancelled = true
-      script?.removeEventListener('load', initializeWidget)
-      container.innerHTML = ''
-      delete container.dataset.initialized
-    }
-  }, [])
-
+function GoogleBookingEmbed() {
   return (
-    <div className="booking-widget-frame">
-      <div
-        className="calendly-inline-widget"
-        data-url={calendlyUrl}
-        ref={widgetRef}
-        style={{ minWidth: '320px', height: '880px' }}
-        aria-label="Calendly booking calendar"
-      />
-      <p className="booking-fallback">Calendar not loading? <a href="https://calendly.com/d/dz7f-tjf-km7/20-min-meeting-porto-meeting">Open the booking page directly</a>.</p>
-    </div>
+    <section className="booking-widget-frame" aria-label="Choose a time to meet Porto">
+      <div className="booking-calendar-surface">
+        <iframe
+          className="booking-calendar"
+          src={bookingUrl}
+          title="Book a call with Porto on Google Calendar"
+          width="100%"
+          height="720"
+          style={{ border: 0 }}
+        />
+      </div>
+      <p className="booking-fallback">Calendar not loading? <a href={bookingUrl} target="_blank" rel="noopener noreferrer">Open the booking page directly <span aria-hidden="true">↗</span></a></p>
+    </section>
   )
 }
 
 export default function BookPage() {
   return (
     <div className="booking-page">
+      <a className="skip-link" href="#booking-main">Skip to booking</a>
       <header className="booking-header">
         <a className="booking-brand" href="/" aria-label="Porto home">
           <span className="booking-brand-mark" aria-hidden="true" />
           <span>PORTO</span>
         </a>
-        <a className="booking-join" href="/#join">Join The Network <span aria-hidden="true">↗</span></a>
+        <a className="booking-join" href="/#join">Explore Porto <span aria-hidden="true">↗</span></a>
       </header>
-      <main className="booking-main">
+      <main className="booking-main" id="booking-main">
         <div className="booking-intro">
           <p className="booking-eyebrow">Porto / Conversation</p>
-          <h1>Book A Call</h1>
+          <h1>Book a call</h1>
           <p>Choose a time to meet the Porto co-founders.</p>
         </div>
-        <CalendlyInlineEmbed />
+        <GoogleBookingEmbed />
       </main>
     </div>
   )
@@ -102,7 +68,7 @@ export const Head = () => (
     <meta name="twitter:description" content="Book a 20 minute call with Porto's co-founders." />
     <meta name="twitter:image" content="https://www.portolabs.xyz/images/og-book-dark-p-thumb-256.png" />
     <meta name="twitter:image:alt" content="Porto's hand-drawn P centered on charcoal" />
-    <link rel="preconnect" href="https://assets.calendly.com" />
+    <link rel="preconnect" href="https://calendar.google.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
