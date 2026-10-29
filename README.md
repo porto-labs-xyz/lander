@@ -1,6 +1,6 @@
 # FREQ by Porto Labs
 
-A minimal, responsive stealth landing page for a creative system in development. The page uses the existing FREQ identity and keeps two conversion paths: the email waitlist and `/book/` appointment booking.
+A minimal, responsive stealth landing page for a creative system in development. The page uses the founder-supplied 27 October Afterimage identity and keeps two conversion paths: the email waitlist and `/book/` appointment booking.
 
 Current copy, asset provenance and historical context are documented in [CLAUDE.md](CLAUDE.md) and [docs/CONTENT-SOURCES.md](docs/CONTENT-SOURCES.md).
 

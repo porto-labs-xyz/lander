@@ -8,9 +8,10 @@ Headline: “A new frequency for imagination.” Supporting copy: “We’re bui
 
 ## Branding and conversion sources
 
-- FREQ design system draft 0.2.0, `freq-design-system/README.md`, `freq.css` and `DECK-REFERENCE.md`: near-black #0B0B0D, paper #F4F2ED, lime #C8FF4D, Space Grotesk display/body and IBM Plex Mono labels.
-- Existing public FREQ deck handoff: `assets/hero.png` copied unchanged to `static/images/freq/chrome.png`. It is decorative brand artwork, not a hardware or product render. The same image replaces the old product screenshot in social metadata.
-- The handoff's local Space Grotesk and IBM Plex Mono fonts are retained with their original licence notice in `static/fonts/`.
+- Brand correction supplied by the founder on 29 October: `FREQ-Brands-Agencies-27-10-2026-v5.pdf`. The founder approved the existing landing copy and requested visual alignment. The newer Afterimage identity supersedes the earlier chrome-and-bright-lime treatment for this page.
+- Exact fluid wordmark extracted from the PDF's page 1 image object, including its existing alpha channel, retained as `static/images/freq/wordmark.png`. Abstract orbital/grain artwork extracted unchanged from the page 15 image object as `static/images/freq/afterimage-orbits.png`. Only these brand assets are used, not slide screenshots, device renders, commercial claims or the complete deck.
+- The PDF uses oxblood #251820, bone #EEE9D8, lavender supporting type and restrained yellow-lime #D9E867. Arial regular/bold is the deck's body/display family, with IBM Plex Mono labels. The landing page uses the system Arial stack and the previously licensed local IBM Plex Mono font. Bone signup surfaces echo the deck's light slides.
+- The approved headline, supporting copy and conversion labels remain unchanged. The earlier chrome artwork and Space Grotesk font stay in the repository as historical assets; they are no longer referenced by the active homepage.
 - Porto's released corporate design system remains a separate reference. FREQ carries “by Porto Labs”; this page does not redefine the corporate identity.
 - The existing Formspree form destination is retained, with native email validation, submitting, success, failure and timeout states. A normal form action remains available without JavaScript. Joining consents to FREQ updates from Porto Labs.
 - `/book/` retains the existing Google Calendar appointment embed and direct fallback link. Its surrounding shell now uses FREQ branding.

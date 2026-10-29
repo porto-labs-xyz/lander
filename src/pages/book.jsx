@@ -26,7 +26,7 @@ export default function BookPage() {
       <a className="skip-link" href="#booking-main">Skip to booking</a>
       <header className="freq-header freq-wrap">
         <a className="freq-brand" href="/" aria-label="FREQ by Porto Labs home">
-          <span className="freq-wordmark">FREQ<span className="freq-stop">.</span></span>
+          <span className="freq-wordmark">FREQ</span>
           <span className="freq-byline">by Porto Labs</span>
         </a>
         <a className="freq-text-link" href="/#join">Join the waitlist <span aria-hidden="true">↗</span></a>

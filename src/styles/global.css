@@ -51,94 +51,93 @@ img { max-width: 100%; display: block; }
   .booking-fallback { padding-right: 14px; padding-left: 14px; }
 }
 
-/* FREQ stealth landing. Tokens and fonts from the existing FREQ design system. */
-@font-face { font-family: 'Space Grotesk'; src: url('/fonts/space-grotesk.woff2') format('woff2'); font-style: normal; font-weight: 300 700; font-display: swap; }
+/* Afterimage identity, matched to the founder-supplied 27 October v5 deck. */
 @font-face { font-family: 'IBM Plex Mono'; src: url('/fonts/ibm-plex-mono.ttf') format('truetype'); font-style: normal; font-weight: 400; font-display: swap; }
-.freq-site { --background: #0b0b0d; --paper: #f4f2ed; --muted: #a5a5af; --accent: #c8ff4d; --line: #ffffff25; background: var(--background); color: var(--paper); font-family: 'Space Grotesk', sans-serif; }
+.freq-site { --background: #251820; --paper: #eee9d8; --muted: #c6bac3; --accent: #d9e867; --lavender: #baa8d3; --line: #eee9d83b; background: var(--background); color: var(--paper); font-family: Arial, Helvetica, sans-serif; }
 .freq-wrap { width: min(100% - 112px, 1440px); margin-inline: auto; }
-.freq-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 27px; }
-.freq-brand { display: flex; align-items: center; gap: 20px; }
-.freq-wordmark { font-size: 34px; font-weight: 700; letter-spacing: -.07em; line-height: 1; }
-.freq-stop { color: var(--accent); }
-.freq-byline { padding-left: 20px; border-left: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.freq-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 22px; border-bottom: 1px solid var(--line); }
+.freq-brand { display: flex; align-items: center; gap: 22px; font: 400 12px/1.5 var(--mono); letter-spacing: .25em; text-transform: uppercase; }
+.freq-wordmark { font: inherit; }
+.freq-byline { padding-left: 22px; border-left: 1px solid var(--line); color: var(--paper); font-size: 11px; letter-spacing: .16em; }
 .freq-header nav { display: flex; align-items: center; gap: 32px; font-size: 14px; }
 .freq-header nav a { display: inline-flex; align-items: center; min-height: 44px; }
-.freq-nav-call { border: 1px solid #ffffff40; border-radius: 4px; padding: 0 18px; gap: 24px; }
-.freq-hero { position: relative; isolation: isolate; min-height: 690px; min-height: min(790px, calc(100svh - 98px)); display: flex; flex-direction: column; justify-content: center; overflow: hidden; border-block: 1px solid var(--line); }
-.freq-art { position: absolute; z-index: -2; height: 100%; width: 100%; object-fit: cover; object-position: center; opacity: .9; }
-.freq-hero-shade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, #0b0b0d 0%, #0b0b0de6 26%, #0b0b0d55 65%, #0b0b0d00 100%); }
-.freq-hero-inner { padding-block: 96px 130px; }
-.freq-eyebrow { font: 400 12px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-.freq-hero .freq-eyebrow { color: var(--accent); display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
-.freq-signal { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.freq-hero h1 { font-size: clamp(52px, 5.6vw, 88px); font-weight: 400; line-height: 1.04; letter-spacing: -.065em; max-width: 950px; }
-.freq-hero h1 span { color: var(--accent); }
-.freq-intro { max-width: 490px; font-size: 17px; line-height: 1.65; color: #c0c0c7; margin-top: 30px; }
-.freq-actions { display: flex; align-items: center; gap: 32px; margin-top: 36px; }
-.freq-button { display: inline-flex; justify-content: space-between; align-items: center; gap: 26px; min-height: 52px; padding: 14px 22px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: #0b0b0d; font-size: 14px; font-weight: 500; line-height: 1.5; transition: background .18s; white-space: nowrap; }
-.freq-button:hover { background: #e4ffa8; color: #0b0b0d; }
+.freq-nav-call { border: 1px solid #eee9d866; padding: 0 18px; gap: 24px; }
+.freq-hero { position: relative; isolation: isolate; min-height: 720px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.freq-art { position: absolute; z-index: -2; height: 100%; width: 100%; object-fit: cover; object-position: center; }
+.freq-hero-shade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, #251820 0%, #251820 31%, #251820d9 43%, #25182000 76%); }
+.freq-hero-inner { padding-block: 48px 104px; }
+.freq-fluid-wordmark { width: clamp(270px, 29vw, 430px); height: auto; margin-left: -15px; margin-bottom: 30px; }
+.freq-eyebrow { font: 400 11px/1.6 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+.freq-hero .freq-eyebrow { color: var(--lavender); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.freq-signal { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.freq-hero h1 { font-size: clamp(44px, 4.55vw, 70px); font-weight: 700; line-height: 1.06; letter-spacing: -.035em; max-width: 760px; }
+.freq-hero h1 span { color: var(--paper); }
+.freq-intro { max-width: 500px; font-size: 17px; line-height: 1.6; color: var(--lavender); margin-top: 26px; }
+.freq-actions { display: flex; align-items: center; gap: 32px; margin-top: 32px; }
+.freq-button { display: inline-flex; justify-content: space-between; align-items: center; gap: 26px; min-height: 52px; padding: 14px 22px; border: 1px solid var(--accent); border-radius: 0; background: var(--accent); color: #251820; font-size: 14px; font-weight: 600; line-height: 1.5; transition: background .18s; white-space: nowrap; }
+.freq-button:hover { background: #e7f098; color: #251820; }
 .freq-button:disabled { cursor: wait; opacity: .65; }
 .freq-text-link { display: inline-flex; align-items: center; gap: 22px; min-height: 48px; font-size: 14px; }
-.freq-hero-foot { position: absolute; bottom: 25px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; color: #b9b9c4; font: 400 11px/1.5 var(--mono); letter-spacing: .1em; }
+.freq-hero-foot { position: absolute; bottom: 20px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; color: var(--paper); font: 400 10px/1.5 var(--mono); letter-spacing: .1em; }
 .freq-hero-foot a { display: inline-flex; align-items: center; gap: 20px; min-height: 44px; }
-.freq-join { display: grid; grid-template-columns: 1fr 1fr; gap: 9%; padding-block: 94px 70px; scroll-margin-top: 24px; }
+.freq-join { --paper: #251820; --muted: #65535e; --accent: #251820; --line: #2518204d; width: 100%; margin: 0; background: #eee9d8; color: #251820; display: grid; grid-template-columns: 1fr 1fr; gap: 9%; padding: 88px max(56px, calc((100% - 1440px) / 2)) 64px; scroll-margin-top: 0; }
 .freq-join .freq-eyebrow { color: var(--muted); margin-bottom: 22px; }
-.freq-join h2 { font-size: clamp(38px, 4vw, 58px); font-weight: 400; line-height: 1.1; letter-spacing: -.05em; }
-.freq-signup > p { color: #b9b9c4; font-size: 16px; line-height: 1.65; margin-bottom: 25px; }
+.freq-join h2 { font-size: clamp(38px, 4vw, 58px); font-weight: 700; line-height: 1.08; letter-spacing: -.035em; }
+.freq-signup > p { font-size: 16px; line-height: 1.65; margin-bottom: 25px; }
 .freq-signup label { display: block; margin-bottom: 9px; font-size: 13px; }
 .freq-form-row { display: flex; gap: 10px; }
-.freq-form-row input { min-width: 0; width: 100%; border: 1px solid #ffffff45; border-radius: 4px; background: #ffffff04; color: var(--paper); padding: 14px; font-size: 16px; }
-.freq-form-row input::placeholder { color: #90909a; }
+.freq-form-row input { min-width: 0; width: 100%; border: 1px solid #25182066; border-radius: 0; background: transparent; color: #251820; padding: 14px; font-size: 16px; }
+.freq-form-row input::placeholder { color: #6e626a; }
+.freq-join .freq-button { background: #251820; color: #eee9d8; }
+.freq-join .freq-button:hover { background: #49313f; }
 .freq-small { font-size: 12px; color: var(--muted); line-height: 1.6; }
 #signup-note { margin-top: 14px; max-width: 400px; }
 .freq-form-status { min-height: 26px; margin-top: 12px; font-size: 14px; color: var(--accent); }
 .freq-form-status a { text-decoration: underline; text-underline-offset: 3px; }
-.freq-footer { border-top: 1px solid var(--line); padding-block: 30px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.freq-footer { padding-block: 30px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .freq-footer > div { display: flex; align-items: center; gap: 24px; }
-.freq-company { font-size: 16px; letter-spacing: -.04em; }
+.freq-company { font: 400 12px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .1em; }
 .freq-footer nav { display: flex; gap: 28px; font-size: 12px; }
 .freq-footer nav a { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; }
-@media (min-width: 1800px) { .freq-art { object-position: center 45%; } }
 @media (max-width: 1000px) {
   .freq-wrap { width: calc(100% - 64px); }
-  .freq-join { gap: 36px; }
+  .freq-join { width: 100%; gap: 36px; padding-inline: 32px; }
   .freq-form-row { flex-direction: column; }
-  .freq-art { object-position: 60% center; }
-  .freq-hero-shade { background: linear-gradient(90deg, #0b0b0df5 0%, #0b0b0dbf 58%, #0b0b0d22 100%); }
+  .freq-hero-shade { background: linear-gradient(90deg, #251820 0%, #251820e8 38%, #25182099 62%, #25182000 100%); }
 }
 @media (max-width: 640px) {
   .freq-wrap { width: calc(100% - 40px); }
-  .freq-header { padding-block: 18px; gap: 12px; }
-  .freq-brand { gap: 0; flex-direction: column; align-items: flex-start; }
-  .freq-wordmark { font-size: 30px; }
-  .freq-byline { border: 0; padding: 4px 0 0; font-size: 10px; }
+  .freq-header { padding-block: 15px; gap: 12px; }
+  .freq-brand { gap: 8px; font-size: 11px; letter-spacing: .18em; }
+  .freq-byline { padding-left: 8px; font-size: 8px; letter-spacing: .06em; }
   .freq-header nav { gap: 0; font-size: 12px; }
   .freq-nav-join { display: none !important; }
-  .freq-nav-call { padding-inline: 13px; gap: 18px; }
-  .freq-hero { min-height: 700px; }
-  .freq-hero-inner { padding-block: 62px 280px; }
-  .freq-hero h1 { font-size: clamp(42px, 10.7vw, 68px); letter-spacing: -.065em; }
-  .freq-hero .freq-eyebrow { margin-bottom: 24px; }
-  .freq-intro { font-size: 16px; max-width: 350px; margin-top: 24px; }
+  .freq-nav-call { padding-inline: 12px; gap: 12px; }
+  .freq-hero { min-height: 780px; }
+  .freq-hero-inner { padding-block: 36px 290px; }
+  .freq-fluid-wordmark { width: 270px; margin-left: -10px; margin-bottom: 22px; }
+  .freq-hero h1 { font-size: clamp(36px, 9.2vw, 54px); letter-spacing: -.035em; }
+  .freq-hero .freq-eyebrow { margin-bottom: 18px; }
+  .freq-intro { font-size: 16px; max-width: 350px; margin-top: 22px; }
   .freq-desktop-break { display: none; }
   .freq-actions { gap: 24px; margin-top: 26px; }
   .freq-button { padding-inline: 17px; gap: 18px; }
   .freq-text-link { gap: 14px; }
-  .freq-art { width: 150%; max-width: none; height: 62%; bottom: -2%; left: -43%; object-fit: cover; object-position: 67% center; }
-  .freq-hero-shade { background: linear-gradient(180deg, #0b0b0d 0%, #0b0b0d 39%, #0b0b0d99 60%, #0b0b0d00 80%, #0b0b0d55 100%); }
-  .freq-hero-foot { bottom: 10px; font-size: 10px; }
-  .freq-join { grid-template-columns: 1fr; gap: 32px; padding-block: 62px 40px; }
+  .freq-art { width: 160%; max-width: none; height: 53%; bottom: 0; left: -60%; object-fit: cover; object-position: 68% center; }
+  .freq-hero-shade { background: linear-gradient(180deg, #251820 0%, #251820 49%, #251820c9 61%, #25182000 83%, #25182055 100%); }
+  .freq-hero-foot { bottom: 10px; font-size: 9px; }
+  .freq-join { width: 100%; grid-template-columns: 1fr; gap: 32px; padding: 54px 20px 34px; }
   .freq-join h2 br { display: none; }
-  .freq-join h2 { max-width: 300px; }
+  .freq-join h2 { max-width: 320px; }
   .freq-form-row { flex-direction: column; }
   .freq-footer { align-items: flex-start; padding-block: 24px; flex-direction: column; gap: 14px; }
   .freq-footer > div { width: 100%; justify-content: space-between; gap: 12px; }
 }
-@media (max-width: 360px) { .freq-actions { gap: 18px; } .freq-actions .freq-button { padding-inline: 12px; gap: 10px; } }
+@media (max-width: 360px) { .freq-actions { gap: 18px; } .freq-actions .freq-button { padding-inline: 12px; gap: 10px; } .freq-byline { max-width: 78px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
 
-/* Keep the booking provider intact inside the FREQ shell. */
-.booking-page.freq-site { background: #0b0b0d; }
-.freq-site .booking-intro h1 { color: #f4f2ed; font-family: 'Space Grotesk', sans-serif; font-weight: 400; }
-.freq-site .booking-eyebrow, .freq-site .booking-fallback a { color: #c8ff4d; }
-.freq-site .booking-widget-frame { background: #0b0b0d; }
+/* Keep the booking provider intact inside the Afterimage shell. */
+.booking-page.freq-site { background: #251820; }
+.freq-site .booking-intro h1 { color: #eee9d8; font-family: Arial, Helvetica, sans-serif; font-weight: 700; }
+.freq-site .booking-eyebrow, .freq-site .booking-fallback a { color: #baa8d3; }
+.freq-site .booking-widget-frame { background: #251820; }

@@ -9,10 +9,10 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `FREQ by Porto Labs`,
-        short_name: `FREQ by Porto Labs`,
+        short_name: `FREQ`,
         start_url: `/`,
-        background_color: `#0b0b0d`,
-        theme_color: `#c8ff4d`,
+        background_color: `#251820`,
+        theme_color: `#d9e867`,
         display: `standalone`,
         icon: `static/images/porto-mark-dark-branded.png`,
       },

@@ -39,7 +39,7 @@ export default function IndexPage() {
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="freq-header freq-wrap">
         <a className="freq-brand" href="#home" aria-label="FREQ by Porto Labs home">
-          <span className="freq-wordmark">FREQ<span className="freq-stop">.</span></span>
+          <span className="freq-wordmark">FREQ</span>
           <span className="freq-byline">by Porto Labs</span>
         </a>
         <nav aria-label="Main navigation">
@@ -49,9 +49,10 @@ export default function IndexPage() {
       </header>
       <main id="main">
         <section className="freq-hero" aria-labelledby="hero-heading">
-          <img className="freq-art" src="/images/freq/chrome.png" width="1672" height="941" alt="" fetchPriority="high" />
+          <img className="freq-art" src="/images/freq/afterimage-orbits.png" width="1672" height="941" alt="" fetchpriority="high" />
           <div className="freq-hero-shade" aria-hidden="true" />
           <div className="freq-hero-inner freq-wrap">
+            <img className="freq-fluid-wordmark" src="/images/freq/wordmark.png" width="2172" height="724" alt="" />
             <p className="freq-eyebrow"><span className="freq-signal" aria-hidden="true" /> In the making</p>
             <h1 id="hero-heading">A new frequency <br />for <span>imagination.</span></h1>
             <p className="freq-intro">We’re building a new kind of creative system.<br className="freq-desktop-break" /> Where AI, imagination and personal computing meet.</p>
@@ -98,24 +99,24 @@ export const Head = () => (
     <title>FREQ by Porto Labs | A new frequency for imagination</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#0b0b0d" />
+    <meta name="theme-color" content="#251820" />
     <link rel="canonical" href="https://www.portolabs.xyz/" />
-    <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+    <link rel="preload" href="/images/freq/wordmark.png" as="image" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.portolabs.xyz/" />
     <meta property="og:title" content="FREQ by Porto Labs | A new frequency for imagination" />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="FREQ by Porto Labs" />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:image" content="https://www.portolabs.xyz/images/freq/chrome.png" />
+    <meta property="og:image" content="https://www.portolabs.xyz/images/freq/afterimage-orbits.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1672" />
     <meta property="og:image:height" content="941" />
-    <meta property="og:image:alt" content="Flowing chrome artwork from the FREQ visual identity." />
+    <meta property="og:image:alt" content="Orbital grain artwork from the FREQ Afterimage identity." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="FREQ by Porto Labs | A new frequency for imagination" />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://www.portolabs.xyz/images/freq/chrome.png" />
-    <meta name="twitter:image:alt" content="Flowing chrome artwork from the FREQ visual identity." />
+    <meta name="twitter:image" content="https://www.portolabs.xyz/images/freq/afterimage-orbits.png" />
+    <meta name="twitter:image:alt" content="Orbital grain artwork from the FREQ Afterimage identity." />
   </>
 )
