@@ -1,3 +1,29 @@
+# FREQ stealth landing page provenance
+
+## Current stealth direction, 29 October 2026
+
+The founder requested a sleek, minimal, premium landing page that hints at an AI creative and compute system without disclosing features, architecture or commercial positioning. This direction supersedes the October homepage requirements below for the current public page. The previous implementation is preserved at `entropy-acs/landing-before-freq-stealth-2026-10-29` (baseline `b3df6f0`). The refreshed working branch is `entropy-acs/freq-stealth-landing`.
+
+Headline: “A new frequency for imagination.” Supporting copy: “We’re building a new kind of creative system. Where AI, imagination and personal computing meet.” These describe work in progress. They do not claim production capabilities, availability, a release date or hardware performance.
+
+## Branding and conversion sources
+
+- FREQ design system draft 0.2.0, `freq-design-system/README.md`, `freq.css` and `DECK-REFERENCE.md`: near-black #0B0B0D, paper #F4F2ED, lime #C8FF4D, Space Grotesk display/body and IBM Plex Mono labels.
+- Existing public FREQ deck handoff: `assets/hero.png` copied unchanged to `static/images/freq/chrome.png`. It is decorative brand artwork, not a hardware or product render. The same image replaces the old product screenshot in social metadata.
+- The handoff's local Space Grotesk and IBM Plex Mono fonts are retained with their original licence notice in `static/fonts/`.
+- Porto's released corporate design system remains a separate reference. FREQ carries “by Porto Labs”; this page does not redefine the corporate identity.
+- The existing Formspree form destination is retained, with native email validation, submitting, success, failure and timeout states. A normal form action remains available without JavaScript. Joining consents to FREQ updates from Porto Labs.
+- `/book/` retains the existing Google Calendar appointment embed and direct fallback link. Its surrounding shell now uses FREQ branding.
+- Public contact and Porto X links are retained. Prototype links, financial details, team biographies and product screenshots are omitted from the stealth homepage.
+
+## Retained narrative and evidence boundary
+
+“Co-create”, artist permission and source attribution remain useful narrative history. Preserve the following October mapping and archived assets for future work; they do not establish the current launch offer. The newer stealth direction does not amend the canonical whitepaper or protocol proposals. Local preview and controlled signup checks do not establish real mailing-list delivery or a completed appointment. No deployment is part of this change.
+
+---
+
+## Historical October homepage sources
+
 # Landing page content sources
 
 Reviewed 12 October 2026 against the founder's latest 15-page October Porto product presentation. Only public product concepts and selected concept graphics are included. The private deck, financial raise page and fundraising details are not published in this repository.

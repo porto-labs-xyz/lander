@@ -2,7 +2,7 @@
   "name": "porto",
   "version": "1.0.0",
   "private": true,
-  "description": "Streaming, personal variations and connected music royalties",
+  "description": "FREQ by Porto Labs: a new kind of creative system",
   "scripts": {
     "develop": "npx gatsby develop",
     "start": "npx gatsby develop",

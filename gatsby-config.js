@@ -1,18 +1,18 @@
 module.exports = {
   siteMetadata: {
-    title: `Porto`,
-    description: `Streaming + music generation. Licensed originals, personal variations and connected royalties.`,
+    title: `FREQ by Porto Labs`,
+    description: `A new kind of creative system. Where AI, imagination and personal computing meet.`,
     siteUrl: `https://www.portolabs.xyz`,
   },
   plugins: [
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Porto`,
-        short_name: `Porto`,
+        name: `FREQ by Porto Labs`,
+        short_name: `FREQ by Porto Labs`,
         start_url: `/`,
-        background_color: `#111211`,
-        theme_color: `#ee6251`,
+        background_color: `#0b0b0d`,
+        theme_color: `#c8ff4d`,
         display: `standalone`,
         icon: `static/images/porto-mark-dark-branded.png`,
       },
