@@ -1,3 +1,30 @@
+# FREQ stealth landing page provenance
+
+## Current stealth direction, 29 October 2026
+
+The founder requested a sleek, minimal, premium landing page that hints at an AI creative and compute system without disclosing features, architecture or commercial positioning. This direction supersedes the October homepage requirements below for the current public page. The previous implementation is preserved at `entropy-acs/landing-before-freq-stealth-2026-10-29` (baseline `b3df6f0`). The refreshed working branch is `entropy-acs/freq-stealth-landing`.
+
+Headline: “A new frequency for imagination.” Supporting copy: “We’re building a new kind of creative system. Where AI, imagination and personal computing meet.” These describe work in progress. They do not claim production capabilities, availability, a release date or hardware performance.
+
+## Branding and conversion sources
+
+- Brand correction supplied by the founder on 29 October: `FREQ-Brands-Agencies-27-10-2026-v5.pdf`. The founder approved the existing landing copy and requested visual alignment. The newer Afterimage identity supersedes the earlier chrome-and-bright-lime treatment for this page.
+- Exact fluid wordmark extracted from the PDF's page 1 image object, including its existing alpha channel, retained as `static/images/freq/wordmark.png`. Abstract orbital/grain artwork extracted unchanged from the page 15 image object as `static/images/freq/afterimage-orbits.png`. Only these brand assets are used, not slide screenshots, device renders, commercial claims or the complete deck.
+- The PDF uses oxblood #251820, bone #EEE9D8, lavender supporting type and restrained yellow-lime #D9E867. Arial regular/bold is the deck's body/display family, with IBM Plex Mono labels. The landing page uses the system Arial stack and the previously licensed local IBM Plex Mono font. Bone signup surfaces echo the deck's light slides.
+- The approved headline, supporting copy and conversion labels remain unchanged. The earlier chrome artwork and Space Grotesk font stay in the repository as historical assets; they are no longer referenced by the active homepage.
+- Porto's released corporate design system remains a separate reference. FREQ carries “by Porto Labs”; this page does not redefine the corporate identity.
+- The existing Formspree form destination is retained, with native email validation, submitting, success, failure and timeout states. A normal form action remains available without JavaScript. Joining consents to FREQ updates from Porto Labs.
+- `/book/` retains the existing Google Calendar appointment embed and direct fallback link. Its surrounding shell now uses FREQ branding.
+- Public contact and Porto X links are retained. Prototype links, financial details, team biographies and product screenshots are omitted from the stealth homepage.
+
+## Retained narrative and evidence boundary
+
+“Co-create”, artist permission and source attribution remain useful narrative history. Preserve the following October mapping and archived assets for future work; they do not establish the current launch offer. The newer stealth direction does not amend the canonical whitepaper or protocol proposals. Local preview and controlled signup checks do not establish real mailing-list delivery or a completed appointment. No deployment is part of this change.
+
+---
+
+## Historical October homepage sources
+
 # Landing page content sources
 
 Reviewed 12 October 2026 against the founder's latest 15-page October Porto product presentation. Only public product concepts and selected concept graphics are included. The private deck, financial raise page and fundraising details are not published in this repository.
