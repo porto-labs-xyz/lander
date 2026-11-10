@@ -1,6 +1,6 @@
 # Kiln by Porto Labs
 
-A minimal, responsive stealth landing page for a creative system in development. The page follows the founder-linked Kiln Creative Studios deck, using paper, black, blue and monospaced headings and keeps two conversion paths: the email waitlist and `/book/` appointment booking.
+A minimal, responsive stealth landing page for a creative system in development. The page follows the founder-linked Kiln Creative Studios deck, using paper, black, red, yellow, blue and monospaced headings and keeps two conversion paths: the email waitlist and `/book/` appointment booking.
 
 Current copy, asset provenance and historical context are documented in [CLAUDE.md](CLAUDE.md) and [docs/CONTENT-SOURCES.md](docs/CONTENT-SOURCES.md).
 

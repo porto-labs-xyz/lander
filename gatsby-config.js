@@ -12,7 +12,7 @@ module.exports = {
         short_name: `Kiln`,
         start_url: `/`,
         background_color: `#f1f0ec`,
-        theme_color: `#4889b5`,
+        theme_color: `#003bff`,
         display: `standalone`,
         icon: `static/favicon.png`,
       },
