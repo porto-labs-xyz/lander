@@ -1,3 +1,21 @@
+# Kiln stealth landing page provenance
+
+## Current direction, 10 November 2026
+
+The founder requested alignment with the linked Kiln for Creative Studios Figma deck, removal of FREQ mentions, brief and mysterious Kiln copy, no computer imagery, and unchanged calls to action. This supersedes the historical FREQ direction below.
+
+Reference: https://www.figma.com/deck/gGykvFL4L6tuTmfFiGkPZR/Kiln-%E2%80%94-For-Creative-Studios?node-id=3-2
+
+The cover and workflow/next-step slides were inspected in the browser. The page adopts their paper, black, blue, monospaced headings and restrained editorial layout. Web palette values (#F1F0EC, #151615, #4889B5) are visual approximations, not exported Figma tokens. The lowercase live-text kiln wordmark is a typographic treatment; it does not claim to be an exact export of the deck logo. Abstract square artwork is original CSS, with a matching social preview. No hardware imagery, private slides, confidential slide copy or performance claims are published.
+
+Headline: “Your imagination. A space of its own.” Supporting copy: “Private creative AI. Something new is taking shape at Kiln.” Retain the earlier invitation and stealth framing as narrative value. Product availability and launch dates remain unstated.
+
+“Join the waitlist”, “Book a call”, “Stay close”, “Get in touch” and “Follow on X” keep their labels and destinations. Formspree submission logic and Google Calendar booking URL are unchanged. Consent, metadata, manifest and booking copy now name Kiln. Historical FREQ assets and the copy archive below remain available for reference and are not used by the live pages.
+
+This change prepares a reviewable PR. Deployment remains manual and is not included.
+
+---
+
 # FREQ stealth landing page provenance
 
 ## Current stealth direction, 29 October 2026

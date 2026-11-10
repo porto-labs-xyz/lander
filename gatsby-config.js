@@ -1,20 +1,20 @@
 module.exports = {
   siteMetadata: {
-    title: `FREQ by Porto Labs`,
-    description: `A new kind of creative system. Where AI, imagination and personal computing meet.`,
+    title: `Kiln by Porto Labs`,
+    description: `Private creative AI. A space for your imagination.`,
     siteUrl: `https://www.portolabs.xyz`,
   },
   plugins: [
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `FREQ by Porto Labs`,
-        short_name: `FREQ`,
+        name: `Kiln by Porto Labs`,
+        short_name: `Kiln`,
         start_url: `/`,
-        background_color: `#251820`,
-        theme_color: `#d9e867`,
+        background_color: `#f1f0ec`,
+        theme_color: `#4889b5`,
         display: `standalone`,
-        icon: `static/images/porto-mark-dark-branded.png`,
+        icon: `static/favicon.png`,
       },
     },
   ],
