@@ -1,11 +1,16 @@
 # Kiln copy direction
 
-Keep one idea per section. Let the established headlines, product imagery and motion carry the brand; use one short paragraph for supporting meaning.
+The story follows a piece of creative work from a brief to the next round of refinement. Keep the established headlines, then give each section a distinct job. Brevity serves the story; word count is not the goal.
 
-The core homepage body copy, including both product descriptions, is reduced from 217 to 35 words. Headlines remain unchanged. Chapter labels are shorter, repeated secondary labels and the workflow footer are removed, and the context section uses its natural content height.
+- **Introduction** — establish creative AI for a team, powered by physical hardware in its studio.
+- **Context** — recognise the frustration of starting over and explain how the brief, references and decisions should carry forward.
+- **KilnOS** — make the workflow tangible through directions, storyboards and shared revisions. Explain the relationship between familiar laptops and local compute. Each workflow tab pairs an example prompt with one short explanation.
+- **Hardware** — distinguish the compact One from the expandable, rack-ready Atelier in terms of studio work.
+- **Privacy** — ground control in unreleased campaigns, client material and unfinished ideas.
+- **Invitation** — connect the next step to a real brief and the forthcoming studio pilots.
 
-About copy and founder biographies are shorter, retaining the existing facts and company roles. FAQ answers are condensed while preserving development, privacy, pricing and compatibility qualifications. Full hardware specifications and development notes remain available in the comparison. Pricing and in-development status remain visible; the long notes expand on demand. Privacy disclosures and form consent are unchanged. The Sites preview retains its registration-preview notices.
+The About page develops the same belief, explains the kiln metaphor and connects the founders’ backgrounds to the work. Founder facts and roles remain unchanged.
 
-Validation: clean Gatsby production build; mobile review at 320px and 393px and desktop; workflow copy switching, Atelier copy and comparison dialog checked. [Mobile hero](qa/essentials-mobile-v23.jpg).
+Use one purposeful paragraph per homepage section, with short sentences and concrete creative examples. Avoid repeated slogans, unsupported performance claims and the implication that the products are already shipping. Pricing qualifications, in-development status, full hardware specifications, FAQ answers, privacy disclosures and consent remain intact. Sites keeps its explicit registration-preview notices; Gatsby retains its working enquiry form.
 
-A further reduction removes the hero audience label and generic hardware caption, the invitation eyebrow and repeated privacy footer. Supporting lines use four to seven words. Workflow tabs present only the example prompt, with a shorter panel; redundant About lead copy is removed. Product specifications, availability, price qualifications and privacy disclosures remain intact.
+Validation: clean Gatsby production build and mobile/desktop review of the story, workflow tabs and product switching. [Mobile context section](qa/narrative-mobile-v24.jpg).

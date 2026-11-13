@@ -18,13 +18,13 @@ const scrollBehavior = () => reducedMotion.matches ? 'auto' : 'smooth';
 const products = {
   one: {
     name: 'One.', tagline: ['Your studio.', 'Your compute.'],
-    description: 'Creative AI. One compact workstation.',
+    description: 'A compact workstation for everyday creative exploration. Local AI compute your team can share from the laptops they already use.',
     price: '£17,000', priceNote: 'Target hardware price',
     caption: 'Kiln One / Inside the workstation', interest: 'Kiln One'
   },
   atelier: {
     name: 'Atelier.', tagline: ['More capacity.', 'Same control.'],
-    description: 'Rack-ready compute. Room to grow.',
+    description: 'Rack-ready compute for more demanding creative workloads. Room to expand as your studio’s projects and ambitions grow.',
     price: 'Let’s talk', priceNote: 'Pricing to be confirmed',
     caption: 'Kiln Atelier / Inside the workstation', interest: 'Kiln Atelier'
   }
@@ -62,13 +62,14 @@ cleanups.push(mountKilnMotion(container));
 $$('button[data-product]').forEach(button => on(button, 'click', () => productGallery.goTo(button.dataset.product)));
 
 const thoughts = {
-  brief: {quote: '“Here’s the brief. Here’s what matters.”'},
-  explore: {quote: '“Try three directions. Keep our character.”'},
-  decide: {quote: '“Keep this. Change that.”'}
+  brief: {quote: '“Here’s the brief. Here’s what matters.”', note: 'Bring the client’s brief, references and constraints into one project.'},
+  explore: {quote: '“Try three directions. Keep our character.”', note: 'Explore campaign directions and image storyboards against the same brief.'},
+  decide: {quote: '“Keep this. Change that.”', note: 'Review together. Carry the team’s decisions into the next round.'}
 };
 $$('[data-thought]').forEach(button => on(button, 'click', () => {
   const key = button.dataset.thought, thought = thoughts[key];
   $('#thought-quote').textContent = thought.quote;
+  $('#thought-note').textContent = thought.note;
   $('#thought-panel').setAttribute('aria-labelledby', 'thought-' + key);
   $$('[data-thought]').forEach(tab => {
     const selected = tab === button;
