@@ -42,3 +42,11 @@ Sources: [MDN Web Audio best practices](https://developer.mozilla.org/en-US/docs
 ### Responsive device opening
 
 The opening is art-directed by viewport width: Kiln One on mobile (up to 760px), Kiln Atelier on wider screens. A native `picture` source lets the browser request only the matching hero asset, with no user-agent sniffing or resize handler. Atelier uses the approved red-grille cutout and its own top-edge focal point; One keeps its existing macro framing. Both share the scroll timeline, logo handoff, Little Tilt cue and delayed copy reveal. The caption changes with the same breakpoint. Static/reduced-motion layouts also use the appropriate device.
+
+### Smaller, crisp opening mark and flush mobile crop
+
+The opening mark is 60% of its previous displayed size: 158.4px wide on mobile (was 264px), 247.2px on desktop (was 412px). Its optical center remains fixed. The original inline SVG paths render at the larger opening size; an independent SVG scale only shrinks to the unchanged 88px/103px header size while the link translates home. This avoids enlarging a small composited SVG texture. The home link retains its final layout/hit box and the Little Tilt square remains part of the same SVG. No raster logo, filter, layout-animation or new scroll handler is used.
+
+On mobile, the product figure no longer clips the enlarged image at its flex-box edge. The sticky hero stage clips it at the top of the fixed registration dock instead. The sound control overlays the light product image, removing the separate white strip. As the image returns to scale, the existing delayed headline/subtitle reveal and final composition are retained. Reduced-motion and unsupported-timeline layouts keep the normal static header.
+
+Validation: clean production build passed; browser checked at 320px and 393px mobile widths and desktop. Opening SVG width is 158.4px/247.2px and settles to 88px/103px. [Mobile opening screenshot](qa/hero-mobile-v21.jpg).

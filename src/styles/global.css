@@ -255,7 +255,8 @@ p{text-wrap:pretty}
   .boot-hero{display:block;height:170svh;min-height:0;padding:0;overflow:clip;view-timeline:--kiln-intro block;view-timeline-inset:0}
   .hero-stage{position:sticky;top:0;display:flex;flex-direction:column;height:100svh;padding:98px var(--pad) 24px;overflow:clip}
   .hero-layout{display:flex;flex-direction:column;flex:1;min-height:0;gap:14px;align-items:center}
-  .hero-header .brand{transform-origin:0 0;animation:kiln-brand-home linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .hero-header .brand{position:relative;width:103px;height:34.68px;transform-origin:0 0;animation:kiln-brand-home linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .hero-header .brand-mark{position:absolute;inset:0 auto auto 0;width:247.2px;height:auto;transform-origin:0 0;shape-rendering:geometricPrecision;animation:kiln-brand-size linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   .hero-header .desktop-nav,.hero-header .header-interest,.hero-header .menu-toggle{animation:kiln-nav-enter linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   .boot-figure{position:relative;overflow:clip;flex:1;min-height:0;width:min(100%,840px);max-width:none;height:auto;margin:0;align-self:center;animation:kiln-object-home linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   .boot-figure.motion-product.motion-entered{animation-name:kiln-object-home;animation-duration:auto;animation-timing-function:linear;animation-fill-mode:both}
@@ -268,9 +269,10 @@ p{text-wrap:pretty}
   .boot-hero .hero-content .text-link{font-size:12px;min-height:36px;margin-top:12px;padding-bottom:8px}
   .boot-hero .chapter-caption{position:static;margin-top:16px;flex:0 0 auto;animation:kiln-intro-copy linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   @keyframes kiln-brand-home{
-   0%,5%{transform:translate3d(calc(50vw - var(--pad) - 206px),18svh,0) scale(4)}
-   65%,100%{transform:translate3d(0,0,0) scale(1)}
+   0%,5%{transform:translate(calc(50vw - var(--pad) - 123.6px),calc(18svh + 27.75px))}
+   65%,100%{transform:translate(0,0)}
   }
+  @keyframes kiln-brand-size{0%,5%{transform:scale(1)}65%,100%{transform:scale(.416666667)}}
   @keyframes kiln-object-home{
    0%,5%{transform:translate3d(0,28svh,0)}
    72%,100%{transform:translate3d(0,0,0)}
@@ -290,7 +292,10 @@ p{text-wrap:pretty}
    .boot-hero{height:calc(165svh - 62px)}
    .hero-stage{height:calc(100svh - 62px);padding:82px 24px 16px}
    .hero-layout{gap:12px;align-items:stretch}
-   .boot-figure{width:calc(100% + 48px);margin:0 -24px;align-self:stretch}
+   .hero-header .brand{width:88px;height:29.63px}
+   .hero-header .brand-mark{width:158.4px}
+   @keyframes kiln-brand-size{0%,5%{transform:scale(1)}65%,100%{transform:scale(.555555556)}}
+   .boot-figure{width:calc(100% + 48px);margin:0 -24px;align-self:stretch;overflow:visible}
    .boot-hero .hero-content{text-align:left}
    .boot-hero h1{font-size:clamp(26px,8.3vw,44px)}
    .boot-hero h1 span{display:block}
@@ -298,15 +303,15 @@ p{text-wrap:pretty}
    .boot-hero .hero-content .text-link{margin-top:12px;font-size:11px}
    .boot-hero .chapter-caption{font-size:8px;margin-top:12px}
    @keyframes kiln-brand-home{
-    0%,5%{transform:translate3d(calc(50vw - 24px - 132px),17svh,0) scale(3)}
-    65%,100%{transform:translate3d(0,0,0) scale(1)}
+    0%,5%{transform:translate(calc(50vw - 24px - 79.2px),calc(17svh + 17.78px))}
+    65%,100%{transform:translate(0,0)}
    }
    @keyframes kiln-object-home{
     0%,5%{transform:translate3d(0,32svh,0)}
     72%,100%{transform:translate3d(0,0,0)}
    }
   }
-  [data-motion-paused] .hero-header .brand,[data-motion-paused] .hero-header nav,[data-motion-paused] .hero-header button,[data-motion-paused] .hero-content,[data-motion-paused] .chapter-caption{animation-play-state:paused}
+  [data-motion-paused] .hero-header .brand,[data-motion-paused] .hero-header .brand-mark,[data-motion-paused] .hero-header nav,[data-motion-paused] .hero-header button,[data-motion-paused] .hero-content,[data-motion-paused] .chapter-caption{animation-play-state:paused}
  }
 }
 @media(prefers-reduced-motion:reduce){.crucible-spark{animation:none!important;transform:none}}
