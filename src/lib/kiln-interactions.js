@@ -18,13 +18,13 @@ const scrollBehavior = () => reducedMotion.matches ? 'auto' : 'smooth';
 const products = {
   one: {
     name: 'One.', tagline: ['Your studio.', 'Your compute.'],
-    description: 'A compact workstation for your team’s creative AI.',
+    description: 'Creative AI. One compact workstation.',
     price: '£17,000', priceNote: 'Target hardware price',
     caption: 'Kiln One / Inside the workstation', interest: 'Kiln One'
   },
   atelier: {
     name: 'Atelier.', tagline: ['More capacity.', 'Same control.'],
-    description: 'Expandable, rack-ready compute for heavier creative workloads.',
+    description: 'Rack-ready compute. Room to grow.',
     price: 'Let’s talk', priceNote: 'Pricing to be confirmed',
     caption: 'Kiln Atelier / Inside the workstation', interest: 'Kiln Atelier'
   }
@@ -62,15 +62,13 @@ cleanups.push(mountKilnMotion(container));
 $$('button[data-product]').forEach(button => on(button, 'click', () => productGallery.goTo(button.dataset.product)));
 
 const thoughts = {
-  brief: {kicker: 'Start with context.', quote: '“Here’s the brief. Here’s what matters.”', note: 'The brief and references, together.'},
-  explore: {kicker: 'Explore with intent.', quote: '“Try three directions. Keep our character.”', note: 'Image directions. One shared brief.'},
-  decide: {kicker: 'Keep what works.', quote: '“Keep this. Change that.”', note: 'Your decisions inform the next round.'}
+  brief: {quote: '“Here’s the brief. Here’s what matters.”'},
+  explore: {quote: '“Try three directions. Keep our character.”'},
+  decide: {quote: '“Keep this. Change that.”'}
 };
 $$('[data-thought]').forEach(button => on(button, 'click', () => {
   const key = button.dataset.thought, thought = thoughts[key];
-  $('#thought-kicker').textContent = thought.kicker;
   $('#thought-quote').textContent = thought.quote;
-  $('#thought-note').textContent = thought.note;
   $('#thought-panel').setAttribute('aria-labelledby', 'thought-' + key);
   $$('[data-thought]').forEach(tab => {
     const selected = tab === button;
