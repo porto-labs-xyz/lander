@@ -72,7 +72,83 @@ dialog{position:fixed;border:0;background:var(--paper);color:var(--ink);width:mi
   mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 6%,#000 93%,transparent);
   -webkit-mask-composite:source-in;mask-composite:intersect;
 }
-.hardware[data-product=atelier] .hardware-image-wrap img{
+.hardware-slide[data-slide=atelier] img{
   -webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent);
   mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent);
 }
+
+/* Mobile-first comparison: keep both products in view, with pinned column names. */
+dialog.comparison-sheet{padding:0;width:min(1040px,calc(100vw - 48px));height:min(960px,calc(100dvh - 48px));max-height:none;overflow:hidden;background:var(--paper)}
+dialog.comparison-sheet[open]{display:flex;flex-direction:column}
+.comparison-toolbar{display:flex;align-items:center;justify-content:space-between;flex:0 0 58px;padding:0 18px 0 24px;border-bottom:1px solid var(--hairline);font:10px/1.4 PlexMono;text-transform:uppercase;letter-spacing:.08em}
+.comparison-toolbar .dialog-close{position:static;width:44px;height:44px;flex:0 0 44px;font:32px/1 PlexSans}
+.comparison-scroll{overflow:auto;overscroll-behavior:contain;min-height:0;flex:1;scroll-padding-top:132px}
+.comparison-intro{padding:28px 24px 30px}
+.comparison-intro h2{font-size:36px;line-height:1.1;margin:0 0 15px;letter-spacing:-.07em}
+.comparison-intro p{font:14px/1.6 PlexSans;max-width:42ch;color:var(--muted)}
+.comparison-table{display:block;width:100%;border-collapse:collapse;table-layout:fixed;text-align:left}
+.comparison-table thead{display:block;position:sticky;top:0;z-index:3;background:var(--paper);box-shadow:0 1px 0 #10111233}
+.comparison-table tbody{display:block}
+.comparison-table tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.comparison-table th,.comparison-table td{min-width:0;text-align:left;vertical-align:top;font-weight:400}
+.comparison-table thead .comparison-label{display:none}
+.comparison-table .compare-product{padding:17px 20px 18px;border-top:3px solid var(--blue);background:#2a83b50c}
+.comparison-table .compare-atelier{border-top-color:var(--red);background:#e049380c;border-left:1px solid #10111218}
+.compare-name{display:block;font:17px/1.3 PlexMono;letter-spacing:-.04em}
+.compare-purpose{display:none}
+.compare-product strong{display:block;font:21px/1.4 PlexSans;margin-top:8px;font-weight:400;letter-spacing:-.025em}
+.compare-price-note{display:block;font:10px/1.4 PlexSans;color:#50565a;margin-top:2px}
+.comparison-table tbody tr{border-bottom:1px solid #10111220}
+.comparison-table tbody th{grid-column:1/-1;padding:17px 20px 7px;font:10px/1.5 PlexMono;text-transform:uppercase;letter-spacing:.04em;color:#50565a}
+.comparison-table tbody td{padding:6px 20px 20px;font:14px/1.5 PlexSans}
+.comparison-table tbody td:nth-child(3){border-left:1px solid #10111214}
+.comparison-table td strong{font-weight:400;display:block}
+.compare-note{display:block;font:12px/1.5 PlexSans;color:#616568;margin-top:3px;letter-spacing:0;text-transform:none}
+.comparison-table .compare-number{font:27px/1.2 PlexMono;letter-spacing:-.065em}
+.compare-number small{font:13px/1.2 PlexSans;letter-spacing:0}
+.comparison-table .compare-renders td{padding:8px 10px 18px}
+.compare-render{height:155px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.compare-render img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
+.compare-render-one{background:var(--blue)}
+.compare-render-one img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 6%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 6%,#000 93%,transparent);-webkit-mask-composite:source-in;mask-composite:intersect}
+.compare-render-atelier{background:#f7eee4}
+.compare-render-atelier img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.compare-renders figcaption{font:9px/1.5 PlexMono;color:var(--muted);margin:9px 0 0}
+.comparison-shared{padding:32px 24px;background:#e7e6df}
+.comparison-shared>.eyebrow{font-size:9px;color:var(--muted)}
+.comparison-shared h3{font-size:27px;margin:12px 0 25px;line-height:1.1}
+.comparison-shared dl{margin:0}
+.comparison-shared dl>div+div{margin-top:20px}
+.comparison-shared dt{font:10px/1.5 PlexMono;margin-bottom:6px}
+.comparison-shared dd{margin:0;font:14px/1.6 PlexSans;max-width:65ch}
+.comparison-notes{margin:0 24px;border-top:0;border-bottom:1px solid var(--hairline)}
+.comparison-notes summary{font-size:11px;min-height:64px}
+.comparison-notes p{font:12px/1.7 PlexSans;padding:0 0 16px;max-width:80ch}
+.comparison-notes p:last-child{padding-bottom:24px}
+.comparison-end{padding:24px}
+.comparison-end .button{max-width:360px;font-size:11px}
+@media(max-width:760px){dialog.comparison-sheet{width:100vw;height:100dvh;margin:0;max-width:none}.comparison-toolbar{padding-top:env(safe-area-inset-top,0px);flex-basis:calc(58px + env(safe-area-inset-top,0px))}.comparison-end{padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}}
+@media(min-width:761px){.comparison-toolbar{padding-left:40px;padding-right:28px}.comparison-intro{padding:34px 40px}.comparison-intro h2{font-size:47px}.comparison-intro p{font-size:16px}.comparison-table tr{grid-template-columns:22% minmax(0,1fr) minmax(0,1fr)}.comparison-table thead .comparison-label{display:block;font:10px/1.5 PlexMono;color:var(--muted);padding:23px 20px 20px 40px}.comparison-table .compare-product{padding:19px 25px}.compare-name{font-size:23px}.compare-purpose{display:block;font:12px/1.5 PlexSans;color:var(--muted);margin-top:6px}.compare-product strong{font-size:24px;margin-top:15px}.comparison-table tbody th{grid-column:auto;align-self:center;padding:24px 20px 24px 40px;font-size:11px}.comparison-table tbody td{padding:24px 25px;font-size:16px;align-content:center;background:#2a83b504}.comparison-table tbody td:nth-child(3){background:#e0493804}.comparison-table .compare-renders td{padding:20px 20px 25px}.compare-render{height:230px}.compare-renders figcaption{font-size:10px}.comparison-shared{padding:38px 40px}.comparison-shared dl{display:grid;grid-template-columns:1fr 1fr;gap:40px}.comparison-shared dl>div+div{margin:0}.comparison-notes{margin:0 40px}.comparison-end{padding:28px 40px}.comparison-scroll{scroll-padding-top:172px}}
+@media(max-width:360px){.comparison-intro{padding:24px 18px}.comparison-table .compare-product{padding:15px}.comparison-table tbody th{padding-left:15px}.comparison-table tbody td{padding-left:15px;padding-right:12px;font-size:13px}.compare-name{font-size:16px}.compare-render{height:132px}.compare-price-note{font-size:9px}.comparison-table .compare-number{font-size:24px}}
+/* Products are a native scroll-snap gallery, with ordinary page scroll and pinch zoom. */
+.hardware-slides{display:flex;flex:1;width:100%;height:100%;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hardware-slides::-webkit-scrollbar{display:none}
+.hardware-slide{display:flex;align-items:center;justify-content:center;flex:0 0 100%;width:100%;height:100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
+.hardware-slide img{user-select:none;-webkit-user-drag:none}
+.hardware-slide[data-slide=atelier] img{-webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
+.hardware{transition:background-color .35s ease}
+.swipe-hint{display:none}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media(max-width:760px){.swipe-hint{display:flex;justify-content:space-between;align-items:center;margin:10px 24px 19px;font:9px/1.5 PlexMono;opacity:.75}.swipe-progress{display:flex;gap:5px;margin-left:auto;margin-right:14px}.swipe-progress i{display:block;width:17px;height:2px;background:currentColor;opacity:.25;transition:opacity .25s}.swipe-progress .is-current{opacity:1}.hardware-figure figcaption{font-size:9px}}
+/* Short, passive motion: physical settling and a gentle Crucible gesture. */
+@media(prefers-reduced-motion:no-preference){
+ .motion-product.motion-entered{animation:kiln-settle 1600ms cubic-bezier(.16,1,.3,1) both}
+ .motion-mark.motion-entered{animation:kiln-mark-settle 3400ms cubic-bezier(.22,.61,.36,1) both;transform-origin:50% 80%}
+ .motion-ember.motion-entered{animation:kiln-ember-settle 2800ms cubic-bezier(.22,.61,.36,1) both}
+ [data-motion-paused] .motion-entered{animation-play-state:paused}
+ @keyframes kiln-settle{from{opacity:.35;transform:translate3d(0,10px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+ @keyframes kiln-mark-settle{0%{transform:translate3d(0,5px,0) rotate(-3deg)}45%{transform:translate3d(0,-4px,0) rotate(1deg)}100%{transform:translate3d(0,0,0) rotate(0)}}
+ @keyframes kiln-ember-settle{0%{transform:rotate(10deg) scale(.85)}50%{transform:rotate(34deg) scale(1.08)}100%{transform:rotate(24deg) scale(1)}}
+ @media(min-width:761px){@keyframes kiln-settle{from{opacity:.35;transform:translate3d(0,18px,0) scale(.98)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}}
+}
+@media(prefers-reduced-motion:reduce){.motion-entered{animation:none!important;opacity:1;transform:none}.hardware,.swipe-progress i{transition:none}}

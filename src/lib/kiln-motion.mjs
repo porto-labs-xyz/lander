@@ -1,0 +1,49 @@
+// One short composition per graphic. No scroll-linked work or perpetual loops.
+export function mountKilnMotion(root) {
+  const host = root === document ? document.documentElement : root;
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const nodes = [...root.querySelectorAll('.boot-figure,.hardware-image-wrap,.crucible,.studio-mark,.about-seal,.name-mark img,.mini-square')];
+  let observer;
+  const cleanups = [];
+  const play = node => {
+    if (!preference.matches) node.classList.add('motion-entered');
+    observer?.unobserve(node);
+  };
+  nodes.forEach(node => {
+    node.classList.add(node.matches('.boot-figure,.hardware-image-wrap') ? 'motion-product' : node.matches('.mini-square') ? 'motion-ember' : 'motion-mark');
+  });
+  const pause = () => host.toggleAttribute('data-motion-paused', document.hidden);
+  const configure = () => {
+    observer?.disconnect();
+    if (preference.matches || !('IntersectionObserver' in window)) {
+      nodes.forEach(node => node.classList.remove('motion-entered'));
+      return;
+    }
+    observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const node = entry.target;
+        const img = node.matches('img') ? node : node.querySelector('img');
+        if (img && !img.complete) {
+          const loaded = () => play(node);
+          img.addEventListener('load', loaded, { once: true });
+          cleanups.push(() => img.removeEventListener('load', loaded));
+          observer.unobserve(node);
+        } else play(node);
+      });
+    }, { threshold: .2 });
+    nodes.filter(node => !node.classList.contains('motion-entered')).forEach(node => observer.observe(node));
+  };
+  preference.addEventListener('change', configure);
+  document.addEventListener('visibilitychange', pause);
+  configure();
+  pause();
+  return () => {
+    observer?.disconnect();
+    cleanups.forEach(cleanup => cleanup());
+    preference.removeEventListener('change', configure);
+    document.removeEventListener('visibilitychange', pause);
+    host.removeAttribute('data-motion-paused');
+    nodes.forEach(node => node.classList.remove('motion-entered', 'motion-product', 'motion-mark', 'motion-ember'));
+  };
+}

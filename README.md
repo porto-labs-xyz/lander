@@ -13,7 +13,7 @@ npm run develop
 
 ```sh
 npm run build
-node --test src/lib/interest-form.test.mjs
+node --test src/lib/*.test.mjs
 git diff --check
 ```
 
@@ -26,6 +26,8 @@ Open a PR against `porto-labs-xyz/lander:main`. Richard reviews and merges for t
 ## Structure
 
 - `src/components/HomeContent.jsx` and `AboutContent.jsx`: approved editorial content.
+- `src/components/HardwareComparison.jsx`: shared responsive comparison and uncovered component renders.
+- `src/lib/kiln-gallery.mjs` and `kiln-motion.mjs`: native product swiping and brief reduced-motion-aware graphic reveals.
 - `src/lib/kiln-interactions.js`: accessible tabs, dialogs, mobile menu and section-aware controls, with lifecycle cleanup.
 - `src/lib/interest-form.mjs`: live signup handling and retry states.
 - `src/styles/global.css`: approved website design; `booking.css` is scoped to the booking shell.

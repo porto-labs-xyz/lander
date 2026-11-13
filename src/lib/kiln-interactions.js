@@ -1,3 +1,5 @@
+import { mountKilnMotion } from './kiln-motion.mjs';
+import { mountProductGallery } from './kiln-gallery.mjs';
 import { bindInterestForm } from './interest-form.mjs'
 
 export function mountKiln(container) {
@@ -18,18 +20,16 @@ const products = {
     name: 'One.', tagline: ['Your studio.', 'Your compute.'],
     description: 'Dedicated local compute for your team’s AI workflow. Pair Kiln One with KilnOS to work from familiar laptops, with models running on hardware in your studio.',
     price: '£17,000', priceNote: 'Target hardware price',
-    image: '/assets/kiln/one-interior-approved.png', alt: 'Kiln One cutaway showing two GPUs, CPU cooling and power supply within the satin aluminium frame',
     caption: 'Kiln One / Inside the workstation', interest: 'Kiln One'
   },
   atelier: {
     name: 'Atelier.', tagline: ['More capacity.', 'Same control.'],
     description: 'For studios with heavier workloads. Atelier is designed for more GPUs and a four-unit rack, so you can grow local capacity around the way your team works.',
     price: 'Let’s talk', priceNote: 'Pricing to be confirmed',
-    image: '/assets/kiln/atelier-cutout.webp', alt: 'Kiln Atelier with a red front grille and horizontal satin aluminium enclosure',
     caption: 'Kiln Atelier / Studio compute', interest: 'Kiln Atelier'
   }
 };
-function chooseProduct(key) {
+function chooseProduct(key, syncGallery = true) {
   const product = products[key];
   if (!product || !$('#product-info')) return;
   $('#hardware').dataset.product = key;
@@ -39,8 +39,10 @@ function chooseProduct(key) {
   $('#product-description').textContent = product.description;
   $('#product-price').textContent = product.price;
   $('#price-note').textContent = product.priceNote;
-  $('#hardware-image').src = product.image;
-  $('#hardware-image').alt = product.alt;
+  if (syncGallery) productGallery.goTo(key);
+  $$('.hardware-slide').forEach(slide => slide.setAttribute('aria-hidden', String(slide.dataset.slide !== key)));
+  $$('[data-position]').forEach(dot => dot.classList.toggle('is-current', dot.dataset.position === key));
+  $('#product-announcement').textContent = product.name + ' ' + product.tagline.join(' ');
   $('#hardware-caption').textContent = product.caption;
   $('#interest-product').value = product.interest;
   $('#product-info').setAttribute('aria-labelledby', 'choose-' + key);
@@ -51,6 +53,9 @@ function chooseProduct(key) {
   });
   invalidateLayout();
 }
+const productGallery = mountProductGallery($('.hardware-slides'), key => chooseProduct(key, false), reducedMotion);
+cleanups.push(() => productGallery.destroy());
+cleanups.push(mountKilnMotion(container));
 $$('button[data-product]').forEach(button => on(button, 'click', () => chooseProduct(button.dataset.product)));
 
 const thoughts = {
@@ -106,6 +111,7 @@ function openDialog(id) {
   if (id === '#interest-dialog') $('#form-status').hidden = true;
   document.body.classList.add('modal-open');
   dialog.showModal();
+  if (id === '#specs-dialog') $('.comparison-scroll', dialog).scrollTop = 0;
 }
 for (const [selector, id] of [['.interest-open', '#interest-dialog'], ['.privacy-open', '#privacy-dialog'], ['.questions-open', '#questions-dialog'], ['.specs-open', '#specs-dialog']]) {
   $$(selector).forEach(button => on(button, 'click', () => {

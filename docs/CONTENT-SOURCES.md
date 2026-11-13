@@ -11,6 +11,13 @@ The founder approved launch of the full product website. This release ports the 
 - The `/book/` Google Calendar destination is unchanged. Footer contact and X destinations are preserved. Privacy copy describes the real form flow.
 - The release is proposed by PR; Richard owns merge and production-domain publication.
 
+## Mobile polish and comparison, 13 November 2026
+
+- Native scroll-snap One/Atelier gallery supports swiping without intercepting vertical scrolling. Tabs, section colour, copy and selected product stay synchronized.
+- Side-by-side comparison uses sticky product headers, larger values and separate shared foundations. It retains all proposed specifications and qualifications.
+- The corrected One cutaway and existing Atelier interior render are visible in the comparison. Renders illustrate concept component layout, not a final engineering build.
+- Passive product and brand motion runs once per view, with brief transform/opacity animations, reduced-motion support and lifecycle cleanup. No video or animation library is added.
+
 ## Earlier source notes
 
 # Kiln stealth landing page provenance

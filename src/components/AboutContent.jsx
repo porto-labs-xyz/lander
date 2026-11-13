@@ -1,4 +1,5 @@
 import React from 'react'
+import HardwareComparison from './HardwareComparison'
 
 // Approved Kiln v10 editorial content, rendered by Gatsby at build time.
 export default function AboutContent() {
@@ -33,11 +34,7 @@ export default function AboutContent() {
 <details><summary>Which models and tools will work with it? <span aria-hidden="true">+</span></summary><p>We’re starting with briefs, creative directions, image storyboards and revision. Model bundles and integrations are being assessed for quality, licensing and hardware compatibility. Video, audio and wider integrations are areas for later development.</p></details>
 <details><summary>When can we try it? <span aria-hidden="true">+</span></summary><p>Studio pilots are the next step. We’re developing the hardware and software together and haven’t announced a shipping date. Register your interest and we’ll follow up as pilots take shape.</p></details>
 </div></dialog>
-<dialog id="specs-dialog" className="wide-dialog" aria-labelledby="specs-title"><button className="dialog-close" aria-label="Close specifications">×</button><span className="eyebrow">The engineering direction</span><h2 id="specs-title">The hardware,<br />in detail.</h2><p>Current targets, subject to engineering validation. Performance, thermals and enclosure fit are still being qualified.</p>
-<div className="spec-table-wrap"><table className="spec-table"><caption>Proposed hardware configurations</caption><thead><tr><th scope="col"> </th><th scope="col">One</th><th scope="col">Atelier</th></tr></thead><tbody>
-<tr><th scope="row">Graphics</th><td>RTX PRO 5000<br />72 GB per GPU</td><td>RTX PRO 6000 Max-Q<br />96 GB per GPU</td></tr><tr><th scope="row">Base / Max</th><td>1 / 2 GPUs</td><td>2 / 4 GPUs</td></tr><tr><th scope="row">Memory</th><td>128 GB</td><td>512 GB ECC</td></tr><tr><th scope="row">Storage</th><td>4 TB</td><td>8 TB</td></tr><tr><th scope="row">W × H × D</th><td>250 × 450 × 460 mm</td><td>520 × 220 × 600 mm</td></tr><tr><th scope="row">Enclosure</th><td colSpan="2">Satin aluminium; coloured front grille; one tilted-square light</td></tr><tr><th scope="row">Access</th><td colSpan="2">Studio Ethernet; Kiln app for Mac and Windows; authenticated browser fallback</td></tr></tbody></table></div>
-<p className="fineprint">GPU memory is per card; multiple GPUs do not automatically form one memory pool. Dimensions are preliminary exterior targets. The proposed four-unit Atelier rack is 560 × 1100 × 680 mm.</p>
-<details className="admin-details"><summary>For managed studios <span aria-hidden="true">+</span></summary><p>Company sign-in, security-key policies, project permissions, approved models and controlled external connections are development requirements. Provider compatibility and enforcement will be qualified during pilots.</p></details></dialog>
+<HardwareComparison />
 <div className="mobile-action-dock"><button className="button button-yellow" id="mobile-action" aria-haspopup="dialog"><span className="dock-label">Register interest</span><span aria-hidden="true">↗</span></button></div>
 
   </>
