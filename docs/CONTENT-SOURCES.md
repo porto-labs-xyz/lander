@@ -1,3 +1,18 @@
+# Kiln website release, 13 November 2026
+
+The founder approved launch of the full product website. This release ports the approved Sites v10 source (`da3d03133bd6534d9dddf102dadc2a8cff0262f6`) into the existing Gatsby project.
+
+- Headline: “Private AI. Local production.”
+- Home and About retain the approved editorial design, copy, self-hosted IBM Plex fonts, Crucible marks, static One hero, perspective-corrected interior and Atelier render.
+- One target hardware price: £17,000. Specifications, privacy controls, model compatibility and availability remain development targets, not validated shipping claims.
+- Hardware photos blend into the blue/red takeovers with CSS edge masks. Original image pixels, metallic highlights and cast shadows are preserved; masks follow the intrinsic image dimensions on mobile and desktop.
+- Only assets used by these pages are added; historical videos and unused gallery images are not shipped in the new asset directory.
+- Live registration preserves `https://formspree.io/f/xjgepgbg` and adds selected interest and optional company updates. Success appears only after an HTTP success; failures preserve the email for retry. Nothing is stored in browser storage.
+- The `/book/` Google Calendar destination is unchanged. Footer contact and X destinations are preserved. Privacy copy describes the real form flow.
+- The release is proposed by PR; Richard owns merge and production-domain publication.
+
+## Earlier source notes
+
 # Kiln stealth landing page provenance
 
 ## Current direction, 10 November 2026

@@ -1,45 +1,32 @@
 # Kiln by Porto Labs
 
-A minimal, responsive stealth landing page for a creative system in development. The page follows the founder-linked Kiln Creative Studios deck, using paper, black, red, yellow, blue and monospaced headings and keeps two conversion paths: the email waitlist and `/book/` appointment booking.
-
-Current copy, asset provenance and historical context are documented in [CLAUDE.md](CLAUDE.md) and [docs/CONTENT-SOURCES.md](docs/CONTENT-SOURCES.md).
-
-## Preserved version
-
-The previous landing page is retained on `entropy-acs/landing-before-freq-stealth-2026-10-29`, at `b3df6f0`. The Kiln refresh lives on `entropy-acs/kiln-brand`. Existing October assets remain available for historical reference.
-
-## Validation, 10 November 2026
-
-Production build and diff checks passed. Browser review covered desktop and 390px mobile, with no horizontal overflow at 320px. Waitlist navigation, required email validation, conversion destinations and the booking page shell were checked. The signup handler and Calendar URL are unchanged from main. No live signup or appointment was submitted; Calendar availability was not verified.
-
-## Historical validation, 29 October 2026
-
-The production build passed. Browser checks covered 320px and 390px mobile, 768px tablet and desktop layouts, email validation, waitlist navigation and the Google Calendar embed. Controlled checks exercised the actual signup handler with successful, rejected, failed and timed-out requests, plus duplicate-submission prevention. No real email signup or appointment was submitted.
-
-## Setup
-
-```bash
-npm install
-```
+The approved Kiln product website, built in the existing Gatsby application. Home, About and booking pages introduce private AI hardware, KilnOS and studio pilots. Approved brand assets and fonts are served locally.
 
 ## Development
 
-```bash
+```sh
+npm ci
 npm run develop
 ```
 
-Site runs at `http://localhost:8000`
+## Validation
 
-## Build
-
-```bash
+```sh
 npm run build
+node --test src/lib/interest-form.test.mjs
+git diff --check
 ```
 
-## Deploy
+The signup tests use controlled responses and send no real lead. They cover success, duplicate prevention, rejected responses, network failures, timeout and cleanup. The signup endpoint and Calendar destination are preserved from the previous production page. Provider-side delivery has not been verified with a real submission.
 
-Deployment is manual and requires an explicit request. This refresh does not deploy automatically.
+## Release
 
-```bash
-vercel --prod
-```
+Open a PR against `porto-labs-xyz/lander:main`. Richard reviews and merges for the production domain. Source provenance and content boundaries are in `docs/CONTENT-SOURCES.md`.
+
+## Structure
+
+- `src/components/HomeContent.jsx` and `AboutContent.jsx`: approved editorial content.
+- `src/lib/kiln-interactions.js`: accessible tabs, dialogs, mobile menu and section-aware controls, with lifecycle cleanup.
+- `src/lib/interest-form.mjs`: live signup handling and retry states.
+- `src/styles/global.css`: approved website design; `booking.css` is scoped to the booking shell.
+- `static/assets/kiln/`: approved assets and font licences.

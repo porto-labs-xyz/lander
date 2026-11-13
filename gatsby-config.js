@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Kiln by Porto Labs`,
-    description: `Private creative AI. A space for your imagination.`,
+    description: `Private AI. Local production.`,
     siteUrl: `https://www.portolabs.xyz`,
   },
   plugins: [
@@ -14,7 +14,7 @@ module.exports = {
         background_color: `#f1f0ec`,
         theme_color: `#003bff`,
         display: `standalone`,
-        icon: `static/favicon.png`,
+        icon: `static/assets/kiln/kiln-crucible-ink.svg`,
       },
     },
   ],
