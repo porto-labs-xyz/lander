@@ -199,7 +199,7 @@ p{text-wrap:pretty}
 
 /* Kiln motion: reveal the object, move into its setting, then inspect the inside.
    Spatial movement is slower than state feedback. All scroll effects are native
-   transform timelines, with a static fallback and no extra scrolling distance. */
+   transform timelines, with a static fallback. The hero has one short scroll stage. */
 :root{--motion-spatial:cubic-bezier(.22,.85,.25,1);--motion-effect:cubic-bezier(.3,.9,.3,1)}
 @media(prefers-reduced-motion:no-preference){
  .motion-copy.motion-entered{animation:kiln-chapter-enter 560ms var(--motion-spatial) both}
@@ -214,17 +214,13 @@ p{text-wrap:pretty}
  @keyframes kiln-select{0%{transform:rotate(-12deg) scale(.7)}65%{transform:rotate(29deg) scale(1.05)}100%{transform:rotate(24deg) scale(1)}}
  /* Keep the timeline/range above animation shorthand after CSS minifier sorting. */
  @supports(animation-timeline:view()){
-  .boot-figure{view-timeline:--kiln-hero block}
-  .boot-figure .hero-product{transform-origin:50% 58%;animation:kiln-hero-pullback linear both;animation-timeline:--kiln-hero!important;animation-range:cover 0% cover 100%!important}
   .studio-interlude{view-timeline:--kiln-studio block}
   .studio-interlude img{transform-origin:61.8% 48%;animation:kiln-studio-approach linear both;animation-timeline:--kiln-studio!important;animation-range:cover 0% cover 100%!important}
   .hardware-image-wrap{view-timeline:--kiln-hardware block}
   .hardware-slide img{transform-origin:50% 55%;animation:kiln-hardware-approach linear both;animation-timeline:--kiln-hardware!important;animation-range:cover 0% cover 100%!important}
-  @keyframes kiln-hero-pullback{0%{transform:translate3d(0,14px,0) scale(1.09)}45%{transform:translate3d(0,0,0) scale(1.04)}100%{transform:translate3d(0,-12px,0) scale(.93)}}
   @keyframes kiln-studio-approach{0%,12%{transform:scale(1)}85%,100%{transform:scale(1.11)}}
   @keyframes kiln-hardware-approach{0%{transform:translate3d(0,14px,0) scale(.88)}45%{transform:translate3d(0,0,0) scale(1)}75%,100%{transform:translate3d(0,-4px,0) scale(1.04)}}
   @media(max-width:760px){
-   @keyframes kiln-hero-pullback{0%{transform:translate3d(0,8px,0) scale(1.06)}45%{transform:translate3d(0,0,0) scale(1.02)}100%{transform:translate3d(0,-6px,0) scale(.95)}}
    @keyframes kiln-studio-approach{0%,12%{transform:scale(1)}85%,100%{transform:scale(1.06)}}
    @keyframes kiln-hardware-approach{0%{transform:translate3d(0,8px,0) scale(.92)}45%{transform:translate3d(0,0,0) scale(1)}75%,100%{transform:translate3d(0,-2px,0) scale(1.025)}}
   }
@@ -234,3 +230,83 @@ p{text-wrap:pretty}
 @media(prefers-reduced-motion:reduce){
  .motion-entered,.hero-product,.studio-interlude img,.hardware-slide img{animation:none!important;opacity:1;transform:none}
 }
+
+/* The native scroll intro has three beats: brand + material, full object, copy.
+   Reduced motion and unsupported browsers render the final composition directly. */
+.hero-stage{display:contents}
+.boot-hero h1 span{display:block}
+@media(min-width:761px){.boot-figure{grid-column:2;grid-row:1}.boot-hero .hero-content{grid-column:1;grid-row:1}}
+.studio-mark svg{overflow:visible}
+.crucible-spark{transform-box:fill-box;transform-origin:50% 75%}
+@media(prefers-reduced-motion:no-preference){
+ .studio-mark.motion-entered{animation:none}
+ .studio-mark.motion-entered .crucible-spark{animation:kiln-spark-pop 1350ms both;animation-timing-function:cubic-bezier(.4,0,.2,1)}
+ @keyframes kiln-spark-pop{
+  0%{transform:translateY(92%) rotate(-24deg) scale(.92)}
+  17%{transform:translateY(102%) rotate(-30deg) scale(1.05,.86);animation-timing-function:cubic-bezier(.16,.8,.26,1)}
+  43%{transform:translateY(-48%) rotate(14deg) scale(.96,1.04);animation-timing-function:cubic-bezier(.5,0,.8,.4)}
+  65%{transform:translateY(7%) rotate(-11deg) scale(1.03,.97)}
+  82%{transform:translateY(-6%) rotate(5deg)}
+  100%{transform:translateY(0) rotate(0) scale(1)}
+ }
+ [data-motion-paused] .crucible-spark{animation-play-state:paused!important}
+ @supports (animation-timeline:view()) and (timeline-scope:--kiln-intro){
+  :root{timeline-scope:--kiln-intro}
+  .boot-hero{display:block;height:170svh;min-height:0;padding:0;overflow:clip;view-timeline:--kiln-intro block;view-timeline-inset:0}
+  .hero-stage{position:sticky;top:0;display:flex;flex-direction:column;height:100svh;padding:98px var(--pad) 24px;overflow:clip}
+  .hero-layout{display:flex;flex-direction:column;flex:1;min-height:0;gap:14px;align-items:center}
+  .hero-header .brand{transform-origin:0 0;animation:kiln-brand-home linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .hero-header .desktop-nav,.hero-header .header-interest,.hero-header .menu-toggle{animation:kiln-nav-enter linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .boot-figure{position:relative;overflow:clip;flex:1;min-height:0;width:min(100%,840px);max-width:none;height:auto;margin:0;align-self:center;animation:kiln-object-home linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .boot-figure.motion-product.motion-entered{animation-name:kiln-object-home;animation-duration:auto;animation-timing-function:linear;animation-fill-mode:both}
+  .boot-figure .hero-product{width:100%;height:100%;max-height:none;object-fit:contain;transform-origin:57% 23%;animation:kiln-macro-reveal linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .boot-hero .hero-content{flex:0 0 auto;width:100%;padding:0;margin:0;text-align:center;animation:kiln-intro-copy linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .boot-hero .hero-content>.eyebrow{font-size:8px;line-height:1.5;margin-bottom:10px}
+  .boot-hero h1{font-size:clamp(32px,4.2vw,60px);line-height:1.08;margin:0 0 12px}
+  .boot-hero h1 span{display:inline-block}
+  .boot-hero .hero-content>p{font-size:16px;line-height:1.45;max-width:60ch;margin:0 auto}
+  .boot-hero .hero-content .text-link{font-size:12px;min-height:36px;margin-top:12px;padding-bottom:8px}
+  .boot-hero .chapter-caption{position:static;margin-top:16px;flex:0 0 auto;animation:kiln-intro-copy linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  @keyframes kiln-brand-home{
+   0%,5%{transform:translate3d(calc(50vw - var(--pad) - 206px),18svh,0) scale(4)}
+   65%,100%{transform:translate3d(0,0,0) scale(1)}
+  }
+  @keyframes kiln-object-home{
+   0%,5%{transform:translate3d(0,28svh,0)}
+   72%,100%{transform:translate3d(0,0,0)}
+  }
+  @keyframes kiln-macro-reveal{
+   0%,5%{transform:translate3d(-7%,17%,0) scale(3.5)}
+   72%,100%{transform:translate3d(0,0,0) scale(1)}
+  }
+  @keyframes kiln-intro-copy{
+   0%,72%{opacity:0;transform:translate3d(0,18px,0)}
+   96%,100%{opacity:1;transform:translate3d(0,0,0)}
+  }
+  .boot-hero .hero-content .text-link{animation:kiln-intro-action linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  @keyframes kiln-intro-action{0%,72%{visibility:hidden}73%,100%{visibility:visible}}
+  @keyframes kiln-nav-enter{0%,45%{opacity:0;visibility:hidden}70%,100%{opacity:1;visibility:visible}}
+  @media(max-width:760px){
+   .boot-hero{height:calc(165svh - 62px)}
+   .hero-stage{height:calc(100svh - 62px);padding:82px 24px 16px}
+   .hero-layout{gap:12px;align-items:stretch}
+   .boot-figure{width:calc(100% + 48px);margin:0 -24px;align-self:stretch}
+   .boot-hero .hero-content{text-align:left}
+   .boot-hero h1{font-size:clamp(26px,8.3vw,44px)}
+   .boot-hero h1 span{display:block}
+   .boot-hero .hero-content>p{font-size:15px;max-width:36ch;margin:0}
+   .boot-hero .hero-content .text-link{margin-top:12px;font-size:11px}
+   .boot-hero .chapter-caption{font-size:8px;margin-top:12px}
+   @keyframes kiln-brand-home{
+    0%,5%{transform:translate3d(calc(50vw - 24px - 132px),17svh,0) scale(3)}
+    65%,100%{transform:translate3d(0,0,0) scale(1)}
+   }
+   @keyframes kiln-object-home{
+    0%,5%{transform:translate3d(0,32svh,0)}
+    72%,100%{transform:translate3d(0,0,0)}
+   }
+  }
+  [data-motion-paused] .hero-header .brand,[data-motion-paused] .hero-header nav,[data-motion-paused] .hero-header button,[data-motion-paused] .hero-content,[data-motion-paused] .chapter-caption{animation-play-state:paused}
+ }
+}
+@media(prefers-reduced-motion:reduce){.crucible-spark{animation:none!important;transform:none}}
