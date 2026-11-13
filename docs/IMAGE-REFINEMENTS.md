@@ -125,3 +125,7 @@ Use case: precise-object-edit. Image 1 is edit target, the exposed four-GPU Kiln
 #### lightPromptAtelierInsideFinal
 
 Very small localized edit ONLY. Rotate the existing illuminated white square on the front-right aluminium return COUNTER-CLOCKWISE by 21 degrees around its current center. The current light is a diamond at 45 degrees; after rotation it must be a square tilted only 24 degrees clockwise from upright. Reduce this light's size by 15 percent. Keep its center fixed at x869,y570. Reference image 2 shows the required orientation. Two uneven-height top corners, no centered upper point. Preserve its luminous white diffuser, thin machined inset edge and faint halo so it remains a real installed LED indicator. Do not change a single other design element: casing, red grille slots, interior components, camera, backdrop, shadow, composition. Absolutely no full crucible logo. Same 3:2 output.
+
+## Desktop macro detail
+
+`atelier-hero-detail.webp` is the approved 1536 × 1024 high-detail Atelier source from Sites v35 (`f5d54cde7592a014af203df8d7d6b2bbd626c341`). It replaces the desktop hero source and matching preload while retaining the gallery and comparison assets. The desktop macro uses the full available width and a 2.4× initial crop. No new generative image or 4K claim is introduced.

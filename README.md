@@ -27,8 +27,10 @@ Open a PR against `porto-labs-xyz/lander:main`. Richard reviews and merges for t
 
 - `src/components/HomeContent.jsx` and `AboutContent.jsx`: approved editorial content.
 - `src/components/HardwareComparison.jsx`: shared responsive comparison and uncovered component renders.
-- `src/lib/kiln-gallery.mjs` and `kiln-motion.mjs`: native product swiping and brief reduced-motion-aware graphic reveals.
+- `src/lib/kiln-gallery.mjs`, `kiln-motion.mjs` and `slot-rhythm.mjs`: native product swiping, chapter reveals and cached scroll-linked grille motion.
 - `src/lib/kiln-interactions.js`: accessible tabs, dialogs, mobile menu and section-aware controls, with lifecycle cleanup.
 - `src/lib/interest-form.mjs`: live signup handling and retry states.
 - `src/styles/global.css`: approved website design; `booking.css` is scoped to the booking shell.
 - `static/assets/kiln/`: approved assets and font licences.
+
+Motion and performance details: [motion design](docs/MOTION-DESIGN.md), [performance review](docs/PERFORMANCE-REVIEW.md).

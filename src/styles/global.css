@@ -336,8 +336,17 @@ p{text-wrap:pretty}
  .boot-figure .hero-product{aspect-ratio:3 / 2}
  @media(prefers-reduced-motion:no-preference){
   @supports (animation-timeline:view()) and (timeline-scope:--kiln-intro){
-   .boot-figure{width:min(100%,1040px)}
-   .boot-figure .hero-product{transform-origin:57% 34%}
+   .boot-figure{width:100%;animation-name:kiln-desktop-object-home}
+   .boot-figure.motion-product.motion-entered{animation-name:kiln-desktop-object-home}
+   .boot-figure .hero-product{transform-origin:57% 34%;animation-name:kiln-desktop-macro-reveal}
+   @keyframes kiln-desktop-object-home{
+    0%,5%{transform:translate3d(0,26svh,0)}
+    72%,100%{transform:translate3d(0,0,0)}
+   }
+   @keyframes kiln-desktop-macro-reveal{
+    0%,5%{transform:translate3d(-5%,-8%,0) scale(2.4)}
+    72%,100%{transform:translate3d(0,0,0) scale(1)}
+   }
   }
  }
 }

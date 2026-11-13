@@ -1,3 +1,4 @@
+import { mountSlotRhythm } from './slot-rhythm.mjs';
 import { mountKilnMotion } from './kiln-motion.mjs';
 import { mountProductGallery } from './kiln-gallery.mjs';
 import { bindInterestForm } from './interest-form.mjs'
@@ -59,6 +60,7 @@ function chooseProduct(key) {
 const productGallery = mountProductGallery($('.hardware-slides'), chooseProduct, reducedMotion);
 cleanups.push(() => productGallery.destroy());
 cleanups.push(mountKilnMotion(container));
+cleanups.push(mountSlotRhythm(container));
 $$('button[data-product]').forEach(button => on(button, 'click', () => productGallery.goTo(button.dataset.product)));
 
 const thoughts = {
