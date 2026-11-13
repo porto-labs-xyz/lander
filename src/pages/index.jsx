@@ -7,4 +7,4 @@ export default function IndexPage() {
   return <KilnPage page="home"><HomeContent /></KilnPage>
 }
 
-export const Head = () => <Seo title={"Kiln \u2014 Private AI. Local production."} description={"Private AI. Local production. Meet Kiln One, Atelier and KilnOS: hardware and a shared workspace for creative teams."} path="/" hero={true} />
+export const Head = () => <Seo title={"Kiln \u2014 Private AI. Local production."} description={"Private AI for agencies. Run local models on your own Kiln hardware, with creative projects and sensitive client work kept within your studio’s systems."} path="/" hero={true} />

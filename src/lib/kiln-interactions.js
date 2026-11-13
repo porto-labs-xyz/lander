@@ -18,13 +18,13 @@ const scrollBehavior = () => reducedMotion.matches ? 'auto' : 'smooth';
 const products = {
   one: {
     name: 'One.', tagline: ['Your studio.', 'Your compute.'],
-    description: 'A compact workstation for everyday creative exploration. Local AI compute your team can share from the laptops they already use.',
+    description: 'A compact home for your local AI models and private projects. Work from familiar laptops, with the computing kept in your studio.',
     price: '£17,000', priceNote: 'Target hardware price',
     caption: 'Kiln One / Inside the workstation', interest: 'Kiln One'
   },
   atelier: {
     name: 'Atelier.', tagline: ['More capacity.', 'Same control.'],
-    description: 'Rack-ready compute for more demanding creative workloads. Room to expand as your studio’s projects and ambitions grow.',
+    description: 'Rack-ready local compute for demanding agency work. Expand your model collection and creative capacity, with the same studio-controlled access.',
     price: 'Let’s talk', priceNote: 'Pricing to be confirmed',
     caption: 'Kiln Atelier / Inside the workstation', interest: 'Kiln Atelier'
   }
@@ -62,9 +62,9 @@ cleanups.push(mountKilnMotion(container));
 $$('button[data-product]').forEach(button => on(button, 'click', () => productGallery.goTo(button.dataset.product)));
 
 const thoughts = {
-  brief: {quote: '“Here’s the brief. Here’s what matters.”', note: 'Bring the client’s brief, references and constraints into one project.'},
-  explore: {quote: '“Try three directions. Keep our character.”', note: 'Explore campaign directions and image storyboards against the same brief.'},
-  decide: {quote: '“Keep this. Change that.”', note: 'Review together. Carry the team’s decisions into the next round.'}
+  brief: {quote: '“Here’s the brief. Here’s what matters.”', note: 'Start with the client’s brief and references in a private studio project.'},
+  explore: {quote: '“Try three directions. Keep our character.”', note: 'Generate directions and storyboards with models running on your Kiln.'},
+  decide: {quote: '“Keep this. Change that.”', note: 'Keep drafts, feedback and decisions together. Refine locally, round after round.'}
 };
 $$('[data-thought]').forEach(button => on(button, 'click', () => {
   const key = button.dataset.thought, thought = thoughts[key];
