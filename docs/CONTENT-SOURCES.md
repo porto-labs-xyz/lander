@@ -15,7 +15,7 @@ The founder approved launch of the full product website. This release ports the 
 
 - Native scroll-snap One/Atelier gallery supports swiping without intercepting vertical scrolling. Tabs, section colour, copy and selected product stay synchronized.
 - Side-by-side comparison uses sticky product headers, larger values and separate shared foundations. It retains all proposed specifications and qualifications.
-- The corrected One cutaway and existing Atelier interior render are visible in the comparison. Renders illustrate concept component layout, not a final engineering build.
+- The corrected One cutaway and red-background Atelier interior render are visible in the gallery and comparison. Renders illustrate concept component layout, not a final engineering build.
 - Passive product and brand motion runs once per view, with brief transform/opacity animations, reduced-motion support and lifecycle cleanup. No video or animation library is added.
 
 ## Transition and typography refinement, 13 November 2026

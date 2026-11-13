@@ -12,6 +12,16 @@ Prompt:
 
 Use case: precise-object-edit. Edit target: the supplied Kiln One product render. Asset type: photorealistic website hardware photograph. Correct ONLY the enclosure geometry and perspective: the front aluminium surround, blue grille, exposed side frame and top must belong to one precisely machined rigid rectangular enclosure in a coherent mild telephoto three-quarter camera projection. The original front face widens subtly toward the base and its lower corners don't quite share the top frame's perspective. Make vertical uprights parallel in this product-shot projection, horizontal depth edges converge consistently, the front grille and aluminium lip coplanar, and the rounded corner radii and material thickness physically consistent. A subtle precision correction, not a redesign. Preserve the same overall tall proportions, same open left-side view, same crop and camera composition, satin brushed aluminium, blue slotted front grille, single illuminated tilted-square status light, exposed motherboard, CPU cooler, exactly two GPUs and bottom power supply, black cables, studio highlights and realistic contact shadow. Keep the uninterrupted matte blue backdrop closely matching RGB 42,131,181 at the outer edges for seamless website integration. No added text, no logo, no UI, no additional components. Keep product completely inside the square image with breathing room and shadow intact.
 
+## Exposed Atelier on red
+
+- Reference: `static/assets/kiln/atelier-inside.jpg`.
+- Final: `static/assets/kiln/atelier-interior-red.webp` (1536 × 1024, 123,698 bytes).
+- The approved four-GPU concept is now shown in both the main hardware gallery and comparison. The backdrop changes to the red takeover; lighting, components and contact shadow are retained.
+
+Prompt:
+
+Use case: precise-object-edit. Edit target: the supplied approved exposed Kiln Atelier hardware render. Change ONLY the backdrop and the reflected environmental colour. Replace the warm cream photographic studio background with seamless matte Kiln red RGB 224,73,56 (hex #E04938), matching this colour exactly around every outer image edge for blending into a website red takeover. Keep a subtle realistic grounded contact shadow below the enclosure and the original soft specular highlights in satin aluminium. Preserve the hardware identically: exposed top and side, wide horizontal rounded aluminium enclosure/frame, red two-column slotted front grille, small white tilted-square status light at front right, exactly four parallel graphics cards, motherboard, CPU cooling, memory modules and power supply with black cable routing. Preserve exact camera angle, product scale, geometry, perspective, proportions and current 3:2 landscape framing, no extra components, no captions. No enclosure lid, no floating removed parts, no exploded view. Lighting should remain crisp, premium photographic and physically coherent, with minimal red bounce only where plausible. Keep neutral silver highlights; do not tint all the metal red. Product and its contact shadow fully within image margins. This is a background-only edit of the existing concept render.
+
 ## Warehouse studio
 
 ### Working studio equipment shelf

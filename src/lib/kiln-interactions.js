@@ -26,7 +26,7 @@ const products = {
     name: 'Atelier.', tagline: ['More capacity.', 'Same control.'],
     description: 'For studios with heavier workloads. Atelier is designed for more GPUs and a four-unit rack, so you can grow local capacity around the way your team works.',
     price: 'Let’s talk', priceNote: 'Pricing to be confirmed',
-    caption: 'Kiln Atelier / Studio compute', interest: 'Kiln Atelier'
+    caption: 'Kiln Atelier / Inside the workstation', interest: 'Kiln Atelier'
   }
 };
 function chooseProduct(key) {
