@@ -18,6 +18,19 @@ The founder approved launch of the full product website. This release ports the 
 - The corrected One cutaway and existing Atelier interior render are visible in the comparison. Renders illustrate concept component layout, not a final engineering build.
 - Passive product and brand motion runs once per view, with brief transform/opacity animations, reduced-motion support and lifecycle cleanup. No video or animation library is added.
 
+## Transition and typography refinement, 13 November 2026
+
+- Desktop product tabs use a 180 ms opacity crossfade; mobile retains native scroll snapping. Mobile selection updates at the swipe midpoint with at most one callback per animation frame, without a delayed scroll-end timer.
+- The large takeover colour is an opacity layer. Header colour comes from the selected section’s settled colour token, preventing intermediate colours from being cached. Both product images decode as the gallery approaches the viewport.
+- CTA arrows become a small tilted square. A square also marks the active product and mobile position; the motion is a short press/hover response. The hardware caption rule is removed.
+- Caption phrases stay intact at narrow widths, with balanced heading/caption wrapping and improved paragraph wrapping.
+- `one-interior-v2.webp` corrects the frame perspective while retaining the open enclosure, components, blue grille, lighting and shadow. It is a concept render, not CAD or manufacturing evidence. The 1254px WebP is 195,192 bytes versus the previous 2,164,121-byte PNG.
+- Ten controlled signup/gallery tests cover failure recovery, rapid desktop switching, native mobile synchronization, reduced motion, responsive alignment and cleanup.
+
+## Studio interlude
+
+A new front-facing four-unit Atelier studio render sits between the context and KilnOS chapters. It derives the rack design from the existing `studio-leather.jpg` reference, retaining the four coloured grilles and tilted-square lights. The requested setting is an empty open-plan warehouse studio with Mac-style displays and laptops showing creative work, wood desks, Herman Miller Aluminium Group-style leather chairs and a Kiln-inspired abstract pop-art oil painting. Two WebP widths serve mobile and desktop; the square mobile crop keeps the entire rack visible. The scene is a concept visualization.
+
 ## Earlier source notes
 
 # Kiln stealth landing page provenance

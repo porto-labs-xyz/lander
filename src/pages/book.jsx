@@ -17,7 +17,7 @@ function GoogleBookingEmbed() {
           style={{ border: 0 }}
         />
       </div>
-      <p className="booking-fallback">Calendar not loading? <a href={bookingUrl} target="_blank" rel="noopener noreferrer">Open the booking page directly <span aria-hidden="true">↗</span></a></p>
+      <p className="booking-fallback">Calendar not loading? <a href={bookingUrl} target="_blank" rel="noopener noreferrer">Open the booking page directly <span className="action-square" aria-hidden="true"></span></a></p>
     </section>
   )
 }
@@ -31,7 +31,7 @@ export default function BookPage() {
           <span className="kiln-wordmark">kiln</span>
           <span className="kiln-byline">by Porto Labs</span>
         </a>
-        <a className="kiln-text-link" href="/#interest">Register interest <span aria-hidden="true">↗</span></a>
+        <a className="kiln-text-link" href="/#interest">Register interest <span className="action-square" aria-hidden="true"></span></a>
       </header>
       <main className="booking-main" id="booking-main">
         <div className="booking-intro">

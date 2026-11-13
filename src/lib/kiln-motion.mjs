@@ -2,7 +2,7 @@
 export function mountKilnMotion(root) {
   const host = root === document ? document.documentElement : root;
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const nodes = [...root.querySelectorAll('.boot-figure,.hardware-image-wrap,.crucible,.studio-mark,.about-seal,.name-mark img,.mini-square')];
+  const nodes = [...root.querySelectorAll('.boot-figure,.crucible,.studio-mark,.about-seal,.name-mark img')];
   let observer;
   const cleanups = [];
   const play = node => {
@@ -10,7 +10,7 @@ export function mountKilnMotion(root) {
     observer?.unobserve(node);
   };
   nodes.forEach(node => {
-    node.classList.add(node.matches('.boot-figure,.hardware-image-wrap') ? 'motion-product' : node.matches('.mini-square') ? 'motion-ember' : 'motion-mark');
+    node.classList.add(node.matches('.boot-figure') ? 'motion-product' : 'motion-mark');
   });
   const pause = () => host.toggleAttribute('data-motion-paused', document.hidden);
   const configure = () => {

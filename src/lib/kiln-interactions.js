@@ -29,9 +29,9 @@ const products = {
     caption: 'Kiln Atelier / Studio compute', interest: 'Kiln Atelier'
   }
 };
-function chooseProduct(key, syncGallery = true) {
+function chooseProduct(key) {
   const product = products[key];
-  if (!product || !$('#product-info')) return;
+  if (!product || !$('#product-info') || $('#hardware').dataset.product === key) return;
   $('#hardware').dataset.product = key;
   $('#product-name').textContent = product.name;
   const tagline = $('#product-tagline');
@@ -39,11 +39,14 @@ function chooseProduct(key, syncGallery = true) {
   $('#product-description').textContent = product.description;
   $('#product-price').textContent = product.price;
   $('#price-note').textContent = product.priceNote;
-  if (syncGallery) productGallery.goTo(key);
   $$('.hardware-slide').forEach(slide => slide.setAttribute('aria-hidden', String(slide.dataset.slide !== key)));
   $$('[data-position]').forEach(dot => dot.classList.toggle('is-current', dot.dataset.position === key));
   $('#product-announcement').textContent = product.name + ' ' + product.tagline.join(' ');
-  $('#hardware-caption').textContent = product.caption;
+  const caption = product.caption.split(' / ');
+  const model = document.createElement('span');
+  model.className = 'caption-model'; model.textContent = caption[0] + ' / ';
+  const detail = document.createElement('span'); detail.textContent = caption[1];
+  $('#hardware-caption').replaceChildren(model, detail);
   $('#interest-product').value = product.interest;
   $('#product-info').setAttribute('aria-labelledby', 'choose-' + key);
   $$('button[data-product]').forEach(button => {
@@ -53,10 +56,10 @@ function chooseProduct(key, syncGallery = true) {
   });
   invalidateLayout();
 }
-const productGallery = mountProductGallery($('.hardware-slides'), key => chooseProduct(key, false), reducedMotion);
+const productGallery = mountProductGallery($('.hardware-slides'), chooseProduct, reducedMotion);
 cleanups.push(() => productGallery.destroy());
 cleanups.push(mountKilnMotion(container));
-$$('button[data-product]').forEach(button => on(button, 'click', () => chooseProduct(button.dataset.product)));
+$$('button[data-product]').forEach(button => on(button, 'click', () => productGallery.goTo(button.dataset.product)));
 
 const thoughts = {
   brief: {kicker: 'Give it the right starting point.', quote: '“Here’s the brief. Here’s what matters.”', note: 'Keep the audience, references and non-negotiables together.'},
@@ -155,10 +158,11 @@ function updateFrame() {
     if (section) {
       const theme = [section.id, section.dataset.tone, section.dataset.product].join(':');
       if (theme !== headerTheme) {
+        // Read the settled colour token, never an intermediate animated background.
+        const style = getComputedStyle(section);
+        const color = style.getPropertyValue('--field-color').trim() || style.backgroundColor;
         header.dataset.tone = section.dataset.tone;
-        const color = getComputedStyle(section).backgroundColor.match(/[\d.]+/g);
-        const rgb = color && Number(color[3] ?? 1) > 0 ? color.slice(0,3).join(',') : (section.dataset.tone === 'ink' ? '241,240,237' : '16,17,18');
-        header.style.setProperty('--header-bg', 'rgb(' + rgb + ')');
+        header.style.setProperty('--header-bg', color);
         headerTheme = theme;
       }
     }
