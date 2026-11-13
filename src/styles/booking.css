@@ -111,4 +111,4 @@
 }
 @media (prefers-reduced-motion: reduce) { .booking-page { scroll-behavior: auto; } }
 
-.booking-page .action-square{display:inline-block;width:8px;height:8px;background:currentColor;transform:rotate(24deg);flex:0 0 8px}
+.booking-page .action-square{display:inline-block;width:8px;height:8px;background:#E04938;transform:rotate(24deg);flex:0 0 8px}

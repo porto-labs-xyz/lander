@@ -29,7 +29,11 @@ The founder approved launch of the full product website. This release ports the 
 
 ## Studio interlude
 
-A new front-facing four-unit Atelier studio render sits between the context and KilnOS chapters. It derives the rack design from the existing `studio-leather.jpg` reference, retaining the four coloured grilles and tilted-square lights. The requested setting is an empty open-plan warehouse studio with Mac-style displays and laptops showing creative work, wood desks, Herman Miller Aluminium Group-style leather chairs and a Kiln-inspired abstract pop-art oil painting. Two WebP widths serve mobile and desktop; the square mobile crop keeps the entire rack visible. The scene is a concept visualization.
+A new front-facing four-unit Atelier studio render sits between the context and KilnOS chapters. It derives the rack design from the existing `studio-leather.jpg` reference, retaining the four coloured grilles and tilted-square lights. The requested setting is an empty open-plan warehouse studio with Mac-style displays and laptops showing creative work, wood desks, Herman Miller Aluminium Group-style leather chairs and a Baldessari-inspired architectural pop-art collage. Two WebP widths serve mobile and desktop; the square mobile crop keeps the entire rack visible. The rack sits against the rear wall near the golden-ratio focal line; the mobile crop is biased to 61.8% to retain it. The scene is a concept visualization.
+
+## UI square colour system
+
+Standalone tilted squares are reserved for controls and product selection. Yellow sections use blue; red and blue hardware sections use yellow; dark sections vary between yellow, blue and red. Header and mobile action markers follow the active section. The decorative workflow square and the floating square in the studio painting are removed. Established logo artwork and product status lights remain intact.
 
 ## Earlier source notes
 

@@ -100,7 +100,7 @@ on(menu, 'click', () => {
   menu.setAttribute('aria-expanded', String(open));
   menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   header.classList.toggle('menu-is-open', open);
-  if (open) { header.dataset.tone = 'ink'; header.style.setProperty('--header-bg', 'rgba(241,240,237,.98)'); header.classList.add('is-scrolled'); }
+  if (open) { header.dataset.tone = 'ink'; header.style.setProperty('--header-bg', 'rgba(241,240,237,.98)'); header.style.setProperty('--square-accent', 'var(--red)'); header.classList.add('is-scrolled'); }
   else invalidateLayout();
 });
 $$('a,button', mobileMenu).forEach(item => on(item, 'click', closeMenu));
@@ -139,7 +139,7 @@ if (container.dataset.page === 'about') $('#interest-product').value = 'The Kiln
 // One mobile action follows the section; the page never takes over scrolling.
 const dock = $('#mobile-action'), dockLabel = $('.dock-label', dock);
 const sections = $$('section[data-tone],footer[data-tone]');
-let frame = 0, dockAction = '', layoutDirty = true, ranges = [], headerHeight = 0, headerTheme = '';
+let frame = 0, dockTheme = '', dockAction = '', layoutDirty = true, ranges = [], headerHeight = 0, headerTheme = '';
 function measureLayout() {
   const offset = window.scrollY;
   ranges = sections.map(node => {
@@ -163,12 +163,18 @@ function updateFrame() {
         const color = style.getPropertyValue('--field-color').trim() || style.backgroundColor;
         header.dataset.tone = section.dataset.tone;
         header.style.setProperty('--header-bg', color);
+        header.style.setProperty('--square-accent', style.getPropertyValue('--square-accent').trim());
         headerTheme = theme;
       }
     }
     header.classList.toggle('is-scrolled', offset > 40);
   }
   const context = ranges.find(item => item.node.dataset.mobileCta && item.top <= contextLine && item.bottom > contextLine)?.node;
+  const nextDockTheme = context ? [context.id, context.dataset.product].join(':') : 'default';
+  if (nextDockTheme !== dockTheme) {
+    dock.style.setProperty('--square-accent', context ? getComputedStyle(context).getPropertyValue('--square-accent').trim() : 'var(--blue)');
+    dockTheme = nextDockTheme;
+  }
   const label = context ? context.dataset.mobileCta : 'Register interest';
   const action = context ? context.dataset.mobileAction : 'interest';
   if (dockLabel.textContent !== label) dockLabel.textContent = label;
