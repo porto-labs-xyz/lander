@@ -18,13 +18,13 @@ const scrollBehavior = () => reducedMotion.matches ? 'auto' : 'smooth';
 const products = {
   one: {
     name: 'One.', tagline: ['Your studio.', 'Your compute.'],
-    description: 'Dedicated local compute for your team’s AI workflow. Pair Kiln One with KilnOS to work from familiar laptops, with models running on hardware in your studio.',
+    description: 'A compact workstation for your team’s creative AI.',
     price: '£17,000', priceNote: 'Target hardware price',
     caption: 'Kiln One / Inside the workstation', interest: 'Kiln One'
   },
   atelier: {
     name: 'Atelier.', tagline: ['More capacity.', 'Same control.'],
-    description: 'For studios with heavier workloads. Atelier is designed for more GPUs and a four-unit rack, so you can grow local capacity around the way your team works.',
+    description: 'Expandable, rack-ready compute for heavier creative workloads.',
     price: 'Let’s talk', priceNote: 'Pricing to be confirmed',
     caption: 'Kiln Atelier / Inside the workstation', interest: 'Kiln Atelier'
   }
@@ -62,9 +62,9 @@ cleanups.push(mountKilnMotion(container));
 $$('button[data-product]').forEach(button => on(button, 'click', () => productGallery.goTo(button.dataset.product)));
 
 const thoughts = {
-  brief: {kicker: 'Give it the right starting point.', quote: '“Here’s the brief. Here’s what matters.”', note: 'Keep the audience, references and non-negotiables together.'},
-  explore: {kicker: 'Explore with intent.', quote: '“Try three directions. Keep our character.”', note: 'Develop image directions and storyboards against the same brief.'},
-  decide: {kicker: 'Carry the judgement forward.', quote: '“Keep this. Change that.”', note: 'Bring feedback and selected directions into the next round, with the context intact.'}
+  brief: {kicker: 'Start with context.', quote: '“Here’s the brief. Here’s what matters.”', note: 'The brief and references, together.'},
+  explore: {kicker: 'Explore with intent.', quote: '“Try three directions. Keep our character.”', note: 'Image directions. One shared brief.'},
+  decide: {kicker: 'Keep what works.', quote: '“Keep this. Change that.”', note: 'Your decisions inform the next round.'}
 };
 $$('[data-thought]').forEach(button => on(button, 'click', () => {
   const key = button.dataset.thought, thought = thoughts[key];
