@@ -1,3 +1,42 @@
+# Kiln website release, 13 November 2026
+
+The founder approved launch of the full product website. This release ports the approved Sites v10 source (`da3d03133bd6534d9dddf102dadc2a8cff0262f6`) into the existing Gatsby project.
+
+- Headline: “Private AI. Local production.”
+- Home and About retain the approved editorial design, copy, self-hosted IBM Plex fonts, Crucible marks, static One hero, perspective-corrected interior and Atelier render.
+- One target hardware price: £17,000. Specifications, privacy controls, model compatibility and availability remain development targets, not validated shipping claims.
+- Hardware photos blend into the blue/red takeovers with CSS edge masks. Original image pixels, metallic highlights and cast shadows are preserved; masks follow the intrinsic image dimensions on mobile and desktop.
+- Only assets used by these pages are added; historical videos and unused gallery images are not shipped in the new asset directory.
+- Live registration preserves `https://formspree.io/f/xjgepgbg` and adds selected interest and optional company updates. Success appears only after an HTTP success; failures preserve the email for retry. Nothing is stored in browser storage.
+- The `/book/` Google Calendar destination is unchanged. Footer contact and X destinations are preserved. Privacy copy describes the real form flow.
+- The release is proposed by PR; Richard owns merge and production-domain publication.
+
+## Mobile polish and comparison, 13 November 2026
+
+- Native scroll-snap One/Atelier gallery supports swiping without intercepting vertical scrolling. Tabs, section colour, copy and selected product stay synchronized.
+- Side-by-side comparison uses sticky product headers, larger values and separate shared foundations. It retains all proposed specifications and qualifications.
+- The corrected One cutaway and red-background Atelier interior render are visible in the gallery and comparison. Renders illustrate concept component layout, not a final engineering build.
+- Passive product and brand motion runs once per view, with brief transform/opacity animations, reduced-motion support and lifecycle cleanup. No video or animation library is added.
+
+## Transition and typography refinement, 13 November 2026
+
+- Desktop product tabs use a 180 ms opacity crossfade; mobile retains native scroll snapping. Mobile selection updates at the swipe midpoint with at most one callback per animation frame, without a delayed scroll-end timer.
+- The large takeover colour is an opacity layer. Header colour comes from the selected section’s settled colour token, preventing intermediate colours from being cached. Both product images decode as the gallery approaches the viewport.
+- CTA arrows become a small tilted square. A square also marks the active product and mobile position; the motion is a short press/hover response. The hardware caption rule is removed.
+- Caption phrases stay intact at narrow widths, with balanced heading/caption wrapping and improved paragraph wrapping.
+- `one-interior-v2.webp` corrects the frame perspective while retaining the open enclosure, components, blue grille, lighting and shadow. It is a concept render, not CAD or manufacturing evidence. The 1254px WebP is 195,192 bytes versus the previous 2,164,121-byte PNG.
+- Ten controlled signup/gallery tests cover failure recovery, rapid desktop switching, native mobile synchronization, reduced motion, responsive alignment and cleanup.
+
+## Studio interlude
+
+A new front-facing four-unit Atelier studio render sits between the context and KilnOS chapters. It derives the rack design from the existing `studio-leather.jpg` reference, retaining the four coloured grilles and tilted-square lights. The requested setting is an empty open-plan warehouse studio with Mac-style displays and laptops showing creative work, wood desks, Herman Miller Aluminium Group-style leather chairs and a Baldessari-inspired architectural pop-art collage. Two WebP widths serve mobile and desktop; the square mobile crop keeps the entire rack visible. The rack sits against the rear wall near the golden-ratio focal line; the mobile crop is biased to 61.8% to retain it. The scene is a concept visualization.
+
+## UI square colour system
+
+Standalone tilted squares are reserved for controls and product selection. Yellow sections use blue; red and blue hardware sections use yellow; dark sections vary between yellow, blue and red. Header and mobile action markers follow the active section. The decorative workflow square and the floating square in the studio painting are removed. Established logo artwork and product status lights remain intact.
+
+## Earlier source notes
+
 # Kiln stealth landing page provenance
 
 ## Current direction, 10 November 2026
