@@ -28,3 +28,17 @@ Reduced-motion disables both timed and scroll-driven effects, with no hidden con
 ## Validation
 
 Gatsby production build and the existing signup/gallery suite, plus focused tests for motion preference changes, delayed image loading, background pause and unmount cleanup. Browser review checks the macro and full-object states, sticky-stage release, the yellow Crucible’s final geometry and narrow mobile layout. Real iPhone frame-rate profiling remains a device check; no 60fps claim is made from desktop browser QA.
+
+## Little Tilt arrival cue
+
+The header lockup now uses the original SVG paths inline, with a separate square group. At the point where the logo finishes returning to its corner (65% of the intro timeline), an IntersectionObserver triggers one 1,000ms dance. A stable, nonvisual marker is positioned at that exact scroll distance; no new scroll handler or animation-frame loop is used. The pickup dips at 60ms, the hop peaks at 250ms, the second tilt falls at 390ms and the landing lands at 660ms, matching Little Tilt’s musical events.
+
+The 88 KB MP3 is the approved Little Tilt sketch, unchanged. A small Sound off/on toggle explicitly enables audio. Web Audio resumes directly from that tap, then fetches and decodes the clip once. At arrival, the chime and square are scheduled with the same 35ms lead. The chime plays once, with a soft decay after the square settles. Enabling sound after arrival replays the paired cue while the intro is still visible. Muting fades an active source quickly; leaving the tab cancels sound and movement. Restored/deep-linked scroll positions never play an automatic cue, and reduced motion disables this intro cue. Audio does not load before opt-in.
+
+Validation adds seven controlled tests: silent arrival, opt-in and scheduling, late opt-in, unmount during loading, background/reduced-motion handling, deep-link/fast-scroll suppression, and blocked-context recovery. Mobile-browser sound still depends on a user tap, device volume and the browser’s audio policy; it is not assumed to autoplay on a swipe.
+
+Sources: [MDN Web Audio best practices](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Best_practices) and [Chrome autoplay policy](https://developer.chrome.com/blog/autoplay).
+
+### Responsive device opening
+
+The opening is art-directed by viewport width: Kiln One on mobile (up to 760px), Kiln Atelier on wider screens. A native `picture` source lets the browser request only the matching hero asset, with no user-agent sniffing or resize handler. Atelier uses the approved red-grille cutout and its own top-edge focal point; One keeps its existing macro framing. Both share the scroll timeline, logo handoff, Little Tilt cue and delayed copy reveal. The caption changes with the same breakpoint. Static/reduced-motion layouts also use the appropriate device.

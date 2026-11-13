@@ -310,3 +310,29 @@ p{text-wrap:pretty}
  }
 }
 @media(prefers-reduced-motion:reduce){.crucible-spark{animation:none!important;transform:none}}
+
+/* The header uses the original vector paths so only its small square can hop. */
+.brand-mark{display:block;width:103px;height:auto;overflow:visible}
+.header-spark{transform-box:fill-box;transform-origin:50% 75%}
+.hero-arrival-marker{position:absolute;top:45.5svh;left:0;width:1px;height:1px;pointer-events:none}
+.intro-sound{position:absolute;right:var(--pad);bottom:10px;min-height:44px;display:inline-flex;align-items:center;gap:10px;padding:8px 0 8px 12px;font:10px/1.4 PlexMono;color:var(--ink);z-index:3}
+.intro-sound[hidden]{display:none}
+.sound-indicator{width:5px;height:5px;background:currentColor;opacity:.4;transform:rotate(24deg)}
+.intro-sound[aria-pressed=true] .sound-indicator{background:var(--blue);opacity:1}
+.boot-hero:has(.intro-sound:not([hidden])) .chapter-caption{padding-right:112px}
+@media(max-width:760px){.brand-mark{width:88px}.hero-arrival-marker{top:calc(42.25svh - 40.3px)}.intro-sound{font-size:9px;bottom:8px}}
+
+/* Art-directed source selection downloads one hero device for the viewport. */
+.hero-device{display:contents}
+.hero-model-desktop{display:none}
+@media(min-width:761px){
+ .hero-model-mobile{display:none}
+ .hero-model-desktop{display:inline}
+ .boot-figure .hero-product{aspect-ratio:3 / 2}
+ @media(prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()) and (timeline-scope:--kiln-intro){
+   .boot-figure{width:min(100%,1040px)}
+   .boot-figure .hero-product{transform-origin:57% 34%}
+  }
+ }
+}

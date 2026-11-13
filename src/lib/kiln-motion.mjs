@@ -1,6 +1,9 @@
+import { mountKilnIntro } from './kiln-intro.mjs';
+
 // Native CSS timelines handle scroll photography. This observer only introduces
 // chapter content once, so there is no JavaScript animation loop while scrolling.
 export function mountKilnMotion(root) {
+  const removeIntro = mountKilnIntro(root);
   const host = root === document ? document.documentElement : root;
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const nodes = [...root.querySelectorAll('.boot-figure,.crucible,.studio-mark,.about-seal,.name-mark img,.reveal')];
@@ -46,6 +49,7 @@ export function mountKilnMotion(root) {
   configure();
   pause();
   return () => {
+    removeIntro();
     disposed = true;
     observer?.disconnect();
     clearLoads();
