@@ -1,5 +1,10 @@
 # Kiln website
 
+## Current direction, 14 November 2026
+
+The founder approved Sites v48: Monument Grotesk, “Keep the work close”, the close-up One opening, register-interest-only conversion, native product carousel, simplified copy and the black Atelier visual break. The PR must retain the existing Formspree endpoint and `/book/` Google Calendar destination. This direction supersedes older design and opt-in sound instructions below. Richard still owns the production merge and domain release.
+
+
 ## Current landing direction, 13 November 2026
 
 The founder approved the full Kiln website and requested launch through a pull request to `porto-labs-xyz/lander`. Richard owns the merge to `main` and domain release. Preserve the approved v10 design: “Private AI. Local production.”, static One hero, corrected One cutaway, One/Atelier tabs, KilnOS, About and the £17,000 target price. This supersedes the earlier stealth-page/no-hardware direction below.

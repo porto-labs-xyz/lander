@@ -12,8 +12,8 @@ export default function Seo({ title, description, path, hero = false }) {
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="canonical" href={url} />
     <link rel="icon" href="/assets/kiln/kiln-crucible-ink.svg" type="image/svg+xml" />
-    <link rel="preload" href="/assets/kiln/IBMPlexMono-Regular.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
-    {hero && <><link rel="preload" href="/assets/kiln/one-hero-led.webp" as="image" media="(max-width: 760px)" /><link rel="preload" href="/assets/kiln/atelier-hero-detail.webp" as="image" media="(min-width: 761px)" /></>}
+    <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+    {hero && <link rel="preload" href="/assets/one-proportions.png" as="image" />}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />

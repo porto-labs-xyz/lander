@@ -1,4 +1,8 @@
-# Kiln website release, 13 November 2026
+# Current release, 14 November 2026
+
+The active pages now follow approved Sites v48 (`3bcf6e7ce5d90ba2359f0310b34d636c9e497887`), including the founder's black Atelier section-break refinement. Monument Grotesk, the One close-up introduction, register-interest-only conversion and agent-native OS story supersede the older implementation described below. Formspree and Google Calendar remain the production connections. See [current release notes](RELEASE-2026-11-14.md) for implementation, provenance and verification limits.
+
+# Historical Kiln website release, 13 November 2026
 
 The founder approved launch of the full product website. This release ports the approved Sites v10 source (`da3d03133bd6534d9dddf102dadc2a8cff0262f6`) into the existing Gatsby project.
 

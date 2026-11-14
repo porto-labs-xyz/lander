@@ -1,11 +1,11 @@
 # Kiln by Porto Labs
 
-The approved Kiln product website, built in the existing Gatsby application. Home, About and booking pages introduce private AI hardware, KilnOS and studio pilots. Approved brand assets and fonts are served locally.
+The approved Kiln product website, built in the existing Gatsby application. Monument Grotesk, the close-up One introduction, native hardware carousel and a black Atelier interlude introduce private AI hardware and an agent-native OS. Register interest is the primary conversion. No deposits or pre-orders are collected.
 
 ## Development
 
 ```sh
-npm ci
+npm ci --legacy-peer-deps
 npm run develop
 ```
 
@@ -21,16 +21,16 @@ The signup tests use controlled responses and send no real lead. They cover succ
 
 ## Release
 
-Open a PR against `porto-labs-xyz/lander:main`. Richard reviews and merges for the production domain. Source provenance and content boundaries are in `docs/CONTENT-SOURCES.md`.
+PR #5 targets `porto-labs-xyz/lander:staging`. Richard owns review, merge and the production-domain release. Source provenance and content boundaries are in `docs/CONTENT-SOURCES.md`.
 
 ## Structure
 
-- `src/components/HomeContent.jsx` and `AboutContent.jsx`: approved editorial content.
-- `src/components/HardwareComparison.jsx`: shared responsive comparison and uncovered component renders.
-- `src/lib/kiln-gallery.mjs`, `kiln-motion.mjs` and `slot-rhythm.mjs`: native product swiping, chapter reveals and cached scroll-linked grille motion.
-- `src/lib/kiln-interactions.js`: accessible tabs, dialogs, mobile menu and section-aware controls, with lifecycle cleanup.
-- `src/lib/interest-form.mjs`: live signup handling and retry states.
-- `src/styles/global.css`: approved website design; `booking.css` is scoped to the booking shell.
-- `static/assets/kiln/`: approved assets and font licences.
+- `src/content/*.json`: trusted, versioned editorial markup for Home, About, Hardware, three product pages and Privacy.
+- `src/components/MonumentPage.jsx`: Gatsby wrapper and effect lifecycle.
+- `src/lib/monument.mjs`: native carousel, keyboard tabs, dialogs and menu.
+- `src/lib/monument-arrival.mjs`: scroll-linked One opening and original Little Tilt cue, with reduced-motion and teardown support.
+- `src/lib/enquiry-form.mjs`: Formspree registration/contact, explicit marketing consent, duplicate prevention and retry states.
+- `src/styles/monument.css`, `product-pages.css`: current design; `booking.css` is scoped to the Calendar shell.
+- `static/assets/`: current artwork and webfonts. Older components and assets remain in the repository but are not routed by the current pages.
 
-Motion and performance details: [motion design](docs/MOTION-DESIGN.md), [performance review](docs/PERFORMANCE-REVIEW.md).
+Current release and integration validation: [release notes](docs/RELEASE-2026-11-14.md). Older motion/performance documents describe the superseded grille-animation implementation.

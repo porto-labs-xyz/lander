@@ -1,10 +1,6 @@
 import React from 'react'
-import KilnPage from '../components/KilnPage'
-import AboutContent from '../components/AboutContent'
+import MonumentPage from '../components/MonumentPage'
 import Seo from '../components/Seo'
-
-export default function AboutPage() {
-  return <KilnPage page="about"><AboutContent /></KilnPage>
-}
-
-export const Head = () => <Seo title={"About Kiln \u2014 Tools for independent minds."} description={"Meet the team building Kiln: private local AI, studio-controlled models and a creative workspace for agencies."} path="/about/" hero={false} />
+import content from '../content/about.json'
+export default function Page() { return <MonumentPage content={content} /> }
+export const Head = () => <Seo title={content.title} description={content.description} path={content.path} hero={false} />
