@@ -1,7 +1,13 @@
 // A single viewport-triggered camera move. Only transforms and opacity animate.
 // No idle frame loop, scroll interception, controls, autoplay workaround or late audio.
-const DURATION = 10000;
-const LIGHT_CUE = 7000;
+const DURATION = 3800;
+const LIGHT_CUE = 2500;
+// Two brief, irregular red → blue → yellow bursts, confined to the status light.
+const FLICKER = [
+  ['red', [[0, 70], [280, 45]]],
+  ['blue', [[90, 55], [345, 50]]],
+  ['yellow', [[165, 75], [415, 95]]],
+];
 
 export function mountHardwareReveal(root = document) {
   const section = root.querySelector('[data-hardware-reveal]');
@@ -11,7 +17,6 @@ export function mountHardwareReveal(root = document) {
   const media = view.matchMedia('(prefers-reduced-motion: reduce)');
   const camera = section.querySelector('.reveal-camera');
   const closed = section.querySelector('.reveal-closed');
-  const lights = [...section.querySelectorAll('.reveal-light')];
   const lines = [...section.querySelectorAll('.reveal-line')];
   if (!view.IntersectionObserver || !camera?.animate || media.matches) return () => {};
 
@@ -53,10 +58,15 @@ export function mountHardwareReveal(root = document) {
     if (!visible || doc.hidden || media.matches || audio?.state !== 'running') return;
     if (!soundBuffer) return;
     const source = audio.createBufferSource(), gain = audio.createGain();
-    source.buffer = soundBuffer; gain.gain.value = .65;
+    const now = audio.currentTime;
+    source.buffer = soundBuffer;
+    gain.gain.setValueAtTime(.65, now);
+    gain.gain.setValueAtTime(.65, now + .48);
+    gain.gain.linearRampToValueAtTime(0, now + .78);
     source.connect(gain); gain.connect(audio.destination);
     source.onended = () => { source.disconnect(); gain.disconnect(); };
-    source.start(audio.currentTime);
+    // Keep Little Tilt's opening signature; fade the tail instead of cutting it.
+    source.start(now, 0, .8);
     soundNodes.push(source, gain);
   }
 
@@ -90,24 +100,30 @@ export function mountHardwareReveal(root = document) {
     };
     const master = animate(camera, [
       { transform: 'var(--reveal-from)', offset: 0 },
-      { transform: 'var(--reveal-from)', offset: .025, easing: 'cubic-bezier(.46,0,.22,1)' },
-      { transform: 'var(--reveal-land)', offset: .63, easing: 'cubic-bezier(.2,0,.25,1)' },
-      { transform: 'var(--reveal-to)', offset: .7 },
+      { transform: 'var(--reveal-from)', offset: .015, easing: 'cubic-bezier(.42,0,.22,1)' },
+      { transform: 'var(--reveal-land)', offset: 2300 / DURATION, easing: 'cubic-bezier(.2,0,.25,1)' },
+      { transform: 'var(--reveal-to)', offset: LIGHT_CUE / DURATION },
       { transform: 'var(--reveal-to)', offset: 1 },
     ]);
-    lights.forEach((light, index) => {
-      const start = .7 + index * .09;
-      animate(light, [
-        { opacity: 0, offset: 0 }, { opacity: 0, offset: start },
-        { opacity: 1, offset: start + .012, easing: 'ease-in-out' },
-        { opacity: .9, offset: start + .044 }, { opacity: 0, offset: start + .065 },
-        { opacity: 0, offset: 1 },
-      ]);
+    FLICKER.forEach(([colour, bursts]) => {
+      const light = section.querySelector('.reveal-light-' + colour);
+      if (!light) return;
+      const frames = [{ opacity: 0, offset: 0 }];
+      bursts.forEach(([delay, length]) => {
+        const start = LIGHT_CUE + delay;
+        frames.push(
+          { opacity: 0, offset: start / DURATION },
+          { opacity: 1, offset: (start + 8) / DURATION },
+          { opacity: 1, offset: (start + length - 14) / DURATION },
+          { opacity: 0, offset: (start + length) / DURATION },
+        );
+      });
+      animate(light, [...frames, { opacity: 0, offset: 1 }]);
     });
     lines.forEach((line, index) => animate(line, [
       { opacity: 0, transform: 'translate3d(0,24px,0)', offset: 0 },
-      { opacity: 0, transform: 'translate3d(0,24px,0)', offset: .72 + index * .045, easing: 'cubic-bezier(.16,1,.3,1)' },
-      { opacity: 1, transform: 'translate3d(0,0,0)', offset: .9 + index * .045 },
+      { opacity: 0, transform: 'translate3d(0,24px,0)', offset: (2520 + index * 90) / DURATION, easing: 'cubic-bezier(.16,1,.3,1)' },
+      { opacity: 1, transform: 'translate3d(0,0,0)', offset: (3250 + index * 90) / DURATION },
       { opacity: 1, transform: 'translate3d(0,0,0)', offset: 1 },
     ]));
     master.onfinish = finish;

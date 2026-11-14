@@ -1,8 +1,8 @@
 # Atelier camera reveal
 
-The lower black Atelier section plays once when at least 35% visible. The camera eases into a pan across the front edge, pushes toward the status light, then makes a small damped settle. The motion and final hold span ten seconds. At seven seconds, the light pulses red, yellow and blue, then returns to its original white. The headline enters with the final movement. There are no sound or replay controls.
+The lower black Atelier section plays once when at least 35% visible. The camera eases into a pan across the front edge, pushes toward the status light, then makes a small damped settle. The faster slide lands at 2.5 seconds; the full sequence and hold span 3.8 seconds. At the landing, two brief, irregular red → blue → yellow flicker bursts run for 510 milliseconds, then the light returns to its original white. The larger two-line headline enters with the final movement, with responsive sizing that keeps the status light clear. There are no sound or replay controls.
 
-The established “Little Tilt” chime (`/assets/little-tilt.mp3`) accompanies the landing when a genuine tap/key has unlocked browser audio and the file has decoded in time. It plays at the same 0.65 gain as the opening sequence. Blocked, unavailable or late audio is discarded. Motion pauses offscreen and in background tabs; reduced motion keeps a static crop without colour pulses. Cleanup aborts loading and releases observers, animations and audio resources.
+The established “Little Tilt” chime (`/assets/little-tilt.mp3`) accompanies the landing when a genuine tap/key has unlocked browser audio and the file has decoded in time. It uses the opening 800 milliseconds at 0.65 gain, with a smooth fade over the tail; the homepage introduction retains the full chime. Blocked, unavailable or late audio is discarded. Motion pauses offscreen and in background tabs; reduced motion keeps a static crop without colour pulses. Cleanup aborts loading and releases observers, animations and audio resources.
 
 ## Image and engineering scope
 

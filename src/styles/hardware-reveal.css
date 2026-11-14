@@ -11,6 +11,7 @@
 .reveal-light::after{content:"";position:absolute;inset:-100%;background:radial-gradient(ellipse,currentColor,transparent 65%);opacity:.5;mix-blend-mode:screen}
 .reveal-light-red{color:var(--red)}.reveal-light-yellow{color:var(--yellow)}.reveal-light-blue{color:var(--blue)}
 .hardware-interlude[data-hardware-reveal] figcaption{z-index:2;inset:auto var(--pad) 40px;align-items:end}
+.hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(64px,7vw,112px);line-height:.98}
 .reveal-line{display:block}
 .reveal-note{max-width:32ch;line-height:1.65}
 .reveal-note span{display:block;margin-top:9px;text-transform:none;letter-spacing:0;font:400 12px/1.5 var(--sans);color:#bfbfbd}
@@ -23,7 +24,7 @@
  .reveal-scene{width:170%;top:40%;left:50%}
  .hardware-interlude[data-hardware-reveal]::after{background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.5) 66%,#000 89%)}
  .hardware-interlude[data-hardware-reveal] figcaption{inset:auto 24px 30px}
- .hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(42px,10.6vw,60px)}
+ .hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(52px,14vw,84px)}
  .hardware-interlude[data-hardware-reveal] .reveal-note{max-width:100%;margin-top:24px;font-size:9px}
  .reveal-note span{font-size:11px;margin-top:5px}
 }

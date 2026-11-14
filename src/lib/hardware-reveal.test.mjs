@@ -23,7 +23,7 @@ function fixture({ reduced = false, imageFailure = false, audioFailure = false, 
     close() { this.state = 'closed'; return Promise.resolve() }
     decodeAudioData() { return deferredDecode ? new Promise(resolve => { resolveDecode = resolve }) : Promise.resolve({ duration: 2.736 }) }
     createBufferSource() {
-      const node = { connect() {}, disconnect() {}, start() { node.started = true }, stop() { node.stopped = true } }
+      const node = { connect() {}, disconnect() {}, start(...args) { node.started = true; node.startArgs = args }, stop() { node.stopped = true } }
       sources.push(node); return node
     }
     createGain() { return { gain: parameter(), connect() {}, disconnect() {} } }
@@ -39,7 +39,7 @@ function fixture({ reduced = false, imageFailure = false, audioFailure = false, 
       animations.push(animation); return animation
     }, decode: () => imageFailure ? Promise.reject(new Error('offline')) : Promise.resolve(), dataset: { revealSrc: '/open.webp' } }
   }
-  const elements = Object.fromEntries(['camera', 'closed'].map(name => [`.reveal-${name}`, element()]))
+  const elements = Object.fromEntries(['camera', 'closed', 'light-red', 'light-blue', 'light-yellow'].map(name => [`.reveal-${name}`, element()]))
   const section = { ownerDocument: doc, classList: { add(...names) { names.forEach(n => classes.add(n)) }, remove(...names) { names.forEach(n => classes.delete(n)) } },
     querySelector: selector => elements[selector], querySelectorAll: selector => Array.from({length:selector==='.reveal-light'?3:2},element) }
   const root = { querySelector: () => section }
@@ -117,6 +117,7 @@ test('uses Little Tilt after activation and ignores unavailable chime audio', as
     assert.equal(f.requests[0].url, '/assets/little-tilt.mp3')
     f.fireCue()
     assert.equal(f.sources.length, audioFailure ? 0 : 1)
+    if (!audioFailure) assert.equal(f.sources[0].startArgs[2], .8)
     assert.ok(f.classes.has('reveal-running'))
     f.cleanup()
   }
