@@ -20,6 +20,7 @@ export function enquiryPayload(kind, fields) {
 export function bindEnquiryForm(form, { fetchImpl = globalThis.fetch, timeoutMs = 15000, readFields = () => Object.fromEntries(new FormData(form)) } = {}) {
   let pending = false, disposed = false, controller, timer
   const button = form.querySelector('[type=submit]')
+  const label = button.querySelector?.('[data-submit-label]')
   const error = form.querySelector('.form-error')
   const status = form.closest('dialog').querySelector('.form-status')
   const controls = [...form.querySelectorAll('input,select,textarea,button')]
@@ -35,6 +36,7 @@ export function bindEnquiryForm(form, { fetchImpl = globalThis.fetch, timeoutMs 
     timer = setTimeout(() => controller.abort(), timeoutMs)
     controls.forEach(control => { control.disabled = true })
     form.setAttribute('aria-busy', 'true')
+    if (label) label.textContent = 'Sending…'
     try {
       const response = await fetchImpl(signupEndpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -51,7 +53,7 @@ export function bindEnquiryForm(form, { fetchImpl = globalThis.fetch, timeoutMs 
       error.hidden = false
     } finally {
       clearTimeout(timer); pending = false
-      if (!disposed) { controls.forEach(control => { control.disabled = false }); form.removeAttribute('aria-busy') }
+      if (!disposed) { controls.forEach(control => { control.disabled = false }); form.removeAttribute('aria-busy'); if (label) label.textContent = 'Send message' }
     }
   }
   form.addEventListener('submit', submit)

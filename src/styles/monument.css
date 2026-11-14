@@ -1,3 +1,4 @@
+@import "./contact.css";
 @import "./scroll-frames.css";
 @font-face{font-family:Monument;src:url('/assets/fonts/ABCMonumentGrotesk-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:Monument;src:url('/assets/fonts/ABCMonumentGrotesk-Medium.woff2') format('woff2');font-weight:500;font-display:swap}

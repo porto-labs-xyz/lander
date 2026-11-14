@@ -2,8 +2,9 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { mountHardwareReveal } from './hardware-reveal.mjs'
 
-function fixture({ reduced = false, imageFailure = false } = {}) {
-  const observers = [], animations = [], timers = new Map(), contexts = [], oscillators = []
+function fixture({ reduced = false, imageFailure = false, audioFailure = false, deferredDecode = false } = {}) {
+  const observers = [], animations = [], timers = new Map(), contexts = [], sources = [], requests = []
+  let resolveDecode
   const target = () => ({ handlers: {}, addEventListener(type, fn, options) {
     this.handlers[type] = fn
     options?.signal?.addEventListener('abort', () => delete this.handlers[type])
@@ -20,14 +21,15 @@ function fixture({ reduced = false, imageFailure = false } = {}) {
     constructor() { this.state = 'suspended'; this.currentTime = 0; contexts.push(this) }
     resume() { this.state = 'running'; return Promise.resolve() }
     close() { this.state = 'closed'; return Promise.resolve() }
-    createOscillator() {
-      const node = { frequency: parameter(), connect() {}, disconnect() {}, start() { node.started = true }, stop() { node.stopped = true } }
-      oscillators.push(node); return node
+    decodeAudioData() { return deferredDecode ? new Promise(resolve => { resolveDecode = resolve }) : Promise.resolve({ duration: 2.736 }) }
+    createBufferSource() {
+      const node = { connect() {}, disconnect() {}, start() { node.started = true }, stop() { node.stopped = true } }
+      sources.push(node); return node
     }
     createGain() { return { gain: parameter(), connect() {}, disconnect() {} } }
   }
   let timerId = 0
-  const view = { IntersectionObserver: Observer, AudioContext: Audio, matchMedia: () => preference,
+  const view = { fetch(url, options) { requests.push({url,...options}); return audioFailure ? Promise.reject(new Error('offline')) : Promise.resolve({ok:true,arrayBuffer:async()=>new ArrayBuffer(4)}) }, IntersectionObserver: Observer, AudioContext: Audio, matchMedia: () => preference,
     setTimeout(fn) { timers.set(++timerId, fn); return timerId }, clearTimeout(id) { timers.delete(id) } }
   const doc = Object.assign(target(), { defaultView: view, hidden: false })
   const classes = new Set()
@@ -37,12 +39,12 @@ function fixture({ reduced = false, imageFailure = false } = {}) {
       animations.push(animation); return animation
     }, decode: () => imageFailure ? Promise.reject(new Error('offline')) : Promise.resolve(), dataset: { revealSrc: '/open.webp' } }
   }
-  const elements = Object.fromEntries(['camera', 'closed', 'glow'].map(name => [`.reveal-${name}`, element()]))
+  const elements = Object.fromEntries(['camera', 'closed'].map(name => [`.reveal-${name}`, element()]))
   const section = { ownerDocument: doc, classList: { add(...names) { names.forEach(n => classes.add(n)) }, remove(...names) { names.forEach(n => classes.delete(n)) } },
-    querySelector: selector => elements[selector], querySelectorAll: () => [element(), element()] }
+    querySelector: selector => elements[selector], querySelectorAll: selector => Array.from({length:selector==='.reveal-light'?3:2},element) }
   const root = { querySelector: () => section }
   const cleanup = mountHardwareReveal(root)
-  return { cleanup, observers, animations, contexts, oscillators, doc, preference, classes, elements,
+  return { cleanup, observers, animations, contexts, sources, requests, resolveDecode:()=>resolveDecode?.({duration:2.736}), doc, preference, classes, elements,
     async enter(ratio = .7) { observers[0]?.enter(ratio); observers[1]?.enter(ratio); await new Promise(resolve => setImmediate(resolve)) },
     fireCue() { const fns = [...timers.values()]; timers.clear(); fns.forEach(fn => fn()) } }
 }
@@ -82,10 +84,10 @@ test('sound needs trusted activation and never plays late after a silent reveal'
   assert.equal(f.contexts.length, 0)
   await f.enter()
   f.fireCue()
-  assert.equal(f.oscillators.length, 0)
+  assert.equal(f.sources.length, 0)
   f.doc.handlers.pointerdown({ isTrusted: true, type: 'pointerdown' })
   f.observers[1].enter(0); f.observers[1].enter(.7); f.fireCue()
-  assert.equal(f.oscillators.length, 0)
+  assert.equal(f.sources.length, 0)
   f.cleanup()
 })
 
@@ -94,12 +96,40 @@ test('backgrounding stops the cue and unmount closes its audio resources', async
   f.doc.handlers.pointerdown({ isTrusted: true, type: 'pointerdown' })
   await f.enter()
   f.doc.hidden = true; f.doc.handlers.visibilitychange(); f.fireCue()
-  assert.equal(f.oscillators.length, 0)
+  assert.equal(f.sources.length, 0)
   f.doc.hidden = false; f.doc.handlers.visibilitychange(); f.fireCue()
-  assert.ok(f.oscillators.every(n => n.started))
-  assert.equal(f.oscillators.length, 2)
+  assert.ok(f.sources.every(n => n.started))
+  assert.equal(f.sources.length, 1)
   f.cleanup()
-  assert.ok(f.oscillators.every(n => n.stopped))
+  assert.ok(f.sources.every(n => n.stopped))
   assert.equal(f.contexts[0].state, 'closed')
   assert.equal(f.doc.handlers.pointerdown, undefined)
+})
+
+
+test('uses Little Tilt after activation and ignores unavailable chime audio', async () => {
+  for (const audioFailure of [false, true]) {
+    const f = fixture({ audioFailure })
+    await f.enter()
+    assert.equal(f.requests.length, 0)
+    f.doc.handlers.pointerdown({ isTrusted: true, type: 'pointerdown' })
+    await new Promise(resolve => setImmediate(resolve))
+    assert.equal(f.requests[0].url, '/assets/little-tilt.mp3')
+    f.fireCue()
+    assert.equal(f.sources.length, audioFailure ? 0 : 1)
+    assert.ok(f.classes.has('reveal-running'))
+    f.cleanup()
+  }
+})
+
+test('late audio decoding cannot play after unmount', async () => {
+  const f = fixture({ deferredDecode: true })
+  f.doc.handlers.pointerdown({ isTrusted: true, type: 'pointerdown' })
+  await f.enter()
+  f.cleanup(); f.resolveDecode()
+  await new Promise(resolve => setImmediate(resolve))
+  f.fireCue()
+  assert.equal(f.sources.length, 0)
+  assert.equal(f.requests[0].signal.aborted, true)
+  assert.equal(f.contexts[0].state, 'closed')
 })

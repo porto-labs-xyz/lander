@@ -1,7 +1,7 @@
 // A single viewport-triggered camera move. Only transforms and opacity animate.
 // No idle frame loop, scroll interception, controls, autoplay workaround or late audio.
-const DURATION = 7200;
-const LIGHT_CUE = 5100;
+const DURATION = 10000;
+const LIGHT_CUE = 7000;
 
 export function mountHardwareReveal(root = document) {
   const section = root.querySelector('[data-hardware-reveal]');
@@ -11,12 +11,12 @@ export function mountHardwareReveal(root = document) {
   const media = view.matchMedia('(prefers-reduced-motion: reduce)');
   const camera = section.querySelector('.reveal-camera');
   const closed = section.querySelector('.reveal-closed');
-  const glow = section.querySelector('.reveal-glow');
+  const lights = [...section.querySelectorAll('.reveal-light')];
   const lines = [...section.querySelectorAll('.reveal-line')];
   if (!view.IntersectionObserver || !camera?.animate || media.matches) return () => {};
 
   let ready = false, started = false, complete = false, disposed = false, visible = false;
-  let loading, audio, animations = [], cueTimer = 0, cued = false, soundNodes = [];
+  let loading, audio, soundLoading, soundBuffer, soundAbort, animations = [], cueTimer = 0, cued = false, soundNodes = [];
   const events = new AbortController();
   const on = (target, type, fn, options = {}) => target.addEventListener(type, fn, { ...options, signal: events.signal });
 
@@ -25,6 +25,16 @@ export function mountHardwareReveal(root = document) {
     cueTimer = 0;
     soundNodes.forEach(node => { try { node.stop?.(); } catch {} node.disconnect(); });
     soundNodes = [];
+  }
+  function prepareSound() {
+    if (!audio || soundLoading || complete || disposed || cued) return;
+    const context = audio;
+    soundAbort = new AbortController();
+    soundLoading = view.fetch('/assets/little-tilt.mp3', { signal: soundAbort.signal })
+      .then(response => { if (!response.ok) throw new Error('Chime unavailable'); return response.arrayBuffer(); })
+      .then(bytes => context.decodeAudioData(bytes))
+      .then(buffer => { if (!disposed && !complete && !cued) soundBuffer = buffer; })
+      .catch(() => {});
   }
   function unlockSound(event) {
     // Only real input can unlock sound. Scrolling without activation stays silent.
@@ -35,26 +45,21 @@ export function mountHardwareReveal(root = document) {
     try {
       audio ||= new Audio();
       if (audio.state !== 'running') audio.resume().catch(() => {});
+      if (ready || loading) prepareSound();
     } catch { /* The visual sequence is independent of audio availability. */ }
   }
   function sound() {
     cued = true;
     if (!visible || doc.hidden || media.matches || audio?.state !== 'running') return;
-    // A quiet original glass cue as the camera arrives at the status light.
-    const now = audio.currentTime;
-    [[660, 0, .7, .024], [990, .05, .48, .009]].forEach(([frequency, delay, length, level]) => {
-      const oscillator = audio.createOscillator(), gain = audio.createGain();
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(frequency, now + delay);
-      gain.gain.setValueAtTime(0, now + delay);
-      gain.gain.linearRampToValueAtTime(level, now + delay + .018);
-      gain.gain.exponentialRampToValueAtTime(.0001, now + delay + length);
-      oscillator.connect(gain); gain.connect(audio.destination);
-      oscillator.start(now + delay); oscillator.stop(now + delay + length + .04);
-      oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
-      soundNodes.push(oscillator, gain);
-    });
+    if (!soundBuffer) return;
+    const source = audio.createBufferSource(), gain = audio.createGain();
+    source.buffer = soundBuffer; gain.gain.value = .65;
+    source.connect(gain); gain.connect(audio.destination);
+    source.onended = () => { source.disconnect(); gain.disconnect(); };
+    source.start(audio.currentTime);
+    soundNodes.push(source, gain);
   }
+
   function scheduleCue() {
     view.clearTimeout(cueTimer);
     if (cued) return;
@@ -65,6 +70,8 @@ export function mountHardwareReveal(root = document) {
   function finish() {
     complete = true;
     stopSound();
+    soundAbort?.abort();
+    soundBuffer = undefined;
     animations.forEach(animation => animation.cancel());
     animations = [];
     section.classList.remove('reveal-ready', 'reveal-running');
@@ -83,14 +90,23 @@ export function mountHardwareReveal(root = document) {
     };
     const master = animate(camera, [
       { transform: 'var(--reveal-from)', offset: 0 },
-      { transform: 'var(--reveal-from)', offset: .04, easing: 'cubic-bezier(.35,0,.2,1)' },
-      { transform: 'var(--reveal-to)', offset: .96 },
+      { transform: 'var(--reveal-from)', offset: .025, easing: 'cubic-bezier(.46,0,.22,1)' },
+      { transform: 'var(--reveal-land)', offset: .63, easing: 'cubic-bezier(.2,0,.25,1)' },
+      { transform: 'var(--reveal-to)', offset: .7 },
       { transform: 'var(--reveal-to)', offset: 1 },
     ]);
-    animate(glow, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: .67 }, { opacity: .32, offset: .74 }, { opacity: 0, offset: .94 }, { opacity: 0, offset: 1 }]);
+    lights.forEach((light, index) => {
+      const start = .7 + index * .09;
+      animate(light, [
+        { opacity: 0, offset: 0 }, { opacity: 0, offset: start },
+        { opacity: 1, offset: start + .012, easing: 'ease-in-out' },
+        { opacity: .9, offset: start + .044 }, { opacity: 0, offset: start + .065 },
+        { opacity: 0, offset: 1 },
+      ]);
+    });
     lines.forEach((line, index) => animate(line, [
       { opacity: 0, transform: 'translate3d(0,24px,0)', offset: 0 },
-      { opacity: 0, transform: 'translate3d(0,24px,0)', offset: .66 + index * .045, easing: 'cubic-bezier(.16,1,.3,1)' },
+      { opacity: 0, transform: 'translate3d(0,24px,0)', offset: .72 + index * .045, easing: 'cubic-bezier(.16,1,.3,1)' },
       { opacity: 1, transform: 'translate3d(0,0,0)', offset: .9 + index * .045 },
       { opacity: 1, transform: 'translate3d(0,0,0)', offset: 1 },
     ]));
@@ -105,6 +121,7 @@ export function mountHardwareReveal(root = document) {
         await closed.decode();
         if (disposed || complete || media.matches) return;
         ready = true;
+        prepareSound();
         section.classList.add('reveal-ready');
         run();
       } catch { /* A failed decode leaves the static frame and copy intact. */ }
