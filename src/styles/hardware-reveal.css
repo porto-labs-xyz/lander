@@ -1,23 +1,23 @@
-/* Product assembly uses the same camera and canvas for every image layer. */
-.hardware-interlude[data-hardware-reveal]{height:clamp(600px,56vw,850px);background:#000}
+/* A restrained macro camera move across the actual exterior render. */
+.hardware-interlude[data-hardware-reveal]{height:clamp(600px,56vw,850px);background:#000;--reveal-from:translate3d(-7.6%,-32.2%,0) scale(1.8);--reveal-to:translate3d(-91.24%,-65.64%,0) scale(2.2)}
 .hardware-interlude[data-hardware-reveal]::after{z-index:1;background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.76) 100%)}
 .reveal-scene{position:absolute;width:100%;aspect-ratio:3/2;left:50%;top:47%;transform:translate(-50%,-50%)}
-.reveal-camera{position:absolute;inset:0;transform-origin:50% 55%}
+.reveal-camera{position:absolute;inset:0;transform-origin:0 0;transform:var(--reveal-to)}
 .reveal-camera img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
-.reveal-open,.reveal-shell,.reveal-glow{opacity:0}
+.reveal-glow{opacity:0}
 .reveal-closed{opacity:1}
-.reveal-shell{clip-path:polygon(9.3% 49%,10.3% 44.1%,14.2% 39.9%,32.7% 24.6%,36.3% 23.4%,84.4% 23.4%,88% 24.4%,90.8% 28.2%,92% 32.4%,92.1% 59.5%,90.8% 65%,76.4% 79.8%,74.2% 80.6%,76.5% 76.1%,76.7% 50.7%,75.6% 46.6%,73.7% 44.1%,71.1% 43.2%,14.7% 43.2%,12.4% 44.1%,10.7% 46.3%)}
 .reveal-glow{position:absolute;left:68%;top:42%;width:12%;aspect-ratio:1;background:radial-gradient(ellipse,rgba(255,246,225,.55),rgba(255,238,205,.12) 24%,transparent 65%);mix-blend-mode:screen;pointer-events:none}
 .hardware-interlude[data-hardware-reveal] figcaption{z-index:2;inset:auto var(--pad) 40px;align-items:end}
 .reveal-line{display:block}
 .reveal-note{max-width:32ch;line-height:1.65}
 .reveal-note span{display:block;margin-top:9px;text-transform:none;letter-spacing:0;font:400 12px/1.5 var(--sans);color:#bfbfbd}
-.reveal-ready .reveal-open{opacity:1}
-.reveal-ready .reveal-closed,.reveal-ready .reveal-line{opacity:0}
-.reveal-running .reveal-camera,.reveal-running .reveal-shell,.reveal-running .reveal-line{will-change:transform,opacity}
+.reveal-ready .reveal-camera{transform:var(--reveal-from)}
+.reveal-ready .reveal-line{opacity:0}
+.reveal-running .reveal-camera{will-change:transform}
+.reveal-running .reveal-line{will-change:transform,opacity}
 @media(max-width:700px){
- .hardware-interlude[data-hardware-reveal]{height:clamp(570px,150vw,700px)}
- .reveal-scene{width:116%;top:38%;left:48%}
+ .hardware-interlude[data-hardware-reveal]{height:clamp(570px,150vw,700px);--reveal-from:translate3d(-10.8%,-43.5%,0) scale(1.9);--reveal-to:translate3d(-99.24%,-67.64%,0) scale(2.2)}
+ .reveal-scene{width:170%;top:40%;left:50%}
  .hardware-interlude[data-hardware-reveal]::after{background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.5) 66%,#000 89%)}
  .hardware-interlude[data-hardware-reveal] figcaption{inset:auto 24px 30px}
  .hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(42px,10.6vw,60px)}
@@ -25,7 +25,8 @@
  .reveal-note span{font-size:11px;margin-top:5px}
 }
 @media(prefers-reduced-motion:reduce){
- .reveal-camera,.reveal-line{transform:none!important}
- .reveal-open,.reveal-shell,.reveal-glow{opacity:0!important}
+ .reveal-camera{transform:var(--reveal-to)!important}
+ .reveal-line{transform:none!important}
+ .reveal-glow{opacity:0!important}
  .reveal-closed,.reveal-line{opacity:1!important}
 }

@@ -1,19 +1,21 @@
-# Atelier assembly reveal
+# Atelier camera reveal
 
-The lower black Atelier section plays once when at least 35% visible: a short case-off hold, a descending shell, a precise seated finish, then staggered HTML copy. It has no sound toggle or replay control. A quiet original synthesized cue accompanies seating only if a prior real tap/key has unlocked browser audio. A blocked cue is discarded, never played late. Motion pauses offscreen or in background tabs; reduced-motion and unavailable images retain the static finished product and readable copy.
+The lower black Atelier section plays once when at least 35% visible. Over 7.2 seconds, the camera begins close to the left front edge, pans across the grille while pushing in, and settles on the illuminated square. The headline enters near the end, with a brief soft light bloom. There are no sound or replay controls.
 
-## Engineering evidence and limits
+A quiet original synthesized glass cue accompanies the arrival at the light only if a real tap/key has already unlocked browser audio. Blocked audio is discarded, never played late. Motion pauses offscreen and in background tabs; reduced motion retains the final static crop and readable copy. Route cleanup releases animations, observers and audio resources.
 
-The current Kiln NVIDIA Share Deck, slide 7 (version 9, modified 12 November 2026), defines Atelier Base as two GPUs and Max as four. The candidate is NVIDIA RTX PRO 6000 Blackwell Max-Q. The deck explicitly leaves the CPU, motherboard, physical fit, cooling and BOM unvalidated. No approved production assembly or CAD was found.
+## Image and engineering scope
 
-The Max-Q vendor specification is a 96GB, 300W, dual-slot actively cooled card, 4.4 inches high by 10.5 inches long. These dimensions and the actual single-blower/fin-strip appearance informed the four-card concept. This is not the larger 600W Workstation Edition and does not depict pooled GPU memory or NVLink. Reference: https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/
+The motion uses the existing black Atelier exterior render unchanged. It does not show the earlier speculative interior or a case-closing mechanism. The exterior is labelled “Kiln Atelier / Black concept”. No new hardware geometry or components were generated for this camera move.
 
-The case-off render is an AI-assisted visualization, not vendor CAD, a fit study or a manufacturing drawing. It retains the approved exterior/camera and shows four upright card concepts. It intentionally leaves unselected motherboard, CPU cooler and PSU details in shadow. Lid clearance was visually reviewed, but connector positions, retention, PCIe routing, service access, power delivery, airflow and thermals still require engineering validation. A claimed production-accurate interior must come from Richard's approved BOM and CAD.
+The current Kiln NVIDIA Share Deck, slide 7 (version 9, modified 12 November 2026), defines Atelier Base as two GPUs and Max as four, with NVIDIA RTX PRO 6000 Blackwell Max-Q as the candidate. The deck leaves CPU, motherboard, physical fit, cooling and BOM unvalidated. Exact interiors still require Richard’s approved parts list and CAD; no render establishes build feasibility.
 
-The page therefore says “Atelier Max / Four-GPU concept” and “Layout, fit and thermals to validate.” The case-closing path is presentational, not a claim about the production service mechanism. The original static image remains the no-JavaScript/failed-load fallback.
+## Scroll outlines and copy
+
+The closed rectangular headline frames draw clockwise as the reader scrolls and unwind on reverse scroll. Geometry is cached on layout changes, updates are batched to one animation frame, and there is no idle loop. Reduced motion and printing keep full static borders. The hero frame follows the existing introduction scroll range; other frames draw as their headings enter view.
+
+The five screenshot-selected secondary notes and the studio caption strip have been removed. Target pricing and the existing FAQ remain. The latest studio rack crop is retained. The rack page now follows a shorter privacy, capacity and KilnOS story, with four proposed specifications. All three hardware pages use one signup headline, one short line, one button and a privacy link.
 
 ## Implementation
 
-An additional compressed WebP supplies the open state. The existing closed render is reused for the masked moving shell and final state. The module uses opacity/transform animations, lazy image decoding near the viewport, no continuous scroll loop, and cleanup for route changes. The same module and styles are used by Gatsby and Sites.
-
-The built-in image editor produced the open concept from the approved closed render and NVIDIA's product reference. The final correction removes cables projecting beyond the lid envelope. No generated image should be treated as engineering evidence.
+The camera uses one image and transform/opacity animation. The initial and final crops have separate mobile composition, with the status light clear of the text. Gatsby and Sites share identical animation modules and CSS. The retired open concept asset is not loaded or displayed.

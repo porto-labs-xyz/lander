@@ -1,7 +1,7 @@
-// A single viewport-triggered assembly. All moving layers use transforms/opacity.
+// A single viewport-triggered camera move. Only transforms and opacity animate.
 // No idle frame loop, scroll interception, controls, autoplay workaround or late audio.
-const DURATION = 5000;
-const SEAT = 2700;
+const DURATION = 7200;
+const LIGHT_CUE = 5100;
 
 export function mountHardwareReveal(root = document) {
   const section = root.querySelector('[data-hardware-reveal]');
@@ -10,9 +10,7 @@ export function mountHardwareReveal(root = document) {
   const view = doc.defaultView;
   const media = view.matchMedia('(prefers-reduced-motion: reduce)');
   const camera = section.querySelector('.reveal-camera');
-  const open = section.querySelector('.reveal-open');
   const closed = section.querySelector('.reveal-closed');
-  const shell = section.querySelector('.reveal-shell');
   const glow = section.querySelector('.reveal-glow');
   const lines = [...section.querySelectorAll('.reveal-line')];
   if (!view.IntersectionObserver || !camera?.animate || media.matches) return () => {};
@@ -42,13 +40,12 @@ export function mountHardwareReveal(root = document) {
   function sound() {
     cued = true;
     if (!visible || doc.hidden || media.matches || audio?.state !== 'running') return;
-    // An original, quiet two-part cue: a low seating pulse and a soft glass overtone.
+    // A quiet original glass cue as the camera arrives at the status light.
     const now = audio.currentTime;
-    [[92, 0, .32, .045], [660, .045, .7, .024], [990, .075, .48, .009]].forEach(([frequency, delay, length, level]) => {
+    [[660, 0, .7, .024], [990, .05, .48, .009]].forEach(([frequency, delay, length, level]) => {
       const oscillator = audio.createOscillator(), gain = audio.createGain();
       oscillator.type = 'sine';
       oscillator.frequency.setValueAtTime(frequency, now + delay);
-      if (frequency === 92) oscillator.frequency.exponentialRampToValueAtTime(46, now + .25);
       gain.gain.setValueAtTime(0, now + delay);
       gain.gain.linearRampToValueAtTime(level, now + delay + .018);
       gain.gain.exponentialRampToValueAtTime(.0001, now + delay + length);
@@ -61,7 +58,7 @@ export function mountHardwareReveal(root = document) {
   function scheduleCue() {
     view.clearTimeout(cueTimer);
     if (cued) return;
-    const remaining = SEAT - (Number(animations[0]?.currentTime) || 0);
+    const remaining = LIGHT_CUE - (Number(animations[0]?.currentTime) || 0);
     if (remaining < 0) { cued = true; return; }
     cueTimer = view.setTimeout(sound, remaining);
   }
@@ -85,23 +82,16 @@ export function mountHardwareReveal(root = document) {
       return animation;
     };
     const master = animate(camera, [
-      { transform: 'scale(.965)', offset: 0 },
-      { transform: 'scale(1)', offset: 1, easing: 'ease-out' },
+      { transform: 'var(--reveal-from)', offset: 0 },
+      { transform: 'var(--reveal-from)', offset: .04, easing: 'cubic-bezier(.35,0,.2,1)' },
+      { transform: 'var(--reveal-to)', offset: .96 },
+      { transform: 'var(--reveal-to)', offset: 1 },
     ]);
-    animate(shell, [
-      { opacity: 0, transform: 'translate3d(1.5%,-22%,0)', offset: 0 },
-      { opacity: 0, transform: 'translate3d(1.5%,-22%,0)', offset: .16 },
-      { opacity: 1, transform: 'translate3d(1.1%,-17%,0)', offset: .25, easing: 'cubic-bezier(.22,.8,.2,1)' },
-      { opacity: 1, transform: 'translate3d(0,0,0)', offset: .54 },
-      { opacity: 1, transform: 'translate3d(0,0,0)', offset: 1 },
-    ]);
-    animate(closed, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: .52 }, { opacity: 1, offset: .62 }, { opacity: 1, offset: 1 }]);
-    animate(open, [{ opacity: 1, offset: 0 }, { opacity: 1, offset: .56 }, { opacity: 0, offset: .64 }, { opacity: 0, offset: 1 }]);
-    animate(glow, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: .51 }, { opacity: .45, offset: .57 }, { opacity: 0, offset: .76 }, { opacity: 0, offset: 1 }]);
+    animate(glow, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: .67 }, { opacity: .32, offset: .74 }, { opacity: 0, offset: .94 }, { opacity: 0, offset: 1 }]);
     lines.forEach((line, index) => animate(line, [
       { opacity: 0, transform: 'translate3d(0,24px,0)', offset: 0 },
-      { opacity: 0, transform: 'translate3d(0,24px,0)', offset: .55 + index * .045, easing: 'cubic-bezier(.16,1,.3,1)' },
-      { opacity: 1, transform: 'translate3d(0,0,0)', offset: .78 + index * .045 },
+      { opacity: 0, transform: 'translate3d(0,24px,0)', offset: .66 + index * .045, easing: 'cubic-bezier(.16,1,.3,1)' },
+      { opacity: 1, transform: 'translate3d(0,0,0)', offset: .9 + index * .045 },
       { opacity: 1, transform: 'translate3d(0,0,0)', offset: 1 },
     ]));
     master.onfinish = finish;
@@ -111,14 +101,13 @@ export function mountHardwareReveal(root = document) {
     if (loading || disposed || complete || media.matches) return loading;
     loading = (async () => {
       try {
-        open.src = open.dataset.revealSrc;
-        // Keep the finished image/copy visible until all layers can render.
-        await Promise.all([open, closed].map(image => image.decode()));
+        // Keep the static frame and copy visible until the single image is ready.
+        await closed.decode();
         if (disposed || complete || media.matches) return;
         ready = true;
         section.classList.add('reveal-ready');
         run();
-      } catch { /* Failed images leave the static case-on version and copy intact. */ }
+      } catch { /* A failed decode leaves the static frame and copy intact. */ }
     })();
     return loading;
   }

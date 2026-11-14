@@ -1,0 +1,4 @@
+.scroll-frame{position:relative;border-color:transparent!important}
+.scroll-frame-line{position:absolute;left:calc(-1 * var(--frame-width));top:calc(-1 * var(--frame-width));width:calc(100% + 2 * var(--frame-width));height:calc(100% + 2 * var(--frame-width));overflow:visible;pointer-events:none;stroke:var(--frame-color,currentColor)}
+@media(prefers-reduced-motion:reduce){.scroll-frame{border-color:var(--frame-color,currentColor)!important}.scroll-frame-line{display:none}}
+@media print{.scroll-frame{border-color:var(--frame-color,currentColor)!important}.scroll-frame-line{display:none}}

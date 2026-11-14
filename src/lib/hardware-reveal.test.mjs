@@ -37,7 +37,7 @@ function fixture({ reduced = false, imageFailure = false } = {}) {
       animations.push(animation); return animation
     }, decode: () => imageFailure ? Promise.reject(new Error('offline')) : Promise.resolve(), dataset: { revealSrc: '/open.webp' } }
   }
-  const elements = Object.fromEntries(['camera', 'open', 'closed', 'shell', 'glow'].map(name => [`.reveal-${name}`, element()]))
+  const elements = Object.fromEntries(['camera', 'closed', 'glow'].map(name => [`.reveal-${name}`, element()]))
   const section = { ownerDocument: doc, classList: { add(...names) { names.forEach(n => classes.add(n)) }, remove(...names) { names.forEach(n => classes.delete(n)) } },
     querySelector: selector => elements[selector], querySelectorAll: () => [element(), element()] }
   const root = { querySelector: () => section }
@@ -47,7 +47,7 @@ function fixture({ reduced = false, imageFailure = false } = {}) {
     fireCue() { const fns = [...timers.values()]; timers.clear(); fns.forEach(fn => fn()) } }
 }
 
-test('reveal runs once, pauses outside the viewport, and frees layers at completion', async () => {
+test('reveal runs once, pauses outside the viewport, and releases animations at completion', async () => {
   const f = fixture()
   await f.enter()
   assert.ok(f.animations.length > 0)
@@ -97,7 +97,7 @@ test('backgrounding stops the cue and unmount closes its audio resources', async
   assert.equal(f.oscillators.length, 0)
   f.doc.hidden = false; f.doc.handlers.visibilitychange(); f.fireCue()
   assert.ok(f.oscillators.every(n => n.started))
-  assert.equal(f.oscillators.length, 3)
+  assert.equal(f.oscillators.length, 2)
   f.cleanup()
   assert.ok(f.oscillators.every(n => n.stopped))
   assert.equal(f.contexts[0].state, 'closed')

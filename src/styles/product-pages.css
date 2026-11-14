@@ -19,3 +19,6 @@
 
 
 .kilnos-caption{margin-top:36px}
+
+/* A single signup message and action across hardware pages. */
+.reservation-card{padding:0;border:0;gap:16px;max-width:520px;width:100%}.reservation-card .action{width:100%}.reservation-heading h2{margin-top:22px}.reservation .form-note{margin:0}

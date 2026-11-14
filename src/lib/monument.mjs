@@ -1,3 +1,4 @@
+import { mountScrollFrames } from './scroll-frames.mjs'
 import { mountHardwareReveal } from './hardware-reveal.mjs'
 import { mountArrival } from './monument-arrival.mjs'
 import { bindEnquiryForm } from './enquiry-form.mjs'
@@ -70,6 +71,7 @@ $$('dialog').forEach(dialog=>{dialog.querySelectorAll('.dialog-close,.dialog-don
 
 cleanups.push(mountArrival());
 cleanups.push(mountHardwareReveal(root));
+cleanups.push(mountScrollFrames(root));
 
 
  $$('[data-enquiry-kind]').forEach(form=>cleanups.push(bindEnquiryForm(form)));
