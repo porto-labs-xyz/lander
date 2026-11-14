@@ -1,3 +1,4 @@
+import { mountHardwareReveal } from './hardware-reveal.mjs'
 import { mountArrival } from './monument-arrival.mjs'
 import { bindEnquiryForm } from './enquiry-form.mjs'
 export function mountMonument(root) {
@@ -68,6 +69,7 @@ $$('.compare-open').forEach(button=>on(button,'click',e=>openDialog($('#compare-
 $$('dialog').forEach(dialog=>{dialog.querySelectorAll('.dialog-close,.dialog-done').forEach(button=>on(button,'click',()=>closeDialog(dialog)));on(dialog,'close',()=>{document.body.style.overflow='';if(lastOpener?.closest('#mobile-menu'))toggle.focus();});on(dialog,'click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeDialog(dialog);});});
 
 cleanups.push(mountArrival());
+cleanups.push(mountHardwareReveal(root));
 
 
  $$('[data-enquiry-kind]').forEach(form=>cleanups.push(bindEnquiryForm(form)));

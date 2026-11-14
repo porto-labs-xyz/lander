@@ -1,3 +1,4 @@
+import '../styles/hardware-reveal.css'
 import React from 'react'
 import MonumentPage from '../components/MonumentPage'
 import Seo from '../components/Seo'
