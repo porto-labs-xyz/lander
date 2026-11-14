@@ -17,8 +17,5 @@
  .product-page-bottom{order:4}.product-page-hero>.fine{order:5}
 }
 
-/* Match the coloured render backdrops and soften only the outer image edge. */
-.tone-red{--field:#d54c36}.tone-blue{--field:#2582b5}
-.tone-yellow{--field:#fdce46}
 
 .kilnos-caption{margin-top:36px}
