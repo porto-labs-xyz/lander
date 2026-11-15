@@ -113,4 +113,4 @@
 
 .booking-page .action-square{display:inline-block;width:8px;height:8px;background:#E04938;transform:rotate(24deg);flex:0 0 8px}
 
-.booking-page{font-family:Monument,Arial,sans-serif}.booking-page .booking-intro h1{font-family:Monument,Arial,sans-serif;font-weight:500;letter-spacing:-.045em}
+.booking-page{font-family:Monument,Arial,sans-serif}.booking-page .booking-intro h1{font-family:Monument,Arial,sans-serif;font-weight:500;letter-spacing:var(--tracking-heading)}

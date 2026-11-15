@@ -12,7 +12,7 @@ The current Kiln NVIDIA Share Deck, slide 7 (version 9, modified 12 November 202
 
 ## Scroll outlines and copy
 
-The closed rectangular headline frames draw clockwise as the reader scrolls and unwind on reverse scroll. Geometry is cached on layout changes, updates are batched to one animation frame, and there is no idle loop. Reduced motion and printing keep full static borders. The hero frame follows the existing introduction scroll range; other frames draw as their headings enter view.
+The closed rectangular headline frames draw clockwise as the reader scrolls and unwind on reverse scroll. A single miter-joined path starts at the top-edge midpoint; the complete outline drops its dash pattern, so all four corners remain flush without cap notches. Geometry is cached on layout changes, updates are batched to one animation frame, and there is no idle loop. Reduced motion and printing keep full static borders. The hero frame follows the existing introduction scroll range; other frames draw as their headings enter view.
 
 The screenshot-selected secondary notes, workspace caption, black Atelier caption, FAQ aside and studio caption strip have been removed. Target pricing and the existing FAQ remain. The latest studio rack crop is retained. The rack page now follows a shorter privacy, capacity and KilnOS story, with four proposed specifications. All three hardware pages use one signup headline, one short line, one button and a privacy link.
 
@@ -25,3 +25,7 @@ The camera uses one image and transform/opacity animation. The initial and final
 The contact dialog has two visible fields: email and message. A hidden topic preserves contextual routing, and the optional organisation field is omitted. Contact still does not subscribe visitors to marketing. The form shows a sending label while pending and retains input on failure; confirmation appears only after the existing server/provider acknowledges success. Booking remains a separate link: the existing calendar destination on Sites and `/book/` on Gatsby. No real message or appointment is submitted during QA.
 
 The final hardware exploration heading is “Find your Kiln.” with “Explore the range” as its link. The studio rack image uses a photographic treatment of the existing v4 image, preserving the composition, four hardware units and frame geometry. The new WebPs are responsive 1536/768 exports; they do not establish manufacturing feasibility.
+
+## Typography
+
+Monument uses normal font kerning, restrained headline tracking (−0.02em; display −0.025em), and roomier line heights. The product names share the same tracking, with explicit word spacing and a Rack title that wraps within its mobile margins. Body copy, form fields and supporting text keep normal tracking and comfortable leading. The approved outlined logo assets stay unchanged.

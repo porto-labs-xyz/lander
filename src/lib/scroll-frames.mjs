@@ -17,12 +17,13 @@ export function mountScrollFrames(root = document) {
     clear();
     if (preference.matches || disposed) return;
     frames = hosts.map(host => {
-      const svg = doc.createElementNS(ns, 'svg'), rect = doc.createElementNS(ns, 'rect');
+      const svg = doc.createElementNS(ns, 'svg'), rect = doc.createElementNS(ns, 'path');
       svg.setAttribute('class', 'scroll-frame-line');
       svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
       rect.setAttribute('fill', 'none'); rect.setAttribute('pathLength', '1');
       rect.setAttribute('stroke-dasharray', '1 1'); rect.setAttribute('stroke-dashoffset', '1');
       rect.setAttribute('vector-effect', 'non-scaling-stroke');
+      rect.setAttribute('stroke-linejoin', 'miter'); rect.setAttribute('stroke-linecap', 'butt');
       svg.append(rect); host.append(svg);
       // Read the original border before hiding it; the border still reserves space.
       host.style.setProperty('--frame-color', view.getComputedStyle(host).borderTopColor);
@@ -38,9 +39,10 @@ export function mountScrollFrames(root = document) {
       const border = parseFloat(view.getComputedStyle(host).borderTopWidth) || 5;
       host.style.setProperty('--frame-width', border + 'px');
       svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
-      rect.setAttribute('x', border / 2); rect.setAttribute('y', border / 2);
-      rect.setAttribute('width', Math.max(0, box.width - border));
-      rect.setAttribute('height', Math.max(0, box.height - border));
+      // Keep the dash seam on a straight edge, away from all four corners.
+      // A centred stroke shares one closed path, so inner/outer edges meet exactly.
+      const inset = border / 2, right = Math.max(inset, box.width - inset), bottom = Math.max(inset, box.height - inset);
+      rect.setAttribute('d', `M ${box.width / 2} ${inset} H ${right} V ${bottom} H ${inset} V ${inset} Z`);
       rect.setAttribute('stroke-width', border);
       const runway = host.classList.contains('hero-box') && host.closest('.intro-active');
       if (runway) {
@@ -62,6 +64,9 @@ export function mountScrollFrames(root = document) {
     frames.forEach(item => {
       const progress = clamp((scroll - item.start) / item.distance);
       if (Math.abs(progress - item.progress) < .0001) return;
+      // A completed outline is genuinely solid: no residual dash cap or seam.
+      if (progress >= 1) item.rect.removeAttribute('stroke-dasharray');
+      else item.rect.setAttribute('stroke-dasharray', '1 1');
       item.rect.setAttribute('stroke-dashoffset', String(1 - progress));
       item.progress = progress;
     });

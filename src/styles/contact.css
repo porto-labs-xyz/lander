@@ -4,12 +4,12 @@
 #enquiry-dialog::backdrop{background:rgba(16,17,18,.58);backdrop-filter:blur(6px)}
 #enquiry-dialog .dialog-close{top:14px;right:14px;border:0;background:transparent;font-size:28px;transition:transform .2s}
 #enquiry-dialog .dialog-close:hover{transform:rotate(90deg)}
-#enquiry-dialog h2{font-size:clamp(40px,5vw,54px);line-height:1;letter-spacing:-.045em;margin:8px 0 12px;outline:0}
-#enquiry-dialog .contact-intro{font-size:18px;line-height:1.45;margin:0 0 28px;color:#565754}
+#enquiry-dialog h2{font-size:clamp(40px,5vw,54px);line-height:1.08;letter-spacing:var(--tracking-heading);margin:8px 0 12px;outline:0}
+#enquiry-dialog .contact-intro{font-size:18px;line-height:1.55;margin:0 0 28px;color:#565754}
 #enquiry-dialog .enquiry-form{display:grid;gap:22px;margin:0}
 #enquiry-dialog .field{gap:8px}
 #enquiry-dialog .field label{font-size:13px;font-weight:500}
-#enquiry-dialog .field input,#enquiry-dialog .field textarea{background:#fff9;border:1px solid #bcbdb8;padding:13px 14px;min-height:50px;transition:border-color .18s,background-color .18s;line-height:1.4}
+#enquiry-dialog .field input,#enquiry-dialog .field textarea{background:#fff9;border:1px solid #bcbdb8;padding:13px 14px;min-height:50px;transition:border-color .18s,background-color .18s;line-height:1.5}
 #enquiry-dialog .field textarea{min-height:112px;max-height:240px;resize:vertical}
 #enquiry-dialog .field input:focus,#enquiry-dialog .field textarea:focus{border-color:var(--ink);background:#fff;outline:2px solid var(--blue);outline-offset:2px}
 #enquiry-dialog .field input::placeholder,#enquiry-dialog .field textarea::placeholder{color:#747570;opacity:1}
@@ -22,8 +22,8 @@
 #enquiry-dialog .contact-booking a span{transition:transform .2s}
 #enquiry-dialog .contact-booking a:hover span{transform:translate(2px,-2px)}
 #enquiry-dialog .form-status{padding:20px 0 4px}
-#enquiry-dialog .form-status h3{font-size:32px;line-height:1.05;margin-bottom:14px}
-#enquiry-dialog .form-status p{font-size:17px;color:#565754;line-height:1.4;margin-bottom:24px}
+#enquiry-dialog .form-status h3{font-size:32px;line-height:1.12;margin-bottom:14px}
+#enquiry-dialog .form-status p{font-size:17px;color:#565754;line-height:1.5;margin-bottom:24px}
 #enquiry-dialog .form-status:not([hidden]){animation:contact-arrive .3s ease-out}
 #enquiry-dialog .contact-intro:has(~.form-status:not([hidden])){display:none}
 @keyframes contact-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}

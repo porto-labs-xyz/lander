@@ -12,7 +12,7 @@
 .reveal-light::after,.reveal-status::after{content:"";position:absolute;inset:-100%;background:radial-gradient(ellipse,currentColor,transparent 65%);opacity:.5;mix-blend-mode:screen}
 .reveal-light-red{color:var(--red)}.reveal-light-yellow{color:var(--yellow)}.reveal-light-blue{color:var(--blue)}
 .hardware-interlude[data-hardware-reveal] figcaption{z-index:2;inset:auto var(--pad) 40px;align-items:end}
-.hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(64px,7vw,112px);line-height:.98}
+.hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(64px,7vw,112px);line-height:1.04}
 .reveal-line{display:block}
 .reveal-note{max-width:32ch;line-height:1.65}
 .reveal-note span{display:block;margin-top:9px;text-transform:none;letter-spacing:0;font:400 12px/1.5 var(--sans);color:#bfbfbd}
