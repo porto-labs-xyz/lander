@@ -33,3 +33,7 @@ Monument uses normal font kerning, restrained headline tracking (−0.02em; disp
 ## Landing controls
 
 The homepage header registration button and mobile registration dock are hidden and inert during the opening macro view. They fade in with the menu as the hero is revealed (68–86% of the intro scroll). Returning to the opening hides them again. Reduced-motion/static layouts and other pages retain their visible controls.
+
+## Mobile layout
+
+Single section labels keep their natural width and leading alignment; only a second caption uses the right-aligned, limited-width treatment. Hardware carousel names sit in normal flow beneath the image on mobile, with transparent backgrounds and explicit spacing. One, Atelier and Rack share this layout so names cannot mask the render or its shadow.
