@@ -215,13 +215,14 @@ p{text-wrap:pretty}
  /* Keep the timeline/range above animation shorthand after CSS minifier sorting. */
  @supports(animation-timeline:view()){
   .studio-interlude{view-timeline:--kiln-studio block}
-  .studio-interlude img{transform-origin:61.8% 48%;animation:kiln-studio-approach linear both;animation-timeline:--kiln-studio!important;animation-range:cover 0% cover 100%!important}
+  .studio-interlude img{transform-origin:61.8% 48%;transform:translate3d(-2%,0,0) scale(1.08);animation:kiln-studio-approach linear both;animation-timeline:--kiln-studio!important;animation-range:entry 0% exit 100%!important}
   .hardware-image-wrap{view-timeline:--kiln-hardware block}
   .hardware-slide img{transform-origin:50% 55%;animation:kiln-hardware-approach linear both;animation-timeline:--kiln-hardware!important;animation-range:cover 0% cover 100%!important}
-  @keyframes kiln-studio-approach{0%,12%{transform:scale(1)}85%,100%{transform:scale(1.11)}}
+  @keyframes kiln-studio-approach{0%{transform:translate3d(-2%,0,0) scale(1.08)}100%{transform:translate3d(2%,0,0) scale(1.08)}}
   @keyframes kiln-hardware-approach{0%{transform:translate3d(0,14px,0) scale(.88)}45%{transform:translate3d(0,0,0) scale(1)}75%,100%{transform:translate3d(0,-4px,0) scale(1.04)}}
   @media(max-width:760px){
-   @keyframes kiln-studio-approach{0%,12%{transform:scale(1)}85%,100%{transform:scale(1.06)}}
+   .studio-interlude img{transform:translate3d(-1%,0,0) scale(1.06)}
+   @keyframes kiln-studio-approach{0%{transform:translate3d(-1%,0,0) scale(1.06)}100%{transform:translate3d(1%,0,0) scale(1.06)}}
    @keyframes kiln-hardware-approach{0%{transform:translate3d(0,8px,0) scale(.92)}45%{transform:translate3d(0,0,0) scale(1)}75%,100%{transform:translate3d(0,-2px,0) scale(1.025)}}
   }
  }
@@ -260,7 +261,7 @@ p{text-wrap:pretty}
   .hero-header .desktop-nav,.hero-header .header-interest,.hero-header .menu-toggle{animation:kiln-nav-enter linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   .boot-figure{position:relative;overflow:clip;flex:1;min-height:0;width:min(100%,840px);max-width:none;height:auto;margin:0;align-self:center;animation:kiln-object-home linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   .boot-figure.motion-product.motion-entered{animation-name:kiln-object-home;animation-duration:auto;animation-timing-function:linear;animation-fill-mode:both}
-  .boot-figure .hero-product{width:100%;height:100%;max-height:none;object-fit:contain;transform-origin:57% 23%;animation:kiln-macro-reveal linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
+  .boot-figure .hero-product{width:100%;height:100%;max-height:none;object-fit:contain;transform-origin:57% 23%;transform:translate3d(-7%,17%,0) scale(3.5);animation:kiln-macro-reveal linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   .boot-hero .hero-content{flex:0 0 auto;width:100%;padding:0;margin:0;text-align:center;animation:kiln-intro-copy linear both;animation-timeline:--kiln-intro!important;animation-range:contain 0% contain 100%!important}
   .boot-hero .hero-content>.eyebrow{font-size:8px;line-height:1.5;margin-bottom:10px}
   .boot-hero h1{font-size:clamp(32px,4.2vw,60px);line-height:1.08;margin:0 0 12px}
@@ -338,7 +339,7 @@ p{text-wrap:pretty}
   @supports (animation-timeline:view()) and (timeline-scope:--kiln-intro){
    .boot-figure{width:100%;animation-name:kiln-desktop-object-home}
    .boot-figure.motion-product.motion-entered{animation-name:kiln-desktop-object-home}
-   .boot-figure .hero-product{transform-origin:57% 34%;animation-name:kiln-desktop-macro-reveal}
+   .boot-figure .hero-product{transform-origin:57% 34%;transform:translate3d(-5%,-8%,0) scale(2.4);animation-name:kiln-desktop-macro-reveal}
    @keyframes kiln-desktop-object-home{
     0%,5%{transform:translate3d(0,26svh,0)}
     72%,100%{transform:translate3d(0,0,0)}
