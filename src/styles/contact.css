@@ -1,0 +1,32 @@
+/* One compact conversation, with booking offered as a clear alternative. */
+#enquiry-dialog{width:min(560px,calc(100% - 32px));max-height:calc(100svh - 32px);padding:40px;overscroll-behavior:contain;scrollbar-gutter:stable}
+#enquiry-dialog[open]{animation:contact-arrive .32s cubic-bezier(.2,.8,.2,1)}
+#enquiry-dialog::backdrop{background:rgba(16,17,18,.58);backdrop-filter:blur(6px)}
+#enquiry-dialog .dialog-close{top:14px;right:14px;border:0;background:transparent;font-size:28px;transition:transform .2s}
+#enquiry-dialog .dialog-close:hover{transform:rotate(90deg)}
+#enquiry-dialog h2{font-size:clamp(40px,5vw,54px);line-height:1.08;letter-spacing:var(--tracking-heading);margin:8px 0 12px;outline:0}
+#enquiry-dialog .contact-intro{font-size:18px;line-height:1.55;margin:0 0 28px;color:#565754}
+#enquiry-dialog .enquiry-form{display:grid;gap:22px;margin:0}
+#enquiry-dialog .field{gap:8px}
+#enquiry-dialog .field label{font-size:13px;font-weight:500}
+#enquiry-dialog .field input,#enquiry-dialog .field textarea{background:#fff9;border:1px solid #bcbdb8;padding:13px 14px;min-height:50px;transition:border-color .18s,background-color .18s;line-height:1.5}
+#enquiry-dialog .field textarea{min-height:112px;max-height:240px;resize:vertical}
+#enquiry-dialog .field input:focus,#enquiry-dialog .field textarea:focus{border-color:var(--ink);background:#fff;outline:2px solid var(--blue);outline-offset:2px}
+#enquiry-dialog .field input::placeholder,#enquiry-dialog .field textarea::placeholder{color:#747570;opacity:1}
+#enquiry-dialog .contact-send{min-height:54px;width:100%;background:var(--ink);color:var(--paper);padding:15px 18px;margin:0}
+#enquiry-dialog .contact-send .square{color:var(--yellow)}
+#enquiry-dialog [aria-busy=true] .square{animation:contact-wait 1.2s ease-in-out infinite}
+#enquiry-dialog .form-note{font:12px/1.5 var(--sans);color:#666761;margin:-10px 0 0;max-width:none}
+#enquiry-dialog .contact-booking{display:flex;justify-content:space-between;gap:18px;align-items:center;padding-top:22px;margin-top:24px;border-top:1px solid #d3d3ce;font-size:14px;color:#666761}
+#enquiry-dialog .contact-booking a{display:inline-flex;align-items:center;gap:16px;color:var(--ink);font-weight:500;padding:10px 0;white-space:nowrap;text-decoration:underline;text-underline-offset:5px}
+#enquiry-dialog .contact-booking a span{transition:transform .2s}
+#enquiry-dialog .contact-booking a:hover span{transform:translate(2px,-2px)}
+#enquiry-dialog .form-status{padding:20px 0 4px}
+#enquiry-dialog .form-status h3{font-size:32px;line-height:1.12;margin-bottom:14px}
+#enquiry-dialog .form-status p{font-size:17px;color:#565754;line-height:1.5;margin-bottom:24px}
+#enquiry-dialog .form-status:not([hidden]){animation:contact-arrive .3s ease-out}
+#enquiry-dialog .contact-intro:has(~.form-status:not([hidden])){display:none}
+@keyframes contact-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes contact-wait{0%,100%{transform:rotate(18deg);opacity:1}50%{transform:rotate(108deg);opacity:.45}}
+@media(max-width:600px){#enquiry-dialog{padding:32px 24px 24px}#enquiry-dialog h2{margin-top:6px;font-size:42px}#enquiry-dialog .contact-intro{font-size:16px;margin-bottom:24px}#enquiry-dialog .enquiry-form{gap:18px}#enquiry-dialog .field textarea{min-height:104px}#enquiry-dialog .contact-booking{padding-top:14px;margin-top:20px;font-size:13px}}
+@media(prefers-reduced-motion:reduce){#enquiry-dialog[open],#enquiry-dialog .form-status:not([hidden]),#enquiry-dialog [aria-busy=true] .square{animation:none}#enquiry-dialog .dialog-close,#enquiry-dialog .contact-booking a span{transition:none}}

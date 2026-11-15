@@ -1,0 +1,113 @@
+/* Three heavy grille compositions; the original palette and UI marks. */
+html{scroll-padding-top:86px}
+.rhythm-context{--field-color:var(--yellow);background:var(--yellow);gap:48px;padding-top:96px;padding-bottom:72px;min-height:100svh}
+.rhythm-context .rhythm-layout{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center;flex:1}
+.rhythm-context .statement{font-weight:700;font-size:clamp(42px,4.8vw,82px);letter-spacing:-.065em;line-height:1.1}
+.rhythm-context .rhythm-copy>p{font-size:18px;line-height:1.65;max-width:37ch;margin-top:32px}
+.rhythm-copy .text-link{margin-top:26px}
+.rhythm-art{min-width:0;position:relative;isolation:isolate;align-self:center}
+.rhythm-svg{display:block;width:100%;height:auto;overflow:visible;pointer-events:none}
+.rhythm-art .rhythm-svg{overflow:hidden}
+.rhythm-nudge{display:flex;align-items:center;gap:12px;min-height:44px;font:10px/1.4 PlexMono;padding:10px 0;margin:5px 0 0 auto;border-bottom:1px solid currentColor}
+.rhythm-nudge:hover{border-bottom-width:2px;padding-bottom:9px}
+.rhythm-nudge img{width:12px;height:12px;transition:transform .25s}
+.rhythm-nudge:hover img{transform:translateY(-3px)}
+.rhythm-art .rhythm-caption{font:10px/1.6 PlexMono;display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:8px}
+.rhythm-privacy{--field-color:var(--blue);background:var(--blue);color:var(--ink);min-height:100svh;gap:48px}
+.rhythm-privacy .studio-content h2{font-weight:700;font-size:clamp(56px,6.6vw,112px)}
+.rhythm-privacy .studio-content h2 em{color:inherit}
+.rhythm-privacy .studio-content p{color:var(--ink);font-size:18px;line-height:1.65;max-width:37ch}
+.rhythm-privacy .studio-poster{grid-template-columns:1.05fr 1fr;gap:6vw;width:100%}
+.rhythm-privacy .rhythm-art{width:calc(100% + var(--pad));margin:0;overflow:hidden}
+.rhythm-privacy .studio-colophon{border-color:var(--hairline)}
+.rhythm-privacy .studio-colophon>span,.rhythm-privacy .studio-colophon a{color:var(--ink)}
+.rhythm-closing{width:min(100%,900px);margin:0 auto;overflow:hidden;flex:none}
+.rhythm-closing .rhythm-svg{width:100%;height:auto;overflow:hidden}
+.invitation:has(.rhythm-closing){--field-color:var(--red);--square-accent:var(--ink);background:var(--red);gap:46px;min-height:100svh}
+.invitation:has(.rhythm-closing) .button{--square-accent:var(--yellow);color:var(--paper)}
+.invitation:has(.rhythm-closing) h2{font-weight:700;font-size:clamp(46px,6.6vw,106px)}
+.rhythm-tail{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.rhythm-tail .rhythm-nudge{margin:0}
+/* Each colour leads a chapter. Black UI does not default to yellow lettering. */
+.rhythm-privacy{--square-accent:var(--yellow)}
+[data-page=home] .mobile-action-dock .button{color:var(--paper)}
+.system{--workflow-accent:var(--red)}
+.system:has(#thought-explore[aria-selected=true]){--workflow-accent:var(--yellow)}
+.system:has(#thought-decide[aria-selected=true]){--workflow-accent:var(--blue)}
+.system .thought-tabs button[aria-selected=true]{color:var(--workflow-accent);border-color:var(--workflow-accent)}
+.system .thought-quote{color:var(--workflow-accent)}
+.system .system-next{color:var(--paper);border-color:var(--paper)}
+@media(max-width:1000px) and (min-width:761px){.rhythm-context .statement{font-size:42px}.rhythm-context .rhythm-layout{gap:3vw}.rhythm-context .rhythm-copy>p,.rhythm-privacy .studio-content p{font-size:16px}}
+@media(max-width:760px){
+ html{scroll-padding-top:70px}
+ .rhythm-context{padding:56px 24px 40px;gap:34px;min-height:0}
+ .rhythm-context .rhythm-layout{display:flex;flex-direction:column;align-items:stretch;gap:30px}
+ .rhythm-context .statement{font-size:clamp(35px,10.5vw,65px);line-height:1.12}
+ .rhythm-context .rhythm-copy>p{font-size:16px;margin-top:23px;max-width:40ch}
+ .rhythm-copy .text-link{margin-top:18px}
+ .rhythm-art{width:100%;max-width:500px;align-self:center}
+ .rhythm-context .rhythm-svg{max-height:450px}
+ .rhythm-art .rhythm-caption{font-size:9px}
+ .rhythm-privacy{gap:30px;padding-top:56px;min-height:0}
+ .rhythm-privacy .studio-poster{display:flex;flex-direction:column;gap:32px}
+ .rhythm-privacy .studio-content{width:100%}
+ .rhythm-privacy .studio-content h2{font-size:clamp(49px,13.2vw,82px)}
+ .rhythm-privacy .studio-content p{font-size:16px;margin-top:26px}
+ .rhythm-privacy .rhythm-art{width:calc(100% + 48px);max-width:none;margin:0 -24px;align-self:stretch;height:auto}
+ .rhythm-privacy .rhythm-svg{height:auto;width:100%}
+ .rhythm-closing{width:100%;max-width:500px;margin:0 auto}
+ .invitation:has(.rhythm-closing){gap:32px}
+ .invitation:has(.rhythm-closing) h2{font-size:clamp(40px,10.8vw,72px)}
+ .rhythm-tail{gap:10px}
+}
+@media(max-width:360px){.rhythm-context .statement{font-size:10vw}}
+@media(prefers-reduced-motion:reduce){.slot-row,.slot-layer{transform:none!important}.rhythm-nudge{display:none}}
+
+/* Cropped, heavy slots carry the same weight across the three chapters. */
+.rhythm-context .rhythm-art{width:calc(100% + var(--pad));overflow:hidden}
+.rhythm-context .rhythm-caption{padding-right:var(--pad)}
+.rhythm-closing{width:calc(100% + 2 * var(--pad));max-width:none;margin:0 calc(-1 * var(--pad))}
+.rhythm-closing .rhythm-svg{max-height:none}
+@media(max-width:760px){
+ .rhythm-context .rhythm-art{width:calc(100% + 48px);max-width:none;margin:0 -24px;align-self:stretch}
+ .rhythm-context .rhythm-svg{max-height:none}
+ .rhythm-context .rhythm-caption{padding:12px 24px 0}
+ .rhythm-closing{width:calc(100% + 48px);max-width:none;margin:0 -24px}
+}
+
+.rhythm-shutters{position:relative;width:100%;height:clamp(340px,41vw,620px);overflow:hidden;isolation:isolate}
+.shutter{position:absolute;display:block;width:18%}
+.shutter-one{left:-4%;top:-40%;height:165%}
+.shutter-two{left:25%;top:30%;height:110%}
+.shutter-three{left:54%;top:-60%;height:112%}
+.shutter-four{left:83%;top:-20%;height:160%}
+@media(max-width:760px){.rhythm-shutters{height:clamp(300px,85vw,460px)}}
+
+/* Offset, opaque colour layers act as short racing trails. */
+.shutter-layer{position:absolute;display:block;inset:0;border-radius:999px;background:var(--ink)}
+.shutter-layer[data-layer="0"]{left:28%;right:-28%;top:8%;bottom:-8%;background:var(--blue)}
+.shutter-layer[data-layer="1"]{left:14%;right:-14%;top:4%;bottom:-4%;background:var(--yellow)}
+.shutter:nth-child(even) .shutter-layer[data-layer="0"]{top:-8%;bottom:8%}
+.shutter:nth-child(even) .shutter-layer[data-layer="1"]{top:-4%;bottom:4%}
+
+.shutter-two .shutter-layer[data-layer="0"]{background:var(--ink)}
+.shutter-two .shutter-layer[data-layer="1"]{background:var(--blue)}
+.shutter-two .shutter-layer[data-layer="2"]{background:var(--yellow)}
+.shutter-three .shutter-layer[data-layer="0"]{background:var(--yellow)}
+.shutter-three .shutter-layer[data-layer="1"]{background:var(--ink)}
+.shutter-three .shutter-layer[data-layer="2"]{background:var(--blue)}
+
+.shutter-four .shutter-layer[data-layer="0"]{background:var(--blue)}
+.shutter-four .shutter-layer[data-layer="1"]{background:var(--yellow)}
+
+/* Mobile is a close crop of the same bold artwork, not a miniature poster.
+   Uniform SVG scaling keeps every capsule end circular. */
+@media(max-width:760px){
+ .rhythm-context .rhythm-svg,.rhythm-privacy .rhythm-svg{width:170%;max-width:none;height:auto;margin-left:-35%}
+ .rhythm-shutters{height:clamp(480px,145vw,740px)}
+ .shutter{width:24%}
+ .shutter-one{left:-12%}
+ .shutter-two{left:19%}
+ .shutter-three{left:50%}
+ .shutter-four{left:81%}
+}

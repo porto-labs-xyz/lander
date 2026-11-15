@@ -1,0 +1,37 @@
+/* A restrained macro camera move across the actual exterior render. */
+.hardware-interlude[data-hardware-reveal]{height:clamp(600px,56vw,850px);background:#000;--reveal-from:translate3d(-7.6%,-32.2%,0) scale(1.8);--reveal-land:translate3d(-92.724%,-66.664%,0) scale(2.22);--reveal-to:translate3d(-91.24%,-65.64%,0) scale(2.2)}
+.hardware-interlude[data-hardware-reveal]::after{z-index:1;background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.76) 100%)}
+.reveal-scene{position:absolute;width:100%;aspect-ratio:3/2;left:50%;top:47%;transform:translate(-50%,-50%)}
+.reveal-camera{position:absolute;inset:0;transform-origin:0 0;transform:var(--reveal-to)}
+.reveal-camera img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
+.reveal-light{opacity:0}
+.reveal-closed{opacity:1}
+.reveal-light,.reveal-status{position:absolute;left:74.2%;top:51.2%;width:1.84%;aspect-ratio:1;transform:translate(-50%,-50%) rotate(18deg);pointer-events:none}
+.reveal-status{color:#fff9ee}
+.reveal-light::before,.reveal-status::before{content:"";position:absolute;inset:0;background:currentColor;box-shadow:0 0 1px currentColor}
+.reveal-light::after,.reveal-status::after{content:"";position:absolute;inset:-100%;background:radial-gradient(ellipse,currentColor,transparent 65%);opacity:.5;mix-blend-mode:screen}
+.reveal-light-red{color:var(--red)}.reveal-light-yellow{color:var(--yellow)}.reveal-light-blue{color:var(--blue)}
+.hardware-interlude[data-hardware-reveal] figcaption{z-index:2;inset:auto var(--pad) 40px;align-items:end}
+.hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(64px,7vw,112px);line-height:1.04}
+.reveal-line{display:block}
+.reveal-note{max-width:32ch;line-height:1.65}
+.reveal-note span{display:block;margin-top:9px;text-transform:none;letter-spacing:0;font:400 12px/1.5 var(--sans);color:#bfbfbd}
+.reveal-ready .reveal-camera{transform:var(--reveal-from)}
+.reveal-ready .reveal-line{opacity:0}
+.reveal-running .reveal-camera{will-change:transform}
+.reveal-running .reveal-line{will-change:transform,opacity}
+@media(max-width:700px){
+ .hardware-interlude[data-hardware-reveal]{height:clamp(570px,150vw,700px);--reveal-from:translate3d(-10.8%,-43.5%,0) scale(1.9);--reveal-land:translate3d(-100.724%,-68.664%,0) scale(2.22);--reveal-to:translate3d(-99.24%,-67.64%,0) scale(2.2)}
+ .reveal-scene{width:170%;top:40%;left:50%}
+ .hardware-interlude[data-hardware-reveal]::after{background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.5) 66%,#000 89%)}
+ .hardware-interlude[data-hardware-reveal] figcaption{inset:auto 24px 30px}
+ .hardware-interlude[data-hardware-reveal] figcaption p{font-size:clamp(52px,14vw,84px)}
+ .hardware-interlude[data-hardware-reveal] .reveal-note{max-width:100%;margin-top:24px;font-size:9px}
+ .reveal-note span{font-size:11px;margin-top:5px}
+}
+@media(prefers-reduced-motion:reduce){
+ .reveal-camera{transform:var(--reveal-to)!important}
+ .reveal-line{transform:none!important}
+ .reveal-light{opacity:0!important}
+ .reveal-closed,.reveal-line{opacity:1!important}
+}
