@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { mountHardwareReveal } from './hardware-reveal.mjs'
 
 function fixture({ reduced = false, imageFailure = false, audioFailure = false, deferredDecode = false } = {}) {
-  const observers = [], animations = [], timers = new Map(), contexts = [], sources = [], requests = []
+  const observers = [], animations = [], timers = new Map(), contexts = [], sources = [], requests = [], audioNodes = []
   let resolveDecode
   const target = () => ({ handlers: {}, addEventListener(type, fn, options) {
     this.handlers[type] = fn
@@ -17,16 +17,24 @@ function fixture({ reduced = false, imageFailure = false, audioFailure = false, 
     enter(ratio) { if (!this.disconnected) this.callback([{ isIntersecting: ratio > 0, intersectionRatio: ratio }]) }
   }
   const parameter = () => ({ setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} })
+  const audioNode = (type, extra = {}) => {
+    const node = { type, connections: [], connect(destination) { this.connections.push(destination) }, disconnect() { this.disconnected = true }, ...extra }
+    audioNodes.push(node); return node
+  }
   class Audio {
-    constructor() { this.state = 'suspended'; this.currentTime = 0; contexts.push(this) }
+    constructor() { this.state = 'suspended'; this.currentTime = 0; this.sampleRate = 48000; this.destination = {}; contexts.push(this) }
     resume() { this.state = 'running'; return Promise.resolve() }
     close() { this.state = 'closed'; return Promise.resolve() }
     decodeAudioData() { return deferredDecode ? new Promise(resolve => { resolveDecode = resolve }) : Promise.resolve({ duration: 2.736 }) }
     createBufferSource() {
-      const node = { connect() {}, disconnect() {}, start(...args) { node.started = true; node.startArgs = args }, stop() { node.stopped = true } }
+      const node = audioNode('source', { start(...args) { node.started = true; node.startArgs = args }, stop() { node.stopped = true } })
       sources.push(node); return node
     }
-    createGain() { return { gain: parameter(), connect() {}, disconnect() {} } }
+    createGain() { return audioNode('gain', { gain: parameter() }) }
+    createBuffer(channels, length, sampleRate) { const data = Array.from({length:channels}, () => new Float32Array(length)); return { duration: length / sampleRate, getChannelData: channel => data[channel] } }
+    createConvolver() { return audioNode('convolver') }
+    createDelay() { return audioNode('delay', { delayTime: { value: 0 } }) }
+    createBiquadFilter() { return audioNode('filter', { frequency: { value: 0 }, Q: { value: 0 } }) }
   }
   let timerId = 0
   const view = { fetch(url, options) { requests.push({url,...options}); return audioFailure ? Promise.reject(new Error('offline')) : Promise.resolve({ok:true,arrayBuffer:async()=>new ArrayBuffer(4)}) }, IntersectionObserver: Observer, AudioContext: Audio, matchMedia: () => preference,
@@ -44,7 +52,7 @@ function fixture({ reduced = false, imageFailure = false, audioFailure = false, 
     querySelector: selector => elements[selector], querySelectorAll: selector => Array.from({length:selector==='.reveal-light'?3:2},element) }
   const root = { querySelector: () => section }
   const cleanup = mountHardwareReveal(root)
-  return { cleanup, observers, animations, contexts, sources, requests, resolveDecode:()=>resolveDecode?.({duration:2.736}), doc, preference, classes, elements,
+  return { cleanup, observers, animations, contexts, sources, requests, audioNodes, resolveDecode:()=>resolveDecode?.({duration:2.736}), doc, preference, classes, elements,
     async enter(ratio = .7) { observers[0]?.enter(ratio); observers[1]?.enter(ratio); await new Promise(resolve => setImmediate(resolve)) },
     fireCue() { const fns = [...timers.values()]; timers.clear(); fns.forEach(fn => fn()) } }
 }
@@ -157,4 +165,28 @@ test('the light phrase starts with the chime cue, never before it or again on re
   assert.equal(lightAnimations().length, 3)
   assert.equal(f.sources.length, 1)
   f.cleanup()
+})
+
+
+test('ambience outlives the dry notes, fits the hold, and releases all audio nodes', async () => {
+  for (const exit of ['finish', 'offscreen', 'unmount']) {
+    const f = fixture()
+    f.doc.handlers.pointerdown({ isTrusted: true, type: 'pointerdown' })
+    await f.enter(); f.fireCue()
+    const room = f.audioNodes.find(node => node.type === 'convolver')
+    const delays = f.audioNodes.filter(node => node.type === 'delay')
+    const sourceDuration = f.sources[0].startArgs[2]
+    assert.ok(room.buffer.duration > 0)
+    assert.equal(delays.length, 2)
+    assert.ok(sourceDuration + room.buffer.duration < 1.3)
+    assert.ok(sourceDuration + delays.reduce((time, node) => time + node.delayTime.value, 0) < 1.3)
+    assert.notDeepEqual(room.buffer.getChannelData(0), room.buffer.getChannelData(1))
+    f.sources[0].onended()
+    assert.ok(f.audioNodes.filter(node => node.type !== 'source').every(node => !node.disconnected))
+    if (exit === 'finish') f.animations[0].onfinish()
+    if (exit === 'offscreen') f.observers[1].enter(0)
+    if (exit === 'unmount') f.cleanup()
+    assert.ok(f.audioNodes.every(node => node.disconnected))
+    f.cleanup()
+  }
 })

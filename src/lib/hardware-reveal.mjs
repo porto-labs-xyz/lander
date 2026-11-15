@@ -29,7 +29,7 @@ export function mountHardwareReveal(root = document) {
   if (!view.IntersectionObserver || !camera?.animate || media.matches) return () => {};
 
   let ready = false, started = false, complete = false, disposed = false, visible = false;
-  let loading, audio, soundLoading, soundBuffer, soundAbort, animations = [], cueTimer = 0, cued = false, soundNodes = [];
+  let loading, audio, soundLoading, soundBuffer, reverbBuffer, soundAbort, animations = [], cueTimer = 0, cued = false, soundNodes = [];
   const events = new AbortController();
   const on = (target, type, fn, options = {}) => target.addEventListener(type, fn, { ...options, signal: events.signal });
 
@@ -46,7 +46,23 @@ export function mountHardwareReveal(root = document) {
     soundLoading = view.fetch('/assets/little-tilt.mp3', { signal: soundAbort.signal })
       .then(response => { if (!response.ok) throw new Error('Chime unavailable'); return response.arrayBuffer(); })
       .then(bytes => context.decodeAudioData(bytes))
-      .then(buffer => { if (!disposed && !complete && !cued) soundBuffer = buffer; })
+      .then(buffer => {
+        if (disposed || complete || cued) return;
+        soundBuffer = buffer;
+        // Prepare a small, deterministic stereo room before the landing cue.
+        // Its 360 ms tail fits inside the existing final hold.
+        const length = Math.ceil(context.sampleRate * .36);
+        reverbBuffer = context.createBuffer(2, length, context.sampleRate);
+        for (let channel = 0; channel < 2; channel++) {
+          const data = reverbBuffer.getChannelData(channel);
+          let seed = 171 + channel * 97, softened = 0;
+          for (let i = Math.ceil(context.sampleRate * .012); i < length; i++) {
+            seed = (1664525 * seed + 1013904223) >>> 0;
+            softened = softened * .6 + (seed / 2147483648 - 1) * .4;
+            data[i] = softened * Math.exp(-7 * i / length) * (1 - i / length);
+          }
+        }
+      })
       .catch(() => {});
   }
   function unlockSound(event) {
@@ -71,10 +87,29 @@ export function mountHardwareReveal(root = document) {
     gain.gain.setValueAtTime(.65, now + .48);
     gain.gain.linearRampToValueAtTime(0, now + .78);
     source.connect(gain); gain.connect(audio.destination);
-    source.onended = () => { source.disconnect(); gain.disconnect(); };
+    soundNodes.push(source, gain);
+    if (reverbBuffer) {
+      // Filter only the ambience: keep the original notes clear and close.
+      const tone = audio.createBiquadFilter();
+      tone.type = 'lowpass'; tone.frequency.value = 3400; tone.Q.value = .7;
+      gain.connect(tone);
+      const room = audio.createConvolver(), roomLevel = audio.createGain();
+      room.buffer = reverbBuffer; roomLevel.gain.value = .13;
+      tone.connect(room); room.connect(roomLevel); roomLevel.connect(audio.destination);
+      // Two quiet taps, without feedback or a repeating echo loop.
+      const echo = audio.createDelay(.5), echoLevel = audio.createGain();
+      const tail = audio.createDelay(.5), tailLevel = audio.createGain();
+      echo.delayTime.value = .12; echoLevel.gain.value = .14;
+      tail.delayTime.value = .12; tailLevel.gain.value = .04;
+      tone.connect(echo); echo.connect(echoLevel); echoLevel.connect(audio.destination);
+      echo.connect(tail); tail.connect(tailLevel); tailLevel.connect(audio.destination);
+      soundNodes.push(tone, room, roomLevel, echo, echoLevel, tail, tailLevel);
+    }
+    // The source can end before its room/echo tails. Keep those connected until
+    // the final hold ends; stopSound still silences everything immediately offscreen.
+    source.onended = () => { source.disconnect(); };
     // Keep Little Tilt's opening signature; fade the tail instead of cutting it.
     source.start(now, 0, CHIME_DURATION / 1000);
-    soundNodes.push(source, gain);
   }
 
   function cue() {
@@ -110,6 +145,7 @@ export function mountHardwareReveal(root = document) {
     stopSound();
     soundAbort?.abort();
     soundBuffer = undefined;
+    reverbBuffer = undefined;
     animations.forEach(animation => animation.cancel());
     animations = [];
     section.classList.remove('reveal-ready', 'reveal-running');
