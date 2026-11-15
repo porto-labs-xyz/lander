@@ -25,18 +25,31 @@ function fixture(t, reduced = false) {
   }
   globalThis.document = new EventTarget()
   document.hidden = false
+  const introClasses = new Set()
+  document.documentElement = { classList: { add: value => introClasses.add(value), remove: value => introClasses.delete(value) } }
   globalThis.IntersectionObserver = class {
     constructor(callback) { this.callback = callback; this.nodes = new Set(); observers.push(this) }
     observe(node) { this.nodes.add(node) }
     unobserve(node) { this.nodes.delete(node) }
     disconnect() { this.nodes.clear() }
   }
-  globalThis.window = { matchMedia: () => preference, IntersectionObserver }
+  globalThis.window = new EventTarget()
+  Object.assign(window, { matchMedia: () => preference, IntersectionObserver, scrollY: 0 })
   const destroy = mountKilnMotion(root)
   t.after(() => { destroy(); Object.assign(globalThis, previous) })
   const enter = target => observers.at(-1).callback([{ target, isIntersecting: true }])
-  return { preference, image, copy, product, attributes, observers, enter, destroy }
+  return { preference, image, copy, product, attributes, observers, introClasses, enter, destroy }
 }
+
+test('hero timeline starts only after scrolling', t => {
+  const f = fixture(t)
+  assert.equal(f.introClasses.has('intro-scrolling'), false)
+  window.scrollY = 1
+  window.dispatchEvent(new Event('scroll'))
+  assert.equal(f.introClasses.has('intro-scrolling'), true)
+  f.destroy()
+  assert.equal(f.introClasses.has('intro-scrolling'), false)
+})
 
 test('reduced-motion starts static and can be changed without hiding content', t => {
   const f = fixture(t, true)

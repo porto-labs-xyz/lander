@@ -5,6 +5,14 @@ import { mountKilnIntro } from './kiln-intro.mjs';
 export function mountKilnMotion(root) {
   const removeIntro = mountKilnIntro(root);
   const host = root === document ? document.documentElement : root;
+  const introHost = document.documentElement;
+  const startIntroScroll = () => {
+    if (window.scrollY <= 0) return;
+    introHost.classList.add('intro-scrolling');
+    window.removeEventListener('scroll', startIntroScroll);
+  };
+  window.addEventListener('scroll', startIntroScroll, { passive: true });
+  startIntroScroll();
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const nodes = [...root.querySelectorAll('.boot-figure,.crucible,.studio-mark,.about-seal,.name-mark img,.reveal')];
   let observer;
@@ -50,6 +58,8 @@ export function mountKilnMotion(root) {
   pause();
   return () => {
     removeIntro();
+    window.removeEventListener('scroll', startIntroScroll);
+    introHost.classList.remove('intro-scrolling');
     disposed = true;
     observer?.disconnect();
     clearLoads();
