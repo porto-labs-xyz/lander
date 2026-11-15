@@ -72,6 +72,8 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .intro-skip span{font-size:24px}
 .hero-bottom .fine{display:none}
 @media(max-width:760px){
+ /* Separate the CTA underline from the next section without squeezing the reveal. */
+ .intro-runway.intro-active{margin-bottom:32px}
  .intro-active .hero{padding:20px 24px;justify-content:center}
  .intro-active .hero-keep{font-size:min(12vw,calc(var(--intro-stage)*.08));margin-bottom:14px}
  .intro-active .hero-box{height:calc(var(--intro-stage)*.48);border-width:6px}
