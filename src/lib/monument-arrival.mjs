@@ -142,6 +142,8 @@ export function mountArrival() {
   if (available < 370) return;
   hero.style.setProperty('--intro-stage', available + 'px');
   runway.style.setProperty('--intro-stage', available + 'px');
+  // Keep dock clearance inside the hero so the opening image fills the viewport.
+  runway.style.setProperty('--intro-dock', dockHeight + 'px');
   runway.style.setProperty('--intro-header', headerHeight + 'px');
   distance = Math.round(height * 1.1);
   runway.style.setProperty('--intro-distance', distance + 'px');
