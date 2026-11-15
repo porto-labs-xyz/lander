@@ -57,8 +57,8 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .intro-active .hero-device .hero-macro{display:block;position:absolute;left:21.6796875%;top:4.6875%;width:37.044271%;height:38.183594%;mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 82%,transparent 100%),linear-gradient(to right,transparent 0%,#000 14%,#000 84%,transparent 100%);mask-composite:intersect}
 .intro-caption{display:none}
 .intro-runway{overflow-anchor:none}
-.intro-active{height:calc(var(--intro-stage) + var(--intro-distance))}
-.intro-active .hero{position:sticky;top:var(--intro-header);height:var(--intro-stage);isolation:isolate;padding-top:28px;padding-bottom:28px;display:flex;flex-direction:column;justify-content:center}
+.intro-active{height:calc(var(--intro-stage) + var(--intro-dock,0px) + var(--intro-distance))}
+.intro-active .hero{position:sticky;top:var(--intro-header);height:calc(var(--intro-stage) + var(--intro-dock,0px));isolation:isolate;padding-top:28px;padding-bottom:28px;display:flex;flex-direction:column;justify-content:center}
 .intro-active .hero-poster{flex-shrink:0}
 .intro-active .hero-keep{font-size:min(4.8vw,calc(var(--intro-stage)*.085));margin-bottom:16px}
 .intro-active .hero-box{height:calc(var(--intro-stage)*.43)}
@@ -74,7 +74,7 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 @media(max-width:760px){
  /* Separate the CTA underline from the next section without squeezing the reveal. */
  .intro-runway.intro-active{margin-bottom:32px}
- .intro-active .hero{padding:20px 24px;justify-content:center}
+ .intro-active .hero{padding:20px 24px calc(20px + var(--intro-dock,0px));justify-content:center}
  .intro-active .hero-keep{font-size:min(12vw,calc(var(--intro-stage)*.08));margin-bottom:14px}
  .intro-active .hero-box{height:calc(var(--intro-stage)*.48);border-width:6px}
  .intro-active .hero-work{font-size:min(28vw,calc(var(--intro-stage)*.18));line-height:1.08}
