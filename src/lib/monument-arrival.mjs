@@ -29,6 +29,9 @@ export function mountArrival() {
  const spark = header.querySelector('.header-spark');
  const brand = header.querySelector('.brand');
  const menu = header.querySelector('.menu-toggle');
+ const headerCta = header.querySelector('.header-cta');
+ const dock = document.querySelector('.mobile-dock');
+ const controls = [menu, headerCta, dock].filter(Boolean);
  const preference = matchMedia('(prefers-reduced-motion:reduce)');
  const Audio = window.AudioContext || window.webkitAudioContext;
  let frame = 0, fitFrame = 0, start = 0, distance = 1, initialScale = 1, baseWidth = 0, baseHeight = 0;
@@ -74,8 +77,13 @@ export function mountArrival() {
   lastProgress = progress;
   const move = smooth((progress - .025) / .78);
   const logo = smooth(progress / .68);
-  menu.style.opacity = String(smooth((progress - .68) / .18));
-  menu.style.visibility = progress < .68 ? 'hidden' : 'visible';
+  // Keep the opening focused on the hardware; controls arrive with the hero.
+  const controlsOpacity = smooth((progress - .68) / .18);
+  controls.forEach(control => {
+   control.style.opacity = String(controlsOpacity);
+   control.style.visibility = controlsOpacity === 0 ? 'hidden' : 'visible';
+   control.inert = controlsOpacity < .8;
+  });
   const type = smooth((progress - .38) / .46);
   const copy = smooth((progress - .6) / .32);
   // Interpolate apparent magnification, then follow a point on the top rim.
@@ -122,13 +130,13 @@ export function mountArrival() {
   device.style.width = '';
   device.style.willChange = '';
   zooming = undefined;
-  [device, title, bottom, caption, brand, macro, menu].forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; });
+  [device, title, bottom, caption, brand, macro, ...controls].forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; });
   header.style.removeProperty('--intro-header-line');
   bottom.inert = false;
+  controls.forEach(control => { control.inert = false; });
   if (preference.matches || document.body.classList.contains('review-mode')) return;
   const headerHeight = header.offsetHeight;
-  const dock = document.querySelector('.mobile-dock');
-  const dockHeight = getComputedStyle(dock).display === 'none' ? 0 : dock.offsetHeight;
+  const dockHeight = !dock || getComputedStyle(dock).display === 'none' ? 0 : dock.offsetHeight;
   const available = height - headerHeight - dockHeight;
   // At very small landscape heights leave all content accessible in normal flow.
   if (available < 370) return;

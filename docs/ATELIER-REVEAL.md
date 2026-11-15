@@ -29,3 +29,7 @@ The final hardware exploration heading is “Find your Kiln.” with “Explore 
 ## Typography
 
 Monument uses normal font kerning, restrained headline tracking (−0.02em; display −0.025em), and roomier line heights. The product names share the same tracking, with explicit word spacing and a Rack title that wraps within its mobile margins. Body copy, form fields and supporting text keep normal tracking and comfortable leading. The approved outlined logo assets stay unchanged.
+
+## Landing controls
+
+The homepage header registration button and mobile registration dock are hidden and inert during the opening macro view. They fade in with the menu as the hero is revealed (68–86% of the intro scroll). Returning to the opening hides them again. Reduced-motion/static layouts and other pages retain their visible controls.

@@ -51,6 +51,7 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .brand-mark{width:100%;height:auto;display:block;overflow:visible}
 .header-spark{transform-box:fill-box;transform-origin:50% 75%}
 .intro-header-active .brand{transform-origin:50% 50%}
+.intro-header-active .header-cta,body:has(.intro-active) .mobile-dock{opacity:0;visibility:hidden}
 .intro-header-active{border-bottom-color:rgb(16 17 18 / var(--intro-header-line,0))}
 .hero-device .hero-macro{display:none}
 .intro-active .hero-device .hero-macro{display:block;position:absolute;left:21.6796875%;top:4.6875%;width:37.044271%;height:38.183594%;mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 82%,transparent 100%),linear-gradient(to right,transparent 0%,#000 14%,#000 84%,transparent 100%);mask-composite:intersect}
