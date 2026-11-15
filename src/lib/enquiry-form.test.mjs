@@ -22,6 +22,13 @@ test('one request per submission and success only after provider acknowledgement
  f.submit();f.submit();assert.equal(calls,1);assert.equal(f.status.hidden,true);assert.equal(f.label.textContent,'Sending…')
  finish({ok:true,json:async()=>({ok:true})});await tick();assert.equal(f.status.hidden,false);assert.equal(f.form.resetCalled,true);assert.equal(f.label.textContent,'Send message');dispose()
 })
+test('media, legal and investor registrations preserve the selected interest for delivery',()=>{
+ for(const product of ['Media','Legal','Investor interest']){
+  const payload=enquiryPayload('interest',{email:'test@example.com',product,consent:'on'})
+  assert.equal(payload.product,product);assert.equal(payload.kind,'interest');assert.equal(payload.company_updates,'yes')
+  assert.throws(()=>enquiryPayload('interest',{email:'test@example.com',product}),/confirm/)
+ }
+})
 for(const failure of ['rejected','network','timeout','unexpected-response']) test(`${failure} preserves fields and permits retry`,async()=>{
  const f=fixture('contact');const dispose=bindEnquiryForm(f.form,{readFields:()=>f.fields,timeoutMs:5,fetchImpl:(_url,opts)=>{
  if(failure==='network')return Promise.reject(new Error('offline'))
