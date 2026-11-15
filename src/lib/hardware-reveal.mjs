@@ -2,12 +2,20 @@
 // No idle frame loop, scroll interception, controls, autoplay workaround or late audio.
 const DURATION = 3800;
 const LIGHT_CUE = 2500;
-// Two brief, irregular red → blue → yellow bursts, confined to the status light.
-const FLICKER = [
-  ['red', [[0, 70], [280, 45]]],
-  ['blue', [[90, 55], [345, 50]]],
-  ['yellow', [[165, 75], [415, 95]]],
+const CHIME_DURATION = 800;
+// Measured from Little Tilt's first 800 ms: 5 ms RMS, Gaussian-smoothed
+// (sigma 15 ms), sampled every 20 ms, with the same 480–780 ms audio fade.
+// The quiet attack, note swells and small final lift replace on/off flashes.
+const CHIME_ENVELOPE = [
+  0, 0, .02, .127, .276, .319, .296, .274, .26, .246,
+  .231, .223, .275, .459, .574, .577, .576, .536, .489, .463,
+  .478, .476, .442, .411, .383, .331, .281, .24, .203, .168,
+  .139, .115, .103, .131, .164, .14, .097, .06, .029, 0, 0,
 ];
+const smoothStep = value => {
+  const t = Math.max(0, Math.min(1, value));
+  return t * t * (3 - 2 * t);
+};
 
 export function mountHardwareReveal(root = document) {
   const section = root.querySelector('[data-hardware-reveal]');
@@ -54,7 +62,6 @@ export function mountHardwareReveal(root = document) {
     } catch { /* The visual sequence is independent of audio availability. */ }
   }
   function sound() {
-    cued = true;
     if (!visible || doc.hidden || media.matches || audio?.state !== 'running') return;
     if (!soundBuffer) return;
     const source = audio.createBufferSource(), gain = audio.createGain();
@@ -66,8 +73,29 @@ export function mountHardwareReveal(root = document) {
     source.connect(gain); gain.connect(audio.destination);
     source.onended = () => { source.disconnect(); gain.disconnect(); };
     // Keep Little Tilt's opening signature; fade the tail instead of cutting it.
-    source.start(now, 0, .8);
+    source.start(now, 0, CHIME_DURATION / 1000);
     soundNodes.push(source, gain);
+  }
+
+  function cue() {
+    if (cued || complete || disposed || !visible || doc.hidden || media.matches) return;
+    cued = true;
+    // Start the light and sound together, so timer drift cannot separate them.
+    // Note entrances at ~60, 240, 390 and 650 ms are already in the envelope.
+    // Crossfade red → blue → yellow; the last note gently lifts the yellow tail.
+    ['red', 'blue', 'yellow'].forEach((colour, index) => {
+      const light = section.querySelector('.reveal-light-' + colour);
+      if (!light) return;
+      const frames = CHIME_ENVELOPE.map((level, sample) => {
+        const ms = sample * 20;
+        const blue = smoothStep((ms - 240) / 60);
+        const yellow = smoothStep((ms - 390) / 60);
+        const weight = [1 - blue, blue * (1 - yellow), yellow][index];
+        return { opacity: level * weight, offset: ms / CHIME_DURATION };
+      });
+      animations.push(light.animate(frames, { duration: CHIME_DURATION, fill: 'both', easing: 'linear' }));
+    });
+    sound();
   }
 
   function scheduleCue() {
@@ -75,7 +103,7 @@ export function mountHardwareReveal(root = document) {
     if (cued) return;
     const remaining = LIGHT_CUE - (Number(animations[0]?.currentTime) || 0);
     if (remaining < 0) { cued = true; return; }
-    cueTimer = view.setTimeout(sound, remaining);
+    cueTimer = view.setTimeout(cue, remaining);
   }
   function finish() {
     complete = true;
@@ -105,21 +133,6 @@ export function mountHardwareReveal(root = document) {
       { transform: 'var(--reveal-to)', offset: LIGHT_CUE / DURATION },
       { transform: 'var(--reveal-to)', offset: 1 },
     ]);
-    FLICKER.forEach(([colour, bursts]) => {
-      const light = section.querySelector('.reveal-light-' + colour);
-      if (!light) return;
-      const frames = [{ opacity: 0, offset: 0 }];
-      bursts.forEach(([delay, length]) => {
-        const start = LIGHT_CUE + delay;
-        frames.push(
-          { opacity: 0, offset: start / DURATION },
-          { opacity: 1, offset: (start + 8) / DURATION },
-          { opacity: 1, offset: (start + length - 14) / DURATION },
-          { opacity: 0, offset: (start + length) / DURATION },
-        );
-      });
-      animate(light, [...frames, { opacity: 0, offset: 1 }]);
-    });
     lines.forEach((line, index) => animate(line, [
       { opacity: 0, transform: 'translate3d(0,24px,0)', offset: 0 },
       { opacity: 0, transform: 'translate3d(0,24px,0)', offset: (2520 + index * 90) / DURATION, easing: 'cubic-bezier(.16,1,.3,1)' },

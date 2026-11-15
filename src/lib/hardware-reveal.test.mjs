@@ -34,8 +34,8 @@ function fixture({ reduced = false, imageFailure = false, audioFailure = false, 
   const doc = Object.assign(target(), { defaultView: view, hidden: false })
   const classes = new Set()
   function element() {
-    return { animate() {
-      const animation = { currentTime: 0, playState: 'running', pause() { this.playState = 'paused' }, play() { this.playState = 'running' }, cancel() { this.playState = 'idle' } }
+    return { animate(frames, options) {
+      const animation = { frames, options, element: this, currentTime: 0, playState: 'running', pause() { this.playState = 'paused' }, play() { this.playState = 'running' }, cancel() { this.playState = 'idle' } }
       animations.push(animation); return animation
     }, decode: () => imageFailure ? Promise.reject(new Error('offline')) : Promise.resolve(), dataset: { revealSrc: '/open.webp' } }
   }
@@ -133,4 +133,28 @@ test('late audio decoding cannot play after unmount', async () => {
   assert.equal(f.sources.length, 0)
   assert.equal(f.requests[0].signal.aborted, true)
   assert.equal(f.contexts[0].state, 'closed')
+})
+
+
+test('the light phrase starts with the chime cue, never before it or again on resume', async () => {
+  const f = fixture()
+  f.doc.handlers.pointerdown({ isTrusted: true, type: 'pointerdown' })
+  await f.enter()
+  const lights = Object.entries(f.elements).filter(([key]) => key.includes('light-')).map(([, element]) => element)
+  const lightAnimations = () => f.animations.filter(animation => lights.includes(animation.element))
+  assert.equal(lightAnimations().length, 0)
+  assert.equal(f.sources.length, 0)
+  f.fireCue()
+  assert.equal(lightAnimations().length, 3)
+  assert.equal(f.sources.length, 1)
+  for (const animation of lightAnimations()) {
+    assert.equal(animation.options.duration / 1000, f.sources[0].startArgs[2])
+    assert.equal(animation.frames[0].opacity, 0)
+    assert.equal(animation.frames.at(-1).opacity, 0)
+    assert.ok(Math.max(...animation.frames.map(frame => frame.opacity)) < .7)
+  }
+  f.observers[1].enter(0); f.observers[1].enter(.7); f.fireCue()
+  assert.equal(lightAnimations().length, 3)
+  assert.equal(f.sources.length, 1)
+  f.cleanup()
 })
