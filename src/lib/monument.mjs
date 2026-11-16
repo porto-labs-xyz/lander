@@ -1,3 +1,4 @@
+import { mountNetworkThesis } from './network-thesis.mjs'
 import { mountProductCarousel } from './product-carousel.mjs'
 import { mountScrollFrames } from './scroll-frames.mjs'
 import { mountHardwareReveal } from './hardware-reveal.mjs'
@@ -31,6 +32,7 @@ on(document,'keydown',e=>{
  }
 });
 cleanups.push(mountProductCarousel(root));
+cleanups.push(mountNetworkThesis(root));
 const workflows={"files":{"quote":["“Pick up the","approved direction.”"],"note":"Bring the approved brief, product assets and latest client feedback into the same working context.","files":["Approved brief","Product assets","Client feedback"]},"apps":{"quote":["“Change the background.","Keep the product.”"],"note":"Propose a targeted edit using the approved product asset. Compare the new version before accepting it.","files":["Product reference","Background revision","Version comparison"]},"flows":{"quote":["“Review the change.","Approve the delivery.”"],"note":"A named reviewer signs off the selected version before the workflow prepares the agreed delivery formats.","files":["Reviewer sign-off","Approved version","Delivery formats"]}};
 $$('[data-workflow]').forEach(t=>on(t,'click',()=>{const w=workflows[t.dataset.workflow];$('#work-quote').replaceChildren(document.createTextNode(w.quote[0]),document.createElement('br'),document.createTextNode(w.quote[1]));$('#work-note').textContent=w.note;$('#workspace-files').replaceChildren(...w.files.map(text=>{const span=document.createElement('span');span.textContent=text;return span;}));$('#work-panel').setAttribute('aria-labelledby',t.id);$$('[data-workflow]').forEach(tab=>{const active=tab===t;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});}));
 $$('[role=tablist]').forEach(list=>on(list,'keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const tabs=[...list.querySelectorAll('[role=tab]')];const i=tabs.indexOf(document.activeElement);const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();tabs[next].focus();}));
