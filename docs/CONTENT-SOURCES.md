@@ -1,6 +1,6 @@
 ## Social preview, 18 November 2026
 
-The founder requested a stronger LinkedIn preview. The shared social card now uses a 1200 × 630 blue typographic composition, warm paper lettering and a yellow square from the approved Kiln palette. Copy reuses “Your imagination. A space of its own.” and “Private AI for creative studios.” Open Graph dimensions and PNG type are explicit. The dated asset URL allows a fresh crawler fetch. LinkedIn cache refresh and production appearance require verification after deployment.
+The founder requested a stronger LinkedIn preview. The shared social card uses a 1200 × 630 dark composition with the approved kiln-lockup-paper.svg logo and a tight crop of the existing one-hero-led.webp website render. All hardware pixels come from that approved asset. No generated hardware is used. Copy reuses “Your imagination. A space of its own.” and “Private AI for creative studios.” Open Graph dimensions and PNG type are explicit. The dated asset URL allows a fresh crawler fetch. LinkedIn cache refresh and production appearance require verification after deployment.
 
 # Current release, 14 November 2026
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Seo({ title, description, path, hero = false }) {
   const url = `https://www.portolabs.xyz${path}`
-  const image = 'https://letskiln.xyz/images/kiln-social-20261118.png'
+  const image = 'https://letskiln.xyz/images/kiln-social-20261118-v2.png'
   return <>
     <html lang="en" />
     <title>{title}</title>
