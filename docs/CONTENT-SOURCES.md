@@ -1,3 +1,7 @@
+## Social preview, 18 November 2026
+
+The founder requested a stronger LinkedIn preview. The shared social card uses a 1200 × 630 dark composition with the approved kiln-lockup-paper.svg logo and a tight crop of the existing one-hero-led.webp website render. All hardware pixels come from that approved asset. No generated hardware is used. Copy reuses “Your imagination. A space of its own.” and “Private AI for creative studios.” Open Graph dimensions and PNG type are explicit. The dated asset URL allows a fresh crawler fetch. LinkedIn cache refresh and production appearance require verification after deployment.
+
 # Current release, 14 November 2026
 
 The active pages now follow approved Sites v48 (`3bcf6e7ce5d90ba2359f0310b34d636c9e497887`), including the founder's black Atelier section-break refinement. Monument Grotesk, the One close-up introduction, register-interest-only conversion and agent-native OS story supersede the older implementation described below. Formspree and Google Calendar remain the production connections. See [current release notes](RELEASE-2026-11-14.md) for implementation, provenance and verification limits.
