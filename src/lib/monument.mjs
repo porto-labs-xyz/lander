@@ -33,18 +33,6 @@ on(document,'keydown',e=>{
 });
 cleanups.push(mountProductCarousel(root));
 cleanups.push(mountNetworkThesis(root));
-const workspace = $('[data-workspace]');
-if (workspace) {
- const tabs = [...workspace.querySelectorAll('[role=tab]')];
- tabs.forEach(selected => on(selected, 'click', () => {
-  tabs.forEach(tab => {
-   const active = tab === selected;
-   tab.setAttribute('aria-selected', String(active));
-   tab.tabIndex = active ? 0 : -1;
-   document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
-  });
- }));
-}
 $$('[role=tablist]').forEach(list=>on(list,'keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const tabs=[...list.querySelectorAll('[role=tab]')];const i=tabs.indexOf(document.activeElement);const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();tabs[next].focus();}));
 let lastOpener=null;
 function openDialog(dialog,opener){if(!dialog)return;lastOpener=opener;closeMenu();dialog.showModal();document.body.style.overflow='hidden';if(dialog.id==='enquiry-dialog')dialog.querySelector('h2').focus({preventScroll:true});}

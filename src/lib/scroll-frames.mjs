@@ -2,7 +2,7 @@
 // Geometry is cached on layout changes, with at most one paint per scroll frame.
 export function mountScrollFrames(root = document) {
   const doc = root.ownerDocument || root, view = doc.defaultView;
-  const hosts = [...root.querySelectorAll('.hero-box,.word-frame,.privacy-inside,.pilot-title>span,.about-hero h1>span,.reservation-heading h2>span,.hardware-intro h1>span,.product-page-stage')];
+  const hosts = [...root.querySelectorAll('.hero-box,.privacy-inside,.pilot-title>span,.about-hero h1>span,.reservation-heading h2>span,.hardware-intro h1>span,.product-page-stage')];
   if (!hosts.length || !view.ResizeObserver) return () => {};
   const preference = view.matchMedia('(prefers-reduced-motion: reduce)');
   const events = new AbortController(), ns = 'http://www.w3.org/2000/svg';
