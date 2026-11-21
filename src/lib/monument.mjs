@@ -33,8 +33,18 @@ on(document,'keydown',e=>{
 });
 cleanups.push(mountProductCarousel(root));
 cleanups.push(mountNetworkThesis(root));
-const workflows={"files":{"quote":["“Pick up the","campaign.”"],"note":"Start with the brief, brand assets and latest client feedback, ready to work from.","files":["Creative brief","Brand assets","Client feedback"]},"apps":{"quote":["“Change the background.","Keep the product.”"],"note":"Explore a new setting around the existing product. Compare versions to find the one that works.","files":["Original asset","New setting","Side-by-side"]},"flows":{"quote":["“That’s the one.","Get it ready.”"],"note":"Sign off the chosen version, then prepare the sizes and formats for delivery.","files":["Selected version","Campaign sizes","Final files"]}};
-$$('[data-workflow]').forEach(t=>on(t,'click',()=>{const w=workflows[t.dataset.workflow];$('#work-quote').replaceChildren(document.createTextNode(w.quote[0]),document.createElement('br'),document.createTextNode(w.quote[1]));$('#work-note').textContent=w.note;$('#workspace-files').replaceChildren(...w.files.map(text=>{const span=document.createElement('span');span.textContent=text;return span;}));$('#work-panel').setAttribute('aria-labelledby',t.id);$$('[data-workflow]').forEach(tab=>{const active=tab===t;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});}));
+const workspace = $('[data-workspace]');
+if (workspace) {
+ const tabs = [...workspace.querySelectorAll('[role=tab]')];
+ tabs.forEach(selected => on(selected, 'click', () => {
+  tabs.forEach(tab => {
+   const active = tab === selected;
+   tab.setAttribute('aria-selected', String(active));
+   tab.tabIndex = active ? 0 : -1;
+   document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+  });
+ }));
+}
 $$('[role=tablist]').forEach(list=>on(list,'keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const tabs=[...list.querySelectorAll('[role=tab]')];const i=tabs.indexOf(document.activeElement);const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();tabs[next].focus();}));
 let lastOpener=null;
 function openDialog(dialog,opener){if(!dialog)return;lastOpener=opener;closeMenu();dialog.showModal();document.body.style.overflow='hidden';if(dialog.id==='enquiry-dialog')dialog.querySelector('h2').focus({preventScroll:true});}

@@ -1,3 +1,9 @@
+## KilnOS workflow showcase, 21 November 2026
+
+The homepage presents Generate, Edit and Compose as an in-development KilnOS workflow. The three panels cover video generation, reviewing and approving AI-proposed edits, and soundtrack composition. The homepage describes these capabilities as using our own enhanced open-source models. The 15-second shot list reuses existing Kiln One website imagery to illustrate four storyboard beats. The durations are editorial examples. The workflow section demonstrates the concept through web content and static reference frames. Runtime performance and availability remain separate release questions.
+
+This replaces the earlier Brief, Revise and Deliver tab labels. The goal behind “Keep the idea moving” remains visible in the editing panel, where a frame-specific note leads to a proposed edit for human approval.
+
 ## Social preview, 18 November 2026
 
 The founder requested a stronger LinkedIn preview. The shared social card uses a 1200 × 630 dark composition with the approved kiln-lockup-paper.svg logo and a tight crop of the existing one-hero-led.webp website render. All hardware pixels come from that approved asset. No generated hardware is used. Copy reuses “Your imagination. A space of its own.” and “Private AI for creative studios.” Open Graph dimensions and PNG type are explicit. The dated asset URL allows a fresh crawler fetch. LinkedIn cache refresh and production appearance require verification after deployment.
