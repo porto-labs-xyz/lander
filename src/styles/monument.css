@@ -162,3 +162,82 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .service-boundary{max-width:76ch;margin-top:40px;font-size:14px;line-height:1.6;color:#555}
 .studio-service>.text-link{margin-top:22px}
 @media(max-width:760px){.service-grid{grid-template-columns:1fr;gap:32px}.service-grid h3{font-size:32px;margin:18px 0 14px}.service-grid p{font-size:16px;max-width:37ch}.service-boundary{font-size:13px;margin-top:28px}.studio-service .section-head>.meta:last-child{max-width:18ch}}
+
+/* Keep the sample shot list visible as visitors move through the workflow. */
+.workflow-layout {
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 6vw, 104px);
+}
+.workflow .workspace {
+  margin-bottom: 0;
+}
+.workflow .work-tabs {
+  gap: clamp(14px, 2.4vw, 32px);
+}
+.workflow .work-tabs button {
+  min-height: 44px;
+  white-space: nowrap;
+}
+.workflow .work-panel {
+  min-height: 185px;
+}
+.workflow .work-panel h3 {
+  max-width: 21ch;
+}
+.workflow .work-panel p {
+  max-width: 42ch;
+  margin-top: 16px;
+}
+.workflow-shots {
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.workflow-shots-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.workflow-shots ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.workflow-shots li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 5px;
+  align-items: start;
+  font: 11px/1.35 var(--mono);
+}
+.workflow-shots img {
+  display: block;
+  grid-column: 1 / -1;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #30302e;
+  margin-bottom: 7px;
+}
+.workflow-shots time {
+  color: #cccac5;
+}
+@media (max-width: 760px) {
+  .workflow-layout {
+    grid-template-columns: 1fr;
+  }
+  .workflow .work-tabs button {
+    font-size: clamp(11px, 3.3vw, 15px);
+  }
+  .workflow .work-panel {
+    min-height: 180px;
+  }
+  .workflow-shots ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 16px;
+  }
+}
