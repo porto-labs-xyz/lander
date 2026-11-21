@@ -1,6 +1,6 @@
 ## KilnOS workflow showcase, 21 November 2026
 
-The homepage presents Generate, Edit and Compose as an in-development KilnOS workflow. The three panels cover video generation, reviewing and approving AI-proposed edits, and soundtrack composition. The homepage describes these capabilities as using our own enhanced open-source models. The 15-second shot list reuses existing Kiln One website imagery to illustrate four storyboard beats. The durations are editorial examples. The workflow section demonstrates the concept through web content and static reference frames. Runtime performance and availability remain separate release questions.
+The homepage presents Generate, Edit and Compose as an in-development KilnOS workflow. The three panels cover Wan2.2 video generation, reviewing and approving AI-proposed edits, and ACE-Step 1.5 soundtrack composition. Model family names follow the KilnOS model catalogue and generation-flow documentation. The three tabbed panels follow the investor deck’s workflow. The sample edit uses two Morrow campaign stills extracted from slide 5 of the investor deck, with the founder’s permission for website use. The stills appear as the current frame and next look in a single sample edit. Runtime performance and availability remain separate release questions.
 
 This replaces the earlier Brief, Revise and Deliver tab labels. The goal behind “Keep the idea moving” remains visible in the editing panel, where a frame-specific note leads to a proposed edit for human approval.
 
