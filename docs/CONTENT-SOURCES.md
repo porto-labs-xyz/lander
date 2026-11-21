@@ -2,10 +2,6 @@
 
 The proposed Kiln One configuration uses the NVIDIA RTX PRO 6000 Blackwell with 96 GB of memory per GPU. The homepage FAQ, Kiln One hardware page and hardware comparisons reflect the founder’s correction. Configurations remain in development. [NVIDIA RTX PRO 6000 Blackwell specifications](https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-family/)
 
-## Mobile KilnOS preview, 21 November 2026
-
-The proposed homepage places a compact Generate, Edit and Compose preview inside Meet KilnOS. The selector changes the caption and one visual cue on the same sample frame. The frame comes from slide 5 of the investor deck and was approved for website use. The preview illustrates the workflow. It shows no full editor, storyboard, model names or playable audio. The Meet KilnOS section retains its in-development label.
-
 ## Creative Process removal, 21 November 2026
 
 The homepage moves directly from Meet KilnOS to the hardware. The desktop and mobile KilnOS links point to Meet KilnOS, and the product links to the former workflow are removed. The previous Creative Process showcase and its dedicated campaign assets are retired from the site.
