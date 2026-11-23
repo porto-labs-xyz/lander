@@ -1,3 +1,7 @@
+## NVIDIA Inception membership, 23 November 2026
+
+The founder requested the NVIDIA Inception programme badge in the homepage hero. The site says “Member of the NVIDIA Inception programme” and links to [NVIDIA Inception](https://www.nvidia.com/en-gb/startups/). The badge at `static/assets/kiln/nvidia-inception.png` is the embedded image from the earlier founder-approved investor cover. The website uses the original colours and proportions.
+
 ## Kiln One GPU specification, 21 November 2026
 
 The proposed Kiln One configuration uses the NVIDIA RTX PRO 6000 Blackwell with 96 GB of memory per GPU. The homepage FAQ, Kiln One hardware page and hardware comparisons reflect the founder’s correction. Configurations remain in development. [NVIDIA RTX PRO 6000 Blackwell specifications](https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-family/)
