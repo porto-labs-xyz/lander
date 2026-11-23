@@ -70,6 +70,9 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .intro-skip span{font-size:24px}
 .hero-bottom .fine{display:none}
 
+.hero-bottom .hero-membership {
+  max-width: none;
+}
 .hero-inception {
   display: inline-flex;
   align-items: center;
