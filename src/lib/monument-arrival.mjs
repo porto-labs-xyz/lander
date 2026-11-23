@@ -148,12 +148,16 @@ export function mountArrival() {
   distance = Math.round(height * 1.1);
   runway.style.setProperty('--intro-distance', distance + 'px');
   runway.classList.add('intro-active');
-  if (hero.scrollHeight > hero.clientHeight + 2) {
+  const h = hero.getBoundingClientRect();
+  // Centred content can extend above the hero or behind the mobile dock.
+  if (hero.scrollHeight > hero.clientHeight + 2 ||
+      title.getBoundingClientRect().top < h.top ||
+      bottom.getBoundingClientRect().bottom > h.bottom - dockHeight) {
    runway.classList.remove('intro-active'); return;
   }
   active = true;
   start = runway.getBoundingClientRect().top + window.scrollY - headerHeight;
-  const r = device.getBoundingClientRect(), h = hero.getBoundingClientRect();
+  const r = device.getBoundingClientRect();
   cx = r.left - h.left + r.width / 2; cy = r.top - h.top + r.height / 2;
   // Normalised coordinates of the approved render's upper front rim.
   ax = r.left - h.left + r.width * (625 / 1200);
