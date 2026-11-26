@@ -1,8 +1,14 @@
+const siteUrl = 'https://www.portolabs.xyz'
+const sharingOrigin = process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : siteUrl
+
 module.exports = {
   siteMetadata: {
     title: `Kiln by Porto Labs`,
     description: `Private AI. Local production.`,
-    siteUrl: `https://www.portolabs.xyz`,
+    siteUrl,
+    sharingOrigin,
   },
   plugins: [
     {
