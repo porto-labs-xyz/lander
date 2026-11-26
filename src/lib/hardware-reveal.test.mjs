@@ -41,7 +41,7 @@ test('the static gallery exposes all five full-resolution images and starts with
   }
 })
 
-test('the Kiln One product page shows the colour gallery immediately before Inside Kiln', () => {
+test('the Kiln One product page shows the colour gallery immediately before the hardware renders', () => {
   const body = withFinishViewer(JSON.parse(readFileSync(new URL('../content/one.json', import.meta.url))).body)
   const sections = [...body.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)].map(match => match[0])
   const gallery = sections.findIndex(section => section.includes('data-finish-gallery'))
