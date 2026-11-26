@@ -3,18 +3,29 @@ import test from 'node:test'
 import { readFileSync } from 'node:fs'
 import { finishFrame, mountHardwareReveal } from './hardware-reveal.mjs'
 
-test('all four finishes start in full view, reach exactly 4×, and settle before the next', () => {
+test('all four finishes open at 4× and pull back to full view before the next', () => {
   for (let index = 0; index < 4; index++) {
-    for (const [phase, scale] of [[0, 1], [.65, 4], [.99, 1]]) {
+    let previous = 4
+    for (let step = 0; step < 100; step++) {
+      const { scale } = finishFrame((index + step / 100) / 4, 4)
+      assert.ok(scale <= previous)
+      previous = scale
+    }
+    for (const [phase, scale] of [[0, 4], [.15, 4], [.82, 1], [.99, 1]]) {
       assert.deepEqual(finishFrame((index + phase) / 4, 4), { index, scale })
     }
   }
-  assert.deepEqual(finishFrame(-3, 4), { index: 0, scale: 1 })
+  assert.deepEqual(finishFrame(-3, 4), { index: 0, scale: 4 })
   assert.deepEqual(finishFrame(2, 4), { index: 3, scale: 1 })
 })
 
 test('the static gallery exposes four full-resolution images and starts with one preview', () => {
   const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
+  const intro = body.slice(body.indexOf('<div class="intro-runway">'), body.indexOf('id="local"'))
+  assert.ok(intro.includes('class="hero-box"'))
+  assert.ok(intro.includes('src="/assets/kiln/finishes/pebble-grey-3840.webp"'))
+  assert.ok(!intro.includes('data-finish-gallery'))
+  assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))
   const finishes = [...body.matchAll(/data-finish-slide="([^"]+)"( hidden)?>/g)]
   assert.deepEqual(finishes.map(match => match[1]), ['pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue'])
   assert.deepEqual(finishes.map(match => Boolean(match[2])), [false, true, true, true])

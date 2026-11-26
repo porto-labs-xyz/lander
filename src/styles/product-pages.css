@@ -25,8 +25,9 @@
 
 @media(max-width:760px){.tone-blue .product-page-stage h1{max-width:calc(100% - 32px);word-spacing:.03em}.reservation-heading h2{line-height:1.08}}
 
+.hardware-catalogue,
 .one-finish-hero {
-  --field: var(--paper);
+  --field: #fff;
   background: var(--field);
 }
 .one-finish-hero .product-page-stage img {

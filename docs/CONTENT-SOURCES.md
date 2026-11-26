@@ -1,8 +1,8 @@
 ## Kiln One finishes and scroll zoom, 26 November 2026
 
-The founder selected the pebble-grey Kiln One and three colours for the lander: baby pink, eucalyptus and powder blue. Each folded-steel concept has a matching power button, woven grip, right-side access panel and a standard USB-C port with the lowercase label “upgrade” directly above it. The four source renders are visual concepts. The 3840 × 2880 WebPs are upscaled from 1448 × 1086 artwork. The initial views use 960 × 720 versions.
+The founder selected the pebble-grey Kiln One and three colours for the lander: baby pink, eucalyptus and powder blue. Each folded-steel concept has a matching power button, woven grip, right-side access panel and a standard USB-C port with the lowercase label “upgrade” directly above it. The four original studio renders are visual concepts. The website isolates each device on white, removing the photographed worktop and backdrop. The 3840 × 2880 WebPs are upscaled from the 1448 × 1086 source artwork. The opening uses the larger image when motion is enabled. The 960 × 720 versions serve the smaller views.
 
-The homepage uses the four finishes for its scroll-linked 4× close-ups. The Kiln One configurations, prices, KilnOS narrative and enquiry destinations carry forward from the existing site. Atelier and Atelier Rack are retired from the active catalogue. Their former product URLs direct visitors to the hardware page.
+The opening scroll pulls back from the device close-up to reveal “Keep the work close.” An outline draws clockwise around “work”, as on the original lander. The hardware gallery gives direct access to all four finishes and pulls back from a 4× detail to each full device. The later interlude retains “A place for your ideas.” The Kiln One configurations, prices, KilnOS narrative and enquiry destinations carry forward from the existing site. Atelier and Atelier Rack are retired from the active catalogue. Their former product URLs direct visitors to the hardware page.
 
 ## NVIDIA Inception membership, 23 November 2026
 

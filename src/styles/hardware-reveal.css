@@ -1,3 +1,12 @@
+/* Keep the cutouts on one continuous white field through the original arrival. */
+.intro-runway, #hardware, .finish-editorial, .finish-interlude {
+  --paper: #fff;
+  --field: #fff;
+  background: #fff;
+}
+body:has(.intro-runway) .site-header { background: #fff; }
+.intro-runway .hero-device picture { display: block; }
+#hardware .finish-runway { margin-inline: calc(-1 * var(--pad)); }
 /* The camera is driven by document scroll. The controls work at every viewport size. */
 .finish-runway {
   --finish-top: 86px;
@@ -30,19 +39,8 @@
   line-height: .99;
   font-weight: 700;
 }
-.finish-title span {
-  display: block;
-  width: fit-content;
-  border: .055em solid currentColor;
-  padding: 0 .08em .045em;
-  line-height: .89;
-  margin: .09em 0 .06em;
-}
 .finish-intro { grid-area: intro; padding-top: clamp(16px, 3vh, 38px); }
-.finish-intro p { font-size: clamp(16px, 1.45vw, 24px); line-height: 1.35; }
-.finish-intro .hero-membership { margin: 6px 0 18px; }
-.finish-intro .hero-inception { font-size: 12px; max-width: 31ch; margin-top: 4px; }
-.finish-intro .hero-inception img { width: 74px; }
+.finish-intro p { font-size: clamp(24px, 2.3vw, 40px); line-height: 1.15; }
 .finish-skip {
   grid-area: skip;
   display: none;
@@ -63,7 +61,7 @@
   justify-self: end;
   width: min(100%, calc((var(--finish-height) - 140px) * 1.3333));
 }
-.finish-window { aspect-ratio: 4 / 3; overflow: hidden; background: #d9d0ca; }
+.finish-window { aspect-ratio: 4 / 3; overflow: hidden; background: #fff; }
 .finish-camera { width: 100%; height: 100%; transform-origin: 45% 23%; }
 .finish-slide, .finish-slide img { width: 100%; height: 100%; display: block; }
 .finish-slide[hidden], .finish-zoom[hidden] { display: none; }
@@ -95,10 +93,11 @@
   outline: 2px solid var(--ink); outline-offset: 1px;
 }
 .one-overview.product-slide { padding-inline: 0; }
-.one-overview .product-figure { overflow: hidden; }
-.one-overview .product-figure img { height: 100%; object-fit: contain; }
-.finish-interlude > img { object-position: 50% 32%; }
-.finish-editorial > img { width: 100%; height: min(70vw,85svh); object-fit: cover; object-position: 50% 32%; }
+.finish-interlude { color: var(--ink); }
+.finish-interlude::after { content: none; }
+.finish-interlude > img { inset: 0 0 0 auto; width: 75%; height: 100%; object-fit: contain; }
+.finish-interlude figcaption { max-width: 32%; }
+.finish-editorial > img { width: 100%; height: min(70vw,85svh); object-fit: contain; }
 
 @media (max-width: 760px) {
   .finish-runway { --finish-top: 70px; --finish-height: calc(100svh - 132px); }
@@ -110,17 +109,14 @@
     padding: 18px 24px;
   }
   .finish-title { font-size: clamp(38px, 8.7vw, 64px); line-height: 1.08; }
-  .finish-title span { display: inline-block; margin: 0; padding: 0 .07em .025em; }
+  .finish-interlude > img { width: 100%; height: 75%; }
+  .finish-interlude figcaption { max-width: none; }
   .finish-viewer { width: min(100%, max(260px, calc((var(--finish-height) - 260px) * 1.3333))); justify-self: center; }
   .finish-controls { gap: 4px; min-height: 52px; }
   .finish-swatch { width: 32px; }
   .finish-swatch span { width: 18px; height: 18px; }
   .finish-intro { padding-top: 0; }
-  .finish-intro p { font-size: 16px; }
-  .finish-intro .hero-membership { margin: 6px 0; }
-  .finish-intro .hero-inception { max-width: none; font-size: 11px; }
-  .finish-intro .hero-inception img { width: 64px; }
-  .finish-intro .text-link { min-height: 38px; }
+  .finish-intro p { font-size: 20px; }
   .finish-skip { min-height: 28px; }
 }
 /* At short heights the image gets its own sticky track so text never clips. */
@@ -129,7 +125,6 @@
 .finish-compact .finish-title {
   font-size: clamp(37px, 6vw, 70px); line-height: 1.08; margin-bottom: 16px;
 }
-.finish-compact .finish-title span { display: inline-block; margin: 0; }
 .finish-compact .finish-viewer-wrap {
   display: block; height: calc(var(--finish-height) + 260svh);
 }
@@ -140,6 +135,15 @@
 .finish-compact .finish-intro { margin-top: 16px; }
 .finish-compact .finish-skip { display: inline-flex; margin-bottom: 8px; }
 
+@media (max-width: 760px) and (max-height: 700px) {
+  .intro-active .hero-box { height: calc(var(--intro-stage) * .29); }
+  .intro-active .hero-keep { margin-bottom: 8px; }
+  .intro-active .hero-bottom { margin-top: 12px; gap: 8px; }
+  .intro-active .hero-device {
+    top: calc(var(--intro-stage) * .18);
+    width: min(60vw, calc(var(--intro-stage) * .45));
+  }
+}
 @media print {
   .finish-scroll { height: auto; }
   .finish-scroll .finish-stage { position: static; min-height: 0; }

@@ -22,7 +22,6 @@ export function mountArrival() {
  const hero = runway.querySelector('.hero');
  const header = document.querySelector('.site-header');
  const device = hero.querySelector('.hero-device');
- const macro = device.querySelector('.hero-macro');
  const title = hero.querySelector('.hero-title');
  const bottom = hero.querySelector('.hero-bottom');
  const caption = hero.querySelector('.intro-caption');
@@ -33,8 +32,9 @@ export function mountArrival() {
  const dock = document.querySelector('.mobile-dock');
  const controls = [menu, headerCta, dock].filter(Boolean);
  const preference = matchMedia('(prefers-reduced-motion:reduce)');
+ const initialScale = 4;
  const Audio = window.AudioContext || window.webkitAudioContext;
- let frame = 0, fitFrame = 0, start = 0, distance = 1, initialScale = 1, baseWidth = 0, baseHeight = 0;
+ let frame = 0, fitFrame = 0, start = 0, distance = 1, baseWidth = 0, baseHeight = 0;
  let cx = 0, cy = 0, ax = 0, ay = 0, targetX = 0, targetY = 0, logoX = 0, logoY = 0, logoScale = 1;
  let active = false, arrived = false, armed = false, zooming;
  let context, buffer, source, dance, loading;
@@ -102,9 +102,6 @@ export function mountArrival() {
   device.style.transform = inZoom ? `translate3d(${x + baseWidth * (scale - 1) / 2}px,${y + baseHeight * (1 - scale) / 2}px,0) scale(${scale / initialScale})` : 'none';
   brand.style.transform = `translate3d(${logoX * (1 - logo)}px,${logoY * (1 - logo)}px,0) scale(${1 + (logoScale - 1) * (1 - logo)})`;
   header.style.setProperty('--intro-header-line', String(logo * .25));
-  // The opening uses dedicated macro detail, then the original full render
-  // takes over once its pixels no longer need extreme enlargement.
-  macro.style.opacity = String(1 - smooth((progress - .1) / .24));
   title.style.opacity = String(type);
   title.style.transform = `translate3d(0,${12 * (1 - type)}px,0)`;
   bottom.style.opacity = String(copy);
@@ -130,7 +127,7 @@ export function mountArrival() {
   device.style.width = '';
   device.style.willChange = '';
   zooming = undefined;
-  [device, title, bottom, caption, brand, macro, ...controls].forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; });
+  [device, title, bottom, caption, brand, ...controls].forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; });
   header.style.removeProperty('--intro-header-line');
   bottom.inert = false;
   controls.forEach(control => { control.inert = false; });
@@ -159,12 +156,10 @@ export function mountArrival() {
   start = runway.getBoundingClientRect().top + window.scrollY - headerHeight;
   const r = device.getBoundingClientRect();
   cx = r.left - h.left + r.width / 2; cy = r.top - h.top + r.height / 2;
-  // Normalised coordinates of the approved render's upper front rim.
-  ax = r.left - h.left + r.width * (625 / 1200);
-  ay = r.top - h.top + r.height * (110 / 800);
-  targetX = h.width * .78; targetY = h.height * .54;
-  // Four grille slots, a little top metal, and the status diamond at landing.
-  initialScale = (h.height * .46 / (5 * 28)) * (1200 / r.width);
+  // Follow the new front-panel USB-C port from the close-up into the headline frame.
+  ax = r.left - h.left + r.width * .45;
+  ay = r.top - h.top + r.height * .23;
+  targetX = h.width * .70; targetY = h.height * .52;
   baseWidth = r.width; baseHeight = r.height;
   device.style.width = r.width * initialScale + 'px';
   const b = brand.getBoundingClientRect();

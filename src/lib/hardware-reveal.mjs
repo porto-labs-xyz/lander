@@ -3,7 +3,7 @@ export function finishFrame(progress, count) {
   const position = Math.min(1, Math.max(0, progress)) * count
   const index = Math.min(count - 1, Math.floor(position))
   const phase = position - index
-  const ramp = Math.max(0, Math.min(1, (phase - .10) / .46, (.95 - phase) / .19))
+  const ramp = Math.max(0, Math.min(1, (.80 - phase) / .65))
   const eased = ramp * ramp * (3 - 2 * ramp)
   return { index, scale: 1 + 3 * eased }
 }
@@ -90,7 +90,7 @@ export function mountHardwareReveal(root = document) {
       show(nextIndex, zoomed ? 4 : 1)
       return
     }
-    const phase = zoomed ? .65 : .04
+    const phase = zoomed ? .06 : .90
     const progress = (nextIndex + phase) / slides.length
     view.scrollTo({ top: start + travel * progress, behavior: 'instant' })
     paint()
@@ -109,6 +109,7 @@ export function mountHardwareReveal(root = document) {
   let observer
   if (view.ResizeObserver) {
     observer = new view.ResizeObserver(measure)
+    observer.observe(doc.documentElement)
     observer.observe(stage)
     if (header) observer.observe(header)
     if (dock) observer.observe(dock)
