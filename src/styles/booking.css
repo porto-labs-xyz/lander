@@ -10,6 +10,7 @@
   z-index: 100;
   inset: 0 auto auto 1rem;
   padding: .75rem 1rem;
+  font: 400 .875rem/1.5 var(--mono);
   transform: translateY(-110%);
   background: var(--ink-strong);
   color: var(--paper);
@@ -33,7 +34,7 @@
   border: 1px solid var(--outline);
   border-radius: .35rem;
   color: var(--ink-strong);
-  font-size: .9rem;
+  font: 400 .875rem/1.5 var(--mono);
 }
 .booking-page .kiln-text-link:hover { background: var(--eucalyptus); }
 .booking-page .action-square { display: inline-block; width: .45rem; height: .45rem; background: currentColor; border-radius: 50%; }
@@ -51,7 +52,7 @@
   grid-column: 1 / -1;
   margin-bottom: clamp(1rem, 3vw, 2rem);
   color: var(--muted);
-  font-size: .875rem;
+  font: 400 .8125rem/1.5 var(--mono);
 }
 .booking-page .booking-intro h1 { margin: 0; color: var(--ink-strong); font: 400 clamp(3.3rem, 7vw, 7.2rem)/.98 var(--sans); letter-spacing: -.052em; }
 .booking-page .booking-intro > p:last-child { max-width: 30ch; margin: 0; color: var(--muted); font-size: clamp(1.05rem, 1.5vw, 1.3rem); }
@@ -59,7 +60,7 @@
 .booking-page .booking-calendar-surface { background: #fff; color-scheme: light; }
 .booking-page .booking-calendar { display: block; width: 100%; height: 720px; border: 0; background: #fff; }
 .booking-page .booking-fallback { padding: 1.15rem 1.5rem; border-top: 1px solid var(--rule); font-size: .95rem; }
-.booking-page .booking-fallback a { text-decoration: underline; text-underline-offset: .18em; }
+.booking-page .booking-fallback a { font: 400 .875rem/1.5 var(--mono); text-decoration: underline; text-underline-offset: .18em; }
 .booking-page .booking-fallback .action-square { margin-inline-start: .4rem; }
 
 @media (max-width: 700px) {

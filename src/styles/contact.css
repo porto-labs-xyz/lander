@@ -47,7 +47,7 @@
 :is(#enquiry-dialog, #register-dialog) form { display: grid; gap: 1.1rem; margin: 1.6rem 0 0; }
 :is(#enquiry-dialog, #register-dialog) .field { display: grid; gap: .45rem; }
 :is(#enquiry-dialog, #register-dialog) .field label {
-  font: 500 .875rem/1.4 var(--sans);
+  font: 400 .8125rem/1.45 var(--mono);
   text-transform: lowercase;
   color: var(--ink-strong);
 }
@@ -61,6 +61,8 @@
   color: var(--ink-strong);
   font: 400 1rem/1.45 var(--sans);
 }
+:is(#enquiry-dialog, #register-dialog) .field select { font-family: var(--mono); }
+:is(#enquiry-dialog, #register-dialog) .consent { font: 400 .8125rem/1.5 var(--mono); }
 #enquiry-dialog .field textarea { min-height: 7rem; max-height: 15rem; resize: vertical; }
 :is(#enquiry-dialog, #register-dialog) .field ::placeholder { color: var(--muted); opacity: 1; }
 :is(#enquiry-dialog, #register-dialog, #compare-dialog) :is(input, select, textarea, button, a):focus-visible {
@@ -70,6 +72,7 @@
 :is(#enquiry-dialog, #register-dialog) .action.primary {
   width: 100%;
   min-height: 48px;
+  font: 400 .875rem/1.45 var(--mono);
   margin: 0;
   padding: .8rem 1rem;
   border: 1px solid var(--ink-strong);
@@ -84,7 +87,7 @@
   max-width: none;
   margin: 0;
   color: var(--muted);
-  font: 400 .82rem/1.5 var(--sans);
+  font: 400 .8125rem/1.5 var(--mono);
 }
 :is(#enquiry-dialog, #register-dialog) .form-status:not([hidden]) {
   display: grid;
@@ -121,6 +124,7 @@
   align-items: center;
   min-height: 44px;
   color: var(--ink-strong);
+  font: 400 .8125rem/1.45 var(--mono);
   text-decoration: underline;
   text-underline-offset: .2em;
   text-transform: lowercase;
@@ -129,7 +133,7 @@
 #compare-dialog .compare-grid { grid-template-columns: minmax(0, 1fr); margin: 1.6rem 0; }
 #compare-dialog .compare-item { border-top: 1px solid var(--outline); padding-top: 1.1rem; }
 #compare-dialog .compare-item h3,
-#compare-dialog .compare-item strong { font-weight: 450; }
+#compare-dialog .compare-item strong { font-weight: 400; }
 #compare-dialog .compare-item dl { display: grid; grid-template-columns: minmax(9rem, .8fr) minmax(0, 1.2fr); }
 #compare-dialog .compare-item :is(dt, dd) {
   padding-block: .65rem;
@@ -138,7 +142,7 @@
   font: 400 .95rem/1.4 var(--sans);
   text-transform: none;
 }
-#compare-dialog .compare-item dt { padding-right: .75rem; color: var(--muted); }
+#compare-dialog .compare-item dt { padding-right: .75rem; color: var(--muted); font: 400 .8125rem/1.5 var(--mono); }
 
 @media (max-width: 460px) {
   :is(#enquiry-dialog, #register-dialog, #compare-dialog) { width: calc(100% - 1.3rem); padding: 1.35rem; }

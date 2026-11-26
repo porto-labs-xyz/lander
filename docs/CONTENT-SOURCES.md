@@ -1,6 +1,6 @@
 ## Kiln One panel typography study, 26 November 2026
 
-This alternate lander carries the small lowercase “kiln” and “upgrade” markings on the machine into the website’s controls and labels. The lettering uses self-hosted variable Instrument Sans in warm graphite. Product names, acronyms and body copy retain their usual capitalisation. The [palette and type settings](../src/styles/panel-tokens.css) define the treatment. The font ships with its [SIL Open Font License](../static/assets/fonts/InstrumentSans-OFL.txt).
+This alternate lander carries the small lowercase “kiln” and “upgrade” markings on the machine into the website’s controls and labels. ABC Monument Grotesk sets the headings, body copy and Kiln wordmark. IBM Plex Mono sets the small controls and labels, technical metadata and captions. The palette retains warm graphite and the four product finishes. Product names, acronyms and body copy retain their usual capitalisation. See the [palette and type settings](../src/styles/panel-tokens.css).
 
 The study builds on the [four-finish Kiln One lander](https://github.com/porto-labs-xyz/lander/pull/19). It carries forward the wording, the 9× opening detail and the four finishes with their 4× gallery views.
 

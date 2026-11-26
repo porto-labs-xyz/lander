@@ -14,7 +14,8 @@
 .network-thesis[data-network-state=share] .network-capacity span:nth-child(n+10){background:var(--eucalyptus);transform:scaleY(1)}
 .network-thesis[data-network-state=reclaim] .network-capacity span:nth-child(n+10){background:var(--outline);transform:scaleY(1)}
 .network-capacity span:nth-child(10){transition-delay:0ms}.network-capacity span:nth-child(11){transition-delay:25ms}.network-capacity span:nth-child(12){transition-delay:50ms}.network-capacity span:nth-child(13){transition-delay:75ms}.network-capacity span:nth-child(14){transition-delay:100ms}.network-capacity span:nth-child(15){transition-delay:125ms}.network-capacity span:nth-child(16){transition-delay:150ms}
-.network-legend{display:flex;flex-wrap:wrap;gap:24px;margin:22px 0 46px;font-size:14px;letter-spacing:.02em}
+.network-legend, .network-controls button { font-family:var(--mono); font-weight:400; }
+.network-legend{display:flex;flex-wrap:wrap;gap:24px;margin:22px 0 46px;font-size:14px;letter-spacing:0}
 .network-legend span{display:flex;align-items:center;gap:8px}
 .network-legend i{width:22px;height:5px;border-radius:3px;background:var(--outline)}
 .network-legend .network-available i{background:var(--pebble)}
@@ -49,4 +50,4 @@
 }
 @media(prefers-reduced-motion:reduce){.network-capacity span{transition:none!important}}
 
-.network-controls{display:flex;gap:30px;margin-bottom:28px}.network-controls button{padding:10px 0;min-height:44px;border-bottom:1px solid transparent;font-size:15px}.network-controls button[aria-pressed=true]{border-color:var(--ink);font-weight:500}@media(hover:hover){.network-controls button:hover{border-color:var(--ink)}}@media(max-width:760px){.network-controls{gap:20px;justify-content:space-between;margin-bottom:24px}.network-controls button{font-size:13px}.network-model-head{margin-bottom:12px}}
+.network-controls{display:flex;gap:30px;margin-bottom:28px}.network-controls button{padding:10px 0;min-height:44px;border-bottom:1px solid transparent;font-size:15px}.network-controls button[aria-pressed=true]{border-color:var(--ink)}@media(hover:hover){.network-controls button:hover{border-color:var(--ink)}}@media(max-width:760px){.network-controls{gap:20px;justify-content:space-between;margin-bottom:24px}.network-controls button{font-size:13px}.network-model-head{margin-bottom:12px}}
