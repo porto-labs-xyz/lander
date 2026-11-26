@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/assets/fonts/InstrumentSans-Latin-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  --sans: "Instrument Sans", Arial, sans-serif;
+  --mono: var(--sans);
+  --paper: #f6f6f2;
+  --ink: #454943;
+  --ink-strong: #363a35;
+  --muted: #575c55;
+  --pebble: #deddd7;
+  --pink: #eed5dc;
+  --eucalyptus: #cbdacb;
+  --powder: #cbdde8;
+  --rule: #a4aaa0;
+  --outline: #767e73;
+}
+
+.kiln-wordmark {
+  display: inline-block;
+  vertical-align: middle;
+  font: 450 2.5rem/1 var(--sans);
+  letter-spacing: -.045em;
+}
+
+.site-header > .brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.footer-main .kiln-wordmark {
+  font-size: 3.5rem;
+}
+
+/* The moving dot keeps the same proportions as the typeface's lowercase i. */
+.kiln-wordmark-i {
+  position: relative;
+  display: inline-block;
+}
+
+.kiln-wordmark-i .header-spark {
+  position: absolute;
+  top: .14em;
+  left: .073em;
+  width: .095em;
+  height: .095em;
+  background: currentColor;
+}

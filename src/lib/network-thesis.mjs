@@ -3,9 +3,9 @@ export function mountNetworkThesis(root = document){
  if(!section)return () => {};
  const events = new AbortController();
  const states={
-  reserve:{status:'Set aside what your studio needs.',label:'Available capacity'},
-  share:{status:'Put spare hours to work.',label:'Shared with the network'},
-  reclaim:{status:'Bring capacity back to your studio.',label:'Returned to your studio'}
+  reserve:{status:'Set aside what your studio needs.',label:'available capacity'},
+  share:{status:'Put spare hours to work.',label:'shared with the network'},
+  reclaim:{status:'Bring capacity back to your studio.',label:'returned to your studio'}
  };
  const buttons=[...section.querySelectorAll('[data-network-step]')];
  const status=section.querySelector('[data-network-status]');

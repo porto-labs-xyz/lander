@@ -1,32 +1,146 @@
-/* One compact conversation, with booking offered as a clear alternative. */
-#enquiry-dialog{width:min(560px,calc(100% - 32px));max-height:calc(100svh - 32px);padding:40px;overscroll-behavior:contain;scrollbar-gutter:stable}
-#enquiry-dialog[open]{animation:contact-arrive .32s cubic-bezier(.2,.8,.2,1)}
-#enquiry-dialog::backdrop{background:rgba(16,17,18,.58);backdrop-filter:blur(6px)}
-#enquiry-dialog .dialog-close{top:14px;right:14px;border:0;background:transparent;font-size:28px;transition:transform .2s}
-#enquiry-dialog .dialog-close:hover{transform:rotate(90deg)}
-#enquiry-dialog h2{font-size:clamp(40px,5vw,54px);line-height:1.08;letter-spacing:var(--tracking-heading);margin:8px 0 12px;outline:0}
-#enquiry-dialog .contact-intro{font-size:18px;line-height:1.55;margin:0 0 28px;color:#565754}
-#enquiry-dialog .enquiry-form{display:grid;gap:22px;margin:0}
-#enquiry-dialog .field{gap:8px}
-#enquiry-dialog .field label{font-size:13px;font-weight:500}
-#enquiry-dialog .field input,#enquiry-dialog .field textarea{background:#fff9;border:1px solid #bcbdb8;padding:13px 14px;min-height:50px;transition:border-color .18s,background-color .18s;line-height:1.5}
-#enquiry-dialog .field textarea{min-height:112px;max-height:240px;resize:vertical}
-#enquiry-dialog .field input:focus,#enquiry-dialog .field textarea:focus{border-color:var(--ink);background:#fff;outline:2px solid var(--blue);outline-offset:2px}
-#enquiry-dialog .field input::placeholder,#enquiry-dialog .field textarea::placeholder{color:#747570;opacity:1}
-#enquiry-dialog .contact-send{min-height:54px;width:100%;background:var(--ink);color:var(--paper);padding:15px 18px;margin:0}
-#enquiry-dialog .contact-send .square{color:var(--yellow)}
-#enquiry-dialog [aria-busy=true] .square{animation:contact-wait 1.2s ease-in-out infinite}
-#enquiry-dialog .form-note{font:12px/1.5 var(--sans);color:#666761;margin:-10px 0 0;max-width:none}
-#enquiry-dialog .contact-booking{display:flex;justify-content:space-between;gap:18px;align-items:center;padding-top:22px;margin-top:24px;border-top:1px solid #d3d3ce;font-size:14px;color:#666761}
-#enquiry-dialog .contact-booking a{display:inline-flex;align-items:center;gap:16px;color:var(--ink);font-weight:500;padding:10px 0;white-space:nowrap;text-decoration:underline;text-underline-offset:5px}
-#enquiry-dialog .contact-booking a span{transition:transform .2s}
-#enquiry-dialog .contact-booking a:hover span{transform:translate(2px,-2px)}
-#enquiry-dialog .form-status{padding:20px 0 4px}
-#enquiry-dialog .form-status h3{font-size:32px;line-height:1.12;margin-bottom:14px}
-#enquiry-dialog .form-status p{font-size:17px;color:#565754;line-height:1.5;margin-bottom:24px}
-#enquiry-dialog .form-status:not([hidden]){animation:contact-arrive .3s ease-out}
-#enquiry-dialog .contact-intro:has(~.form-status:not([hidden])){display:none}
-@keyframes contact-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes contact-wait{0%,100%{transform:rotate(18deg);opacity:1}50%{transform:rotate(108deg);opacity:.45}}
-@media(max-width:600px){#enquiry-dialog{padding:32px 24px 24px}#enquiry-dialog h2{margin-top:6px;font-size:42px}#enquiry-dialog .contact-intro{font-size:16px;margin-bottom:24px}#enquiry-dialog .enquiry-form{gap:18px}#enquiry-dialog .field textarea{min-height:104px}#enquiry-dialog .contact-booking{padding-top:14px;margin-top:20px;font-size:13px}}
-@media(prefers-reduced-motion:reduce){#enquiry-dialog[open],#enquiry-dialog .form-status:not([hidden]),#enquiry-dialog [aria-busy=true] .square{animation:none}#enquiry-dialog .dialog-close,#enquiry-dialog .contact-booking a span{transition:none}}
+/* Shared transactional panels; the IDs also keep the field treatment consistent on
+   pages that import additional editorial styles. */
+:is(#enquiry-dialog, #register-dialog, #compare-dialog) {
+  box-sizing: border-box;
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100svh - 2rem);
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  border: 1px solid var(--outline);
+  border-radius: .7rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+:is(#enquiry-dialog, #register-dialog, #compare-dialog)::backdrop {
+  background: rgb(48 52 46 / 46%);
+}
+:is(#enquiry-dialog, #register-dialog, #compare-dialog) .dialog-close {
+  position: absolute;
+  top: .7rem;
+  right: .7rem;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-strong);
+  font: 400 1.8rem/1 var(--sans);
+}
+:is(#enquiry-dialog, #register-dialog, #compare-dialog) .dialog-close:hover { border-color: var(--outline); }
+:is(#enquiry-dialog, #register-dialog, #compare-dialog) h2 {
+  margin: .8rem 2rem 1rem 0;
+  color: var(--ink-strong);
+  font: 400 clamp(2.6rem, 5vw, 4.15rem)/1 var(--sans);
+  letter-spacing: -.05em;
+}
+:is(#enquiry-dialog, #register-dialog, #compare-dialog) > p {
+  max-width: 45ch;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+:is(#enquiry-dialog, #register-dialog) form { display: grid; gap: 1.1rem; margin: 1.6rem 0 0; }
+:is(#enquiry-dialog, #register-dialog) .field { display: grid; gap: .45rem; }
+:is(#enquiry-dialog, #register-dialog) .field label {
+  font: 500 .875rem/1.4 var(--sans);
+  text-transform: lowercase;
+  color: var(--ink-strong);
+}
+:is(#enquiry-dialog, #register-dialog) .field :is(input, textarea, select) {
+  width: 100%;
+  min-height: 48px;
+  padding: .65rem .85rem;
+  border: 1px solid var(--outline);
+  border-radius: .3rem;
+  background: var(--paper);
+  color: var(--ink-strong);
+  font: 400 1rem/1.45 var(--sans);
+}
+#enquiry-dialog .field textarea { min-height: 7rem; max-height: 15rem; resize: vertical; }
+:is(#enquiry-dialog, #register-dialog) .field ::placeholder { color: var(--muted); opacity: 1; }
+:is(#enquiry-dialog, #register-dialog, #compare-dialog) :is(input, select, textarea, button, a):focus-visible {
+  outline: 2px solid var(--ink-strong);
+  outline-offset: 3px;
+}
+:is(#enquiry-dialog, #register-dialog) .action.primary {
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: .8rem 1rem;
+  border: 1px solid var(--ink-strong);
+  border-radius: .3rem;
+  background: var(--ink-strong);
+  color: var(--paper);
+  text-transform: lowercase;
+}
+:is(#enquiry-dialog, #register-dialog) .action.primary:hover { background: var(--ink); }
+:is(#enquiry-dialog, #register-dialog) .action .square { background: var(--eucalyptus); }
+:is(#enquiry-dialog, #register-dialog) .form-note {
+  max-width: none;
+  margin: 0;
+  color: var(--muted);
+  font: 400 .82rem/1.5 var(--sans);
+}
+:is(#enquiry-dialog, #register-dialog) .form-status:not([hidden]) {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--outline);
+  border-radius: .4rem;
+  background: var(--eucalyptus);
+}
+:is(#enquiry-dialog, #register-dialog) .form-status h3 {
+  margin: 0;
+  font: 400 clamp(1.65rem, 3vw, 2.25rem)/1.15 var(--sans);
+  letter-spacing: -.035em;
+}
+:is(#enquiry-dialog, #register-dialog) .form-status p { margin: 0; font-size: 1rem; line-height: 1.5; }
+#enquiry-dialog .contact-intro:has(~ .form-status:not([hidden])) { display: none; }
+#enquiry-dialog .contact-booking {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .4rem 1rem;
+  margin-top: 1.4rem;
+  padding-top: .8rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: .875rem;
+}
+#enquiry-dialog .contact-booking a {
+  display: inline-flex;
+  gap: .65rem;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink-strong);
+  text-decoration: underline;
+  text-underline-offset: .2em;
+  text-transform: lowercase;
+}
+#compare-dialog { width: min(48rem, calc(100% - 2rem)); }
+#compare-dialog .compare-grid { grid-template-columns: minmax(0, 1fr); margin: 1.6rem 0; }
+#compare-dialog .compare-item { border-top: 1px solid var(--outline); padding-top: 1.1rem; }
+#compare-dialog .compare-item h3,
+#compare-dialog .compare-item strong { font-weight: 450; }
+#compare-dialog .compare-item dl { display: grid; grid-template-columns: minmax(9rem, .8fr) minmax(0, 1.2fr); }
+#compare-dialog .compare-item :is(dt, dd) {
+  padding-block: .65rem;
+  margin: 0;
+  border-bottom: 1px solid var(--rule);
+  font: 400 .95rem/1.4 var(--sans);
+  text-transform: none;
+}
+#compare-dialog .compare-item dt { padding-right: .75rem; color: var(--muted); }
+
+@media (max-width: 460px) {
+  :is(#enquiry-dialog, #register-dialog, #compare-dialog) { width: calc(100% - 1.3rem); padding: 1.35rem; }
+  #compare-dialog .compare-item dl { grid-template-columns: minmax(6.6rem, .8fr) minmax(0, 1.2fr); }
+}

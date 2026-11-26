@@ -1,3 +1,9 @@
+## Kiln One panel typography study, 26 November 2026
+
+This alternate lander carries the small lowercase “kiln” and “upgrade” markings on the machine into the website’s controls and labels. The lettering uses self-hosted variable Instrument Sans in warm graphite. Product names, acronyms and body copy retain their usual capitalisation. The [palette and type settings](../src/styles/panel-tokens.css) define the treatment. The font ships with its [SIL Open Font License](../static/assets/fonts/InstrumentSans-OFL.txt).
+
+The study builds on the [four-finish Kiln One lander](https://github.com/porto-labs-xyz/lander/pull/19). It carries forward the wording, the 9× opening detail and the four finishes with their 4× gallery views.
+
 ## Kiln One finishes and scroll zoom, 26 November 2026
 
 The founder selected the pebble-grey Kiln One and three colours for the lander: baby pink, eucalyptus and powder blue. Each finish has a matching power button, a right-side access panel and a standard USB-C port with the lowercase label “upgrade” directly above it. Earlier studio renders explored folded steel and a woven grip. The shell has a fine, stone-like grain in lightly stippled matte plastic. The belt-shaped handle is supple, muted brown leather with subtle tonal variation. Its matte surface curves softly between the mounts, with neatly finished edges. These are visual material studies.
