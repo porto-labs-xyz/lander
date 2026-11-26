@@ -1,3 +1,5 @@
+import { oneHardwareSections } from './one-hardware.mjs'
+
 const finishes = [
   { id: 'charcoal', name: 'Deep charcoal', colour: '#3d3b38' },
   { id: 'pebble-grey', name: 'Pebble grey', colour: '#a79e91' },
@@ -42,15 +44,14 @@ function rearControls(initialFinish) {
   </div>`
 }
 
-export function withFinishViewer(body) {
+export function withFinishViewer(body, path) {
   if (!body.includes('<!-- finish viewer -->')) return body
-  const hasRearPicker = body.includes('<!-- rear finish controls -->')
-  const initialFinish = finishes.find(finish => finish.id === (hasRearPicker ? 'charcoal' : 'baby-pink'))
-  const front = body.replace('<!-- finish viewer -->', frontViewer(initialFinish))
-  if (!hasRearPicker) return front
-  const source = rearAsset(initialFinish.id)
+  const charcoal = finishes.find(finish => finish.id === 'charcoal')
+  const initialFront = path === '/' ? finishes.find(finish => finish.id === 'baby-pink') : charcoal
+  const front = body.replace('<!-- finish viewer -->', frontViewer(initialFront))
+  const source = rearAsset(charcoal.id)
   const image = `<a href="${source}" aria-label="View the rear panel at full size">
-    <img src="${source}" width="822" height="1374" alt="${rearAlt(initialFinish)}" loading="lazy" decoding="async">
+    <img src="${source}" width="822" height="1374" alt="${rearAlt(charcoal)}" loading="lazy" decoding="async">
   </a>`
-  return front.replace('<!-- rear image -->', image).replace('<!-- rear finish controls -->', rearControls(initialFinish))
+  return front.replace('<!-- one hardware sections -->', oneHardwareSections(image, rearControls(charcoal)))
 }
