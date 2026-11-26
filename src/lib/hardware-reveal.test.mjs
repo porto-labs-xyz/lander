@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { readFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
 import { mountHardwareReveal } from './hardware-reveal.mjs'
 import { deviceSourceWidth } from './finish-images.mjs'
 import { withFinishViewer } from '../content/finish-viewer.mjs'
@@ -24,6 +25,21 @@ test('the opening uses the full charcoal master as its only device image', () =>
   assert.match(device, /src="\/assets\/kiln\/finishes\/charcoal-device-6400\.webp"/)
   assert.doesNotMatch(device, /srcset=|data-render=|<source\b/)
   assert.ok(!intro.includes('data-finish-gallery'))
+})
+
+test('the original charcoal front with its dark grille is preserved at every published size', () => {
+  const originals = {
+    'charcoal-3840.webp': '8c1feb9e299a4d605ed557523c226b17f8c8faa513d9204e656e024281c0f232',
+    'charcoal-960.webp': '95b8beee02ed9c644487d5cb3da5b1da46280349070e0248945170850b7291c0',
+    'charcoal-device-1600.webp': 'c962d70ced9c6b4f63b08f5bdb2459ed3c4d291c3884c197d7706a04a264e409',
+    'charcoal-device-3200.webp': 'ce0a9d4d66ca22d552bab778aa3a761f5a749ca4bfc58481d684183127b9629a',
+    'charcoal-device-6400.webp': '9b0b7d6ebfcda3c0b2722e3174d33b3098509ed6e2e6579df84dd4860da13ac9',
+    'charcoal-device-800.webp': '5784c17663735cabde6615f6fc26d6bb1c0bab5adea7c31980fc7ff874d24dcc',
+  }
+  for (const [name, hash] of Object.entries(originals)) {
+    const file = new URL('../../static/assets/kiln/finishes/' + name, import.meta.url)
+    assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'), hash, name)
+  }
 })
 
 test('the static gallery exposes all five full-resolution images and starts with one preview', () => {
