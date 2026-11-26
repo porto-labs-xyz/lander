@@ -125,6 +125,13 @@
 .one-hardware-view figcaption { padding-top: 1rem; }
 .one-hardware-view h3 { font: 500 clamp(1.3rem, 2vw, 1.9rem)/1.15 var(--sans); }
 .one-hardware-view p { margin-top: .5rem; max-width: 56ch; color: var(--muted); line-height: 1.5; }
+.rear-finish-controls:not([hidden]) {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: .25rem 1rem; margin-bottom: 1rem;
+}
+.rear-finish-controls [data-rear-finish-name] { font: 400 .8125rem/1.45 var(--mono); }
+.rear-finish-controls .finish-swatch { width: 44px; }
+.one-hardware-view .rear-panel-caption { margin: 0 0 1rem; }
 .spec-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

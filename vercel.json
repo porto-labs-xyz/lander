@@ -18,7 +18,12 @@
     },
     {
       "source": "/assets/kiln/one-rear-io.webp",
-      "destination": "/assets/kiln/one-rear-eucalyptus-cutout.webp",
+      "destination": "/assets/kiln/finishes/rear-charcoal.webp",
+      "permanent": false
+    },
+    {
+      "source": "/assets/kiln/one-rear-eucalyptus-cutout.webp",
+      "destination": "/assets/kiln/finishes/rear-eucalyptus.webp",
       "permanent": false
     },
     {

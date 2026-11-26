@@ -51,14 +51,21 @@ test('the Kiln One product page shows the colour gallery immediately before the 
   const gallery = sections.findIndex(section => section.includes('data-finish-gallery'))
   assert.notEqual(gallery, -1)
   assert.deepEqual([...sections[gallery].matchAll(/data-finish="([^"]+)"/g)].map(match => match[1]), finishOrder)
+  assert.match(sections[gallery], /data-finish-slide="charcoal">/)
   assert.ok(sections[gallery + 1].includes('id="inside-one"'))
   assert.ok(sections[gallery + 1].includes('one-interior-charcoal-cutout.webp'))
   assert.ok(sections[gallery + 2].includes('id="kiln-rear"'))
-  assert.ok(sections[gallery + 2].includes('one-rear-eucalyptus-cutout.webp'))
+  const rear = sections[gallery + 2]
+  assert.match(rear, /<a href="\/assets\/kiln\/finishes\/rear-charcoal.webp"/)
+  assert.match(rear, /<img src="\/assets\/kiln\/finishes\/rear-charcoal.webp"/)
+  const choices = [...rear.matchAll(/<button[^>]+data-rear-finish="([^"]+)"[^>]+>/g)]
+  assert.deepEqual(choices.map(choice => choice[1]), finishOrder)
+  assert.deepEqual(choices.filter(choice => choice[0].includes('aria-pressed="true"')).map(choice => choice[1]), ['charcoal'])
+  assert.ok(rear.includes('Kiln Rear as a front panel, for fast switching, aesthetic stays.'))
   assert.ok(sections[gallery + 3].includes('id="configurations-title"'))
 })
 
-function mountGallery() {
+function mountGallery(withRear = false) {
   class Element extends EventTarget {
     attributes = new Map()
     style = {
@@ -99,14 +106,25 @@ function mountGallery() {
       dataset: { render: name }, complete: true, naturalWidth: 800, offsetWidth: 400,
       getBoundingClientRect: () => ({ left: 150, top: 48, width: 400, height: 360 }),
     })
-    return { hidden: i !== 2, querySelector: () => img }
+    return { hidden: i !== (withRear ? 0 : 2), querySelector: () => img }
   })
   const gallery = {
     ownerDocument: { defaultView: view },
     querySelector: key => ({ '.finish-window': photo, '.finish-lens': lens, '.finish-zoom': button, '[data-finish-name]': caption })[key],
     querySelectorAll: key => key === '[data-finish]' ? swatches : slides,
   }
-  const cleanup = mountHardwareReveal({ querySelector: () => gallery })
+  const rearSwatches = finishOrder.map(name => Object.assign(new Element(), {
+    dataset: { src: `rear-${name}.webp`, alt: `Rear view in ${name}` },
+  }))
+  const rearImage = new Element(), rearName = new Element(), rearControls = new Element()
+  const rearLink = Object.assign(new Element(), { querySelector: () => rearImage })
+  const rear = {
+    querySelector: key => ({ a: rearLink, '[data-rear-finish-name]': rearName, '.rear-finish-controls': rearControls })[key],
+    querySelectorAll: () => rearSwatches,
+  }
+  const cleanup = mountHardwareReveal({
+    querySelector: key => key === '[data-finish-gallery]' ? gallery : withRear ? rear : null,
+  })
   const pointer = (type, pointerType = 'mouse') => photo.dispatchEvent(Object.assign(new Event(type), {
     pointerType, clientX: 310, clientY: 245,
   }))
@@ -117,8 +135,36 @@ function mountGallery() {
     image.naturalWidth = 3200
     image.dispatchEvent(new Event('load'))
   }
-  return { view, photo, lens, button, caption, swatches, slides, pending, pointer, lensVisible, load, cleanup }
+  return { view, photo, lens, button, caption, swatches, slides, pending, pointer, lensVisible, load, cleanup,
+    rearSwatches, rearLink, rearImage, rearName, rearControls }
 }
+
+test('front and rear swatches select the same finish, update full-size artwork and dismiss the lens', () => {
+  const g = mountGallery(true)
+  assert.equal(g.rearControls.hidden, false)
+  function assertSelection(index) {
+    const finish = finishOrder[index]
+    assert.equal(g.caption.textContent, finish)
+    assert.equal(g.rearName.textContent, finish)
+    assert.equal(g.rearLink.href, `rear-${finish}.webp`)
+    assert.equal(g.rearImage.src, g.rearLink.href)
+    assert.equal(g.rearImage.alt, `Rear view in ${finish}`)
+    assert.deepEqual(g.rearSwatches.map(s => s.getAttribute('aria-pressed') === 'true'), finishOrder.map((_, i) => i === index))
+    assert.deepEqual(g.swatches.map(s => s.getAttribute('aria-current') === 'true'), finishOrder.map((_, i) => i === index))
+    assert.deepEqual(g.slides.map(s => !s.hidden), finishOrder.map((_, i) => i === index))
+  }
+  for (const controls of [g.rearSwatches, g.swatches]) {
+    controls.forEach((swatch, index) => {
+      g.button.dispatchEvent(new Event('click'))
+      swatch.dispatchEvent(new Event('click'))
+      assertSelection(index)
+      assert.equal(g.button.getAttribute('aria-pressed'), 'false')
+    })
+  }
+  g.cleanup()
+  g.rearSwatches[0].dispatchEvent(new Event('click'))
+  assertSelection(4)
+})
 
 test('the circular lens samples the material at the pointer at 4× and dismisses on leave or Escape', async () => {
   const g = mountGallery()
