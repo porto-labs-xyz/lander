@@ -1,4 +1,3 @@
-import { deviceSourceWidth } from './finish-images.mjs';
 const clamp = value => Math.max(0, Math.min(1, value));
 const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
 const FOCUS = { x: .60, y: .135 };
@@ -42,8 +41,7 @@ export function mountArrival() {
  let ax = 0, ay = 0, targetX = 0, targetY = 0, logoX = 0, logoY = 0, logoScale = 1;
  let active = false, arrived = false, armed = false, zooming;
  let context, buffer, source, dance, loading;
- let readyWidth = 800, requestedWidth = 0, requiredWidth = 800;
- let imageX = 0, imageY = 0, imageWidth = 0, lastPixelRatio = 0;
+ let imageX = 0, imageY = 0, imageWidth = 0;
  let lastWidth = 0, lastHeight = 0, lastProgress = -1;
 
  function prepareSound() {
@@ -75,25 +73,6 @@ export function mountArrival() {
   dance?.cancel();
   dance = spark.animate(DANCE, { duration: 1000, delay: audible ? 35 : 0, easing: 'cubic-bezier(.35,0,.3,1)' });
  }
- // Decode the complete master before starting the pullback. Every zoom level
- // paints the same single image, including the handle, grille and side panel.
- function prepareMaster() {
-  if (requestedWidth >= requiredWidth || readyWidth >= requiredWidth) return;
-  const width = requiredWidth;
-  requestedWidth = width;
-  const pending = new Image();
-  pending.decoding = 'async';
-  pending.fetchPriority = 'high';
-  pending.src = `${fullImage.dataset.render}-${width}.webp`;
-  pending.decode().then(() => {
-   if (disposed || !active || width !== requestedWidth) return;
-   fullImage.src = pending.src;
-   return fullImage.decode().then(() => {
-    if (disposed || width !== requestedWidth) return;
-    readyWidth = width; lastProgress = -1; schedulePaint();
-   });
-  }).catch(() => { /* Keep the complete static product available. */ });
- }
  function resetImage() {
   fullImage.style.width = ''; fullImage.style.transform = '';
   fullImage.style.willChange = ''; zooming = false;
@@ -101,7 +80,6 @@ export function mountArrival() {
  function paint() {
   frame = 0;
   if (!active) return;
-  if ((window.devicePixelRatio || 1) !== lastPixelRatio) { scheduleFit(true); return; }
   const progress = clamp((window.scrollY - start) / distance);
   if (Math.abs(progress - lastProgress) < .0001) return;
   lastProgress = progress;
@@ -121,13 +99,9 @@ export function mountArrival() {
   const copy = smooth((progress - .76) / .18);
   // Interpolate apparent magnification, then follow a point on the top rim.
   // Keeping that point anchored prevents a sideways jump midway through zoom.
-  let scale = Math.exp(Math.log(initialScale) * (1 - move));
-  let focusX = targetX * (1 - move) + ax * move;
-  let focusY = targetY * (1 - move) + ay * move;
-  if (scale > 1 && readyWidth < requiredWidth) {
-   prepareMaster();
-   scale = 1;
-  }
+  const scale = Math.exp(Math.log(initialScale) * (1 - move));
+  const focusX = targetX * (1 - move) + ax * move;
+  const focusY = targetY * (1 - move) + ay * move;
   if (scale > 1) {
    if (!zooming) {
     fullImage.style.width = imageWidth * initialScale + 'px';
@@ -159,10 +133,10 @@ export function mountArrival() {
  function fit() {
   fitFrame = 0;
   if(disposed)return;
-  const width = window.innerWidth, height = window.innerHeight, pixelRatio = window.devicePixelRatio || 1;
+  const width = window.innerWidth, height = window.innerHeight;
   // Mobile browser chrome can resize during a swipe. Keep its runway stable.
-  if (active && width === lastWidth && pixelRatio === lastPixelRatio && Math.abs(height - lastHeight) < 120) { schedulePaint(); return; }
-  lastWidth = width; lastHeight = height; lastPixelRatio = pixelRatio;
+  if (active && width === lastWidth && Math.abs(height - lastHeight) < 120) { schedulePaint(); return; }
+  lastWidth = width; lastHeight = height;
   runway.classList.remove('intro-active'); active = false;
   header.classList.remove('intro-header-active');
   resetImage();
@@ -170,12 +144,12 @@ export function mountArrival() {
   header.style.removeProperty('--intro-header-line');
   bottom.inert = false;
   controls.forEach(control => { control.inert = false; });
-  if (preference.matches || document.body.classList.contains('review-mode')) { requestedWidth = readyWidth; return; }
+  if (preference.matches || document.body.classList.contains('review-mode')) return;
   const headerHeight = header.offsetHeight;
   const dockHeight = !dock || getComputedStyle(dock).display === 'none' ? 0 : dock.offsetHeight;
   const available = height - headerHeight - dockHeight;
   // At very small landscape heights leave all content accessible in normal flow.
-  if (available < 370) { requestedWidth = readyWidth; return; }
+  if (available < 370) return;
   hero.style.setProperty('--intro-stage', available + 'px');
   runway.style.setProperty('--intro-stage', available + 'px');
   // Keep dock clearance inside the hero so the opening image fills the viewport.
@@ -189,7 +163,7 @@ export function mountArrival() {
   if (hero.scrollHeight > hero.clientHeight + 2 ||
       title.getBoundingClientRect().top < h.top ||
       bottom.getBoundingClientRect().bottom > h.bottom - dockHeight) {
-   runway.classList.remove('intro-active'); requestedWidth = readyWidth; return;
+   runway.classList.remove('intro-active'); return;
   }
   active = true;
   start = runway.getBoundingClientRect().top + window.scrollY - headerHeight;
@@ -201,7 +175,6 @@ export function mountArrival() {
   ay = r.top - h.top + r.height * FOCUS.y;
   targetX = h.width * (width <= 760 ? .72 : .56);
   targetY = h.height * (width <= 760 ? .40 : .55);
-  requiredWidth = deviceSourceWidth(imageWidth * initialScale, pixelRatio);
   const b = brand.getBoundingClientRect();
   logoX = width / 2 - (b.left + b.width / 2);
   logoY = headerHeight + available * .055 - (b.top + b.height / 2);
@@ -225,15 +198,6 @@ export function mountArrival() {
   on(window,type, prepareSound, { passive: true }));
  on(window,'scroll', schedulePaint, { passive: true });
  on(window,'resize', () => scheduleFit(), { passive: true });
- on(window,'online', () => {
-  if (active && readyWidth < requiredWidth) { requestedWidth = readyWidth; prepareMaster(); }
- });
- // Moving a window between displays can change DPR without a layout resize.
- function watchPixelRatio() {
-  const density = matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`);
-  on(density, 'change', () => { watchPixelRatio(); scheduleFit(true); }, { once: true });
- }
- watchPixelRatio();
  on(preference,'change', () => { dance?.cancel(); stopSound(); scheduleFit(true); });
  on(document,'visibilitychange', () => { if (document.hidden) { stopSound(); context?.suspend().catch(() => {}); } });
  fit(); document.fonts.ready.then(() => scheduleFit(true));
