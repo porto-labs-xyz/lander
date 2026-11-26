@@ -3,6 +3,7 @@ import test from 'node:test'
 import { readFileSync } from 'node:fs'
 import { mountHardwareReveal } from './hardware-reveal.mjs'
 import { deviceSourceWidth } from './finish-images.mjs'
+import { withFinishViewer } from '../content/finish-viewer.mjs'
 
 const finishOrder = ['charcoal', 'pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue']
 
@@ -26,7 +27,7 @@ test('the opening uses the full charcoal master as its only device image', () =>
 })
 
 test('the static gallery exposes all five full-resolution images and starts with one preview', () => {
-  const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
+  const body = withFinishViewer(JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url))).body)
   assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))
   const finishes = [...body.matchAll(/data-finish-slide="([^"]+)"( hidden)?>/g)]
   assert.deepEqual(finishes.map(match => match[1]), finishOrder)
@@ -42,6 +43,19 @@ test('the static gallery exposes all five full-resolution images and starts with
     assert.ok(body.includes('href="/assets/kiln/finishes/' + name + '-device-6400.webp"'))
     assert.ok(body.includes('src="/assets/kiln/finishes/' + name + '-device-800.webp"'))
   }
+})
+
+test('the Kiln One product page shows the colour gallery immediately before the hardware renders', () => {
+  const body = withFinishViewer(JSON.parse(readFileSync(new URL('../content/one.json', import.meta.url))).body)
+  const sections = [...body.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)].map(match => match[0])
+  const gallery = sections.findIndex(section => section.includes('data-finish-gallery'))
+  assert.notEqual(gallery, -1)
+  assert.deepEqual([...sections[gallery].matchAll(/data-finish="([^"]+)"/g)].map(match => match[1]), finishOrder)
+  assert.ok(sections[gallery + 1].includes('id="inside-one"'))
+  assert.ok(sections[gallery + 1].includes('one-dual-blackwell.webp'))
+  assert.ok(sections[gallery + 2].includes('id="kiln-rear"'))
+  assert.ok(sections[gallery + 2].includes('one-rear-io.webp'))
+  assert.ok(sections[gallery + 3].includes('id="configurations-title"'))
 })
 
 function mountGallery() {
@@ -72,6 +86,8 @@ function mountGallery() {
   }
   const photo = new Element(), button = new Element(), caption = new Element()
   const lens = Object.assign(new Element(), { offsetWidth: 160, offsetHeight: 160 })
+  photo.setPointerCapture = id => { photo.capturedPointer = id }
+  photo.hasPointerCapture = id => photo.capturedPointer === id
   photo.getBoundingClientRect = () => ({ left: 10, top: 20, width: 600, height: 450 })
   const swatches = finishOrder.map(name => {
     const swatch = new Element()
@@ -154,4 +170,40 @@ test('swatches open wide, late loads stay hidden, and the lens follows the selec
   g.cleanup()
   g.swatches[0].dispatchEvent(new Event('click'))
   assert.equal(g.caption.textContent, 'powder-blue')
+})
+
+
+test('touch opens the lens on a tap and drags only after magnification is enabled', () => {
+  const g = mountGallery()
+  g.pointer('pointermove', 'touch')
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
+  g.pointer('click', 'touch')
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), true)
+  assert.equal(g.button.getAttribute('aria-pressed'), 'true')
+  g.load(2)
+  assert.equal(g.lensVisible(), true)
+  g.photo.dispatchEvent(Object.assign(new Event('pointerdown'), {
+    pointerType: 'touch', pointerId: 4, clientX: 310, clientY: 245,
+  }))
+  const before = g.lens.style.backgroundPosition
+  g.photo.dispatchEvent(Object.assign(new Event('pointermove'), {
+    pointerType: 'touch', pointerId: 4, clientX: 400, clientY: 300,
+  }))
+  assert.notEqual(g.lens.style.backgroundPosition, before)
+  g.button.dispatchEvent(new Event('click'))
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
+  assert.equal(g.lensVisible(), false)
+  g.cleanup()
+})
+
+
+test('Safari touch taps open the lens even when the compatibility click reports mouse', () => {
+  const g = mountGallery()
+  g.pointer('pointerdown', 'touch')
+  g.pointer('pointerup', 'touch')
+  g.pointer('click', 'mouse')
+  g.load(2)
+  assert.equal(g.lensVisible(), true)
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), true)
+  g.cleanup()
 })

@@ -20,6 +20,7 @@ export function mountHardwareReveal(root = document) {
   const pending = new WeakMap()
   let selected = slides.findIndex(slide => !slide.hidden)
   let mode = 'off', near = false, dismissHover = false
+  let touchTap = false
   let pointerX = 0, pointerY = 0
   let manualX = .5, manualY = .23
 
@@ -69,6 +70,7 @@ export function mountHardwareReveal(root = document) {
 
   function setMode(next) {
     mode = next
+    photo.toggleAttribute('data-touch-magnifier', mode === 'manual')
     button.setAttribute('aria-pressed', String(mode !== 'off'))
     button.setAttribute('aria-label', mode === 'off' ? 'Show 4× magnifier' : 'Hide magnifier')
     prepareImage()
@@ -86,7 +88,25 @@ export function mountHardwareReveal(root = document) {
     setMode('off')
   }))
 
+  function sampleTouch(event) {
+    const frame = photo.getBoundingClientRect()
+    manualX = clamp((event.clientX - frame.left) / frame.width, 1)
+    manualY = clamp((event.clientY - frame.top) / frame.height, 1)
+    placeLens()
+  }
+
+  on(photo, 'pointerdown', event => {
+    // Safari can report a finger tap's compatibility click as a mouse click.
+    touchTap = event.pointerType !== 'mouse'
+    if (event.pointerType === 'mouse' || mode !== 'manual') return
+    photo.setPointerCapture(event.pointerId)
+    sampleTouch(event)
+  })
   on(photo, 'pointermove', event => {
+    if (event.pointerType !== 'mouse') {
+      if (mode === 'manual' && photo.hasPointerCapture(event.pointerId)) sampleTouch(event)
+      return
+    }
     if (event.pointerType !== 'mouse' || dismissHover) return
     pointerX = event.clientX
     pointerY = event.clientY
@@ -113,11 +133,8 @@ export function mountHardwareReveal(root = document) {
     setMode(mode === 'off' ? 'manual' : 'off')
   })
   on(photo, 'click', event => {
-    if (mode !== 'manual') return
-    const frame = photo.getBoundingClientRect()
-    manualX = clamp((event.clientX - frame.left) / frame.width, 1)
-    manualY = clamp((event.clientY - frame.top) / frame.height, 1)
-    placeLens()
+    if (mode === 'off' && (touchTap || event.pointerType !== 'mouse')) setMode('manual')
+    if (mode === 'manual') sampleTouch(event)
   })
   on(button, 'keydown', event => {
     if (mode !== 'manual') return
@@ -144,6 +161,7 @@ export function mountHardwareReveal(root = document) {
   on(hover, 'change', prepareImage)
   button.hidden = false
   return () => {
+    photo.removeAttribute('data-touch-magnifier')
     events.abort()
     visibility.disconnect()
     resize.disconnect()

@@ -119,6 +119,12 @@
 .one-finish-hero ~ #kilnos { background: var(--powder); }
 .specifications { border-top: 1px solid var(--rule); background: var(--pebble); }
 .specifications .section-head { align-items: end; }
+.one-hardware-view { max-width: 64rem; margin: 0 auto; }
+.one-hardware-view a { display: block; cursor: zoom-in; }
+.one-hardware-view img { display: block; width: 100%; height: auto; }
+.one-hardware-view figcaption { padding-top: 1rem; }
+.one-hardware-view h3 { font: 500 clamp(1.3rem, 2vw, 1.9rem)/1.15 var(--sans); }
+.one-hardware-view p { margin-top: .5rem; max-width: 56ch; color: var(--muted); line-height: 1.5; }
 .spec-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

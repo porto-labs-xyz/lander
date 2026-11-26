@@ -36,42 +36,17 @@ export function mountArrival() {
  const preference = matchMedia('(prefers-reduced-motion:reduce)');
  const initialScale = 9;
  const pullbackEnd = .72;
- const Audio = window.AudioContext || window.webkitAudioContext;
  let frame = 0, fitFrame = 0, start = 0, distance = 1;
  let ax = 0, ay = 0, targetX = 0, targetY = 0, logoX = 0, logoY = 0, logoScale = 1;
  let active = false, arrived = false, armed = false, zooming;
- let context, buffer, source, dance, loading;
+ let dance;
  let imageX = 0, imageY = 0, imageWidth = 0;
  let lastWidth = 0, lastHeight = 0, lastProgress = -1;
 
- function prepareSound() {
-  if (!Audio || !active || arrived || document.hidden) return;
-  try {
-   context ||= new Audio();
-   // Called synchronously on genuine taps/keys as well as mount. Browsers
-   // may defer this until user activation; never queue a late arrival chime.
-   if (context.state !== 'running') context.resume().catch(() => {});
-   loading ||= fetch('/assets/little-tilt.mp3')
-    .then(response => { if (!response.ok) throw new Error('Sound unavailable'); return response.arrayBuffer(); })
-    .then(bytes => context.decodeAudioData(bytes))
-    .then(decoded => { if(!disposed)buffer = decoded; })
-    .catch(() => {});
-  } catch { /* Audio is decorative; arrival remains usable without it. */ }
- }
- function stopSound() { if (source) { try { source.stop(); } catch {} source.disconnect(); source = null; } }
- function cue() {
+ function animateSpark() {
   if (document.hidden || preference.matches || !spark) return;
-  const audible = buffer && context?.state === 'running';
-  if (audible) {
-   stopSound();
-   const node = context.createBufferSource(), gain = context.createGain();
-   node.buffer = buffer; gain.gain.value = .65;
-   node.connect(gain); gain.connect(context.destination); source = node;
-   node.onended = () => { node.disconnect(); gain.disconnect(); if (source === node) source = null; };
-   node.start(context.currentTime + .035);
-  }
   dance?.cancel();
-  dance = spark.animate(DANCE, { duration: 1000, delay: audible ? 35 : 0, easing: 'cubic-bezier(.35,0,.3,1)' });
+  dance = spark.animate(DANCE, { duration: 1000, easing: 'cubic-bezier(.35,0,.3,1)' });
  }
  function resetImage() {
   fullImage.style.width = ''; fullImage.style.transform = '';
@@ -126,7 +101,7 @@ export function mountArrival() {
   if (progress < .2) armed = true;
   if (!arrived && progress >= .9) {
    arrived = true;
-   if (armed) cue();
+   if (armed) animateSpark();
   }
  }
  const schedulePaint = () => { if (active && !frame) frame = requestAnimationFrame(paint); };
@@ -180,7 +155,7 @@ export function mountArrival() {
   logoY = headerHeight + available * .055 - (b.top + b.height / 2);
   logoScale = width <= 760 ? 1.95 : 2.45;
   header.classList.add('intro-header-active');
-  lastProgress = -1; paint(); prepareSound();
+  lastProgress = -1; paint();
  }
  function scheduleFit(force = false) {
   if(disposed)return;
@@ -194,12 +169,9 @@ export function mountArrival() {
  }
  on(hero.querySelector('.intro-skip'),'click', finish);
  on(document.querySelector('.skip'),'click', event => { if (active) { event.preventDefault(); finish(); } });
- ['pointerdown', 'pointerup', 'touchend', 'keydown'].forEach(type =>
-  on(window,type, prepareSound, { passive: true }));
  on(window,'scroll', schedulePaint, { passive: true });
  on(window,'resize', () => scheduleFit(), { passive: true });
- on(preference,'change', () => { dance?.cancel(); stopSound(); scheduleFit(true); });
- on(document,'visibilitychange', () => { if (document.hidden) { stopSound(); context?.suspend().catch(() => {}); } });
+ on(preference,'change', () => { dance?.cancel(); scheduleFit(true); });
  fit(); document.fonts.ready.then(() => scheduleFit(true));
- return ()=>{disposed=true;active=false;events.abort();cancelAnimationFrame(frame);cancelAnimationFrame(fitFrame);dance?.cancel();stopSound();resetImage();context?.close().catch(()=>{});};
+ return ()=>{disposed=true;active=false;events.abort();cancelAnimationFrame(frame);cancelAnimationFrame(fitFrame);dance?.cancel();resetImage();};
 }
