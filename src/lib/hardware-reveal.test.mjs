@@ -52,7 +52,10 @@ test('the Kiln One product page shows the colour gallery immediately before the 
   assert.notEqual(gallery, -1)
   assert.deepEqual([...sections[gallery].matchAll(/data-finish="([^"]+)"/g)].map(match => match[1]), finishOrder)
   assert.ok(sections[gallery + 1].includes('id="inside-one"'))
-  assert.ok(sections[gallery + 2].includes('id="configurations-title"'))
+  assert.ok(sections[gallery + 1].includes('one-dual-blackwell.webp'))
+  assert.ok(sections[gallery + 2].includes('id="kiln-rear"'))
+  assert.ok(sections[gallery + 2].includes('one-rear-io.webp'))
+  assert.ok(sections[gallery + 3].includes('id="configurations-title"'))
 })
 
 function mountGallery() {
