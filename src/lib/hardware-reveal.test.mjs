@@ -119,7 +119,7 @@ function mountGallery(withRear = false) {
   })
   const slides = finishOrder.map((name, i) => {
     const img = Object.assign(new Element(), {
-      dataset: { render: name }, complete: true, naturalWidth: 800, offsetWidth: 400,
+      dataset: { render: name }, currentSrc: name + '-800.webp', complete: true, naturalWidth: 800, offsetWidth: 400,
       getBoundingClientRect: () => ({ left: 150, top: 48, width: 400, height: 360 }),
     })
     return { hidden: i !== (withRear ? 0 : 2), querySelector: () => img }
@@ -235,26 +235,42 @@ test('swatches open wide, late loads stay hidden, and the lens follows the selec
 })
 
 
-test('touch opens the lens on a tap and drags only after magnification is enabled', () => {
+test('a first touch magnifies the preview, tracks the finger and sharpens in place', async () => {
   const g = mountGallery()
-  g.pointer('pointermove', 'touch')
-  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
-  g.pointer('click', 'touch')
-  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), true)
-  assert.equal(g.button.getAttribute('aria-pressed'), 'true')
-  g.load(2)
-  assert.equal(g.lensVisible(), true)
   g.photo.dispatchEvent(Object.assign(new Event('pointerdown'), {
     pointerType: 'touch', pointerId: 4, clientX: 310, clientY: 245,
   }))
+  assert.equal(g.lensVisible(), true)
+  assert.equal(g.lens.style.backgroundImage, 'url("baby-pink-800.webp")')
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
+  assert.equal(g.button.getAttribute('aria-pressed'), 'true')
   const before = g.lens.style.backgroundPosition
   g.photo.dispatchEvent(Object.assign(new Event('pointermove'), {
     pointerType: 'touch', pointerId: 4, clientX: 400, clientY: 300,
   }))
   assert.notEqual(g.lens.style.backgroundPosition, before)
-  g.button.dispatchEvent(new Event('click'))
+  const position = g.lens.style.backgroundPosition
+  g.pending.shift()()
+  await Promise.resolve()
+  g.load(2)
+  assert.equal(g.lens.style.backgroundImage, 'url("baby-pink-3200.webp")')
+  assert.equal(g.lens.style.backgroundPosition, position)
+  g.photo.dispatchEvent(Object.assign(new Event('pointerup'), {
+    pointerType: 'touch', pointerId: 4, clientX: 400, clientY: 300,
+  }))
   assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
   assert.equal(g.lensVisible(), false)
+  g.cleanup()
+})
+
+test('a vertical scroll can cancel the initial touch without leaving the gallery in zoom mode', () => {
+  const g = mountGallery()
+  g.pointer('pointerdown', 'touch')
+  assert.equal(g.lensVisible(), true)
+  g.pointer('pointercancel', 'touch')
+  assert.equal(g.lensVisible(), false)
+  assert.equal(g.button.getAttribute('aria-pressed'), 'false')
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
   g.cleanup()
 })
 
@@ -264,8 +280,9 @@ test('Safari touch taps open the lens even when the compatibility click reports 
   g.pointer('pointerdown', 'touch')
   g.pointer('pointerup', 'touch')
   g.pointer('click', 'mouse')
-  g.load(2)
   assert.equal(g.lensVisible(), true)
   assert.equal(g.photo.hasAttribute('data-touch-magnifier'), true)
+  g.button.dispatchEvent(new Event('click'))
+  assert.equal(g.lensVisible(), false)
   g.cleanup()
 })

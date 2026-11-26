@@ -25,7 +25,7 @@ export function mountHardwareReveal(root = document) {
   const pending = new WeakMap()
   let selected = slides.findIndex(slide => !slide.hidden)
   let mode = 'off', near = false, dismissHover = false
-  let touchTap = false
+  let touchStart = null
   let pointerX = 0, pointerY = 0
   let manualX = .5, manualY = .23
 
@@ -48,9 +48,9 @@ export function mountHardwareReveal(root = document) {
   function displayLens() {
     const image = slides[selected].querySelector('img')
     const tier = deviceSourceWidth(image.offsetWidth * magnification, view.devicePixelRatio)
-    const visible = mode !== 'off' && image.complete && image.naturalWidth >= tier
+    const visible = mode !== 'off' && image.naturalWidth > 0 && (mode !== 'hover' || image.naturalWidth >= tier)
     if (visible) {
-      lens.style.backgroundImage = `url("${image.currentSrc}")`
+      lens.style.backgroundImage = `url("${image.currentSrc || image.src}")`
       placeLens()
     }
     photo.toggleAttribute('data-lens-visible', visible)
@@ -75,6 +75,7 @@ export function mountHardwareReveal(root = document) {
 
   function setMode(next) {
     mode = next
+    if (mode === 'off') touchStart = null
     photo.toggleAttribute('data-touch-magnifier', mode === 'manual')
     button.setAttribute('aria-pressed', String(mode !== 'off'))
     button.setAttribute('aria-label', mode === 'off' ? 'Show 4× magnifier' : 'Hide magnifier')
@@ -118,18 +119,18 @@ export function mountHardwareReveal(root = document) {
   }
 
   on(photo, 'pointerdown', event => {
-    // Safari can report a finger tap's compatibility click as a mouse click.
-    touchTap = event.pointerType !== 'mouse'
-    if (event.pointerType === 'mouse' || mode !== 'manual') return
+    if (event.pointerType === 'mouse' || event.isPrimary === false) return
+    touchStart = { id: event.pointerId, x: event.clientX, y: event.clientY }
     photo.setPointerCapture(event.pointerId)
     sampleTouch(event)
+    if (mode !== 'manual') setMode('touch')
   })
   on(photo, 'pointermove', event => {
     if (event.pointerType !== 'mouse') {
-      if (mode === 'manual' && photo.hasPointerCapture(event.pointerId)) sampleTouch(event)
+      if (touchStart && event.pointerId === touchStart.id) sampleTouch(event)
       return
     }
-    if (event.pointerType !== 'mouse' || dismissHover) return
+    if (touchStart || dismissHover) return
     pointerX = event.clientX
     pointerY = event.clientY
     if (mode !== 'hover') setMode('hover')
@@ -141,7 +142,18 @@ export function mountHardwareReveal(root = document) {
     if (mode === 'hover') setMode('off')
   }
   on(photo, 'pointerleave', leave)
-  on(photo, 'pointercancel', leave)
+  on(photo, 'pointerup', event => {
+    if (!touchStart || event.pointerId !== touchStart.id) return
+    const tapped = Math.hypot(event.clientX - touchStart.x, event.clientY - touchStart.y) < 8
+    touchStart = null
+    if (mode === 'touch') setMode(tapped ? 'manual' : 'off')
+  })
+  on(photo, 'pointercancel', event => {
+    if (event.pointerType === 'mouse') return leave(event)
+    if (!touchStart || event.pointerId !== touchStart.id) return
+    touchStart = null
+    if (mode === 'touch') setMode('off')
+  })
   on(view, 'scroll', () => {
     if (mode !== 'hover') return
     const frame = photo.getBoundingClientRect()
@@ -153,10 +165,6 @@ export function mountHardwareReveal(root = document) {
     manualX = .5
     manualY = .23
     setMode(mode === 'off' ? 'manual' : 'off')
-  })
-  on(photo, 'click', event => {
-    if (mode === 'off' && (touchTap || event.pointerType !== 'mouse')) setMode('manual')
-    if (mode === 'manual') sampleTouch(event)
   })
   on(button, 'keydown', event => {
     if (mode !== 'manual') return
@@ -181,6 +189,7 @@ export function mountHardwareReveal(root = document) {
   const resize = new view.ResizeObserver(prepareImage)
   resize.observe(photo)
   on(hover, 'change', prepareImage)
+  on(view, 'online', prepareImage)
   button.hidden = false
   return () => {
     photo.removeAttribute('data-touch-magnifier')
