@@ -68,6 +68,8 @@ function mountGallery() {
   }
   const photo = new Element(), button = new Element(), caption = new Element()
   const lens = Object.assign(new Element(), { offsetWidth: 160, offsetHeight: 160 })
+  photo.setPointerCapture = id => { photo.capturedPointer = id }
+  photo.hasPointerCapture = id => photo.capturedPointer === id
   photo.getBoundingClientRect = () => ({ left: 10, top: 20, width: 600, height: 450 })
   const swatches = finishOrder.map(name => {
     const swatch = new Element()
@@ -150,4 +152,28 @@ test('swatches open wide, late loads stay hidden, and the lens follows the selec
   g.cleanup()
   g.swatches[0].dispatchEvent(new Event('click'))
   assert.equal(g.caption.textContent, 'powder-blue')
+})
+
+
+test('touch opens the lens on a tap and drags only after magnification is enabled', () => {
+  const g = mountGallery()
+  g.pointer('pointermove', 'touch')
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
+  g.pointer('click', 'touch')
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), true)
+  assert.equal(g.button.getAttribute('aria-pressed'), 'true')
+  g.load(2)
+  assert.equal(g.lensVisible(), true)
+  g.photo.dispatchEvent(Object.assign(new Event('pointerdown'), {
+    pointerType: 'touch', pointerId: 4, clientX: 310, clientY: 245,
+  }))
+  const before = g.lens.style.backgroundPosition
+  g.photo.dispatchEvent(Object.assign(new Event('pointermove'), {
+    pointerType: 'touch', pointerId: 4, clientX: 400, clientY: 300,
+  }))
+  assert.notEqual(g.lens.style.backgroundPosition, before)
+  g.button.dispatchEvent(new Event('click'))
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), false)
+  assert.equal(g.lensVisible(), false)
+  g.cleanup()
 })

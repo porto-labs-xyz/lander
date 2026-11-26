@@ -1,3 +1,7 @@
+## Mobile finish magnifier, 26 November 2026
+
+Richard requested touch support for the 4× lens. Tapping the photograph opens the lens at the selected point. While enabled, dragging moves it over the active finish. The 4× button closes it and restores scrolling over the photograph. Changing finishes closes the lens. Desktop hover and keyboard positioning use the existing controls.
+
 ## Subtle co-founder names, 26 November 2026
 
 Richard requested a names-only team section. The homepage and About page list Richard Melkonian and Richard Osho, in regular ABC Monument Grotesk, with a small IBM Plex Mono co-founder label. This supersedes the portrait and biography treatment below.
