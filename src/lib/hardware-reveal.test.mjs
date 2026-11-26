@@ -23,6 +23,10 @@ test('the static gallery exposes four full-resolution images and starts with one
   const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
   const intro = body.slice(body.indexOf('<div class="intro-runway">'), body.indexOf('id="local"'))
   assert.ok(intro.includes('class="hero-box"'))
+  const detail = '/assets/kiln/finishes/pebble-grey-macro.webp'
+  assert.ok(intro.includes('data-material-detail="' + detail + '"'))
+  assert.ok(!intro.includes('src="' + detail + '"'))
+  assert.ok(!body.slice(body.indexOf('id="local"')).includes(detail))
   assert.ok(intro.includes('src="/assets/kiln/finishes/pebble-grey-3840.webp"'))
   assert.ok(!intro.includes('data-finish-gallery'))
   assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))

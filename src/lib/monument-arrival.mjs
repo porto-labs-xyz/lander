@@ -32,12 +32,13 @@ export function mountArrival() {
  const dock = document.querySelector('.mobile-dock');
  const controls = [menu, headerCta, dock].filter(Boolean);
  const preference = matchMedia('(prefers-reduced-motion:reduce)');
- const initialScale = 4;
+ const initialScale = 9;
  const Audio = window.AudioContext || window.webkitAudioContext;
  let frame = 0, fitFrame = 0, start = 0, distance = 1, baseWidth = 0, baseHeight = 0;
  let cx = 0, cy = 0, ax = 0, ay = 0, targetX = 0, targetY = 0, logoX = 0, logoY = 0, logoScale = 1;
  let active = false, arrived = false, armed = false, zooming;
  let context, buffer, source, dance, loading;
+ let detail, detailReady = false;
  let lastWidth = 0, lastHeight = 0, lastProgress = -1;
 
  function prepareSound() {
@@ -68,6 +69,26 @@ export function mountArrival() {
   }
   dance?.cancel();
   dance = spark.animate(DANCE, { duration: 1000, delay: audible ? 35 : 0, easing: 'cubic-bezier(.35,0,.3,1)' });
+ }
+ // Keep the registered material study on the same moving plane as the full
+ // product. The 4K cutout remains visible while the high-detail patch decodes.
+ function paintDetail(scale) {
+  const opacity = smooth((scale - 2.25) / 2.25);
+  if (opacity > 0 && !detail && device.dataset.materialDetail) {
+   detail = new Image();
+   detail.className = 'hero-material-detail';
+   detail.alt = '';
+   detail.setAttribute('aria-hidden', 'true');
+   detail.decoding = 'async';
+   detail.fetchPriority = 'high';
+   detail.src = device.dataset.materialDetail;
+   device.append(detail);
+   detail.decode().then(() => {
+    if (disposed) return;
+    detailReady = true; lastProgress = -1; schedulePaint();
+   }).catch(() => {});
+  }
+  if (detailReady) detail.style.opacity = String(opacity);
  }
  function paint() {
   frame = 0;
@@ -100,6 +121,7 @@ export function mountArrival() {
    device.style.willChange = inZoom ? 'transform' : 'auto';
   }
   device.style.transform = inZoom ? `translate3d(${x + baseWidth * (scale - 1) / 2}px,${y + baseHeight * (1 - scale) / 2}px,0) scale(${scale / initialScale})` : 'none';
+  paintDetail(scale);
   brand.style.transform = `translate3d(${logoX * (1 - logo)}px,${logoY * (1 - logo)}px,0) scale(${1 + (logoScale - 1) * (1 - logo)})`;
   header.style.setProperty('--intro-header-line', String(logo * .25));
   title.style.opacity = String(type);
@@ -127,6 +149,7 @@ export function mountArrival() {
   device.style.width = '';
   device.style.willChange = '';
   zooming = undefined;
+  if (detail) detail.style.opacity = '0';
   [device, title, bottom, caption, brand, ...controls].forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; });
   header.style.removeProperty('--intro-header-line');
   bottom.inert = false;
@@ -156,10 +179,11 @@ export function mountArrival() {
   start = runway.getBoundingClientRect().top + window.scrollY - headerHeight;
   const r = device.getBoundingClientRect();
   cx = r.left - h.left + r.width / 2; cy = r.top - h.top + r.height / 2;
-  // Follow the new front-panel USB-C port from the close-up into the headline frame.
-  ax = r.left - h.left + r.width * .45;
-  ay = r.top - h.top + r.height * .23;
-  targetX = h.width * .70; targetY = h.height * .52;
+  // Follow the leather attachment and the front shoulder into the headline frame.
+  ax = r.left - h.left + r.width * .635;
+  ay = r.top - h.top + r.height * .119;
+  targetX = h.width * (width <= 760 ? .72 : .56);
+  targetY = h.height * (width <= 760 ? .40 : .55);
   baseWidth = r.width; baseHeight = r.height;
   device.style.width = r.width * initialScale + 'px';
   const b = brand.getBoundingClientRect();
@@ -189,5 +213,5 @@ export function mountArrival() {
  on(document,'visibilitychange', () => { if (document.hidden) { stopSound(); context?.suspend().catch(() => {}); } });
  fit(); document.fonts.ready.then(() => scheduleFit(true));
  on(device.querySelector('img'),'load', () => scheduleFit(true), { once: true });
- return ()=>{disposed=true;active=false;events.abort();cancelAnimationFrame(frame);cancelAnimationFrame(fitFrame);dance?.cancel();stopSound();context?.close().catch(()=>{});};
+ return ()=>{disposed=true;active=false;events.abort();cancelAnimationFrame(frame);cancelAnimationFrame(fitFrame);dance?.cancel();stopSound();detail?.remove();context?.close().catch(()=>{});};
 }

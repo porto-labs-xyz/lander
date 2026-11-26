@@ -6,6 +6,14 @@
 }
 body:has(.intro-runway) .site-header { background: #fff; }
 .intro-runway .hero-device picture { display: block; }
+.hero-device .hero-material-detail {
+  /* Registered crop in the 4:3 full-product render. */
+  position: absolute; left: 37.5%; top: 5%; width: 40%; height: 40%;
+  pointer-events: none; opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-device .hero-material-detail { display: none; }
+}
 #hardware .finish-runway { margin-inline: calc(-1 * var(--pad)); }
 /* The camera is driven by document scroll. The controls work at every viewport size. */
 .finish-runway {
