@@ -4,9 +4,9 @@ Richard requested three rear USB-C ports, multiple Ethernet connector types, a h
 
 Intel documents Thunderbolt 5 over USB-C and 10 GbE over RJ45. The NVIDIA ConnectX-8 C8240 uses two QSFP112 ports, each supporting up to 400 GbE. The supply target follows a commercially available 2.2 kW ATX unit. [Intel Thunderbolt 5 brief](https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2023-09/thunderbolt-5-technology-brief.pdf) · [Intel X710-T2L](https://www.intel.com/content/www/us/en/products/sku/189463/intel-ethernet-network-adapter-x710t2l/specifications.html) · [NVIDIA ConnectX-8 adapter specifications](https://networking-docs.nvidia.com/connectx8hw/) · [Seasonic PRIME PX-2200](https://seasonic.com/atx3-1-prime-px/)
 
-The “Back” caption lists eight HDMI displays via DisplayPort adapters. The two cards shown have four native DisplayPort outputs each. [PNY Blackwell display and adapter guide](https://www.pny.com/file%20library/company/support/additional%20resources/blackwell-workstation-display-resolution-capabilities.pdf)
+The “Massive Connectivity For Ambitious Studios” caption lists eight HDMI displays via DisplayPort adapters. The two cards shown have four native DisplayPort outputs each. [PNY Blackwell display and adapter guide](https://www.pny.com/file%20library/company/support/additional%20resources/blackwell-workstation-display-resolution-capabilities.pdf)
 
-Each Workstation Edition card has 96 GB of ECC GDDR7 and a maximum power rating of 600 W. [NVIDIA RTX PRO 6000 Blackwell Workstation Edition](https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/)
+The “Two-GPU Interior” caption describes the proposed KilnOS workflow for parallel generation on the local machine. Its speed and offline operation await system testing. Each Workstation Edition card has 96 GB of ECC GDDR7 and a maximum power rating of 600 W. [NVIDIA RTX PRO 6000 Blackwell Workstation Edition](https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/)
 
 ## Subtle co-founder names, 26 November 2026
 
