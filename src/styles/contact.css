@@ -1,7 +1,7 @@
 /* One compact conversation, with booking offered as a clear alternative. */
 #enquiry-dialog{width:min(560px,calc(100% - 32px));max-height:calc(100svh - 32px);padding:40px;overscroll-behavior:contain;scrollbar-gutter:stable}
 #enquiry-dialog[open]{animation:contact-arrive .32s cubic-bezier(.2,.8,.2,1)}
-#enquiry-dialog::backdrop{background:rgba(16,17,18,.58);backdrop-filter:blur(6px)}
+#enquiry-dialog::backdrop{background:rgba(26,18,33,.58);backdrop-filter:blur(6px)}
 #enquiry-dialog .dialog-close{top:14px;right:14px;border:0;background:transparent;font-size:28px;transition:transform .2s}
 #enquiry-dialog .dialog-close:hover{transform:rotate(90deg)}
 #enquiry-dialog h2{font-size:clamp(40px,5vw,54px);line-height:1.08;letter-spacing:var(--tracking-heading);margin:8px 0 12px;outline:0}

@@ -1,4 +1,4 @@
-.booking-page { --background: #f1f0ec; --ink: #171819; --muted: #555650; --blue: #003bff; --red: #f12a1c; --yellow: #ffd400; --line: #17181933; --mono: PlexMono, monospace; }
+.booking-page { --background: #f6f1f7; --ink: #1a1221; --muted: #555650; --blue: #6f36bd; --red: #edc1df; --yellow: #dfc6f4; --line: #1a122133; --mono: PlexMono, monospace; }
 .booking-page * { margin: 0; padding: 0; box-sizing: border-box; }
 .booking-page { scroll-behavior: smooth; scroll-padding-top: 28px; }
 .booking-page { background: var(--background); color: var(--ink); font: 16px/1.6 Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -29,7 +29,7 @@
 .booking-page .kiln-hero h1 { position: relative; max-width: 850px; font: 700 clamp(42px, 4.4vw, 72px)/1.12 var(--mono); letter-spacing: -.065em; }
 .booking-page .kiln-intro { position: relative; max-width: 410px; font-size: 17px; line-height: 1.65; margin-top: 32px; }
 .booking-page .kiln-hero .kiln-button { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
-.booking-page .kiln-hero .kiln-button:hover { background: #f3c900; border-color: #f3c900; }
+.booking-page .kiln-hero .kiln-button:hover { background: #b584fa; border-color: #b584fa; }
 .booking-page .kiln-actions { position: relative; display: flex; align-items: center; gap: 32px; margin-top: 36px; }
 .booking-page .kiln-button { display: inline-flex; justify-content: space-between; align-items: center; gap: 26px; min-height: 52px; padding: 14px 22px; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--background); font: 12px/1.5 var(--mono); white-space: nowrap; }
 .booking-page .kiln-button:hover { background: #31332f; text-decoration: none; }
@@ -50,7 +50,7 @@
 .booking-page .kiln-signup > p { font-size: 16px; margin-bottom: 24px; }
 .booking-page .kiln-signup label { display: block; margin-bottom: 9px; font: 11px/1.6 var(--mono); }
 .booking-page .kiln-form-row { display: flex; gap: 10px; }
-.booking-page .kiln-form-row input { min-width: 0; width: 100%; border: 1px solid #17181980; border-radius: 0; background: transparent; color: var(--ink); padding: 14px; font-size: 16px; }
+.booking-page .kiln-form-row input { min-width: 0; width: 100%; border: 1px solid #1a122180; border-radius: 0; background: transparent; color: var(--ink); padding: 14px; font-size: 16px; }
 .booking-page .kiln-form-row input::placeholder { color: var(--muted); }
 .booking-page .kiln-small { font-size: 12px; color: var(--muted); line-height: 1.6; }
 .booking-page #signup-note { margin-top: 14px; max-width: 400px; }
@@ -111,6 +111,6 @@
 }
 @media (prefers-reduced-motion: reduce) { .booking-page { scroll-behavior: auto; } }
 
-.booking-page .action-square{display:inline-block;width:8px;height:8px;background:#E04938;transform:rotate(24deg);flex:0 0 8px}
+.booking-page .action-square{display:inline-block;width:8px;height:8px;background:#c794d6;transform:rotate(24deg);flex:0 0 8px}
 
 .booking-page{font-family:Monument,Arial,sans-serif}.booking-page .booking-intro h1{font-family:Monument,Arial,sans-serif;font-weight:500;letter-spacing:var(--tracking-heading)}

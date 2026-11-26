@@ -10,14 +10,14 @@
 .network-state .square{color:var(--blue)}
 .network-capacity{display:flex;gap:6px;height:clamp(100px,13vw,190px);isolation:isolate}
 .network-capacity span{flex:1;min-width:0;border-radius:40px;background:var(--blue);transition:background-color .5s cubic-bezier(.2,.8,.2,1),transform .65s cubic-bezier(.16,1,.3,1);transform-origin:50% 50%}
-.network-capacity span:nth-child(n+10){background:#d1d0cb;transform:scaleY(.72)}
+.network-capacity span:nth-child(n+10){background:#ddd3e1;transform:scaleY(.72)}
 .network-thesis[data-network-state=share] .network-capacity span:nth-child(n+10){background:var(--yellow);transform:scaleY(1)}
 .network-thesis[data-network-state=reclaim] .network-capacity span:nth-child(n+10){background:var(--blue);transform:scaleY(1)}
 .network-capacity span:nth-child(10){transition-delay:0ms}.network-capacity span:nth-child(11){transition-delay:25ms}.network-capacity span:nth-child(12){transition-delay:50ms}.network-capacity span:nth-child(13){transition-delay:75ms}.network-capacity span:nth-child(14){transition-delay:100ms}.network-capacity span:nth-child(15){transition-delay:125ms}.network-capacity span:nth-child(16){transition-delay:150ms}
 .network-legend{display:flex;flex-wrap:wrap;gap:24px;margin:22px 0 46px;font-size:12px}
 .network-legend span{display:flex;align-items:center;gap:8px}
 .network-legend i{width:22px;height:5px;border-radius:3px;background:var(--blue)}
-.network-legend .network-available i{background:#d1d0cb}
+.network-legend .network-available i{background:#ddd3e1}
 .network-thesis[data-network-state=share] .network-available i{background:var(--yellow)}
 .network-thesis[data-network-state=reclaim] .network-available i{background:var(--blue)}
 .network-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw}

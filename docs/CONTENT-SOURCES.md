@@ -1,3 +1,11 @@
+## Kiln Amethyst lander study, 26 November 2026
+
+Richard requested a new Kiln body made from translucent violet and pink molded plastic. A cassette player photograph supplied the material reference for thick edges, molded bosses and visible circuitry. The tapered profile was developed from scratch. The exterior, single-card interior, expanded Atelier and four-unit installation are generated concepts. The Kiln One card appearance follows NVIDIA’s RTX PRO 6000 Blackwell Workstation Edition product photograph. Engineering fit, cooling and manufacture require validation.
+
+The approved Kiln One exterior and original open three-quarter view are retained. A separate cutaway features in the scroll reveal. Kiln Atelier remains the public name. The larger units nest flush along curved seams. Their thicker satin pink and violet surfaces diffuse the internal silhouettes. The rack and full-width photograph show the selected four-unit stack. The Kiln One product page uses a separate overhead lid-off view. Stack loads, rear service clearance and airflow are design intentions requiring engineering validation.
+
+The study uses lander main at c07674e for page copy, typography, reading order, navigation and motion. The local design uses the existing reveal to show the interior card. The tested site assets live in static/assets/amethyst on the entropy-acs/kiln-flush-lander branch.
+
 ## NVIDIA Inception membership, 23 November 2026
 
 The founder requested the NVIDIA Inception programme badge in the homepage hero. The site says “Member of the NVIDIA Inception programme” and links to [NVIDIA Inception](https://www.nvidia.com/en-gb/startups/). The badge at `static/assets/kiln/nvidia-inception.png` is the embedded image from the earlier founder-approved investor cover. The website uses the original colours and proportions.

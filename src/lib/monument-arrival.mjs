@@ -159,11 +159,11 @@ export function mountArrival() {
   start = runway.getBoundingClientRect().top + window.scrollY - headerHeight;
   const r = device.getBoundingClientRect();
   cx = r.left - h.left + r.width / 2; cy = r.top - h.top + r.height / 2;
-  // Normalised coordinates of the approved render's upper front rim.
+  // Normalised coordinates of the molded body’s upper seam.
   ax = r.left - h.left + r.width * (625 / 1200);
-  ay = r.top - h.top + r.height * (110 / 800);
+  ay = r.top - h.top + r.height * (350 / 800);
   targetX = h.width * .78; targetY = h.height * .54;
-  // Four grille slots, a little top metal, and the status diamond at landing.
+  // Retain the original magnification and scroll distance.
   initialScale = (h.height * .46 / (5 * 28)) * (1200 / r.width);
   baseWidth = r.width; baseHeight = r.height;
   device.style.width = r.width * initialScale + 'px';
