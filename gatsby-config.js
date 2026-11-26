@@ -1,4 +1,4 @@
-const siteUrl = 'https://www.portolabs.xyz'
+const siteUrl = 'https://letskiln.xyz'
 const sharingOrigin = process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : siteUrl

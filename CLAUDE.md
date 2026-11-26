@@ -1,5 +1,7 @@
 # Kiln website
 
+The primary public website is https://letskiln.xyz. Verify production changes on this domain and use it for public site links.
+
 ## Homepage headline, 26 November 2026
 
 Use “Keep the work close.” for the homepage opening and link preview. Set “Keep the” above the outline, “work” inside it and “close.” below it on the right.
