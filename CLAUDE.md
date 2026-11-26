@@ -1,6 +1,10 @@
 # Kiln website
 
-## Current direction, 14 November 2026
+## Homepage headline, 26 November 2026
+
+Use “Make it here” for the homepage opening and link preview. Set “here” inside the existing charcoal Kiln One reveal frame.
+
+## Previous direction, 14 November 2026
 
 The founder approved Sites v48: Monument Grotesk, “Keep the work close”, the close-up One opening, register-interest-only conversion, native product carousel, simplified copy and the black Atelier visual break. The PR must retain the existing Formspree endpoint and `/book/` Google Calendar destination. This direction supersedes older design and opt-in sound instructions below. Richard still owns the production merge and domain release.
 

@@ -1,3 +1,7 @@
+## Make it here, 26 November 2026
+
+Richard selected “Make it here” as the Kiln homepage headline. The charcoal Kiln One settles beside the framed word “here”. The homepage title pairs Kiln with the headline, and the search description identifies the workstation and its audience. The 1200 × 630 WhatsApp and social card uses the same headline, the existing ink lockup, ABC Monument Grotesk and the approved charcoal device photograph. The new image has a distinct URL for link previews.
+
 ## Kiln One deep charcoal opening, 26 November 2026
 
 The founder selected the first all-dark charcoal render as the opening Kiln One. The front panel and side shell are charcoal, with a brown leather handle. The homepage, hardware catalogue and product page feature this version first. The hardware section has a single heading, “Kiln.” Its finish gallery opens on the complete baby-pink workstation against white. The swatches offer deep charcoal, pebble grey, baby pink, eucalyptus and powder blue. Selecting a finish shows the whole machine. The complete workstation stays in the wide shot while a circular lens follows the mouse. Inside the circle the active finish is shown at 4×, aligned to the material beneath the pointer. Leaving the photograph or pressing Escape dismisses the lens. Touch and keyboard users can toggle the lens with the 4× button, then tap the photograph or use the arrow keys to position it. Page scrolling passes through the gallery without changing the selected finish or its magnification.
