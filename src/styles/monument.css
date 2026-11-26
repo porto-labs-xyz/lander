@@ -53,8 +53,6 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .intro-header-active .brand{transform-origin:50% 50%}
 .intro-header-active .header-cta,body:has(.intro-active) .mobile-dock{opacity:0;visibility:hidden}
 .intro-header-active{border-bottom-color:rgb(69 73 67 / var(--intro-header-line,0))}
-.hero-device .hero-macro{display:none}
-.intro-active .hero-device .hero-macro{display:block;position:absolute;left:21.6796875%;top:4.6875%;width:37.044271%;height:38.183594%;mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 82%,transparent 100%),linear-gradient(to right,transparent 0%,#000 14%,#000 84%,transparent 100%);mask-composite:intersect}
 .intro-caption{display:none}
 .intro-runway{overflow-anchor:none}
 .intro-active{height:calc(var(--intro-stage) + var(--intro-dock,0px) + var(--intro-distance))}
@@ -67,7 +65,6 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .intro-active .hero-lead{font-size:min(4.8vw,calc(var(--intro-stage)*.085));margin-bottom:16px}
 .intro-active .hero-box{height:calc(var(--intro-stage)*.43)}
 .intro-active .hero-word{font-size:min(19vw,calc(var(--intro-stage)*.40),325px)}
-.intro-active .hero-device{transform-origin:100% 0%;will-change:transform}
 .intro-active .hero-title,.intro-active .hero-bottom{will-change:opacity}
 .intro-active :is(.hero-lead,.hero-word){opacity:var(--intro-word-opacity,0)}
 .intro-active .hero-bottom{margin-top:30px;gap:20px}
@@ -160,7 +157,7 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 @media print{.intro-runway.intro-active{height:auto}.intro-active .hero{position:static;height:auto}.intro-active .hero-device,.intro-active .hero-title,.intro-active .hero-bottom{transform:none!important;opacity:1!important}.intro-caption{display:none!important}}
 
 .menu-open .intro-header-active .brand{transform:none!important}
-@media print{.intro-active .hero-device{width:var(--hero-device-width)!important}.intro-active .hero-device .hero-macro{display:none!important}.intro-active :is(.hero-lead,.hero-word){opacity:1}}
+@media print{.intro-active .hero-device{width:var(--hero-device-width)!important}.intro-active :is(.hero-lead,.hero-word){opacity:1}}
 
 /* A tactile pause between the privacy story and practical questions. */
 .hardware-interlude{position:relative;isolation:isolate;height:clamp(460px,46vw,720px);overflow:hidden;background:var(--ink);color:var(--paper)}
