@@ -16,7 +16,7 @@ The founder selected the standalone crucible as the site logo. The two supplied 
 
 ## Kiln One rear panel and two-GPU interior, 26 November 2026
 
-The product page shows the deep charcoal interior and rear as transparent cutouts at a common display height. The outer casing takes the selected finish. The front grille and corresponding perforated rear panels stay light grey across all five finishes. The rear caption reads “Kiln Rear as a front panel, for fast switching, aesthetic stays.” [Deep charcoal interior](../static/assets/kiln/one-interior-charcoal-cutout.webp) · [Deep charcoal rear](../static/assets/kiln/finishes/rear-charcoal.webp)
+The product page shows the deep charcoal interior and rear as transparent cutouts at a common display height. The outer casing takes the selected finish. The original deep charcoal Kiln One always uses its dark front grille. Use the original front renders for the homepage, product gallery and magnifier. The other four front grilles and all five perforated rear panels stay light grey. [Original charcoal front](../static/assets/kiln/finishes/charcoal-device-6400.webp) The rear caption reads “Kiln Rear as a front panel, for fast switching, aesthetic stays.” [Deep charcoal interior](../static/assets/kiln/one-interior-charcoal-cutout.webp) · [Deep charcoal rear](../static/assets/kiln/finishes/rear-charcoal.webp)
 
 The Kiln One product page opens in deep charcoal. The finish controls in the front gallery and under the rear render share one selection. The gallery retains its 4× magnifier. The homepage gallery opens in baby pink. The mobile lens uses the tap-and-drag interaction from lander revision `b85167b`.
 
