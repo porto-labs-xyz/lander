@@ -20,7 +20,7 @@ module.exports = {
         background_color: `#f6f6f2`,
         theme_color: `#f6f6f2`,
         display: `standalone`,
-        icon: `static/assets/kiln/kiln-crucible-ink.svg`,
+        icon: `static/favicon.png`,
       },
     },
   ],

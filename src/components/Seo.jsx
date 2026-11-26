@@ -11,7 +11,7 @@ export default function Seo({ title, description, path, hero = false }) {
   `)
   const { siteUrl, sharingOrigin } = site.siteMetadata
   const url = `${siteUrl}${path}`
-  const image = `${sharingOrigin}/images/kiln-make-it-here.jpg`
+  const image = `${sharingOrigin}/images/kiln-make-it-here-crucible.png`
   const imageAlt = 'Make it here, beside a charcoal Kiln One workstation with a leather handle.'
   return <>
     <html lang="en" />
@@ -21,7 +21,7 @@ export default function Seo({ title, description, path, hero = false }) {
     <meta name="theme-color" content="#f6f6f2" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="canonical" href={url} />
-    <link rel="icon" href="/assets/kiln/kiln-crucible-ink.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
     <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
     {hero && <link rel="preload" as="image" href="/assets/kiln/finishes/charcoal-device-6400.webp" />}
     <meta property="og:type" content="website" />
@@ -31,7 +31,7 @@ export default function Seo({ title, description, path, hero = false }) {
     <meta property="og:site_name" content="Kiln by Porto Labs" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:image" content={image} />
-    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={imageAlt} />

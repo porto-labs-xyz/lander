@@ -1,3 +1,7 @@
+## Kiln crucible logo, 26 November 2026
+
+The founder selected the standalone crucible as the site logo. The two supplied SVGs are copied exactly from `output/kiln-brand/kiln-crucible.svg` and `output/kiln-brand/kiln-crucible-light.svg`, identified in the Porto design notes under “Kiln standalone crucible”. Both use the same floating square in Kiln red `#E42321`. The base is ink `#101112` on light surfaces and paper `#F6F6F2` in the footer. The animated homepage mark retains the original paths and moves only the red square during its spark animation. The favicon uses the ink artwork on paper. The social card replaces the previous lockup in its existing top-left position. [Ink artwork](../static/assets/kiln/kiln-crucible.svg) · [Paper artwork](../static/assets/kiln/kiln-crucible-light.svg) · [Social card](../static/images/kiln-make-it-here-crucible.png)
+
 ## Kiln One rear panel and two-GPU interior, 26 November 2026
 
 The Kiln One product page opens its finish gallery on baby pink. The five-colour selector and 4× magnifier sit immediately before the cutaway and rear panel. The homepage and product page share the same viewer and finish photographs. The mobile lens uses the tap-and-drag interaction from lander revision `b85167b`.
