@@ -7,6 +7,6 @@ import { mountMonument } from '../lib/monument.mjs'
 export default function MonumentPage({ content }) {
   const root = useRef(null)
   useEffect(() => mountMonument(root.current), [content])
-  const html = withFinishViewer(content.body).replace('<!-- team section -->', teamSection)
+  const html = withFinishViewer(content.body, content.path).replace('<!-- team section -->', teamSection)
   return <div ref={root} dangerouslySetInnerHTML={{ __html: html }} />
 }

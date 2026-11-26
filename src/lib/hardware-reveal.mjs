@@ -85,7 +85,6 @@ export function mountHardwareReveal(root = document) {
   function selectFinish(index) {
     slides[selected].hidden = true
     swatches[selected].removeAttribute('aria-current')
-    rearSwatches[selected]?.setAttribute('aria-pressed', 'false')
     selected = index
     slides[selected].hidden = false
     const swatch = swatches[index]
@@ -94,7 +93,7 @@ export function mountHardwareReveal(root = document) {
     caption.textContent = name
     if (rear) {
       const choice = rearSwatches[index]
-      choice.setAttribute('aria-pressed', 'true')
+      rearSwatches.forEach(swatch => swatch.setAttribute('aria-pressed', String(swatch === choice)))
       rearLink.href = choice.dataset.src
       rearImage.alt = choice.dataset.alt
       rearImage.src = choice.dataset.src

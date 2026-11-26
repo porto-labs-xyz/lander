@@ -8,6 +8,15 @@ import { withFinishViewer } from '../content/finish-viewer.mjs'
 
 const finishOrder = ['charcoal', 'pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue']
 
+function renderPage(name) {
+  const { body, path } = JSON.parse(readFileSync(new URL(`../content/${name}.json`, import.meta.url)))
+  return withFinishViewer(body, path)
+}
+
+function sectionsOf(page) {
+  return [...page.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)].map(match => match[0])
+}
+
 test('the finish gallery chooses a detail source for the projected size and screen density', () => {
   assert.equal(deviceSourceWidth(550, 2), 1600)
   assert.equal(deviceSourceWidth(941, 3), 3200)
@@ -43,7 +52,7 @@ test('the original charcoal front with its dark grille is preserved at every pub
 })
 
 test('the static gallery exposes all five full-resolution images and starts with one preview', () => {
-  const body = withFinishViewer(JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url))).body)
+  const body = renderPage('index')
   assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))
   const finishes = [...body.matchAll(/data-finish-slide="([^"]+)"( hidden)?>/g)]
   assert.deepEqual(finishes.map(match => match[1]), finishOrder)
@@ -62,8 +71,7 @@ test('the static gallery exposes all five full-resolution images and starts with
 })
 
 test('the Kiln One product page shows the colour gallery immediately before the hardware renders', () => {
-  const body = withFinishViewer(JSON.parse(readFileSync(new URL('../content/one.json', import.meta.url))).body)
-  const sections = [...body.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)].map(match => match[0])
+  const sections = sectionsOf(renderPage('one'))
   const gallery = sections.findIndex(section => section.includes('data-finish-gallery'))
   assert.notEqual(gallery, -1)
   assert.deepEqual([...sections[gallery].matchAll(/data-finish="([^"]+)"/g)].map(match => match[1]), finishOrder)
@@ -81,7 +89,22 @@ test('the Kiln One product page shows the colour gallery immediately before the 
   assert.ok(sections[gallery + 3].includes('id="configurations-title"'))
 })
 
-function mountGallery(withRear = false) {
+test('the homepage shows the same two hardware sections between its pricing block and studio service', () => {
+  const home = sectionsOf(renderPage('index'))
+  const product = sectionsOf(renderPage('one'))
+  const hardware = home.findIndex(section => section.includes('id="hardware"'))
+  assert.notEqual(hardware, -1)
+  assert.match(home[hardware], /data-finish-gallery[\s\S]*From £19,900[\s\S]*href="#inside-one"/)
+  assert.match(home[hardware], /href="\/products\/one\/"/)
+  for (const [offset, id] of ['inside-one', 'kiln-rear'].entries()) {
+    const matchingSections = page => page.filter(section => section.includes(`id="${id}"`))
+    assert.equal(matchingSections(home).length, 1)
+    assert.deepEqual(matchingSections(product), [home[hardware + offset + 1]])
+  }
+  assert.ok(home[hardware + 3].includes('id="studio-service"'))
+})
+
+function mountGallery(withRear = false, initialFront = withRear ? 0 : 2) {
   class Element extends EventTarget {
     attributes = new Map()
     style = {
@@ -112,9 +135,10 @@ function mountGallery(withRear = false) {
   photo.setPointerCapture = id => { photo.capturedPointer = id }
   photo.hasPointerCapture = id => photo.capturedPointer === id
   photo.getBoundingClientRect = () => ({ left: 10, top: 20, width: 600, height: 450 })
-  const swatches = finishOrder.map(name => {
+  const swatches = finishOrder.map((name, i) => {
     const swatch = new Element()
     swatch.setAttribute('aria-label', name)
+    if (i === initialFront) swatch.setAttribute('aria-current', 'true')
     return swatch
   })
   const slides = finishOrder.map((name, i) => {
@@ -122,7 +146,7 @@ function mountGallery(withRear = false) {
       dataset: { render: name }, currentSrc: name + '-800.webp', complete: true, naturalWidth: 800, offsetWidth: 400,
       getBoundingClientRect: () => ({ left: 150, top: 48, width: 400, height: 360 }),
     })
-    return { hidden: i !== (withRear ? 0 : 2), querySelector: () => img }
+    return { hidden: i !== initialFront, querySelector: () => img }
   })
   const gallery = {
     ownerDocument: { defaultView: view },
@@ -132,6 +156,7 @@ function mountGallery(withRear = false) {
   const rearSwatches = finishOrder.map(name => Object.assign(new Element(), {
     dataset: { src: `rear-${name}.webp`, alt: `Rear view in ${name}` },
   }))
+  rearSwatches.forEach((swatch, i) => swatch.setAttribute('aria-pressed', String(i === 0)))
   const rearImage = new Element(), rearName = new Element(), rearControls = new Element()
   const rearLink = Object.assign(new Element(), { querySelector: () => rearImage })
   const rear = {
@@ -180,6 +205,21 @@ test('front and rear swatches select the same finish, update full-size artwork a
   g.cleanup()
   g.rearSwatches[0].dispatchEvent(new Event('click'))
   assertSelection(4)
+})
+
+test('the first homepage selection synchronizes the baby pink front and charcoal rear from either picker', () => {
+  for (const control of ['swatches', 'rearSwatches']) {
+    for (const index of [0, 2, 3]) {
+      const g = mountGallery(true, 2)
+      g[control][index].dispatchEvent(new Event('click'))
+      const selected = finishOrder.map((_, i) => i === index)
+      assert.deepEqual(g.swatches.map(swatch => swatch.hasAttribute('aria-current')), selected)
+      assert.deepEqual(g.rearSwatches.map(swatch => swatch.getAttribute('aria-pressed') === 'true'), selected)
+      assert.deepEqual(g.slides.map(slide => !slide.hidden), selected)
+      assert.equal(g.rearLink.href, `rear-${finishOrder[index]}.webp`)
+      g.cleanup()
+    }
+  }
 })
 
 test('the circular lens samples the material at the pointer at 4× and dismisses on leave or Escape', async () => {
