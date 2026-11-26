@@ -1,140 +1,107 @@
 import { deviceSourceWidth } from './finish-images.mjs'
 
-// Each finish settles at full size and at 4× so the visitor can stop at either view.
-export function finishFrame(progress, count) {
-  const position = Math.min(1, Math.max(0, progress)) * count
-  const index = Math.min(count - 1, Math.floor(position))
-  const phase = position - index
-  const ramp = Math.max(0, Math.min(1, (.80 - phase) / .65))
-  const eased = ramp * ramp * (3 - 2 * ramp)
-  return { index, scale: 1 + 3 * eased }
-}
-
 export function mountHardwareReveal(root = document) {
-  const runway = root.querySelector('[data-finish-gallery]')
-  if (!runway) return () => {}
-  const doc = runway.ownerDocument
-  const view = doc.defaultView
-  const stage = runway.querySelector('.finish-stage')
-  const viewerWrap = runway.querySelector('.finish-viewer-wrap')
-  const viewer = runway.querySelector('.finish-viewer')
-  const camera = runway.querySelector('.finish-camera')
-  const caption = runway.querySelector('[data-finish-name]')
-  const zoomButton = runway.querySelector('.finish-zoom')
-  const slides = [...runway.querySelectorAll('[data-finish-slide]')]
-  const swatches = [...runway.querySelectorAll('[data-finish]')]
-  const header = root.querySelector('.site-header')
-  const dock = root.querySelector('.mobile-dock')
-  const motion = view.matchMedia('(prefers-reduced-motion: reduce)')
+  const gallery = root.querySelector('[data-finish-gallery]')
+  if (!gallery) return () => {}
+  const view = gallery.ownerDocument.defaultView
+  const photo = gallery.querySelector('.finish-window')
+  const caption = gallery.querySelector('[data-finish-name]')
+  const button = gallery.querySelector('.finish-zoom')
+  const slides = [...gallery.querySelectorAll('[data-finish-slide]')]
+  const swatches = [...gallery.querySelectorAll('[data-finish]')]
+  const hover = view.matchMedia('(any-hover: hover)')
   const events = new AbortController()
-  const on = (target, type, listener, options = {}) =>
-    target.addEventListener(type, listener, { ...options, signal: events.signal })
-  let index = -1, scale = 1, frame = 0, start = 0, travel = 0
-  let disposed = false
-  zoomButton.hidden = false
-  runway.style.setProperty('--finish-count', String(slides.length))
+  const on = (target, type, callback) => target.addEventListener(type, callback, { signal: events.signal })
+  const pending = new WeakMap()
+  let selected = slides.findIndex(slide => !slide.hidden)
+  let mode = 'wide'
+  let near = false
+  let dismissHover = false
 
-  function show(nextIndex, nextScale) {
-    if (nextIndex !== index) {
-      if (index !== -1) {
-        slides[index].hidden = true
-        swatches[index].removeAttribute('aria-current')
-      }
-      index = nextIndex
-      slides[index].hidden = false
-      swatches[index].setAttribute('aria-current', 'true')
-      caption.textContent = swatches[index].getAttribute('aria-label')
-    }
-    scale = nextScale
-    camera.style.setProperty('--finish-scale', scale.toFixed(4))
-    loadVisibleFinish()
-    const zoomed = scale > 2.5
-    zoomButton.setAttribute('aria-pressed', String(zoomed))
-    zoomButton.setAttribute('aria-label', zoomed ? 'Return to full view' : 'Zoom to 4×')
+  function displayZoom() {
+    const image = slides[selected].querySelector('img')
+    const sharp = image.complete && image.naturalWidth >= deviceSourceWidth(image.offsetWidth, view.devicePixelRatio)
+    photo.toggleAttribute('data-zoomed', mode !== 'wide' && sharp)
   }
 
-  function loadVisibleFinish() {
-    const bounds = viewer.getBoundingClientRect()
-    if (bounds.bottom <= 0 || bounds.top >= view.innerHeight) return
-    const image = slides[index].querySelector('img')
-    image.loading = 'eager'
-    // The image is laid out at 4× and scaled down so the compositor keeps
-    // enough pixels for the maximum zoom. offsetWidth excludes that transform.
-    const displayWidth = image.offsetWidth * (scale > 1.01 ? 1 : .25)
-    const width = deviceSourceWidth(displayWidth, view.devicePixelRatio)
-    if (width <= Number(image.dataset.loadedWidth || 800)) return
-    image.src = image.dataset.render + '-' + width + '.webp'
-    image.dataset.loadedWidth = String(width)
+  function prepareImage() {
+    displayZoom()
+    if (!near && mode === 'wide') return
+    const image = slides[selected].querySelector('img')
+    // The layout width is the 4× footprint. CSS scales it down for the wide shot.
+    const width = image.offsetWidth * (mode !== 'wide' || hover.matches ? 1 : .25)
+    const tier = deviceSourceWidth(width, view.devicePixelRatio)
+    if (tier <= Math.max(800, image.naturalWidth, pending.get(image) || 0)) return
+    const detail = new view.Image()
+    detail.src = image.dataset.render + '-' + tier + '.webp'
+    pending.set(image, tier)
+    // Keep the wide shot visible until the chosen finish has sharp pixels.
+    detail.decode().then(() => {
+      if (!events.signal.aborted && pending.get(image) === tier) image.src = detail.src
+    }).catch(() => {
+      if (pending.get(image) === tier) pending.delete(image)
+    })
   }
 
-  function paint() {
-    frame = 0
-    if (!travel) { loadVisibleFinish(); return }
-    const state = finishFrame((view.scrollY - start) / travel, slides.length)
-    if (state.index !== index || state.scale !== scale) show(state.index, state.scale)
-    else loadVisibleFinish()
+  function setMode(next) {
+    mode = next
+    button.setAttribute('aria-pressed', String(mode !== 'wide'))
+    button.setAttribute('aria-label', mode === 'wide' ? 'Zoom to 4×' : 'Return to full view')
+    prepareImage()
   }
 
-  function schedule() {
-    if (!frame) frame = view.requestAnimationFrame(paint)
-  }
-
-  function measure() {
-    if (disposed) return
-    const headerHeight = header?.offsetHeight || 0
-    const available = view.innerHeight - headerHeight - (dock?.offsetHeight || 0)
-    runway.style.setProperty('--finish-top', headerHeight + 'px')
-    runway.style.setProperty('--finish-height', Math.max(0, available) + 'px')
-    // If the whole opening cannot fit, pin only the photo. The surrounding
-    // headline and copy then scroll naturally, including on magnified screens.
-    runway.classList.remove('finish-compact')
-    runway.classList.toggle('finish-scroll', !motion.matches)
-    const compact = !motion.matches && stage.offsetHeight > available + 2
-    runway.classList.toggle('finish-compact', compact)
-    const track = compact ? viewerWrap : runway
-    const pinned = compact ? viewer : stage
-    travel = motion.matches ? 0 : track.offsetHeight - pinned.offsetHeight
-    start = track.getBoundingClientRect().top + view.scrollY - headerHeight
-    if (travel) paint()
-    else show(Math.max(0, index), 1)
-  }
-
-  function goTo(nextIndex, zoomed) {
-    if (!travel) {
-      show(nextIndex, zoomed ? 4 : 1)
-      return
-    }
-    const phase = zoomed ? .06 : .90
-    const progress = (nextIndex + phase) / slides.length
-    view.scrollTo({ top: start + travel * progress, behavior: 'instant' })
-    paint()
-  }
-
-  swatches.forEach((swatch, i) => on(swatch, 'click', event => {
+  swatches.forEach((swatch, index) => on(swatch, 'click', event => {
     if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey || event.button > 0) return
     event.preventDefault()
-    goTo(i, false)
+    slides[selected].hidden = true
+    swatches[selected].removeAttribute('aria-current')
+    selected = index
+    slides[selected].hidden = false
+    swatch.setAttribute('aria-current', 'true')
+    caption.textContent = swatch.getAttribute('aria-label')
+    setMode('wide')
   }))
-  on(zoomButton, 'click', () => goTo(index, scale <= 2.5))
-  on(view, 'scroll', schedule, { passive: true })
-  on(view, 'resize', measure)
-  on(view, 'pageshow', measure)
-  on(motion, 'change', measure)
-  let observer
-  if (view.ResizeObserver) {
-    observer = new view.ResizeObserver(measure)
-    observer.observe(doc.documentElement)
-    observer.observe(stage)
-    if (header) observer.observe(header)
-    if (dock) observer.observe(dock)
+
+  function magnify(event) {
+    if (event.pointerType !== 'mouse' || dismissHover) return
+    const rect = photo.getBoundingClientRect()
+    photo.style.setProperty('--focus-x', (100 * (event.clientX - rect.left) / rect.width) + '%')
+    photo.style.setProperty('--focus-y', (100 * (event.clientY - rect.top) / rect.height) + '%')
+    if (mode !== 'hover') setMode('hover')
   }
-  show(0, 1)
-  measure()
-  doc.fonts?.ready.then(measure)
+  function leave(event) {
+    if (event.pointerType !== 'mouse') return
+    dismissHover = false
+    if (mode === 'hover') setMode('wide')
+  }
+  // A stationary cursor can enter the photo as the page scrolls underneath.
+  // Start the close-up when the visitor actually moves over the photograph.
+  on(photo, 'pointermove', magnify)
+  on(photo, 'pointerleave', leave)
+  on(photo, 'pointercancel', leave)
+  on(button, 'click', () => {
+    photo.style.removeProperty('--focus-x')
+    photo.style.removeProperty('--focus-y')
+    setMode(mode === 'wide' ? 'manual' : 'wide')
+  })
+  on(view, 'keydown', event => {
+    if (event.key !== 'Escape' || mode === 'wide') return
+    dismissHover = mode === 'hover'
+    setMode('wide')
+  })
+  slides.forEach(slide => on(slide.querySelector('img'), 'load', displayZoom))
+  const visibility = new view.IntersectionObserver(([entry]) => {
+    near = entry.isIntersecting
+    if (near) prepareImage()
+  }, { rootMargin: '160px' })
+  visibility.observe(photo)
+  const resize = new view.ResizeObserver(prepareImage)
+  resize.observe(photo)
+  on(hover, 'change', prepareImage)
+  button.hidden = false
   return () => {
-    disposed = true
     events.abort()
-    observer?.disconnect()
-    view.cancelAnimationFrame(frame)
+    visibility.disconnect()
+    resize.disconnect()
   }
 }
