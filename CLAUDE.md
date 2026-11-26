@@ -2,7 +2,7 @@
 
 ## Homepage headline, 26 November 2026
 
-Use “Make it here” for the homepage opening and link preview. Set “here” inside the existing charcoal Kiln One reveal frame.
+Use “Sound. Picture. Power switch.” for the homepage opening and link preview. Set one phrase per line beside the charcoal Kiln One.
 
 ## Previous direction, 14 November 2026
 

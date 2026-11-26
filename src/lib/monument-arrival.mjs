@@ -68,7 +68,7 @@ export function mountArrival() {
    control.inert = controlsOpacity < .8;
   });
   // The outline draws during the pullback. The words appear once the
-  // silhouette is in its final position, with both lines of type clear.
+  // silhouette is in its final position.
   const outline = smooth((progress - .38) / .46);
   const words = smooth((progress - pullbackEnd) / .15);
   const copy = smooth((progress - .76) / .18);

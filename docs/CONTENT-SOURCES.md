@@ -1,3 +1,7 @@
+## Sound. Picture. Power switch.
+
+On 26 November 2026, Richard selected “Sound. Picture. Power switch.” for the Kiln homepage. The three lines sit beside the charcoal Kiln One. The page title and [social card](../static/images/kiln-sound-picture-power-switch.png) use the same wording.
+
 ## Kiln crucible logo, 26 November 2026
 
 The founder selected the standalone crucible as the site logo. The two supplied SVGs are copied exactly from `output/kiln-brand/kiln-crucible.svg` and `output/kiln-brand/kiln-crucible-light.svg`, identified in the Porto design notes under “Kiln standalone crucible”. Both use the same floating square in Kiln red `#E42321`. The base is ink `#101112` on light surfaces and paper `#F6F6F2` in the footer. The animated homepage mark retains the original paths and moves only the red square during its spark animation. The favicon uses the ink artwork on paper. The social card replaces the previous lockup in its existing top-left position. [Ink artwork](../static/assets/kiln/kiln-crucible.svg) · [Paper artwork](../static/assets/kiln/kiln-crucible-light.svg) · [Social card](../static/images/kiln-make-it-here-crucible.png)
