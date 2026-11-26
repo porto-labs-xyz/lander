@@ -1,3 +1,7 @@
+## Managed KilnOS cloud software package, 26 November 2026
+
+The pricing sections on the homepage, hardware overview and Kiln One page identify Managed KilnOS as the “Cloud Software Package” and use the founder’s line “Unlimited with Priority Speed”. The proposed price is £99 per creator per month, billed annually, with a ten-creator minimum. Cloud usage is billed separately. [Kiln One pricing](../src/content/one.json)
+
 ## Sound. Picture. Power switch.
 
 On 26 November 2026, Richard selected “Sound. Picture. Power switch.” for the Kiln homepage. The three lines sit beside the charcoal Kiln One. The page title and [social card](../static/images/kiln-sound-picture-power-switch.png) use the same wording.
