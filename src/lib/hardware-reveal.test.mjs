@@ -7,7 +7,7 @@ import { withFinishViewer } from '../content/finish-viewer.mjs'
 
 const finishOrder = ['charcoal', 'pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue']
 
-test('the opening chooses a detail source for the projected size and screen density', () => {
+test('the finish gallery chooses a detail source for the projected size and screen density', () => {
   assert.equal(deviceSourceWidth(550, 2), 1600)
   assert.equal(deviceSourceWidth(941, 3), 3200)
   assert.equal(deviceSourceWidth(1920, 2), 6400)
@@ -15,15 +15,19 @@ test('the opening chooses a detail source for the projected size and screen dens
   assert.equal(deviceSourceWidth(2592, 3), 6400)
 })
 
-test('the static gallery exposes all five full-resolution images and starts with one preview', () => {
-  const body = withFinishViewer(JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url))).body)
+test('the opening uses the full charcoal master as its only device image', () => {
+  const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
   const intro = body.slice(body.indexOf('<div class="intro-runway">'), body.indexOf('id="local"'))
   assert.ok(intro.includes('class="hero-box"'))
-  assert.equal((intro.match(/<figure class="hero-device"><img/g) || []).length, 1)
-  assert.ok(!intro.includes('charcoal-macro'))
-  assert.ok(intro.includes('data-render="/assets/kiln/finishes/charcoal-device"'))
-  assert.ok(intro.includes('src="/assets/kiln/finishes/charcoal-device-800.webp"'))
+  const [, device] = intro.match(/<figure class="hero-device">([\s\S]*?)<\/figure>/)
+  assert.equal((device.match(/<img\b/g) || []).length, 1)
+  assert.match(device, /src="\/assets\/kiln\/finishes\/charcoal-device-6400\.webp"/)
+  assert.doesNotMatch(device, /srcset=|data-render=|<source\b/)
   assert.ok(!intro.includes('data-finish-gallery'))
+})
+
+test('the static gallery exposes all five full-resolution images and starts with one preview', () => {
+  const body = withFinishViewer(JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url))).body)
   assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))
   const finishes = [...body.matchAll(/data-finish-slide="([^"]+)"( hidden)?>/g)]
   assert.deepEqual(finishes.map(match => match[1]), finishOrder)
