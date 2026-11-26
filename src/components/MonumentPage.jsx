@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { founderNames } from '../content/co-founders'
+import { teamSection } from '../content/co-founders'
 import { withFinishViewer } from '../content/finish-viewer.mjs'
 import { mountMonument } from '../lib/monument.mjs'
 
@@ -7,6 +7,6 @@ import { mountMonument } from '../lib/monument.mjs'
 export default function MonumentPage({ content }) {
   const root = useRef(null)
   useEffect(() => mountMonument(root.current), [content])
-  const html = withFinishViewer(content.body).replace('<!-- founder names -->', founderNames)
+  const html = withFinishViewer(content.body).replace('<!-- team section -->', teamSection)
   return <div ref={root} dangerouslySetInnerHTML={{ __html: html }} />
 }
