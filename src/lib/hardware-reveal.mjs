@@ -1,3 +1,5 @@
+import { deviceSourceWidth } from './finish-images.mjs'
+
 // Each finish settles at full size and at 4× so the visitor can stop at either view.
 export function finishFrame(progress, count) {
   const position = Math.min(1, Math.max(0, progress)) * count
@@ -43,27 +45,38 @@ export function mountHardwareReveal(root = document) {
       swatches[index].setAttribute('aria-current', 'true')
       caption.textContent = swatches[index].getAttribute('aria-label')
     }
-    const image = slides[index].querySelector('img')
-    image.loading = 'eager'
-    if (nextScale > 1.01 && image.dataset.detail && image.getAttribute('src') !== image.dataset.detail) {
-      image.setAttribute('src', image.dataset.detail)
-    }
     scale = nextScale
-    camera.style.transform = 'scale(' + scale.toFixed(4) + ')'
+    camera.style.setProperty('--finish-scale', scale.toFixed(4))
+    loadVisibleFinish()
     const zoomed = scale > 2.5
     zoomButton.setAttribute('aria-pressed', String(zoomed))
     zoomButton.setAttribute('aria-label', zoomed ? 'Return to full view' : 'Zoom to 4×')
   }
 
+  function loadVisibleFinish() {
+    const bounds = viewer.getBoundingClientRect()
+    if (bounds.bottom <= 0 || bounds.top >= view.innerHeight) return
+    const image = slides[index].querySelector('img')
+    image.loading = 'eager'
+    // The image is laid out at 4× and scaled down so the compositor keeps
+    // enough pixels for the maximum zoom. offsetWidth excludes that transform.
+    const displayWidth = image.offsetWidth * (scale > 1.01 ? 1 : .25)
+    const width = deviceSourceWidth(displayWidth, view.devicePixelRatio)
+    if (width <= Number(image.dataset.loadedWidth || 800)) return
+    image.src = image.dataset.render + '-' + width + '.webp'
+    image.dataset.loadedWidth = String(width)
+  }
+
   function paint() {
     frame = 0
-    if (!travel) return
+    if (!travel) { loadVisibleFinish(); return }
     const state = finishFrame((view.scrollY - start) / travel, slides.length)
     if (state.index !== index || state.scale !== scale) show(state.index, state.scale)
+    else loadVisibleFinish()
   }
 
   function schedule() {
-    if (travel && !frame) frame = view.requestAnimationFrame(paint)
+    if (!frame) frame = view.requestAnimationFrame(paint)
   }
 
   function measure() {

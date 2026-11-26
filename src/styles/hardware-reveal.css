@@ -5,14 +5,18 @@
   background: #fff;
 }
 body:has(.intro-runway) .site-header { background: #fff; }
-.intro-runway .hero-device picture { display: block; }
-.intro-runway .hero-material-detail {
-  position: absolute; inset: 0 auto auto 0;
-  max-width: none; height: auto; pointer-events: none;
-  transform-origin: top left; will-change: transform;
+/* All finish masters share the same close trim. Place the machine in its
+   approved 1448 × 1086 poster composition, independent of image density. */
+.hero-device, .finish-slide {
+  --device-left: calc(100% * 338 / 1448);
+  --device-top: calc(100% * 65 / 1086);
+  --device-width: calc(100% * 810 / 1448);
 }
-@media (prefers-reduced-motion: reduce), print {
-  .intro-runway .hero-material-detail { display: none; }
+.intro-runway .hero-device { aspect-ratio: 4 / 3; will-change: auto; }
+.intro-runway .hero-device img {
+  position: absolute; left: var(--device-left); top: var(--device-top);
+  width: var(--device-width); max-width: none; height: auto;
+  transform-origin: 0 0;
 }
 #hardware .finish-runway { margin-inline: calc(-1 * var(--pad)); }
 /* The camera is driven by document scroll. The controls work at every viewport size. */
@@ -74,7 +78,14 @@ body:has(.intro-runway) .site-header { background: #fff; }
 }
 .finish-window { aspect-ratio: 4 / 3; overflow: hidden; background: #fff; }
 .finish-camera { width: 100%; height: 100%; transform-origin: 45% 23%; }
-.finish-slide, .finish-slide img { width: 100%; height: 100%; display: block; }
+.finish-slide { position: relative; width: 100%; height: 100%; display: block; }
+.finish-slide img {
+  position: absolute; display: block; max-width: none; height: auto;
+  left: calc(45% + (var(--device-left) - 45%) * var(--finish-scale, 1));
+  top: calc(23% + (var(--device-top) - 23%) * var(--finish-scale, 1));
+  width: calc(4 * var(--device-width)); transform-origin: 0 0;
+  transform: scale(calc(var(--finish-scale, 1) / 4));
+}
 .finish-slide[hidden], .finish-zoom[hidden] { display: none; }
 .finish-controls {
   min-height: 62px; display: flex; align-items: center;

@@ -2,16 +2,16 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { readFileSync } from 'node:fs'
 import { finishFrame, mountHardwareReveal } from './hardware-reveal.mjs'
-import { materialSourceWidth } from './monument-arrival.mjs'
+import { deviceSourceWidth } from './finish-images.mjs'
 
 const finishOrder = ['charcoal', 'pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue']
 
 test('the opening chooses a detail source for the projected size and screen density', () => {
-  assert.equal(materialSourceWidth(550, 2), 1920)
-  assert.equal(materialSourceWidth(941, 3), 3840)
-  assert.equal(materialSourceWidth(1920, 2), 3840)
-  assert.equal(materialSourceWidth(2022, 2), 7680)
-  assert.equal(materialSourceWidth(2592, 3), 7680)
+  assert.equal(deviceSourceWidth(550, 2), 1600)
+  assert.equal(deviceSourceWidth(941, 3), 3200)
+  assert.equal(deviceSourceWidth(1920, 2), 6400)
+  assert.equal(deviceSourceWidth(2022, 2), 6400)
+  assert.equal(deviceSourceWidth(2592, 3), 6400)
 })
 
 test('all five finishes open at 4× and pull back to full view before the next', () => {
@@ -35,11 +35,10 @@ test('the static gallery exposes all five full-resolution images and starts with
   const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
   const intro = body.slice(body.indexOf('<div class="intro-runway">'), body.indexOf('id="local"'))
   assert.ok(intro.includes('class="hero-box"'))
-  const detail = '/assets/kiln/finishes/charcoal-macro'
-  assert.ok(intro.includes('data-material-detail="' + detail + '"'))
-  assert.ok(!intro.includes('src="' + detail + '"'))
-  assert.ok(!body.slice(body.indexOf('id="local"')).includes(detail))
-  assert.ok(intro.includes('src="/assets/kiln/finishes/charcoal-3840.webp"'))
+  assert.equal((intro.match(/<figure class="hero-device"><img/g) || []).length, 1)
+  assert.ok(!intro.includes('charcoal-macro'))
+  assert.ok(intro.includes('data-render="/assets/kiln/finishes/charcoal-device"'))
+  assert.ok(intro.includes('src="/assets/kiln/finishes/charcoal-device-800.webp"'))
   assert.ok(!intro.includes('data-finish-gallery'))
   assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))
   const finishes = [...body.matchAll(/data-finish-slide="([^"]+)"( hidden)?>/g)]
@@ -49,8 +48,8 @@ test('the static gallery exposes all five full-resolution images and starts with
   assert.deepEqual(swatches.map(match => match[1]), finishOrder)
   assert.deepEqual(swatches.filter(match => match[0].includes('aria-current="true"')).map(match => match[1]), ['charcoal'])
   for (const [, name] of finishes) {
-    assert.ok(body.includes('href="/assets/kiln/finishes/' + name + '-3840.webp"'))
-    assert.ok(body.includes('src="/assets/kiln/finishes/' + name + '-960.webp"'))
+    assert.ok(body.includes('href="/assets/kiln/finishes/' + name + '-device-6400.webp"'))
+    assert.ok(body.includes('src="/assets/kiln/finishes/' + name + '-device-800.webp"'))
   }
 })
 
@@ -58,7 +57,7 @@ test('reduced-motion visitors can switch finishes and zoom without scrolling, ev
   class Node extends EventTarget {
     attributes = new Map()
     dataset = {}
-    style = { setProperty() {} }
+    style = { setProperty(key, value) { this[key] = value } }
     setAttribute(key, value) { this.attributes.set(key, value) }
     getAttribute(key) { return this.attributes.get(key) }
     removeAttribute(key) { this.attributes.delete(key) }
@@ -71,7 +70,9 @@ test('reduced-motion visitors can switch finishes and zoom without scrolling, ev
   const slides = swatches.map((_, i) => {
     const slide = new Node(), img = new Node()
     img.setAttribute('src', 'preview-' + i)
-    img.dataset.detail = 'detail-' + i
+    img.dataset.render = 'device-' + i
+    img.offsetWidth = 2200
+    Object.defineProperty(img, 'src', { set(url) { this.setAttribute('src', url) } })
     slide.querySelector = () => img
     slide.hidden = i !== 0
     return slide
@@ -82,6 +83,7 @@ test('reduced-motion visitors can switch finishes and zoom without scrolling, ev
   })
   const children = {
     '.finish-stage': { offsetHeight: 600 }, '.finish-camera': new Node(),
+    '.finish-viewer': { getBoundingClientRect: () => ({ top: 100, bottom: 500 }) },
     '[data-finish-name]': new Node(), '.finish-zoom': new Node(),
   }
   const runway = Object.assign(new Node(), {
@@ -96,11 +98,11 @@ test('reduced-motion visitors can switch finishes and zoom without scrolling, ev
   assert.deepEqual(slides.map(slide => slide.hidden), [true, true, true, false, true])
   assert.equal(swatches[3].getAttribute('aria-current'), 'true')
   children['.finish-zoom'].dispatchEvent(new Event('click'))
-  assert.equal(slides[3].querySelector().getAttribute('src'), 'detail-3')
-  assert.equal(children['.finish-camera'].style.transform, 'scale(4.0000)')
+  assert.equal(slides[3].querySelector().getAttribute('src'), 'device-3-3200.webp')
+  assert.equal(children['.finish-camera'].style['--finish-scale'], '4.0000')
   assert.equal(slides[0].querySelector().getAttribute('src'), 'preview-0')
   view.dispatchEvent(new Event('resize'))
-  assert.equal(children['.finish-camera'].style.transform, 'scale(1.0000)')
+  assert.equal(children['.finish-camera'].style['--finish-scale'], '1.0000')
   cleanup()
   swatches[0].dispatchEvent(new Event('click'))
   assert.equal(children['[data-finish-name]'].textContent, 'Eucalyptus')
