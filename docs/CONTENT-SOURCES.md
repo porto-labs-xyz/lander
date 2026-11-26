@@ -1,3 +1,7 @@
+## Managed KilnOS cloud software package, 26 November 2026
+
+The pricing sections on the homepage, hardware overview and Kiln One page identify Managed KilnOS as the “Cloud Software Package” and use the founder’s line “Unlimited with Priority Speed”. The proposed price is £99 per creator per month, billed annually, with a ten-creator minimum. Cloud usage is billed separately. [Kiln One pricing](../src/content/one.json)
+
 ## Sound. Picture. Power switch.
 
 On 26 November 2026, Richard selected “Sound. Picture. Power switch.” for the Kiln homepage. The three lines sit beside the charcoal Kiln One. The page title and [social card](../static/images/kiln-sound-picture-power-switch.png) use the same wording.
@@ -8,9 +12,9 @@ The founder selected the standalone crucible as the site logo. The two supplied 
 
 ## Kiln One rear panel and two-GPU interior, 26 November 2026
 
-The product page shows transparent cutouts of the interior with a deep charcoal outer shell and the rear with a eucalyptus outer shell. Both views sit directly on the section background at a common display height. [Deep charcoal interior](../static/assets/kiln/one-interior-charcoal-cutout.webp) · [Eucalyptus rear](../static/assets/kiln/one-rear-eucalyptus-cutout.webp)
+The product page shows the deep charcoal interior and rear as transparent cutouts at a common display height. The outer casing takes the selected finish. The front grille and corresponding perforated rear panels stay light grey across all five finishes. The rear caption reads “Kiln Rear as a front panel, for fast switching, aesthetic stays.” [Deep charcoal interior](../static/assets/kiln/one-interior-charcoal-cutout.webp) · [Deep charcoal rear](../static/assets/kiln/finishes/rear-charcoal.webp)
 
-The Kiln One product page opens its finish gallery on baby pink. The five-colour selector and 4× magnifier sit immediately before the cutaway and rear panel. The homepage and product page share the same viewer and finish photographs. The mobile lens uses the tap-and-drag interaction from lander revision `b85167b`.
+The Kiln One product page opens in deep charcoal. The finish controls in the front gallery and under the rear render share one selection. The gallery retains its 4× magnifier. The homepage gallery opens in baby pink. The mobile lens uses the tap-and-drag interaction from lander revision `b85167b`.
 
 Richard requested three rear USB-C ports, multiple Ethernet connector types, a high-capacity power supply and a view of two NVIDIA RTX PRO 6000 Blackwell cards. The product page shows these Kiln One concept renders in two sections before “Choose your capacity.” The first heading, “In The Kiln.”, uses the same section typography as “Kiln Rear.” Port speeds, the 2.2 kW supply and the component layout are design proposals. Electrical integration, thermal performance and fit remain unverified.
 

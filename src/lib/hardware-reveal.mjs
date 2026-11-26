@@ -13,6 +13,11 @@ export function mountHardwareReveal(root = document) {
   const button = gallery.querySelector('.finish-zoom')
   const slides = [...gallery.querySelectorAll('[data-finish-slide]')]
   const swatches = [...gallery.querySelectorAll('[data-finish]')]
+  const rear = root.querySelector('[data-rear-gallery]')
+  const rearSwatches = rear ? [...rear.querySelectorAll('[data-rear-finish]')] : []
+  const rearLink = rear?.querySelector('a')
+  const rearImage = rearLink?.querySelector('img')
+  const rearName = rear?.querySelector('[data-rear-finish-name]')
   const hover = view.matchMedia('(any-hover: hover)')
   const events = new AbortController()
   const on = (target, type, callback, options) =>
@@ -76,17 +81,34 @@ export function mountHardwareReveal(root = document) {
     prepareImage()
   }
 
+  function selectFinish(index) {
+    slides[selected].hidden = true
+    swatches[selected].removeAttribute('aria-current')
+    rearSwatches[selected]?.setAttribute('aria-pressed', 'false')
+    selected = index
+    slides[selected].hidden = false
+    const swatch = swatches[index]
+    swatch.setAttribute('aria-current', 'true')
+    const name = swatch.getAttribute('aria-label')
+    caption.textContent = name
+    if (rear) {
+      const choice = rearSwatches[index]
+      choice.setAttribute('aria-pressed', 'true')
+      rearLink.href = choice.dataset.src
+      rearImage.alt = choice.dataset.alt
+      rearImage.src = choice.dataset.src
+      rearName.textContent = name
+    }
+    setMode('off')
+  }
+
   swatches.forEach((swatch, index) => on(swatch, 'click', event => {
     if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey || event.button > 0) return
     event.preventDefault()
-    slides[selected].hidden = true
-    swatches[selected].removeAttribute('aria-current')
-    selected = index
-    slides[selected].hidden = false
-    swatch.setAttribute('aria-current', 'true')
-    caption.textContent = swatch.getAttribute('aria-label')
-    setMode('off')
+    selectFinish(index)
   }))
+  rearSwatches.forEach((swatch, index) => on(swatch, 'click', () => selectFinish(index)))
+  if (rear) rear.querySelector('.rear-finish-controls').hidden = false
 
   function sampleTouch(event) {
     const frame = photo.getBoundingClientRect()
