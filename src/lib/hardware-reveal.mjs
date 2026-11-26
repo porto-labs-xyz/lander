@@ -20,6 +20,7 @@ export function mountHardwareReveal(root = document) {
   const pending = new WeakMap()
   let selected = slides.findIndex(slide => !slide.hidden)
   let mode = 'off', near = false, dismissHover = false
+  let touchTap = false
   let pointerX = 0, pointerY = 0
   let manualX = .5, manualY = .23
 
@@ -95,6 +96,8 @@ export function mountHardwareReveal(root = document) {
   }
 
   on(photo, 'pointerdown', event => {
+    // Safari can report a finger tap's compatibility click as a mouse click.
+    touchTap = event.pointerType !== 'mouse'
     if (event.pointerType === 'mouse' || mode !== 'manual') return
     photo.setPointerCapture(event.pointerId)
     sampleTouch(event)
@@ -130,7 +133,7 @@ export function mountHardwareReveal(root = document) {
     setMode(mode === 'off' ? 'manual' : 'off')
   })
   on(photo, 'click', event => {
-    if (mode === 'off' && event.pointerType !== 'mouse') setMode('manual')
+    if (mode === 'off' && (touchTap || event.pointerType !== 'mouse')) setMode('manual')
     if (mode === 'manual') sampleTouch(event)
   })
   on(button, 'keydown', event => {

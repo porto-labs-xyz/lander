@@ -177,3 +177,15 @@ test('touch opens the lens on a tap and drags only after magnification is enable
   assert.equal(g.lensVisible(), false)
   g.cleanup()
 })
+
+
+test('Safari touch taps open the lens even when the compatibility click reports mouse', () => {
+  const g = mountGallery()
+  g.pointer('pointerdown', 'touch')
+  g.pointer('pointerup', 'touch')
+  g.pointer('click', 'mouse')
+  g.load(2)
+  assert.equal(g.lensVisible(), true)
+  assert.equal(g.photo.hasAttribute('data-touch-magnifier'), true)
+  g.cleanup()
+})
