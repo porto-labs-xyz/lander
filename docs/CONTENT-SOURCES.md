@@ -30,7 +30,7 @@ Below the interior image, the caption opens with “Keep it brief”, followed b
 
 ## Subtle co-founder names, 26 November 2026
 
-Richard requested a names-only team section. The homepage and About page list Richard Melkonian and Richard Osho, in regular ABC Monument Grotesk, with a small IBM Plex Mono co-founder label. This supersedes the portrait and biography treatment below.
+Richard requested a names-only team section. The homepage, Kiln One and About share a visible Team heading, a co-founder label, and the names Richard Melkonian and Richard Osho. The approved NVIDIA Inception badge appears alongside the names with “Proud to be part of NVIDIA Inception.” This supersedes the portrait and biography treatment below.
 
 ## Kiln co-founder portraits, 26 November 2026
 
@@ -70,7 +70,7 @@ The initial four-finish study opened at 9× where the leather handle meets the s
 
 ## NVIDIA Inception membership, 23 November 2026
 
-The founder requested the NVIDIA Inception programme badge in the homepage hero. The site says “Member of the NVIDIA Inception programme” and links to [NVIDIA Inception](https://www.nvidia.com/en-gb/startups/). The badge at `static/assets/kiln/nvidia-inception.png` is the embedded image from the earlier founder-approved investor cover. The website uses the original colours and proportions.
+The founder requested the NVIDIA Inception programme badge in the homepage hero. The homepage hero and Team section say “Proud to be part of NVIDIA Inception.” and links to [NVIDIA Inception](https://www.nvidia.com/en-gb/startups/). The badge at `static/assets/kiln/nvidia-inception.png` is the embedded image from the earlier founder-approved investor cover. The website uses the original colours and proportions.
 
 ## Kiln One GPU specification, 21 November 2026
 

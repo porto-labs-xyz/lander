@@ -78,7 +78,7 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
 .hero-bottom .hero-membership {
   max-width: none;
 }
-.hero-inception {
+.inception-membership {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -87,15 +87,15 @@ dialog{border:0;background:var(--paper);color:var(--ink);width:min(680px,calc(10
   font-size: 14px;
   line-height: 1.3;
 }
-.hero-inception img {
+.inception-membership img {
   flex: none;
   width: 116px;
   height: auto;
 }
-.hero-inception span {
+.inception-membership span {
   max-width: 22ch;
 }
-.hero-inception:hover span, .hero-inception:focus-visible span {
+.inception-membership:hover span, .inception-membership:focus-visible span {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
