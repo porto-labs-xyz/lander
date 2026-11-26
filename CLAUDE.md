@@ -2,7 +2,7 @@
 
 ## Homepage headline, 26 November 2026
 
-Use “Sound. Picture. Power switch.” for the homepage opening and link preview. Set one phrase per line beside the charcoal Kiln One.
+Use “Keep the work close.” for the homepage opening and link preview. Set “Keep the” above the outline, “work” inside it and “close.” below it on the right.
 
 ## Previous direction, 14 November 2026
 

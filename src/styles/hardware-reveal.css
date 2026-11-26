@@ -132,9 +132,6 @@ body:has(.intro-runway) .site-header { background: #fff; }
   .finish-swatch span { width: 18px; height: 18px; }
   .finish-intro { padding-top: 0; }
   .finish-intro p { font-size: 20px; }
-  .intro-runway.intro-active .hero-poster {
-    --hero-device-width: min(67vw, calc(var(--intro-stage) * .35));
-  }
 }
 /* Keep all five swatches and the zoom control reachable in a narrow image column. */
 @container (max-width: 330px) {
@@ -156,15 +153,16 @@ body:has(.intro-runway) .site-header { background: #fff; }
   .finish-swatch { width: clamp(24px, 14cqi, 44px); }
 }
 @media (max-width: 760px) and (max-height: 700px) {
-  .intro-active .hero-box { height: calc(var(--intro-stage) * .34); }
-  .intro-active .hero-word { font-size: min(23vw, calc(var(--intro-stage) * .145)); }
-  .intro-active .hero-lead { margin-bottom: 8px; }
-  .intro-active .hero-bottom { margin-top: 12px; gap: 8px; }
+  .intro-runway.intro-active .hero-box { height: calc(var(--intro-stage) * .34); }
+  .intro-runway.intro-active .hero-work { font-size: min(23vw, calc(var(--intro-stage) * .145)); }
+  .intro-runway.intro-active .hero-keep { margin-bottom: 8px; }
+  .intro-runway.intro-active .hero-bottom { margin-top: 12px; gap: 8px; }
+  .intro-runway.intro-active .hero-poster { --hero-device-width: min(50vw, calc(var(--intro-stage) * .35)); }
 }
 /* Keep the complete static headline and product together in short landscape. */
 @media (orientation: landscape) and (max-width: 960px) and (max-height: 480px) {
   .intro-runway:not(.intro-active) .hero { padding-block: 16px 28px; }
-  .intro-runway:not(.intro-active) .hero-lead {
+  .intro-runway:not(.intro-active) .hero-keep {
     font-size: clamp(25px, 4.4vw, 34px);
     margin-bottom: 8px;
   }
@@ -174,21 +172,16 @@ body:has(.intro-runway) .site-header { background: #fff; }
     width: 100%;
     height: clamp(115px, 37svh, 170px);
   }
-  .intro-runway:not(.intro-active) .hero-word {
+  .intro-runway:not(.intro-active) .hero-work {
     font-size: clamp(64px, 12.2vw, 106px);
     line-height: 1;
   }
   .intro-runway:not(.intro-active) .hero-poster {
+    --hero-close-size: clamp(36px, 7vw, 56px);
     --hero-device-width: clamp(145px, 27vw, 205px);
   }
+  .intro-runway:not(.intro-active) .hero-close { margin-top: -.11em; }
   .intro-runway:not(.intro-active) .hero-device { right: 2vw; }
-}
-/* Size the three-line headline to the reveal frame in either orientation. */
-.intro-runway .hero-box { container-type: size; }
-.intro-runway .hero-box .hero-word {
-  font-size: min(10.3cqw, 29cqh);
-  line-height: .98;
-  white-space: nowrap;
 }
 @media print {
   .finish-stage { min-height: 0; }

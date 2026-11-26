@@ -11,8 +11,8 @@ export default function Seo({ title, description, path, hero = false }) {
   `)
   const { siteUrl, sharingOrigin } = site.siteMetadata
   const url = `${siteUrl}${path}`
-  const image = `${sharingOrigin}/images/kiln-sound-picture-power-switch.png`
-  const imageAlt = '“Sound. Picture. Power switch.” beside a charcoal Kiln One workstation with a leather handle.'
+  const image = `${sharingOrigin}/images/kiln-keep-the-work-close.png`
+  const imageAlt = '“Keep the work close.” beside a charcoal Kiln One workstation with a leather handle.'
   return <>
     <html lang="en" />
     <title>{title}</title>

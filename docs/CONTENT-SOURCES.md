@@ -1,3 +1,7 @@
+## Keep the work close.
+
+On 26 November 2026, Richard restored “Keep the work close.” and its [original homepage layout](https://github.com/porto-labs-xyz/lander/commit/90b022ed). “Keep the” sits above the outline, “work” sits inside it, and “close.” sits below it on the right. The page title and [sharing card](../static/images/kiln-keep-the-work-close.png) use the restored headline.
+
 ## Managed KilnOS cloud software package, 26 November 2026
 
 The pricing sections on the homepage, hardware overview and Kiln One page identify Managed KilnOS as the “Cloud Software Package” and use the founder’s line “Unlimited with Priority Speed”. The proposed price is £99 per creator per month, billed annually, with a ten-creator minimum. Cloud usage is billed separately. [Kiln One pricing](../src/content/one.json)
