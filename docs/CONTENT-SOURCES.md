@@ -1,5 +1,7 @@
 ## Kiln One rear panel and two-GPU interior, 26 November 2026
 
+The Kiln One product page opens its finish gallery on baby pink. The five-colour selector and 4× magnifier sit immediately before the rear panel and cutaway. The homepage and product page share the same viewer and finish photographs. The mobile lens uses the tap-and-drag interaction from lander revision `b85167b`.
+
 Richard requested three rear USB-C ports, multiple Ethernet connector types, a high-capacity power supply and a view of two NVIDIA RTX PRO 6000 Blackwell cards. The product page shows these charcoal Kiln One concept renders in “Inside Kiln.” immediately before “Choose your capacity.” Port speeds, the 2.2 kW supply and the component layout are design proposals. Electrical integration, thermal performance and fit remain unverified.
 
 Intel documents Thunderbolt 5 over USB-C and 10 GbE over RJ45. The NVIDIA ConnectX-8 C8240 uses two QSFP112 ports, each supporting up to 400 GbE. The supply target follows a commercially available 2.2 kW ATX unit. [Intel Thunderbolt 5 brief](https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2023-09/thunderbolt-5-technology-brief.pdf) · [Intel X710-T2L](https://www.intel.com/content/www/us/en/products/sku/189463/intel-ethernet-network-adapter-x710t2l/specifications.html) · [NVIDIA ConnectX-8 adapter specifications](https://networking-docs.nvidia.com/connectx8hw/) · [Seasonic PRIME PX-2200](https://seasonic.com/atx3-1-prime-px/)
