@@ -1,5 +1,7 @@
+import { deviceSourceWidth } from './finish-images.mjs';
 const clamp = value => Math.max(0, Math.min(1, value));
 const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+const FOCUS = { x: .60, y: .135 };
 const DANCE = [
  { offset: 0, transform: 'translateY(0) rotate(0)' },
  { offset: .08, transform: 'translateY(20%) rotate(-8deg) scale(1.03,.94)' },
@@ -22,6 +24,7 @@ export function mountArrival() {
  const hero = runway.querySelector('.hero');
  const header = document.querySelector('.site-header');
  const device = hero.querySelector('.hero-device');
+ const fullImage = device.querySelector('img');
  const title = hero.querySelector('.hero-title');
  const bottom = hero.querySelector('.hero-bottom');
  const caption = hero.querySelector('.intro-caption');
@@ -33,12 +36,14 @@ export function mountArrival() {
  const controls = [menu, headerCta, dock].filter(Boolean);
  const preference = matchMedia('(prefers-reduced-motion:reduce)');
  const initialScale = 9;
+ const pullbackEnd = .72;
  const Audio = window.AudioContext || window.webkitAudioContext;
- let frame = 0, fitFrame = 0, start = 0, distance = 1, baseWidth = 0, baseHeight = 0;
- let cx = 0, cy = 0, ax = 0, ay = 0, targetX = 0, targetY = 0, logoX = 0, logoY = 0, logoScale = 1;
+ let frame = 0, fitFrame = 0, start = 0, distance = 1;
+ let ax = 0, ay = 0, targetX = 0, targetY = 0, logoX = 0, logoY = 0, logoScale = 1;
  let active = false, arrived = false, armed = false, zooming;
  let context, buffer, source, dance, loading;
- let detail, detailReady = false;
+ let readyWidth = 800, requestedWidth = 0, requiredWidth = 800;
+ let imageX = 0, imageY = 0, imageWidth = 0, lastPixelRatio = 0;
  let lastWidth = 0, lastHeight = 0, lastProgress = -1;
 
  function prepareSound() {
@@ -70,33 +75,37 @@ export function mountArrival() {
   dance?.cancel();
   dance = spark.animate(DANCE, { duration: 1000, delay: audible ? 35 : 0, easing: 'cubic-bezier(.35,0,.3,1)' });
  }
- // Keep the registered material study on the same moving plane as the full
- // product. The 4K cutout remains visible while the high-detail patch decodes.
- function paintDetail(scale) {
-  const opacity = smooth((scale - 2.25) / 2.25);
-  if (opacity > 0 && !detail && device.dataset.materialDetail) {
-   detail = new Image();
-   detail.className = 'hero-material-detail';
-   detail.alt = '';
-   detail.setAttribute('aria-hidden', 'true');
-   detail.decoding = 'async';
-   detail.fetchPriority = 'high';
-   detail.src = device.dataset.materialDetail;
-   device.append(detail);
-   detail.decode().then(() => {
-    if (disposed) return;
-    detailReady = true; lastProgress = -1; schedulePaint();
-   }).catch(() => {});
-  }
-  if (detailReady) detail.style.opacity = String(opacity);
+ // Decode the complete master before starting the pullback. Every zoom level
+ // paints the same single image, including the handle, grille and side panel.
+ function prepareMaster() {
+  if (requestedWidth >= requiredWidth || readyWidth >= requiredWidth) return;
+  const width = requiredWidth;
+  requestedWidth = width;
+  const pending = new Image();
+  pending.decoding = 'async';
+  pending.fetchPriority = 'high';
+  pending.src = `${fullImage.dataset.render}-${width}.webp`;
+  pending.decode().then(() => {
+   if (disposed || !active || width !== requestedWidth) return;
+   fullImage.src = pending.src;
+   return fullImage.decode().then(() => {
+    if (disposed || width !== requestedWidth) return;
+    readyWidth = width; lastProgress = -1; schedulePaint();
+   });
+  }).catch(() => { /* Keep the complete static product available. */ });
+ }
+ function resetImage() {
+  fullImage.style.width = ''; fullImage.style.transform = '';
+  fullImage.style.willChange = ''; zooming = false;
  }
  function paint() {
   frame = 0;
   if (!active) return;
+  if ((window.devicePixelRatio || 1) !== lastPixelRatio) { scheduleFit(true); return; }
   const progress = clamp((window.scrollY - start) / distance);
   if (Math.abs(progress - lastProgress) < .0001) return;
   lastProgress = progress;
-  const move = smooth((progress - .025) / .78);
+  const move = smooth((progress - .025) / (pullbackEnd - .025));
   const logo = smooth(progress / .68);
   // Keep the opening focused on the hardware; controls arrive with the hero.
   const controlsOpacity = smooth((progress - .68) / .18);
@@ -105,27 +114,37 @@ export function mountArrival() {
    control.style.visibility = controlsOpacity === 0 ? 'hidden' : 'visible';
    control.inert = controlsOpacity < .8;
   });
-  const type = smooth((progress - .38) / .46);
-  const copy = smooth((progress - .6) / .32);
+  // The outline draws during the pullback. The words appear once the
+  // silhouette is in its final position, with both lines of type clear.
+  const outline = smooth((progress - .38) / .46);
+  const words = smooth((progress - pullbackEnd) / .15);
+  const copy = smooth((progress - .76) / .18);
   // Interpolate apparent magnification, then follow a point on the top rim.
   // Keeping that point anchored prevents a sideways jump midway through zoom.
-  const scale = Math.exp(Math.log(initialScale) * (1 - move));
-  const x = targetX * (1 - move) + ax * move - cx - (ax - cx) * scale;
-  const y = targetY * (1 - move) + ay * move - cy - (ay - cy) * scale;
-  // Rasterise at the opening size and scale DOWN. Enlarging a compositor
-  // layer prepared at the final small size would blur even a detailed source.
-  const inZoom = move < 1;
-  if (zooming !== inZoom) {
-   zooming = inZoom;
-   device.style.width = baseWidth * (inZoom ? initialScale : 1) + 'px';
-   device.style.willChange = inZoom ? 'transform' : 'auto';
+  let scale = Math.exp(Math.log(initialScale) * (1 - move));
+  let focusX = targetX * (1 - move) + ax * move;
+  let focusY = targetY * (1 - move) + ay * move;
+  if (scale > 1 && readyWidth < requiredWidth) {
+   prepareMaster();
+   scale = 1;
   }
-  device.style.transform = inZoom ? `translate3d(${x + baseWidth * (scale - 1) / 2}px,${y + baseHeight * (1 - scale) / 2}px,0) scale(${scale / initialScale})` : 'none';
-  paintDetail(scale);
+  if (scale > 1) {
+   if (!zooming) {
+    fullImage.style.width = imageWidth * initialScale + 'px';
+    fullImage.style.willChange = 'transform';
+    zooming = true;
+   }
+   const x = focusX + (imageX - ax) * scale - imageX;
+   const y = focusY + (imageY - ay) * scale - imageY;
+   fullImage.style.transform = `translate3d(${x}px,${y}px,0) scale(${scale / initialScale})`;
+  } else if (zooming) {
+   resetImage();
+  }
   brand.style.transform = `translate3d(${logoX * (1 - logo)}px,${logoY * (1 - logo)}px,0) scale(${1 + (logoScale - 1) * (1 - logo)})`;
   header.style.setProperty('--intro-header-line', String(logo * .25));
-  title.style.opacity = String(type);
-  title.style.transform = `translate3d(0,${12 * (1 - type)}px,0)`;
+  title.style.opacity = String(outline);
+  title.style.setProperty('--intro-word-opacity', String(words));
+  title.style.transform = `translate3d(0,${12 * (1 - outline)}px,0)`;
   bottom.style.opacity = String(copy);
   bottom.inert = copy < .8;
   caption.style.opacity = String(1 - smooth(progress / .25));
@@ -140,26 +159,23 @@ export function mountArrival() {
  function fit() {
   fitFrame = 0;
   if(disposed)return;
-  const width = window.innerWidth, height = window.innerHeight;
+  const width = window.innerWidth, height = window.innerHeight, pixelRatio = window.devicePixelRatio || 1;
   // Mobile browser chrome can resize during a swipe. Keep its runway stable.
-  if (active && width === lastWidth && Math.abs(height - lastHeight) < 120) { schedulePaint(); return; }
-  lastWidth = width; lastHeight = height;
+  if (active && width === lastWidth && pixelRatio === lastPixelRatio && Math.abs(height - lastHeight) < 120) { schedulePaint(); return; }
+  lastWidth = width; lastHeight = height; lastPixelRatio = pixelRatio;
   runway.classList.remove('intro-active'); active = false;
   header.classList.remove('intro-header-active');
-  device.style.width = '';
-  device.style.willChange = '';
-  zooming = undefined;
-  if (detail) detail.style.opacity = '0';
+  resetImage();
   [device, title, bottom, caption, brand, ...controls].forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; });
   header.style.removeProperty('--intro-header-line');
   bottom.inert = false;
   controls.forEach(control => { control.inert = false; });
-  if (preference.matches || document.body.classList.contains('review-mode')) return;
+  if (preference.matches || document.body.classList.contains('review-mode')) { requestedWidth = readyWidth; return; }
   const headerHeight = header.offsetHeight;
   const dockHeight = !dock || getComputedStyle(dock).display === 'none' ? 0 : dock.offsetHeight;
   const available = height - headerHeight - dockHeight;
   // At very small landscape heights leave all content accessible in normal flow.
-  if (available < 370) return;
+  if (available < 370) { requestedWidth = readyWidth; return; }
   hero.style.setProperty('--intro-stage', available + 'px');
   runway.style.setProperty('--intro-stage', available + 'px');
   // Keep dock clearance inside the hero so the opening image fills the viewport.
@@ -173,19 +189,19 @@ export function mountArrival() {
   if (hero.scrollHeight > hero.clientHeight + 2 ||
       title.getBoundingClientRect().top < h.top ||
       bottom.getBoundingClientRect().bottom > h.bottom - dockHeight) {
-   runway.classList.remove('intro-active'); return;
+   runway.classList.remove('intro-active'); requestedWidth = readyWidth; return;
   }
   active = true;
   start = runway.getBoundingClientRect().top + window.scrollY - headerHeight;
   const r = device.getBoundingClientRect();
-  cx = r.left - h.left + r.width / 2; cy = r.top - h.top + r.height / 2;
+  const crop = fullImage.getBoundingClientRect();
+  imageX = crop.left - h.left; imageY = crop.top - h.top; imageWidth = crop.width;
   // Follow the leather attachment and the front shoulder into the headline frame.
-  ax = r.left - h.left + r.width * .635;
-  ay = r.top - h.top + r.height * .119;
+  ax = r.left - h.left + r.width * FOCUS.x;
+  ay = r.top - h.top + r.height * FOCUS.y;
   targetX = h.width * (width <= 760 ? .72 : .56);
   targetY = h.height * (width <= 760 ? .40 : .55);
-  baseWidth = r.width; baseHeight = r.height;
-  device.style.width = r.width * initialScale + 'px';
+  requiredWidth = deviceSourceWidth(imageWidth * initialScale, pixelRatio);
   const b = brand.getBoundingClientRect();
   logoX = width / 2 - (b.left + b.width / 2);
   logoY = headerHeight + available * .055 - (b.top + b.height / 2);
@@ -209,9 +225,17 @@ export function mountArrival() {
   on(window,type, prepareSound, { passive: true }));
  on(window,'scroll', schedulePaint, { passive: true });
  on(window,'resize', () => scheduleFit(), { passive: true });
+ on(window,'online', () => {
+  if (active && readyWidth < requiredWidth) { requestedWidth = readyWidth; prepareMaster(); }
+ });
+ // Moving a window between displays can change DPR without a layout resize.
+ function watchPixelRatio() {
+  const density = matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`);
+  on(density, 'change', () => { watchPixelRatio(); scheduleFit(true); }, { once: true });
+ }
+ watchPixelRatio();
  on(preference,'change', () => { dance?.cancel(); stopSound(); scheduleFit(true); });
  on(document,'visibilitychange', () => { if (document.hidden) { stopSound(); context?.suspend().catch(() => {}); } });
  fit(); document.fonts.ready.then(() => scheduleFit(true));
- on(device.querySelector('img'),'load', () => scheduleFit(true), { once: true });
- return ()=>{disposed=true;active=false;events.abort();cancelAnimationFrame(frame);cancelAnimationFrame(fitFrame);dance?.cancel();stopSound();detail?.remove();context?.close().catch(()=>{});};
+ return ()=>{disposed=true;active=false;events.abort();cancelAnimationFrame(frame);cancelAnimationFrame(fitFrame);dance?.cancel();stopSound();resetImage();context?.close().catch(()=>{});};
 }

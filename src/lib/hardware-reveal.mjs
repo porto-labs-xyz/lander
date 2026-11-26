@@ -1,126 +1,151 @@
-// Each finish settles at full size and at 4× so the visitor can stop at either view.
-export function finishFrame(progress, count) {
-  const position = Math.min(1, Math.max(0, progress)) * count
-  const index = Math.min(count - 1, Math.floor(position))
-  const phase = position - index
-  const ramp = Math.max(0, Math.min(1, (.80 - phase) / .65))
-  const eased = ramp * ramp * (3 - 2 * ramp)
-  return { index, scale: 1 + 3 * eased }
-}
+import { deviceSourceWidth } from './finish-images.mjs'
+
+const magnification = 4
+const clamp = (value, max) => Math.max(0, Math.min(value, max))
 
 export function mountHardwareReveal(root = document) {
-  const runway = root.querySelector('[data-finish-gallery]')
-  if (!runway) return () => {}
-  const doc = runway.ownerDocument
-  const view = doc.defaultView
-  const stage = runway.querySelector('.finish-stage')
-  const viewerWrap = runway.querySelector('.finish-viewer-wrap')
-  const viewer = runway.querySelector('.finish-viewer')
-  const camera = runway.querySelector('.finish-camera')
-  const caption = runway.querySelector('[data-finish-name]')
-  const zoomButton = runway.querySelector('.finish-zoom')
-  const slides = [...runway.querySelectorAll('[data-finish-slide]')]
-  const swatches = [...runway.querySelectorAll('[data-finish]')]
-  const header = root.querySelector('.site-header')
-  const dock = root.querySelector('.mobile-dock')
-  const motion = view.matchMedia('(prefers-reduced-motion: reduce)')
+  const gallery = root.querySelector('[data-finish-gallery]')
+  if (!gallery) return () => {}
+  const view = gallery.ownerDocument.defaultView
+  const photo = gallery.querySelector('.finish-window')
+  const lens = gallery.querySelector('.finish-lens')
+  const caption = gallery.querySelector('[data-finish-name]')
+  const button = gallery.querySelector('.finish-zoom')
+  const slides = [...gallery.querySelectorAll('[data-finish-slide]')]
+  const swatches = [...gallery.querySelectorAll('[data-finish]')]
+  const hover = view.matchMedia('(any-hover: hover)')
   const events = new AbortController()
-  const on = (target, type, listener, options = {}) =>
-    target.addEventListener(type, listener, { ...options, signal: events.signal })
-  let index = -1, scale = 1, frame = 0, start = 0, travel = 0
-  let disposed = false
-  zoomButton.hidden = false
+  const on = (target, type, callback, options) =>
+    target.addEventListener(type, callback, { ...options, signal: events.signal })
+  const pending = new WeakMap()
+  let selected = slides.findIndex(slide => !slide.hidden)
+  let mode = 'off', near = false, dismissHover = false
+  let pointerX = 0, pointerY = 0
+  let manualX = .5, manualY = .23
 
-  function show(nextIndex, nextScale) {
-    if (nextIndex !== index) {
-      if (index !== -1) {
-        slides[index].hidden = true
-        swatches[index].removeAttribute('aria-current')
-      }
-      index = nextIndex
-      slides[index].hidden = false
-      swatches[index].setAttribute('aria-current', 'true')
-      caption.textContent = swatches[index].getAttribute('aria-label')
+  function placeLens() {
+    const frame = photo.getBoundingClientRect()
+    const x = mode === 'hover' ? pointerX - frame.left : manualX * frame.width
+    const y = mode === 'hover' ? pointerY - frame.top : manualY * frame.height
+    const left = clamp(x - lens.offsetWidth / 2, frame.width - lens.offsetWidth)
+    const top = clamp(y - lens.offsetHeight / 2, frame.height - lens.offsetHeight)
+    const image = slides[selected].querySelector('img').getBoundingClientRect()
+    // At the pointer, both images show exactly the same material point, even
+    // when the circle is held inside an edge of the photograph.
+    const sampleX = x - left - (frame.left + x - image.left) * magnification
+    const sampleY = y - top - (frame.top + y - image.top) * magnification
+    lens.style.transform = `translate3d(${left}px,${top}px,0)`
+    lens.style.backgroundSize = `${image.width * magnification}px ${image.height * magnification}px`
+    lens.style.backgroundPosition = `${sampleX}px ${sampleY}px`
+  }
+
+  function displayLens() {
+    const image = slides[selected].querySelector('img')
+    const tier = deviceSourceWidth(image.offsetWidth * magnification, view.devicePixelRatio)
+    const visible = mode !== 'off' && image.complete && image.naturalWidth >= tier
+    if (visible) {
+      lens.style.backgroundImage = `url("${image.currentSrc}")`
+      placeLens()
     }
-    const image = slides[index].querySelector('img')
-    image.loading = 'eager'
-    if (nextScale > 1.01 && image.dataset.detail && image.getAttribute('src') !== image.dataset.detail) {
-      image.setAttribute('src', image.dataset.detail)
-    }
-    scale = nextScale
-    camera.style.transform = 'scale(' + scale.toFixed(4) + ')'
-    const zoomed = scale > 2.5
-    zoomButton.setAttribute('aria-pressed', String(zoomed))
-    zoomButton.setAttribute('aria-label', zoomed ? 'Return to full view' : 'Zoom to 4×')
+    photo.toggleAttribute('data-lens-visible', visible)
   }
 
-  function paint() {
-    frame = 0
-    if (!travel) return
-    const state = finishFrame((view.scrollY - start) / travel, slides.length)
-    if (state.index !== index || state.scale !== scale) show(state.index, state.scale)
+  function prepareImage() {
+    displayLens()
+    if (!near && mode === 'off') return
+    const image = slides[selected].querySelector('img')
+    const scale = mode !== 'off' || hover.matches ? magnification : 1
+    const tier = deviceSourceWidth(image.offsetWidth * scale, view.devicePixelRatio)
+    if (tier <= Math.max(800, image.naturalWidth, pending.get(image) || 0)) return
+    const detail = new view.Image()
+    detail.src = image.dataset.render + '-' + tier + '.webp'
+    pending.set(image, tier)
+    detail.decode().then(() => {
+      if (!events.signal.aborted && pending.get(image) === tier) image.src = detail.src
+    }).catch(() => {
+      if (pending.get(image) === tier) pending.delete(image)
+    })
   }
 
-  function schedule() {
-    if (travel && !frame) frame = view.requestAnimationFrame(paint)
+  function setMode(next) {
+    mode = next
+    button.setAttribute('aria-pressed', String(mode !== 'off'))
+    button.setAttribute('aria-label', mode === 'off' ? 'Show 4× magnifier' : 'Hide magnifier')
+    prepareImage()
   }
 
-  function measure() {
-    if (disposed) return
-    const headerHeight = header?.offsetHeight || 0
-    const available = view.innerHeight - headerHeight - (dock?.offsetHeight || 0)
-    runway.style.setProperty('--finish-top', headerHeight + 'px')
-    runway.style.setProperty('--finish-height', Math.max(0, available) + 'px')
-    // If the whole opening cannot fit, pin only the photo. The surrounding
-    // headline and copy then scroll naturally, including on magnified screens.
-    runway.classList.remove('finish-compact')
-    runway.classList.toggle('finish-scroll', !motion.matches)
-    const compact = !motion.matches && stage.offsetHeight > available + 2
-    runway.classList.toggle('finish-compact', compact)
-    const track = compact ? viewerWrap : runway
-    const pinned = compact ? viewer : stage
-    travel = motion.matches ? 0 : track.offsetHeight - pinned.offsetHeight
-    start = track.getBoundingClientRect().top + view.scrollY - headerHeight
-    if (travel) paint()
-    else show(Math.max(0, index), 1)
-  }
-
-  function goTo(nextIndex, zoomed) {
-    if (!travel) {
-      show(nextIndex, zoomed ? 4 : 1)
-      return
-    }
-    const phase = zoomed ? .06 : .90
-    const progress = (nextIndex + phase) / slides.length
-    view.scrollTo({ top: start + travel * progress, behavior: 'instant' })
-    paint()
-  }
-
-  swatches.forEach((swatch, i) => on(swatch, 'click', event => {
+  swatches.forEach((swatch, index) => on(swatch, 'click', event => {
     if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey || event.button > 0) return
     event.preventDefault()
-    goTo(i, false)
+    slides[selected].hidden = true
+    swatches[selected].removeAttribute('aria-current')
+    selected = index
+    slides[selected].hidden = false
+    swatch.setAttribute('aria-current', 'true')
+    caption.textContent = swatch.getAttribute('aria-label')
+    setMode('off')
   }))
-  on(zoomButton, 'click', () => goTo(index, scale <= 2.5))
-  on(view, 'scroll', schedule, { passive: true })
-  on(view, 'resize', measure)
-  on(view, 'pageshow', measure)
-  on(motion, 'change', measure)
-  let observer
-  if (view.ResizeObserver) {
-    observer = new view.ResizeObserver(measure)
-    observer.observe(doc.documentElement)
-    observer.observe(stage)
-    if (header) observer.observe(header)
-    if (dock) observer.observe(dock)
+
+  on(photo, 'pointermove', event => {
+    if (event.pointerType !== 'mouse' || dismissHover) return
+    pointerX = event.clientX
+    pointerY = event.clientY
+    if (mode !== 'hover') setMode('hover')
+    else if (photo.hasAttribute('data-lens-visible')) placeLens()
+  })
+  function leave(event) {
+    if (event.pointerType !== 'mouse') return
+    dismissHover = false
+    if (mode === 'hover') setMode('off')
   }
-  show(0, 1)
-  measure()
-  doc.fonts?.ready.then(measure)
+  on(photo, 'pointerleave', leave)
+  on(photo, 'pointercancel', leave)
+  on(view, 'scroll', () => {
+    if (mode !== 'hover') return
+    const frame = photo.getBoundingClientRect()
+    if (pointerX < frame.left || pointerX >= frame.right || pointerY < frame.top || pointerY >= frame.bottom) setMode('off')
+    else placeLens()
+  }, { passive: true })
+
+  on(button, 'click', () => {
+    manualX = .5
+    manualY = .23
+    setMode(mode === 'off' ? 'manual' : 'off')
+  })
+  on(photo, 'click', event => {
+    if (mode !== 'manual') return
+    const frame = photo.getBoundingClientRect()
+    manualX = clamp((event.clientX - frame.left) / frame.width, 1)
+    manualY = clamp((event.clientY - frame.top) / frame.height, 1)
+    placeLens()
+  })
+  on(button, 'keydown', event => {
+    if (mode !== 'manual') return
+    const step = { ArrowLeft: [-.05, 0], ArrowRight: [.05, 0], ArrowUp: [0, -.05], ArrowDown: [0, .05] }[event.key]
+    if (!step) return
+    event.preventDefault()
+    manualX = clamp(manualX + step[0], 1)
+    manualY = clamp(manualY + step[1], 1)
+    placeLens()
+  })
+  on(view, 'keydown', event => {
+    if (event.key !== 'Escape' || mode === 'off') return
+    dismissHover = mode === 'hover'
+    setMode('off')
+  })
+  slides.forEach(slide => on(slide.querySelector('img'), 'load', displayLens))
+  const visibility = new view.IntersectionObserver(([entry]) => {
+    near = entry.isIntersecting
+    if (near) prepareImage()
+  }, { rootMargin: '160px' })
+  visibility.observe(photo)
+  const resize = new view.ResizeObserver(prepareImage)
+  resize.observe(photo)
+  on(hover, 'change', prepareImage)
+  button.hidden = false
   return () => {
-    disposed = true
     events.abort()
-    observer?.disconnect()
-    view.cancelAnimationFrame(frame)
+    visibility.disconnect()
+    resize.disconnect()
   }
 }
