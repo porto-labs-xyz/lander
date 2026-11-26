@@ -1,3 +1,7 @@
+## Subtle co-founder names, 26 November 2026
+
+Richard requested a names-only team section. The homepage and About page list Richard Melkonian and Richard Osho, in regular ABC Monument Grotesk, with a small IBM Plex Mono co-founder label. This supersedes the portrait and biography treatment below.
+
 ## Kiln co-founder portraits, 26 November 2026
 
 The homepage and About page share the founder credits approved for the Kiln team deck. Richard Melkonian is co-founder and CEO. Richard Osho, professionally known as Peter Xan, is co-founder and CMO. Each portrait has a one-sentence bio drawn from the founder-approved company bios and existing About copy. Richard’s portrait is a square crop from 01:18.26 of his local Entropy Labs recording, selected for his slight smile. Peter’s portrait comes from `static/images/peter-xan.jpg`. The website serves square WebP copies at 480 and 960 pixels.
