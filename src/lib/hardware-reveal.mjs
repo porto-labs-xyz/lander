@@ -1,41 +1,65 @@
 import { deviceSourceWidth } from './finish-images.mjs'
 
+const magnification = 4
+const clamp = (value, max) => Math.max(0, Math.min(value, max))
+
 export function mountHardwareReveal(root = document) {
   const gallery = root.querySelector('[data-finish-gallery]')
   if (!gallery) return () => {}
   const view = gallery.ownerDocument.defaultView
   const photo = gallery.querySelector('.finish-window')
+  const lens = gallery.querySelector('.finish-lens')
   const caption = gallery.querySelector('[data-finish-name]')
   const button = gallery.querySelector('.finish-zoom')
   const slides = [...gallery.querySelectorAll('[data-finish-slide]')]
   const swatches = [...gallery.querySelectorAll('[data-finish]')]
   const hover = view.matchMedia('(any-hover: hover)')
   const events = new AbortController()
-  const on = (target, type, callback) => target.addEventListener(type, callback, { signal: events.signal })
+  const on = (target, type, callback, options) =>
+    target.addEventListener(type, callback, { ...options, signal: events.signal })
   const pending = new WeakMap()
   let selected = slides.findIndex(slide => !slide.hidden)
-  let mode = 'wide'
-  let near = false
-  let dismissHover = false
+  let mode = 'off', near = false, dismissHover = false
+  let pointerX = 0, pointerY = 0
+  let manualX = .5, manualY = .23
 
-  function displayZoom() {
+  function placeLens() {
+    const frame = photo.getBoundingClientRect()
+    const x = mode === 'hover' ? pointerX - frame.left : manualX * frame.width
+    const y = mode === 'hover' ? pointerY - frame.top : manualY * frame.height
+    const left = clamp(x - lens.offsetWidth / 2, frame.width - lens.offsetWidth)
+    const top = clamp(y - lens.offsetHeight / 2, frame.height - lens.offsetHeight)
+    const image = slides[selected].querySelector('img').getBoundingClientRect()
+    // At the pointer, both images show exactly the same material point, even
+    // when the circle is held inside an edge of the photograph.
+    const sampleX = x - left - (frame.left + x - image.left) * magnification
+    const sampleY = y - top - (frame.top + y - image.top) * magnification
+    lens.style.transform = `translate3d(${left}px,${top}px,0)`
+    lens.style.backgroundSize = `${image.width * magnification}px ${image.height * magnification}px`
+    lens.style.backgroundPosition = `${sampleX}px ${sampleY}px`
+  }
+
+  function displayLens() {
     const image = slides[selected].querySelector('img')
-    const sharp = image.complete && image.naturalWidth >= deviceSourceWidth(image.offsetWidth, view.devicePixelRatio)
-    photo.toggleAttribute('data-zoomed', mode !== 'wide' && sharp)
+    const tier = deviceSourceWidth(image.offsetWidth * magnification, view.devicePixelRatio)
+    const visible = mode !== 'off' && image.complete && image.naturalWidth >= tier
+    if (visible) {
+      lens.style.backgroundImage = `url("${image.currentSrc}")`
+      placeLens()
+    }
+    photo.toggleAttribute('data-lens-visible', visible)
   }
 
   function prepareImage() {
-    displayZoom()
-    if (!near && mode === 'wide') return
+    displayLens()
+    if (!near && mode === 'off') return
     const image = slides[selected].querySelector('img')
-    // The layout width is the 4× footprint. CSS scales it down for the wide shot.
-    const width = image.offsetWidth * (mode !== 'wide' || hover.matches ? 1 : .25)
-    const tier = deviceSourceWidth(width, view.devicePixelRatio)
+    const scale = mode !== 'off' || hover.matches ? magnification : 1
+    const tier = deviceSourceWidth(image.offsetWidth * scale, view.devicePixelRatio)
     if (tier <= Math.max(800, image.naturalWidth, pending.get(image) || 0)) return
     const detail = new view.Image()
     detail.src = image.dataset.render + '-' + tier + '.webp'
     pending.set(image, tier)
-    // Keep the wide shot visible until the chosen finish has sharp pixels.
     detail.decode().then(() => {
       if (!events.signal.aborted && pending.get(image) === tier) image.src = detail.src
     }).catch(() => {
@@ -45,8 +69,8 @@ export function mountHardwareReveal(root = document) {
 
   function setMode(next) {
     mode = next
-    button.setAttribute('aria-pressed', String(mode !== 'wide'))
-    button.setAttribute('aria-label', mode === 'wide' ? 'Zoom to 4×' : 'Return to full view')
+    button.setAttribute('aria-pressed', String(mode !== 'off'))
+    button.setAttribute('aria-label', mode === 'off' ? 'Show 4× magnifier' : 'Hide magnifier')
     prepareImage()
   }
 
@@ -59,46 +83,57 @@ export function mountHardwareReveal(root = document) {
     slides[selected].hidden = false
     swatch.setAttribute('aria-current', 'true')
     caption.textContent = swatch.getAttribute('aria-label')
-    setMode('wide')
+    setMode('off')
   }))
 
-  function magnify(event) {
+  on(photo, 'pointermove', event => {
     if (event.pointerType !== 'mouse' || dismissHover) return
-    const rect = photo.getBoundingClientRect()
-    photo.style.setProperty('--focus-x', (100 * (event.clientX - rect.left) / rect.width) + '%')
-    photo.style.setProperty('--focus-y', (100 * (event.clientY - rect.top) / rect.height) + '%')
+    pointerX = event.clientX
+    pointerY = event.clientY
     if (mode !== 'hover') setMode('hover')
-  }
+    else if (photo.hasAttribute('data-lens-visible')) placeLens()
+  })
   function leave(event) {
     if (event.pointerType !== 'mouse') return
     dismissHover = false
-    if (mode === 'hover') setMode('wide')
+    if (mode === 'hover') setMode('off')
   }
-  // A stationary cursor can enter the photo as the page scrolls underneath.
-  // Start the close-up when the visitor actually moves over the photograph.
-  on(photo, 'pointermove', magnify)
   on(photo, 'pointerleave', leave)
   on(photo, 'pointercancel', leave)
-  function dismissZoom() {
-    dismissHover = mode === 'hover'
-    setMode('wide')
-  }
-  on(photo, 'click', event => {
-    if (mode !== 'wide') dismissZoom()
-    else if (event.pointerType === 'mouse') {
-      dismissHover = false
-      magnify(event)
-    }
-  })
+  on(view, 'scroll', () => {
+    if (mode !== 'hover') return
+    const frame = photo.getBoundingClientRect()
+    if (pointerX < frame.left || pointerX >= frame.right || pointerY < frame.top || pointerY >= frame.bottom) setMode('off')
+    else placeLens()
+  }, { passive: true })
+
   on(button, 'click', () => {
-    photo.style.removeProperty('--focus-x')
-    photo.style.removeProperty('--focus-y')
-    setMode(mode === 'wide' ? 'manual' : 'wide')
+    manualX = .5
+    manualY = .23
+    setMode(mode === 'off' ? 'manual' : 'off')
+  })
+  on(photo, 'click', event => {
+    if (mode !== 'manual') return
+    const frame = photo.getBoundingClientRect()
+    manualX = clamp((event.clientX - frame.left) / frame.width, 1)
+    manualY = clamp((event.clientY - frame.top) / frame.height, 1)
+    placeLens()
+  })
+  on(button, 'keydown', event => {
+    if (mode !== 'manual') return
+    const step = { ArrowLeft: [-.05, 0], ArrowRight: [.05, 0], ArrowUp: [0, -.05], ArrowDown: [0, .05] }[event.key]
+    if (!step) return
+    event.preventDefault()
+    manualX = clamp(manualX + step[0], 1)
+    manualY = clamp(manualY + step[1], 1)
+    placeLens()
   })
   on(view, 'keydown', event => {
-    if (event.key === 'Escape' && mode !== 'wide') dismissZoom()
+    if (event.key !== 'Escape' || mode === 'off') return
+    dismissHover = mode === 'hover'
+    setMode('off')
   })
-  slides.forEach(slide => on(slide.querySelector('img'), 'load', displayZoom))
+  slides.forEach(slide => on(slide.querySelector('img'), 'load', displayLens))
   const visibility = new view.IntersectionObserver(([entry]) => {
     near = entry.isIntersecting
     if (near) prepareImage()
