@@ -2,8 +2,17 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { readFileSync } from 'node:fs'
 import { finishFrame, mountHardwareReveal } from './hardware-reveal.mjs'
+import { materialSourceWidth } from './monument-arrival.mjs'
 
 const finishOrder = ['charcoal', 'pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue']
+
+test('the opening chooses a detail source for the projected size and screen density', () => {
+  assert.equal(materialSourceWidth(550, 2), 1920)
+  assert.equal(materialSourceWidth(941, 3), 3840)
+  assert.equal(materialSourceWidth(1920, 2), 3840)
+  assert.equal(materialSourceWidth(2022, 2), 7680)
+  assert.equal(materialSourceWidth(2592, 3), 7680)
+})
 
 test('all five finishes open at 4× and pull back to full view before the next', () => {
   const count = finishOrder.length
@@ -26,7 +35,7 @@ test('the static gallery exposes all five full-resolution images and starts with
   const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
   const intro = body.slice(body.indexOf('<div class="intro-runway">'), body.indexOf('id="local"'))
   assert.ok(intro.includes('class="hero-box"'))
-  const detail = '/assets/kiln/finishes/charcoal-macro.webp'
+  const detail = '/assets/kiln/finishes/charcoal-macro'
   assert.ok(intro.includes('data-material-detail="' + detail + '"'))
   assert.ok(!intro.includes('src="' + detail + '"'))
   assert.ok(!body.slice(body.indexOf('id="local"')).includes(detail))
