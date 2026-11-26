@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "ABC Monument Grotesk";
+  src: url("/assets/fonts/ABCMonumentGrotesk-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABC Monument Grotesk";
+  src: url("/assets/fonts/ABCMonumentGrotesk-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABC Monument Grotesk";
+  src: url("/assets/fonts/ABCMonumentGrotesk-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/IBMPlexMono-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --sans: "ABC Monument Grotesk", Arial, sans-serif;
+  --mono: "IBM Plex Mono", monospace;
+  --paper: #f6f6f2;
+  --ink: #454943;
+  --ink-strong: #363a35;
+  --muted: #575c55;
+  --pebble: #deddd7;
+  --pink: #eed5dc;
+  --eucalyptus: #cbdacb;
+  --powder: #cbdde8;
+  --rule: #a4aaa0;
+  --outline: #767e73;
+}
+
+.site-header > .brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #101112;
+}
+
+.booking-page .kiln-brand img {
+  height: auto;
+}

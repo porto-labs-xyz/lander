@@ -3,8 +3,23 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/products/atelier/:path*",
+      "destination": "/hardware/",
+      "permanent": false
+    },
+    {
+      "source": "/products/rack/:path*",
+      "destination": "/hardware/",
+      "permanent": false
     }
   ]
 }

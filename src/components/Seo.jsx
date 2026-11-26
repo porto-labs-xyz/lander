@@ -8,12 +8,12 @@ export default function Seo({ title, description, path, hero = false }) {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#F1F0ED" />
+    <meta name="theme-color" content="#f6f6f2" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="canonical" href={url} />
     <link rel="icon" href="/assets/kiln/kiln-crucible-ink.svg" type="image/svg+xml" />
-    <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-    {hero && <link rel="preload" href="/assets/one-proportions.png" as="image" />}
+    <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+    {hero && <link rel="preload" as="image" href="/assets/kiln/finishes/charcoal-device-800.webp" />}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />

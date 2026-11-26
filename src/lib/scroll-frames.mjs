@@ -46,8 +46,10 @@ export function mountScrollFrames(root = document) {
       rect.setAttribute('stroke-width', border);
       const runway = host.classList.contains('hero-box') && host.closest('.intro-active');
       if (runway) {
-        const distance = parseFloat(view.getComputedStyle(runway).getPropertyValue('--intro-distance')) || height;
-        item.start = runway.getBoundingClientRect().top + scroll + distance * .38;
+        const style = view.getComputedStyle(runway);
+        const distance = parseFloat(style.getPropertyValue('--intro-distance')) || height;
+        const header = parseFloat(style.getPropertyValue('--intro-header')) || 0;
+        item.start = runway.getBoundingClientRect().top + scroll - header + distance * .38;
         item.distance = distance * .57;
       } else {
         item.start = box.top + scroll - height * .9;
