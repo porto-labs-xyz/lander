@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Seo({ title, description, path, hero = false }) {
   const url = `https://www.portolabs.xyz${path}`
-  const image = 'https://letskiln.xyz/images/kiln-social-20261118-v2.png'
+  const image = 'https://letskiln.xyz/images/kiln-industrial-social.png'
   return <>
     <html lang="en" />
     <title>{title}</title>
@@ -11,9 +11,9 @@ export default function Seo({ title, description, path, hero = false }) {
     <meta name="theme-color" content="#F1F0ED" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="canonical" href={url} />
-    <link rel="icon" href="/assets/kiln/kiln-crucible-ink.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/industrial/kiln-mark.svg" type="image/svg+xml" />
     <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-    {hero && <link rel="preload" href="/assets/one-proportions.png" as="image" />}
+    {hero && <link rel="preload" href="/assets/industrial/one.webp" as="image" />}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />

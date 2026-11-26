@@ -1,3 +1,9 @@
+## Kiln industrial hardware study, 26 November 2026
+
+The website study retains the Kiln One tower, the standalone Atelier rack unit and four individually serviceable Ateliers in a wheeled frame. A brushed aluminium faceplate, smoked display, vermilion control and square KILN wordmark connect the family. The One and Atelier service views show the expanded two- and four-module concepts. The opening zoom and lower status light are registered to the new images. Existing public wording, stage dimensions and motion timing are retained. These are visual concepts for review. Physical assembly and thermal performance remain unverified.
+
+The founder selected two stacked hi-fi references from the Kiln Pinterest board. The hardware geometry and lettering were drawn for this website. The dark studio photograph uses an image-generated finish on the four-unit 3D render. [First reference](https://www.pinterest.com/pin/506655026858566603/) · [Second reference](https://www.pinterest.com/pin/293156256990346445/)
+
 ## NVIDIA Inception membership, 23 November 2026
 
 The founder requested the NVIDIA Inception programme badge in the homepage hero. The site says “Member of the NVIDIA Inception programme” and links to [NVIDIA Inception](https://www.nvidia.com/en-gb/startups/). The badge at `static/assets/kiln/nvidia-inception.png` is the embedded image from the earlier founder-approved investor cover. The website uses the original colours and proportions.

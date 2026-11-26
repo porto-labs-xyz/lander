@@ -14,7 +14,7 @@ module.exports = {
         background_color: `#f1f0ec`,
         theme_color: `#003bff`,
         display: `standalone`,
-        icon: `static/assets/kiln/kiln-crucible-ink.svg`,
+        icon: `static/assets/industrial/kiln-mark.svg`,
       },
     },
   ],
