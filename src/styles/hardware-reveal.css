@@ -55,20 +55,28 @@ body:has(.intro-runway) .site-header { background: #fff; }
 .finish-window { aspect-ratio: 4 / 3; overflow: hidden; background: #fff; }
 @media (any-hover: hover) {
   .finish-window { cursor: zoom-in; }
-  .finish-window[data-zoomed] { cursor: crosshair; }
+  .finish-window[data-zoomed] { cursor: zoom-out; }
 }
-.finish-slide { position: relative; width: 100%; height: 100%; display: block; }
-.finish-slide img {
-  position: absolute; display: block; max-width: none; height: auto;
-  left: var(--device-left); top: var(--device-top);
-  width: calc(4 * var(--device-width)); transform-origin: 0 0;
+.finish-slide {
+  /* The slide is laid out at the full 4× resolution. Its virtual pivot is
+     constrained so the loupe cannot pan beyond the product at full zoom. */
+  --device-height: calc(100% * 972 / 1086);
+  --pivot-x: clamp(calc(4 * var(--device-left) / 3), var(--focus-x, 45%), calc((4 * (var(--device-left) + var(--device-width)) - 100%) / 3));
+  --pivot-y: clamp(calc(4 * var(--device-top) / 3), var(--focus-y, 23%), calc((4 * (var(--device-top) + var(--device-height)) - 100%) / 3));
+  position: relative; width: 400%; height: 400%; display: block;
+  transform-origin: var(--pivot-x) var(--pivot-y);
+  /* Cancel the pivot offset at 1×. Only scale is animated, so the image
+     reverses smoothly on exit and tracks the pointer immediately at 4×. */
+  translate: calc(-.75 * var(--pivot-x)) calc(-.75 * var(--pivot-y));
   transform: scale(.25);
 }
-.finish-window[data-zoomed] img {
-  /* Keep the material under the pointer in place and the crop on the device. */
-  left: clamp(calc(100% - 4 * var(--device-width)), calc(4 * var(--device-left) - 3 * var(--focus-x, 45%)), 0%);
-  top: clamp(calc(100% - 400% * 972 / 1086), calc(4 * var(--device-top) - 3 * var(--focus-y, 23%)), 0%);
-  transform: none;
+.finish-window[data-zoomed] .finish-slide { transform: scale(1); }
+@media (prefers-reduced-motion: no-preference) {
+  .finish-slide { transition: transform 380ms cubic-bezier(.28, .05, .22, 1); }
+}
+.finish-slide img {
+  position: absolute; display: block; max-width: none; height: auto;
+  left: var(--device-left); top: var(--device-top); width: var(--device-width);
 }
 .finish-slide[hidden], .finish-zoom[hidden] { display: none; }
 .finish-controls {
@@ -181,5 +189,6 @@ body:has(.intro-runway) .site-header { background: #fff; }
 @media print {
   .finish-stage { min-height: 0; }
   .finish-controls a, .finish-controls button { display: none; }
-  .finish-window[data-zoomed] img { left: var(--device-left); top: var(--device-top); transform: scale(.25); }
+  .finish-window .finish-slide { transition: none; }
+  .finish-window[data-zoomed] .finish-slide { transform: scale(.25); }
 }

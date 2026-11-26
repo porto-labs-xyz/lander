@@ -79,15 +79,24 @@ export function mountHardwareReveal(root = document) {
   on(photo, 'pointermove', magnify)
   on(photo, 'pointerleave', leave)
   on(photo, 'pointercancel', leave)
+  function dismissZoom() {
+    dismissHover = mode === 'hover'
+    setMode('wide')
+  }
+  on(photo, 'click', event => {
+    if (mode !== 'wide') dismissZoom()
+    else if (event.pointerType === 'mouse') {
+      dismissHover = false
+      magnify(event)
+    }
+  })
   on(button, 'click', () => {
     photo.style.removeProperty('--focus-x')
     photo.style.removeProperty('--focus-y')
     setMode(mode === 'wide' ? 'manual' : 'wide')
   })
   on(view, 'keydown', event => {
-    if (event.key !== 'Escape' || mode === 'wide') return
-    dismissHover = mode === 'hover'
-    setMode('wide')
+    if (event.key === 'Escape' && mode !== 'wide') dismissZoom()
   })
   slides.forEach(slide => on(slide.querySelector('img'), 'load', displayZoom))
   const visibility = new view.IntersectionObserver(([entry]) => {
