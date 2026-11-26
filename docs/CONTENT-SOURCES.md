@@ -1,8 +1,8 @@
 ## Kiln One panel typography study, 26 November 2026
 
-This alternate lander carries the small lowercase “kiln” and “upgrade” markings on the machine into the website’s controls and labels. ABC Monument Grotesk sets the headings, body copy and Kiln wordmark. IBM Plex Mono sets the small controls and labels, technical metadata and captions. The palette retains warm graphite and the four product finishes. Product names, acronyms and body copy retain their usual capitalisation. See the [palette and type settings](../src/styles/panel-tokens.css).
+This alternate lander carries the small lowercase “kiln” and “upgrade” markings on the machine into the website’s controls and labels. ABC Monument Grotesk sets the headings and body copy. The [dark](../static/assets/kiln-lockup-semibold-ink.svg) and [light](../static/assets/kiln-lockup-semibold-paper.svg) Kiln logos match the artwork from the header and footer of the [live site](https://www.portolabs.xyz/). The introduction uses the same lockup as an inline SVG so its spark can animate. IBM Plex Mono sets the small controls and labels, technical metadata and captions. The palette retains warm graphite and the four product finishes. Product names, acronyms and body copy retain their usual capitalisation. See the [palette and type settings](../src/styles/panel-tokens.css).
 
-The study builds on the [four-finish Kiln One lander](https://github.com/porto-labs-xyz/lander/pull/19). It carries forward the wording, the 9× opening detail and the four finishes with their 4× gallery views.
+The study builds on the [four-finish Kiln One lander](https://github.com/porto-labs-xyz/lander/pull/19). The hero leaves clear space around the final word “close.” as the device settles beside the headline. The structural square outlines use a 4 px stroke on larger screens and 3 px at widths up to 760 px. The animated and reduced-motion frames use the same stroke. Specification tables and fine separators retain their lighter rules. The wording, 9× opening detail and four 4× gallery views carry forward.
 
 ## Kiln One finishes and scroll zoom, 26 November 2026
 

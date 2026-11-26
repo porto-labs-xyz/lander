@@ -27,7 +27,7 @@ export default function BookPage() {
       <a className="skip-link" href="#booking-main">skip to booking</a>
       <header className="kiln-header kiln-wrap">
         <a className="kiln-brand" href="/" aria-label="Kiln by Porto Labs home">
-          <span className="kiln-wordmark" aria-hidden="true">kiln</span>
+          <img src="/assets/kiln-lockup-semibold-ink.svg" width="104" height="35" alt="kiln" />
         </a>
         <a className="kiln-text-link" href="/#interest">register interest <span className="action-square" aria-hidden="true"></span></a>
       </header>

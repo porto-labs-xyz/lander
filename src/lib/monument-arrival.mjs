@@ -33,6 +33,7 @@ export function mountArrival() {
  const controls = [menu, headerCta, dock].filter(Boolean);
  const preference = matchMedia('(prefers-reduced-motion:reduce)');
  const initialScale = 9;
+ const pullbackEnd = .72;
  const Audio = window.AudioContext || window.webkitAudioContext;
  let frame = 0, fitFrame = 0, start = 0, distance = 1, baseWidth = 0, baseHeight = 0;
  let cx = 0, cy = 0, ax = 0, ay = 0, targetX = 0, targetY = 0, logoX = 0, logoY = 0, logoScale = 1;
@@ -96,7 +97,7 @@ export function mountArrival() {
   const progress = clamp((window.scrollY - start) / distance);
   if (Math.abs(progress - lastProgress) < .0001) return;
   lastProgress = progress;
-  const move = smooth((progress - .025) / .78);
+  const move = smooth((progress - .025) / (pullbackEnd - .025));
   const logo = smooth(progress / .68);
   // Keep the opening focused on the hardware; controls arrive with the hero.
   const controlsOpacity = smooth((progress - .68) / .18);
@@ -105,8 +106,11 @@ export function mountArrival() {
    control.style.visibility = controlsOpacity === 0 ? 'hidden' : 'visible';
    control.inert = controlsOpacity < .8;
   });
-  const type = smooth((progress - .38) / .46);
-  const copy = smooth((progress - .6) / .32);
+  // The outline draws during the pullback. The words appear once the
+  // silhouette is in its final position, with both lines of type clear.
+  const outline = smooth((progress - .38) / .46);
+  const words = smooth((progress - pullbackEnd) / .15);
+  const copy = smooth((progress - .76) / .18);
   // Interpolate apparent magnification, then follow a point on the top rim.
   // Keeping that point anchored prevents a sideways jump midway through zoom.
   const scale = Math.exp(Math.log(initialScale) * (1 - move));
@@ -124,8 +128,9 @@ export function mountArrival() {
   paintDetail(scale);
   brand.style.transform = `translate3d(${logoX * (1 - logo)}px,${logoY * (1 - logo)}px,0) scale(${1 + (logoScale - 1) * (1 - logo)})`;
   header.style.setProperty('--intro-header-line', String(logo * .25));
-  title.style.opacity = String(type);
-  title.style.transform = `translate3d(0,${12 * (1 - type)}px,0)`;
+  title.style.opacity = String(outline);
+  title.style.setProperty('--intro-word-opacity', String(words));
+  title.style.transform = `translate3d(0,${12 * (1 - outline)}px,0)`;
   bottom.style.opacity = String(copy);
   bottom.inert = copy < .8;
   caption.style.opacity = String(1 - smooth(progress / .25));
