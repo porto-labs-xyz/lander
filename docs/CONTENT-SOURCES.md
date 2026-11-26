@@ -6,7 +6,7 @@ Intel documents Thunderbolt 5 over USB-C and 10 GbE over RJ45. The NVIDIA Connec
 
 The “Massive Connectivity For Ambitious Studios” caption lists eight HDMI displays via DisplayPort adapters. The two cards shown have four native DisplayPort outputs each. [PNY Blackwell display and adapter guide](https://www.pny.com/file%20library/company/support/additional%20resources/blackwell-workstation-display-resolution-capabilities.pdf)
 
-The “Two-GPU Interior” caption describes the proposed KilnOS workflow for parallel generation on the local machine. Its speed and offline operation await system testing. Each Workstation Edition card has 96 GB of ECC GDDR7 and a maximum power rating of 600 W. [NVIDIA RTX PRO 6000 Blackwell Workstation Edition](https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/)
+The cutaway caption opens with “Keep it brief” above “Two-GPU Interior” and describes the proposed KilnOS workflow for parallel generation on the local machine. Its speed and offline operation await system testing. Each Workstation Edition card has 96 GB of ECC GDDR7 and a maximum power rating of 600 W. [NVIDIA RTX PRO 6000 Blackwell Workstation Edition](https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/)
 
 ## Subtle co-founder names, 26 November 2026
 
