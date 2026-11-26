@@ -1,4 +1,4 @@
-.booking-page { --background: #f6f1f7; --ink: #1a1221; --muted: #555650; --blue: #6f36bd; --red: #edc1df; --yellow: #dfc6f4; --line: #1a122133; --mono: PlexMono, monospace; }
+.booking-page { --background: #f2f1f4; --ink: #1a1221; --muted: #555650; --blue: #6f36bd; --red: #debed1; --yellow: #dfc6f4; --line: #1a122133; --mono: PlexMono, monospace; }
 .booking-page * { margin: 0; padding: 0; box-sizing: border-box; }
 .booking-page { scroll-behavior: smooth; scroll-padding-top: 28px; }
 .booking-page { background: var(--background); color: var(--ink); font: 16px/1.6 Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }

@@ -11,7 +11,7 @@ module.exports = {
         name: `Kiln by Porto Labs`,
         short_name: `Kiln`,
         start_url: `/`,
-        background_color: `#f6f1f7`,
+        background_color: `#f2f1f4`,
         theme_color: `#6f36bd`,
         display: `standalone`,
         icon: `static/assets/kiln/kiln-crucible-ink.svg`,

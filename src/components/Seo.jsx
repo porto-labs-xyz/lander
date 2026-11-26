@@ -8,7 +8,7 @@ export default function Seo({ title, description, path, hero = false }) {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#f6f1f7" />
+    <meta name="theme-color" content="#f2f1f4" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="canonical" href={url} />
     <link rel="icon" href="/assets/kiln/kiln-crucible-ink.svg" type="image/svg+xml" />
