@@ -33,7 +33,7 @@ body:has(.intro-runway) .site-header { background: #fff; }
   background: var(--paper);
 }
 .finish-scroll {
-  height: calc(var(--finish-height) + 260svh);
+  height: calc(var(--finish-height) + 65svh * var(--finish-count, 1));
 }
 .finish-scroll .finish-stage {
   position: sticky;
@@ -45,7 +45,7 @@ body:has(.intro-runway) .site-header { background: #fff; }
   font-size: clamp(64px, min(7.6vw, 12vh), 128px);
   letter-spacing: var(--tracking-display);
   line-height: .99;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--ink-strong);
 }
 .finish-intro { grid-area: intro; padding-top: clamp(16px, 3vh, 38px); }
@@ -67,6 +67,7 @@ body:has(.intro-runway) .site-header { background: #fff; }
 .finish-viewer-wrap { display: contents; }
 .finish-viewer {
   grid-area: image;
+  container-type: inline-size;
   align-self: center;
   justify-self: end;
   width: min(100%, calc((var(--finish-height) - 140px) * 1.3333));
@@ -108,10 +109,11 @@ body:has(.intro-runway) .site-header { background: #fff; }
 .finish-interlude::after { content: none; }
 .finish-interlude > img { inset: 0 0 0 auto; width: 75%; height: 100%; object-fit: contain; }
 .finish-interlude figcaption { max-width: 32%; }
-.finish-interlude figcaption p { font-weight: 400; color: var(--ink-strong); }
+.finish-interlude figcaption p { font-weight: 500; color: var(--ink-strong); }
 .finish-editorial > img { width: 100%; height: min(70vw,85svh); object-fit: contain; }
 
 @media (max-width: 760px) {
+  #hardware .finish-runway { margin-inline: -24px; }
   .finish-runway { --finish-top: 70px; --finish-height: calc(100svh - 132px); }
   .finish-stage {
     grid-template-columns: minmax(0,1fr);
@@ -132,6 +134,25 @@ body:has(.intro-runway) .site-header { background: #fff; }
   .finish-intro p { font-size: 20px; }
   .finish-skip { min-height: 28px; }
 }
+/* Keep all five swatches and the zoom control reachable in a narrow image column. */
+@container (max-width: 330px) {
+  .finish-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 4px;
+    padding-block: 5px;
+  }
+  .finish-caption {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 8px;
+    margin-right: 0;
+  }
+  .finish-swatch { width: clamp(24px, 14cqi, 44px); }
+}
 /* At short heights the image gets its own sticky track so text never clips. */
 .finish-runway.finish-compact { height: auto; }
 .finish-compact .finish-stage { display: block; position: static; }
@@ -139,7 +160,7 @@ body:has(.intro-runway) .site-header { background: #fff; }
   font-size: clamp(37px, 6vw, 70px); line-height: 1.08; margin-bottom: 16px;
 }
 .finish-compact .finish-viewer-wrap {
-  display: block; height: calc(var(--finish-height) + 260svh);
+  display: block; height: calc(var(--finish-height) + 65svh * var(--finish-count, 1));
 }
 .finish-compact .finish-viewer {
   position: sticky; top: var(--finish-top); margin-inline: auto;

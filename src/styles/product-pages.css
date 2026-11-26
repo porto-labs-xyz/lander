@@ -21,7 +21,7 @@
 .about-hero h1 {
   margin: 0;
   color: var(--ink-strong);
-  font: 400 clamp(3.6rem, 8.5vw, 9rem)/.98 var(--sans);
+  font: 700 clamp(3.6rem, 8.5vw, 9rem)/.98 var(--sans);
   letter-spacing: -.055em;
 }
 .hardware-intro h1 span,
@@ -52,7 +52,7 @@
 .principles { background: var(--eucalyptus); }
 .team { background: var(--paper); }
 .team .founder { padding-block: 1.5rem 2rem; }
-.team .founder h3 { font-size: clamp(1.7rem, 2.7vw, 2.6rem); font-weight: 400; letter-spacing: -.035em; }
+.team .founder h3 { font-size: clamp(1.7rem, 2.7vw, 2.6rem); font-weight: 500; letter-spacing: -.035em; }
 .team .founder .meta { margin-block: .45rem 1rem; }
 .team .founder p:not(.meta) { color: var(--muted); }
 
@@ -67,7 +67,7 @@
 }
 .collection-one-intro { display: grid; gap: 1.1rem; justify-items: start; }
 .collection-one-intro h2,
-.other-hardware h2 { font-size: clamp(2.4rem, 4vw, 4.6rem); font-weight: 400; letter-spacing: -.045em; }
+.other-hardware h2 { font-size: clamp(2.4rem, 4vw, 4.6rem); font-weight: 500; letter-spacing: -.045em; }
 .collection-one-intro > p { max-width: 34ch; }
 .collection-one-intro .product-price { margin: 1.25rem 0 0; font-size: clamp(1.4rem, 2.1vw, 2.1rem); font-weight: 400; }
 .collection-one-finishes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.7rem clamp(.75rem, 2vw, 2rem); }
@@ -93,7 +93,7 @@
 
 .product-page-intro { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 2rem 8vw; margin-bottom: clamp(2.2rem, 5vw, 4rem); }
 .product-page-intro .lead {
-  font: 400 clamp(2.5rem, 5vw, 5.6rem)/1.02 var(--sans);
+  font: 500 clamp(2.5rem, 5vw, 5.6rem)/1.02 var(--sans);
   color: var(--ink-strong);
   letter-spacing: -.047em;
 }
@@ -110,7 +110,7 @@
 .product-page-stage h1 {
   margin: 0;
   color: var(--ink-strong);
-  font: 400 clamp(4.25rem, 10vw, 10rem)/1 var(--sans);
+  font: 700 clamp(4.25rem, 10vw, 10rem)/1 var(--sans);
   letter-spacing: -.055em;
 }
 .product-page-stage img { display: block; width: 100%; height: auto; object-fit: contain; }
@@ -130,7 +130,7 @@
 .spec-grid dd { margin: .65rem 0 0; font-size: clamp(1.15rem, 2vw, 1.75rem); line-height: 1.3; letter-spacing: -.025em; }
 .specifications .fine { max-width: 88ch; }
 .reservation { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 2rem 9vw; background: var(--pink); color: var(--ink); }
-.reservation-heading h2 { margin: 1rem 0; font-size: clamp(3.3rem, 6.5vw, 6.8rem); font-weight: 400; line-height: .99; letter-spacing: -.05em; }
+.reservation-heading h2 { margin: 1rem 0; font-size: clamp(3.3rem, 6.5vw, 6.8rem); font-weight: 700; line-height: .99; letter-spacing: -.05em; }
 .reservation-heading h2 span {
   display: inline-block;
   max-width: 100%;
@@ -143,8 +143,8 @@
 .other-hardware { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; border-top: 1px solid var(--rule); }
 
 .legal-page { max-width: 63rem; margin-inline: auto; }
-.legal-page h1 { margin: 1.7rem 0 2rem; color: var(--ink-strong); font: 400 clamp(3.2rem, 7vw, 6.8rem)/1 var(--sans); letter-spacing: -.052em; }
-.legal-page h2 { margin: 2.7rem 0 .7rem; color: var(--ink-strong); font-size: clamp(1.4rem, 2.3vw, 2.1rem); font-weight: 400; letter-spacing: -.025em; }
+.legal-page h1 { margin: 1.7rem 0 2rem; color: var(--ink-strong); font: 700 clamp(3.2rem, 7vw, 6.8rem)/1 var(--sans); letter-spacing: -.052em; }
+.legal-page h2 { margin: 2.7rem 0 .7rem; color: var(--ink-strong); font-size: clamp(1.4rem, 2.3vw, 2.1rem); font-weight: 500; letter-spacing: -.025em; }
 .legal-page p { max-width: 65ch; margin: .85rem 0; font-size: clamp(1rem, 1.3vw, 1.13rem); line-height: 1.65; }
 .legal-page .lead { max-width: 43ch; font-size: clamp(1.2rem, 2vw, 1.6rem); line-height: 1.45; }
 .legal-page :is(p a, .form-note a), .form-note a, .fine a { text-decoration: underline; text-underline-offset: .18em; }

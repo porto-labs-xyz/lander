@@ -54,7 +54,7 @@
   color: var(--muted);
   font: 400 .8125rem/1.5 var(--mono);
 }
-.booking-page .booking-intro h1 { margin: 0; color: var(--ink-strong); font: 400 clamp(3.3rem, 7vw, 7.2rem)/.98 var(--sans); letter-spacing: -.052em; }
+.booking-page .booking-intro h1 { margin: 0; color: var(--ink-strong); font: 700 clamp(3.3rem, 7vw, 7.2rem)/.98 var(--sans); letter-spacing: -.052em; }
 .booking-page .booking-intro > p:last-child { max-width: 30ch; margin: 0; color: var(--muted); font-size: clamp(1.05rem, 1.5vw, 1.3rem); }
 .booking-page .booking-widget-frame { border: 1px solid var(--outline); border-radius: .65rem; background: var(--powder); overflow: hidden; }
 .booking-page .booking-calendar-surface { background: #fff; color-scheme: light; }

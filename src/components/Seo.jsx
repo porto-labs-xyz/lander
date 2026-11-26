@@ -14,8 +14,8 @@ export default function Seo({ title, description, path, hero = false }) {
     <link rel="icon" href="/assets/kiln/kiln-crucible-ink.svg" type="image/svg+xml" />
     <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
     {hero && <>
-      <link rel="preload" as="image" href="/assets/kiln/finishes/pebble-grey-3840.webp" media="(prefers-reduced-motion: no-preference)" />
-      <link rel="preload" as="image" href="/assets/kiln/finishes/pebble-grey-960.webp" media="(prefers-reduced-motion: reduce)" />
+      <link rel="preload" as="image" href="/assets/kiln/finishes/charcoal-3840.webp" media="(prefers-reduced-motion: no-preference)" />
+      <link rel="preload" as="image" href="/assets/kiln/finishes/charcoal-960.webp" media="(prefers-reduced-motion: reduce)" />
     </>}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />

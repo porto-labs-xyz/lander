@@ -3,36 +3,42 @@ import test from 'node:test'
 import { readFileSync } from 'node:fs'
 import { finishFrame, mountHardwareReveal } from './hardware-reveal.mjs'
 
-test('all four finishes open at 4× and pull back to full view before the next', () => {
-  for (let index = 0; index < 4; index++) {
+const finishOrder = ['charcoal', 'pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue']
+
+test('all five finishes open at 4× and pull back to full view before the next', () => {
+  const count = finishOrder.length
+  for (let index = 0; index < count; index++) {
     let previous = 4
     for (let step = 0; step < 100; step++) {
-      const { scale } = finishFrame((index + step / 100) / 4, 4)
+      const { scale } = finishFrame((index + step / 100) / count, count)
       assert.ok(scale <= previous)
       previous = scale
     }
     for (const [phase, scale] of [[0, 4], [.15, 4], [.82, 1], [.99, 1]]) {
-      assert.deepEqual(finishFrame((index + phase) / 4, 4), { index, scale })
+      assert.deepEqual(finishFrame((index + phase) / count, count), { index, scale })
     }
   }
-  assert.deepEqual(finishFrame(-3, 4), { index: 0, scale: 4 })
-  assert.deepEqual(finishFrame(2, 4), { index: 3, scale: 1 })
+  assert.deepEqual(finishFrame(-3, count), { index: 0, scale: 4 })
+  assert.deepEqual(finishFrame(2, count), { index: count - 1, scale: 1 })
 })
 
-test('the static gallery exposes four full-resolution images and starts with one preview', () => {
+test('the static gallery exposes all five full-resolution images and starts with one preview', () => {
   const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
   const intro = body.slice(body.indexOf('<div class="intro-runway">'), body.indexOf('id="local"'))
   assert.ok(intro.includes('class="hero-box"'))
-  const detail = '/assets/kiln/finishes/pebble-grey-macro.webp'
+  const detail = '/assets/kiln/finishes/charcoal-macro.webp'
   assert.ok(intro.includes('data-material-detail="' + detail + '"'))
   assert.ok(!intro.includes('src="' + detail + '"'))
   assert.ok(!body.slice(body.indexOf('id="local"')).includes(detail))
-  assert.ok(intro.includes('src="/assets/kiln/finishes/pebble-grey-3840.webp"'))
+  assert.ok(intro.includes('src="/assets/kiln/finishes/charcoal-3840.webp"'))
   assert.ok(!intro.includes('data-finish-gallery'))
   assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))
   const finishes = [...body.matchAll(/data-finish-slide="([^"]+)"( hidden)?>/g)]
-  assert.deepEqual(finishes.map(match => match[1]), ['pebble-grey', 'baby-pink', 'eucalyptus', 'powder-blue'])
-  assert.deepEqual(finishes.map(match => Boolean(match[2])), [false, true, true, true])
+  assert.deepEqual(finishes.map(match => match[1]), finishOrder)
+  assert.deepEqual(finishes.map(match => Boolean(match[2])), [false, true, true, true, true])
+  const swatches = [...body.matchAll(/data-finish="([^"]+)"[^>]*>/g)]
+  assert.deepEqual(swatches.map(match => match[1]), finishOrder)
+  assert.deepEqual(swatches.filter(match => match[0].includes('aria-current="true"')).map(match => match[1]), ['charcoal'])
   for (const [, name] of finishes) {
     assert.ok(body.includes('href="/assets/kiln/finishes/' + name + '-3840.webp"'))
     assert.ok(body.includes('src="/assets/kiln/finishes/' + name + '-960.webp"'))
@@ -48,7 +54,7 @@ test('reduced-motion visitors can switch finishes and zoom without scrolling, ev
     getAttribute(key) { return this.attributes.get(key) }
     removeAttribute(key) { this.attributes.delete(key) }
   }
-  const swatches = ['Grey', 'Pink', 'Green', 'Blue'].map(label => {
+  const swatches = ['Deep charcoal', 'Pebble grey', 'Baby pink', 'Eucalyptus', 'Powder blue'].map(label => {
     const swatch = new Node()
     swatch.setAttribute('aria-label', label)
     return swatch
@@ -76,17 +82,17 @@ test('reduced-motion visitors can switch finishes and zoom without scrolling, ev
     querySelectorAll: key => key === '[data-finish]' ? swatches : slides,
   })
   const cleanup = mountHardwareReveal({ querySelector: key => key === '[data-finish-gallery]' ? runway : null })
-  swatches[2].dispatchEvent(new Event('click'))
-  assert.equal(children['[data-finish-name]'].textContent, 'Green')
-  assert.deepEqual(slides.map(slide => slide.hidden), [true, true, false, true])
-  assert.equal(swatches[2].getAttribute('aria-current'), 'true')
+  swatches[3].dispatchEvent(new Event('click'))
+  assert.equal(children['[data-finish-name]'].textContent, 'Eucalyptus')
+  assert.deepEqual(slides.map(slide => slide.hidden), [true, true, true, false, true])
+  assert.equal(swatches[3].getAttribute('aria-current'), 'true')
   children['.finish-zoom'].dispatchEvent(new Event('click'))
-  assert.equal(slides[2].querySelector().getAttribute('src'), 'detail-2')
+  assert.equal(slides[3].querySelector().getAttribute('src'), 'detail-3')
   assert.equal(children['.finish-camera'].style.transform, 'scale(4.0000)')
   assert.equal(slides[0].querySelector().getAttribute('src'), 'preview-0')
   view.dispatchEvent(new Event('resize'))
   assert.equal(children['.finish-camera'].style.transform, 'scale(1.0000)')
   cleanup()
   swatches[0].dispatchEvent(new Event('click'))
-  assert.equal(children['[data-finish-name]'].textContent, 'Green')
+  assert.equal(children['[data-finish-name]'].textContent, 'Eucalyptus')
 })

@@ -35,7 +35,7 @@
 :is(#enquiry-dialog, #register-dialog, #compare-dialog) h2 {
   margin: .8rem 2rem 1rem 0;
   color: var(--ink-strong);
-  font: 400 clamp(2.6rem, 5vw, 4.15rem)/1 var(--sans);
+  font: 500 clamp(2.6rem, 5vw, 4.15rem)/1 var(--sans);
   letter-spacing: -.05em;
 }
 :is(#enquiry-dialog, #register-dialog, #compare-dialog) > p {

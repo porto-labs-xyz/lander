@@ -30,6 +30,7 @@ export function mountHardwareReveal(root = document) {
   let index = -1, scale = 1, frame = 0, start = 0, travel = 0
   let disposed = false
   zoomButton.hidden = false
+  runway.style.setProperty('--finish-count', String(slides.length))
 
   function show(nextIndex, nextScale) {
     if (nextIndex !== index) {

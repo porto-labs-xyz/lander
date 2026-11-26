@@ -185,8 +185,8 @@ export function mountArrival() {
   const r = device.getBoundingClientRect();
   cx = r.left - h.left + r.width / 2; cy = r.top - h.top + r.height / 2;
   // Follow the leather attachment and the front shoulder into the headline frame.
-  ax = r.left - h.left + r.width * .635;
-  ay = r.top - h.top + r.height * .119;
+  ax = r.left - h.left + r.width * .60;
+  ay = r.top - h.top + r.height * .135;
   targetX = h.width * (width <= 760 ? .72 : .56);
   targetY = h.height * (width <= 760 ? .40 : .55);
   baseWidth = r.width; baseHeight = r.height;
