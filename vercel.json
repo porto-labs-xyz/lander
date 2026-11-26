@@ -12,6 +12,16 @@
   ],
   "redirects": [
     {
+      "source": "/assets/kiln/one-dual-blackwell.webp",
+      "destination": "/assets/kiln/one-interior-charcoal-cutout.webp",
+      "permanent": false
+    },
+    {
+      "source": "/assets/kiln/one-rear-io.webp",
+      "destination": "/assets/kiln/one-rear-eucalyptus-cutout.webp",
+      "permanent": false
+    },
+    {
       "source": "/products/atelier/:path*",
       "destination": "/hardware/",
       "permanent": false
