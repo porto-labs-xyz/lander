@@ -1,3 +1,9 @@
+## Kiln One finishes and scroll zoom, 26 November 2026
+
+The founder selected the pebble-grey Kiln One and three colours for the lander: baby pink, eucalyptus and powder blue. Each folded-steel concept has a matching power button, woven grip, right-side access panel and a standard USB-C port with the lowercase label “upgrade” directly above it. The four source renders are visual concepts. The 3840 × 2880 WebPs are upscaled from 1448 × 1086 artwork. The initial views use 960 × 720 versions.
+
+The homepage uses the four finishes for its scroll-linked 4× close-ups. The Kiln One configurations, prices, KilnOS narrative and enquiry destinations carry forward from the existing site. Atelier and Atelier Rack are retired from the active catalogue. Their former product URLs direct visitors to the hardware page.
+
 ## NVIDIA Inception membership, 23 November 2026
 
 The founder requested the NVIDIA Inception programme badge in the homepage hero. The site says “Member of the NVIDIA Inception programme” and links to [NVIDIA Inception](https://www.nvidia.com/en-gb/startups/). The badge at `static/assets/kiln/nvidia-inception.png` is the embedded image from the earlier founder-approved investor cover. The website uses the original colours and proportions.

@@ -13,7 +13,7 @@ export default function Seo({ title, description, path, hero = false }) {
     <link rel="canonical" href={url} />
     <link rel="icon" href="/assets/kiln/kiln-crucible-ink.svg" type="image/svg+xml" />
     <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-    {hero && <link rel="preload" href="/assets/one-proportions.png" as="image" />}
+    {hero && <link rel="preload" href="/assets/kiln/finishes/pebble-grey-960.webp" as="image" />}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />

@@ -24,3 +24,50 @@
 .reservation-card{padding:0;border:0;gap:16px;max-width:520px;width:100%}.reservation-card .action{width:100%}.reservation-heading h2{margin-top:22px}.reservation .form-note{margin:0}
 
 @media(max-width:760px){.tone-blue .product-page-stage h1{max-width:calc(100% - 32px);word-spacing:.03em}.reservation-heading h2{line-height:1.08}}
+
+.one-finish-hero {
+  --field: var(--paper);
+  background: var(--field);
+}
+.one-finish-hero .product-page-stage img {
+  height: auto;
+}
+.kiln-one-collection {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+  margin: 0 var(--pad) 5rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 2rem;
+}
+.collection-one-intro {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+}
+.collection-one-intro h2 {
+  font-size: clamp(2.5rem, 4.5vw, 5rem);
+}
+.collection-one-finishes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 1rem;
+}
+.collection-one-finishes figure {
+  margin: 0;
+}
+.collection-one-finishes img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.collection-one-finishes figcaption {
+  margin-top: .5rem;
+  font-size: .875rem;
+}
+@media (max-width: 760px) {
+  .kiln-one-collection {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
