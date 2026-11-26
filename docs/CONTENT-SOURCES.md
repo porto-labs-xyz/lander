@@ -1,3 +1,7 @@
+## Kiln co-founder portraits, 26 November 2026
+
+The homepage and About page share the founder credits approved for the Kiln team deck. Richard Melkonian is co-founder and CEO. Richard Osho, professionally known as Peter Xan, is co-founder and CMO. The published portrait sources are `static/images/richard_headshot.jpg` and `static/images/peter-xan.jpg`. The website serves square WebP copies at 480 and 960 pixels.
+
 ## Make it here, 26 November 2026
 
 Richard selected “Make it here” as the Kiln homepage headline. The charcoal Kiln One settles beside the framed word “here”. The homepage title pairs Kiln with the headline, and the search description identifies the workstation and its audience. The 1200 × 630 WhatsApp and social card uses the same headline, the existing ink lockup, ABC Monument Grotesk and the approved charcoal device photograph. The new image has a distinct URL for link previews.
