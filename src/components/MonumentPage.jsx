@@ -6,6 +6,6 @@ import { mountMonument } from '../lib/monument.mjs'
 export default function MonumentPage({ content }) {
   const root = useRef(null)
   useEffect(() => mountMonument(root.current), [content])
-  const html = content.body.replace('<!-- founder portraits -->', () => founderPortraits(content.path === '/about/'))
+  const html = content.body.replace('<!-- founder portraits -->', founderPortraits)
   return <div ref={root} dangerouslySetInnerHTML={{ __html: html }} />
 }

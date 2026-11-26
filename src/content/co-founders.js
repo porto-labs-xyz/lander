@@ -3,21 +3,20 @@ const coFounders = [
     name: 'Richard Melkonian',
     portrait: 'richard-melkonian',
     role: 'Co-founder & CEO',
-    bio: 'Company and engineering. Engineer and filmmaker with experience at Movement Labs and Polymarket.',
+    bio: 'Filmmaker and engineer with experience at Movement Labs and Polymarket.',
   },
   {
     name: 'Richard Osho',
     alias: 'Peter Xan',
     portrait: 'richard-osho',
     role: 'Co-founder & CMO',
-    bio: 'Brand and marketing. Experience at TBWA / Media Arts Lab, BBH and M&C Saatchi.',
+    bio: 'Recording artist and brand strategist with experience at BBH and TBWA Media Arts Lab.',
   },
 ]
 
 // The site stores editorial pages as trusted HTML. Expand the same profiles
 // into both pages at render time so the portraits are also in the static HTML.
-export function founderPortraits(showBios) {
-  return coFounders.map(({ name, alias, portrait, role, bio }) => `
+export const founderPortraits = coFounders.map(({ name, alias, portrait, role, bio }) => `
     <figure class="founder-profile">
       <img src="/images/${portrait}-480.webp"
         srcset="/images/${portrait}-480.webp 480w, /images/${portrait}-960.webp 960w"
@@ -26,7 +25,6 @@ export function founderPortraits(showBios) {
       <figcaption>
         <h3>${name}${alias ? ` <small>(${alias})</small>` : ''}</h3>
         <p class="meta">${role}</p>
-        ${showBios ? `<p class="founder-bio">${bio}</p>` : ''}
+        <p class="founder-bio">${bio}</p>
       </figcaption>
     </figure>`).join('')
-}
