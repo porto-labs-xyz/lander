@@ -36,5 +36,10 @@
       "destination": "/hardware/",
       "permanent": false
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "entropy-acs/kilnos-software-pilot": false
+    }
+  }
 }

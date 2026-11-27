@@ -25,15 +25,14 @@ test('the finish gallery chooses a detail source for the projected size and scre
   assert.equal(deviceSourceWidth(2592, 3), 6400)
 })
 
-test('the opening uses the full charcoal master as its only device image', () => {
-  const { body } = JSON.parse(readFileSync(new URL('../content/index.json', import.meta.url)))
-  const intro = body.slice(body.indexOf('<div class="intro-runway">'), body.indexOf('id="local"'))
-  assert.ok(intro.includes('class="hero-box"'))
-  const [, device] = intro.match(/<figure class="hero-device">([\s\S]*?)<\/figure>/)
-  assert.equal((device.match(/<img\b/g) || []).length, 1)
-  assert.match(device, /src="\/assets\/kiln\/finishes\/charcoal-device-6400\.webp"/)
-  assert.doesNotMatch(device, /srcset=|data-render=|<source\b/)
-  assert.ok(!intro.includes('data-finish-gallery'))
+test('the software opening keeps the pilot ahead of hardware and labels the prototype', () => {
+  const body = renderPage('index')
+  const hero = sectionsOf(body)[0]
+  assert.match(hero, /One place to make an ad/)
+  assert.match(hero, /No Kiln hardware required/)
+  assert.match(hero, /Prototype visual/)
+  assert.doesNotMatch(hero, /finishes\/|hero-device/)
+  assert.ok(body.indexOf('Request a pilot') < body.indexOf('id="hardware"'))
 })
 
 test('the original charcoal front with its dark grille is preserved at every published size', () => {
@@ -52,17 +51,16 @@ test('the original charcoal front with its dark grille is preserved at every pub
 })
 
 test('the static gallery exposes all five full-resolution images and starts with one preview', () => {
-  const body = renderPage('index')
-  assert.ok(body.indexOf('id="hardware"') < body.indexOf('data-finish-gallery'))
+  const body = renderPage('one')
   const finishes = [...body.matchAll(/data-finish-slide="([^"]+)"( hidden)?>/g)]
   assert.deepEqual(finishes.map(match => match[1]), finishOrder)
-  assert.deepEqual(finishes.map(match => Boolean(match[2])), [true, true, false, true, true])
+  assert.deepEqual(finishes.map(match => Boolean(match[2])), [false, true, true, true, true])
   const swatches = [...body.matchAll(/data-finish="([^"]+)"[^>]*>/g)]
   assert.deepEqual(swatches.map(match => match[1]), finishOrder)
-  assert.deepEqual(swatches.filter(match => match[0].includes('aria-current="true"')).map(match => match[1]), ['baby-pink'])
+  assert.deepEqual(swatches.filter(match => match[0].includes('aria-current="true"')).map(match => match[1]), ['charcoal'])
   assert.equal((body.match(/class="finish-lens" aria-hidden="true"/g) || []).length, 1)
-  assert.ok(body.includes('data-finish-name>Baby pink</span>'))
-  assert.ok(body.includes('<h2 class="finish-title" id="hardware-title">Kiln.</h2>'))
+  assert.ok(body.includes('data-finish-name>Deep charcoal</span>'))
+  assert.ok(body.includes('<h2 class="finish-title" id="finishes-title">Five finishes.</h2>'))
   assert.ok(!body.includes('Choose your<br>capacity.'))
   for (const [, name] of finishes) {
     assert.ok(body.includes('href="/assets/kiln/finishes/' + name + '-device-6400.webp"'))
@@ -89,19 +87,16 @@ test('the Kiln One product page shows the colour gallery immediately before the 
   assert.ok(sections[gallery + 3].includes('id="configurations-title"'))
 })
 
-test('the homepage shows the same two hardware sections between its pricing block and studio service', () => {
+test('the homepage keeps a single hardware teaser while One preserves both engineering sections', () => {
   const home = sectionsOf(renderPage('index'))
   const product = sectionsOf(renderPage('one'))
-  const hardware = home.findIndex(section => section.includes('id="hardware"'))
-  assert.notEqual(hardware, -1)
-  assert.match(home[hardware], /data-finish-gallery[\s\S]*From £19,900[\s\S]*href="#inside-one"/)
-  assert.match(home[hardware], /href="\/products\/one\/"/)
-  for (const [offset, id] of ['inside-one', 'kiln-rear'].entries()) {
-    const matchingSections = page => page.filter(section => section.includes(`id="${id}"`))
-    assert.equal(matchingSections(home).length, 1)
-    assert.deepEqual(matchingSections(product), [home[hardware + offset + 1]])
+  const teaser = home.find(section => section.includes('id="hardware"'))
+  assert.match(teaser, /href="\/products\/one\/"/)
+  assert.doesNotMatch(teaser, /data-finish-gallery|£/)
+  for (const id of ['inside-one', 'kiln-rear']) {
+    assert.equal(home.filter(section => section.includes(`id="${id}"`)).length, 0)
+    assert.equal(product.filter(section => section.includes(`id="${id}"`)).length, 1)
   }
-  assert.ok(home[hardware + 3].includes('id="studio-service"'))
 })
 
 function mountGallery(withRear = false, initialFront = withRear ? 0 : 2) {

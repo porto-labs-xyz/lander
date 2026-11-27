@@ -225,3 +225,19 @@ Final image-edit prompt:
 ## Omitted material
 
 The previous homepage's ownership Venn diagram, 8p/70p comparison, node-operator flow, obsolete player image, dated city roadmap, £5 subscription and app-chain FAQ have been removed from the page. No market-size or competitor claims are introduced. Raise, valuation, runway and use of funds are excluded.
+
+## Software-first pilot homepage, 27 November 2026
+
+Founder-requested PR only, with local preview and no deployment. The homepage uses the supplied headline “One place to make an ad” and subhead “AI software for creative agencies. Starting with video revisions.” The primary action opens the existing contact dialog with reason `KilnOS pilot`, through the existing Formspree endpoint. Newsletter registration remains separate. No Kiln hardware is required for the initial pilot.
+
+The proposed pilot example is a single-shot revision after client feedback, preserving the other shots and audio, then sending the cut for approval. This is a scope to agree and evaluate, not general availability or a measured outcome. Model approval, licensing, asset access and external processing boundaries must be established in each pilot. The broader AI-native operating-system story remains a product direction.
+
+The existing “Direct the cut” artwork is extracted from page 4 of the founder-approved restored-reveal software deck. Only its interface image is published as `static/assets/kiln/kilnos-cut-prototype.webp`; no private slide, financial information or complete deck is published. This original interface concept illustrates a timing revision and compensating end-card duration. It is labelled as a prototype, separate from the proposed single-shot pilot example. The visual is not evidence of implemented functionality.
+
+Kiln One keeps `/products/one/`, all five finish renders, the front/rear selector, magnifier, interior, connectivity, GPU options, comparison and existing proposed prices. Its hero identifies it as a future optional local-compute product. Existing prices remain proposals, not confirmed quotes. Generation-speed claims are removed. Physical fit, cooling, power, port bandwidth, eight-display operation, offline behaviour and scheduling remain unvalidated engineering targets. No availability date or shipping commitment is added.
+
+Historical homepage hardware anchors (`inside-one`, `kiln-rear`, `back`, `one-finishes`, `one-heading`, `one-configurations`, `studio`) route to the corresponding product sections. Homepage software, privacy, team, questions and interest anchors remain. Prior hardware and network copy remains in Git history; it is not a claim about current pilot availability.
+
+The branch-specific Vercel `git.deploymentEnabled` entry disables automatic deployments for `entropy-acs/kilnos-software-pilot`. Production release remains outside this request. NVIDIA attribution, website privacy, contact endpoint, booking destination and analytics integration remain unchanged. Canonical URLs stay on letskiln.xyz.
+
+Validation: Gatsby production build and 62 Node tests pass. Local Chromium checks at 1440 × 1000 and 390 × 844 pass with no horizontal overflow or page errors. Pilot submissions were intercepted locally to verify both failure recovery and success, the `KilnOS pilot` reason and no newsletter opt-in. No real enquiries were sent. Finish selection, comparison dialog, product links and legacy hardware-anchor navigation pass. Physical iOS Safari is not an acceptance claim. The local preview is served at port 8766.
