@@ -7,12 +7,12 @@ export function oneHardwareSections(rearImage, rearControls) {
     </a>
     <figcaption>
       <h3>Keep it brief</h3>
-      <p>Superfast Generation Speed with Two NVIDIA RTX PRO 6000 Blackwell GPUs. No Wi-Fi involved.</p>
+      <p>A proposed two-GPU configuration for local creative workloads. Generation speed, offline operation and dual-GPU scheduling still require validation.</p>
     </figcaption>
   </figure>
 </section>
 <section class="section specifications" id="kiln-rear" aria-labelledby="kiln-rear-title">
-  <div class="section-head"><h2 id="kiln-rear-title">Kiln Rear.</h2></div>
+  <div class="section-head"><h2 id="kiln-rear-title">Kiln Rear.</h2><span class="meta">connectivity engineering targets</span></div>
   <figure class="one-hardware-view" data-rear-gallery>
     ${rearImage}
     <figcaption>
@@ -30,6 +30,6 @@ export function oneHardwareSections(rearImage, rearControls) {
     <div><dt>Storage</dt><dd>4 TB</dd></div>
     <div><dt>Dimensions target</dt><dd>250 × 450 × 460 mm</dd></div>
   </dl>
-  <p class="fine">Targets are subject to validation. GPU memory is per card; pooling requires compatible software. Rendered components are illustrative.</p>
+  <p class="fine">All specifications are engineering targets, subject to validation. Chassis fit, cooling, power integration, simultaneous bandwidth and eight-display operation have not been validated. GPU memory is per card; pooling requires compatible software. Rendered components are illustrative.</p>
 </section>`
 }

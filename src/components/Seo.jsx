@@ -11,8 +11,8 @@ export default function Seo({ title, description, path, hero = false }) {
   `)
   const { siteUrl, sharingOrigin } = site.siteMetadata
   const url = `${siteUrl}${path}`
-  const image = `${sharingOrigin}/images/kiln-keep-the-work-close.png`
-  const imageAlt = '“Keep the work close.” beside a charcoal Kiln One workstation with a leather handle.'
+  const image = `${sharingOrigin}/images/${path === '/' ? 'kilnos-pilot.png' : 'kiln-keep-the-work-close.png'}`
+  const imageAlt = path === '/' ? 'Kiln. One place to make an ad. AI software for creative agencies, starting with video revisions.' : '“Keep the work close.” beside a charcoal Kiln One workstation with a leather handle.'
   return <>
     <html lang="en" />
     <title>{title}</title>
@@ -23,7 +23,7 @@ export default function Seo({ title, description, path, hero = false }) {
     <link rel="canonical" href={url} />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
     <link rel="preload" href="/assets/fonts/ABCMonumentGrotesk-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-    {hero && <link rel="preload" as="image" href="/assets/kiln/finishes/charcoal-device-6400.webp" />}
+    {hero && <link rel="preload" as="image" href="/assets/kiln/kilnos-cut-prototype.webp" />}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={`${sharingOrigin}${path}`} />
     <meta property="og:title" content={title} />
